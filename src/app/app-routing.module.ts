@@ -9,7 +9,7 @@ import { TowFactorComponent } from './auth/tow-factor/tow-factor.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { AboutUsComponent } from './buyer/about-us/about-us.component';
 import { AddPropertyComponent } from './agentandsellers/add-property/add-property.component';
-import { AgentComponent } from './buyer/agent/agent.component';
+
 import { AgentListComponent } from './buyer/agent/agent-list/agent-list.component';
 import { AgentGridComponent } from './buyer/agent/agent-grid/agent-grid.component';
 import { AgentDetailsComponent } from './buyer/agent-details/agent-details.component';
