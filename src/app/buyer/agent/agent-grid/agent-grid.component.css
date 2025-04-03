@@ -1,0 +1,426 @@
+/*
+Theme Name: FindHusly - Real Estate Directory Listing HTML Template
+Author: themeparker
+Author URL: https://themeforest.net/user/themeparker
+Version: 1.0
+*/
+/* ------------------------------------------------
+ - Google Fonts
+ - General Styles
+ - Page Loader
+ - Utilities
+ - Components
+ - Navbar
+ - Hero Header
+ - Footer
+ - About Page
+ - Blog Page
+ - Blog Details
+ - Contact page
+ - Signup & Login Page
+ - Property Details Page
+ - Style Guide Page
+------------------------------------------------ */
+/* Google Fonts ------ */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ----------------------------------------------------------------
+    -   General Styles
+----------------------------------------------------------------- */
+:root {
+  --bs-body-color: #707070;
+  --blog-post-bg-color: rgba(10, 115, 192, .9);
+  --footer-bg-color: #212529;
+  --bs-border-color-translucent: #dee2e6;
+  --bs-link-color-rgb: 36, 35, 37;
+  --bs-link-hover-color-rgb: 10, 115, 192;
+  --bs-link-hover-color: #0a73c0;
+  --bs-primary: #0a73c0;
+  --bs-primary-rgb: 10, 115, 192;
+  --bs-font-sans-serif: 'Inter Tight', sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+a {
+  text-decoration: none;
+}
+
+.h1,
+h2,
+h4,
+h5 {
+  color: var(--bs-dark);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+@media(min-width: 992px) {
+  .main-content {
+    padding-top: 37px;
+  }
+}
+
+@media(min-width: 576px) and (max-width: 767px) {
+
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* -----------------------------------------------------------------
+    -  Page Loader
+----------------------------------------------------------------- */
+
+
+/* -----------------------------------------------------------------
+    -  Utilities
+----------------------------------------------------------------- */
+
+/* Background --- */
+
+/* Shadow -------- */
+.shadow {
+  -webkit-box-shadow: 2px 2px 20px 0 rgb(82 66 47 / 12%) !important;
+  box-shadow: 2px 2px 20px 0 rgb(82 66 47 / 12%) !important;
+}
+
+/* Letter spacing ----- */
+
+
+/*Font weight ---------*/
+
+/* Font size ------------------ */
+
+.fs-13 {
+  font-size: 13px !important;
+}
+
+.fs-14 {
+  font-size: 14px !important;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+
+.fs-19 {
+  font-size: 19px !important;
+}
+
+/*Background color -----------------*/
+
+/* Docs css -----------------*/
+
+.cs-content> :target {
+  padding-top: 5rem;
+  margin-top: -5rem;
+}
+
+/* -----------------------------------------------------------------
+    -  Components
+----------------------------------------------------------------- */
+/* Form Checkbox --------- */
+
+/* Form Control & Form Select --------- */
+
+/* Buttons --------- */
+
+.btn {
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-padding-y: 0.625rem;
+  --bs-btn-border-radius: 0.5rem;
+}
+
+.btn-sm {
+  --bs-btn-padding-y: 0.4rem;
+  --bs-btn-padding-x: 0.5rem;
+  --bs-btn-font-size: 0.875rem;
+  --bs-btn-border-radius: 0.4rem;
+}
+
+/*Button primary*/
+
+.btn-outline-default {
+  --bs-btn-color: #0a73c0;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #ced4da;
+  --bs-btn-hover-color: #0a73c0;
+  --bs-btn-hover-bg: #cdcdcd;
+  --bs-btn-hover-border-color: #c6c7c8;
+  --bs-btn-focus-shadow-rgb: 211, 212, 213;
+  --bs-btn-active-color: #0a73c0;
+  --bs-btn-active-bg: #e7e7e7;
+  --bs-btn-active-border-color: #babbbc;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #0a73c0;
+  --bs-btn-disabled-bg: #fff;
+  --bs-btn-disabled-border-color: #ced4da;
+}
+
+/* Underline --------- */
+.underline:after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  left: 50%;
+  bottom: -15px;
+  width: 100%;
+  height: .6em;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.underline:after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 188 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M27 9.99993C61.5 5.16659 138.3 0.903127 167.5 2.10313C130.333 4.10323 45.2 9.407 2 22.607C2 23.107 89 8.60344 186 8.10344' stroke='%230a73c0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Accordion --------- */
+/* List Style (checked) --------- */
+
+/* Select2 --------- */
+
+/* Breadcrumb ----- */
+
+.breadcrumb {
+  --bs-breadcrumb-divider-color: #0a73c0;
+  --bs-breadcrumb-item-active-color: #0a73c0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Font Awesome 6 Free";
+  content: var(--bs-breadcrumb-divider, "\f054");
+}
+
+.breadcrumb li a,
+.breadcrumb li a:hover {
+  color: #0a73c0;
+}
+
+.breadcrumb li.active {
+  font-weight: 600;
+}
+
+/* Pagination ------- */
+
+/* Nav tabs -------------*/
+
+/* Angled -------------*/
+
+/* Tags -------------*/
+
+
+/* Avatar --------- */
+.avatar {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  width: 8rem;
+  height: 8rem;
+}
+
+@media(min-width: 992px) {
+  .avatar {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+/* To Top -------------*/
+
+/* Avatar Badge -------------*/
+.avatar-badge {
+  height: 36px;
+  width: 36px;
+  top: 6px;
+  right: 5px;
+}
+
+
+/* Topbar -------------*/
+
+/* Counter Content -------------*/
+
+/* Work Process -------------*/
+
+/* Category -------------*/
+
+/* Newslatter -------------*/
+
+/* Agent Card ------------ */
+
+.agent-card,
+.agent-card .avatar {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.agent-card:hover {
+  -webkit-transform: scale(.98);
+      -ms-transform: scale(.98);
+          transform: scale(.98);
+}
+
+.agent-card:hover .avatar {
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+/* Card Property Hover ------------ */
+
+/* Card Link -------- */
+
+.card-link {
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Testimonial -------- */
+
+/* Map -------------*/
+
+/* -----------------------------------------------------------------
+    -  Navbar
+----------------------------------------------------------------- */
+
+/*Navbar Brand ------*/
+
+/* Dropdown Menu ------- */
+
+@media(max-width: 991px) {
+
+  /*Navbar collaps*/
+
+  /*navbar collapse toggler icon*/
+
+  /*navbar link*/
+
+  /*navbar collapsible sub-arrow*/
+
+  /*Navbar dropdown menu*/
+
+}
+
+@media(min-width: 992px) {
+
+  /*Navbar dropdown menu*/
+}
+
+/*Menu badge ----- */
+
+/*navbar toggle ----- */
+
+/* Cart Button ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Hero Header
+------------------------------------------------------------------------------*/
+
+/* Oblique -------------------- */
+
+/* Header Search Input ---------------------*/
+
+
+/* Search Suggestion List --------------------- */
+
+/* Tags ----------------------*/
+
+/* Section Header Title ----------------------*/
+
+/*------------------------------------------------------------------------------
+  - Footer
+------------------------------------------------------------------------------*/
+/* Card Sketch ------- */
+
+/* Main Footer ----- */
+
+/*Dark footer-----*/
+
+/* -----------------------------------------------------------------
+    -  About Page
+----------------------------------------------------------------- */
+
+/* About Video ----- */
+
+
+/* Counter Content ------ */
+
+/* Customers ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Blog Page
+------------------------------------------------------------------------------*/
+
+/* Masonry Post ---------- */
+
+/* Masonry Carousel ------------ */
+
+/* Grid Post ------------------ */
+
+/* News List --------------------- */
+
+
+/* Authar Info --------------------- */
+
+/* News Block --------------------- */
+
+/* Category List --------------------- */
+
+/*------------------------------------------------------------------------------
+  - Blog Details
+------------------------------------------------------------------------------*/
+
+/* DROP CAP ------- */
+
+/* -----------------------------------------------------------------
+    -  Contact Page
+----------------------------------------------------------------- */
+
+/*------------------------------------------------------------------------------
+  - Signup & Login Page
+------------------------------------------------------------------------------*/
+
+/* -----------------------------------------------------------------
+    -  Property Details Page
+----------------------------------------------------------------- */
+
+/* Property Details Header ------ */
+
+/* Appointment Form ------ */
+
+/* Property Galary Hover ------ */
+
+/* Input Form With Icon ---- */
+
+/* video Icon button-------------*/
+
+
+/* -----------------------------------------------------------------
+    - Style Guide Page
+----------------------------------------------------------------- */

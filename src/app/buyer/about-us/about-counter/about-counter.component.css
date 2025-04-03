@@ -1,0 +1,266 @@
+/*
+Theme Name: FindHusly - Real Estate Directory Listing HTML Template
+Author: themeparker
+Author URL: https://themeforest.net/user/themeparker
+Version: 1.0
+*/
+/* ------------------------------------------------
+ - Google Fonts
+ - General Styles
+ - Page Loader
+ - Utilities
+ - Components
+ - Navbar
+ - Hero Header
+ - Footer
+ - About Page
+ - Blog Page
+ - Blog Details
+ - Contact page
+ - Signup & Login Page
+ - Property Details Page
+ - Style Guide Page
+------------------------------------------------ */
+/* Google Fonts ------ */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ----------------------------------------------------------------
+    -   General Styles
+----------------------------------------------------------------- */
+:root {
+  --bs-body-color: #707070;
+  --blog-post-bg-color: rgba(10, 115, 192, .9);
+  --footer-bg-color: #212529;
+  --bs-border-color-translucent: #dee2e6;
+  --bs-link-color-rgb: 36, 35, 37;
+  --bs-link-hover-color-rgb: 10, 115, 192;
+  --bs-link-hover-color: #0a73c0;
+  --bs-primary: #0a73c0;
+  --bs-primary-rgb: 10, 115, 192;
+  --bs-font-sans-serif: 'Inter Tight', sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h5 {
+  color: var(--bs-dark);
+}
+
+/* -----------------------------------------------------------------
+    -  Page Loader
+----------------------------------------------------------------- */
+
+
+/* -----------------------------------------------------------------
+    -  Utilities
+----------------------------------------------------------------- */
+
+/* Background --- */
+
+/* Shadow -------- */
+
+/* Letter spacing ----- */
+
+
+/*Font weight ---------*/
+
+/* Font size ------------------ */
+
+/*Background color -----------------*/
+
+.bg-soft-primary {
+  --bs-bg-opacity: .08;
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+}
+
+/* Docs css -----------------*/
+
+.cs-content> :target {
+  padding-top: 5rem;
+  margin-top: -5rem;
+}
+
+/* -----------------------------------------------------------------
+    -  Components
+----------------------------------------------------------------- */
+/* Form Checkbox --------- */
+
+/* Form Control & Form Select --------- */
+
+/* Buttons --------- */
+
+/*Button primary*/
+
+/* Underline --------- */
+
+/* Accordion --------- */
+/* List Style (checked) --------- */
+
+/* Select2 --------- */
+
+/* Breadcrumb ----- */
+
+/* Pagination ------- */
+
+/* Nav tabs -------------*/
+
+/* Angled -------------*/
+
+/* Tags -------------*/
+
+
+/* Avatar --------- */
+
+/* To Top -------------*/
+
+/* Avatar Badge -------------*/
+
+
+/* Topbar -------------*/
+
+/* Counter Content -------------*/
+
+/* Work Process -------------*/
+
+/* Category -------------*/
+
+/* Newslatter -------------*/
+
+/* Agent Card ------------ */
+
+/* Card Property Hover ------------ */
+
+/* Card Link -------- */
+
+/* Testimonial -------- */
+
+/* Map -------------*/
+
+/* -----------------------------------------------------------------
+    -  Navbar
+----------------------------------------------------------------- */
+
+/*Navbar Brand ------*/
+
+/* Dropdown Menu ------- */
+
+@media(max-width: 991px) {
+
+  /*Navbar collaps*/
+
+  /*navbar collapse toggler icon*/
+
+  /*navbar link*/
+
+  /*navbar collapsible sub-arrow*/
+
+  /*Navbar dropdown menu*/
+
+}
+
+@media(min-width: 992px) {
+
+  /*Navbar dropdown menu*/
+}
+
+/*Menu badge ----- */
+
+/*navbar toggle ----- */
+
+/* Cart Button ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Hero Header
+------------------------------------------------------------------------------*/
+
+/* Oblique -------------------- */
+
+/* Header Search Input ---------------------*/
+
+
+/* Search Suggestion List --------------------- */
+
+/* Tags ----------------------*/
+
+/* Section Header Title ----------------------*/
+
+/*------------------------------------------------------------------------------
+  - Footer
+------------------------------------------------------------------------------*/
+/* Card Sketch ------- */
+
+/* Main Footer ----- */
+
+/*Dark footer-----*/
+
+/* -----------------------------------------------------------------
+    -  About Page
+----------------------------------------------------------------- */
+
+/* About Video ----- */
+
+
+/* Counter Content ------ */
+.counter-content_about {
+  padding: 48px 16px;
+}
+
+@media (min-width: 1400px) {
+  .counter-content_about {
+    padding: 72px;
+  }
+}
+
+/* Customers ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Blog Page
+------------------------------------------------------------------------------*/
+
+/* Masonry Post ---------- */
+
+/* Masonry Carousel ------------ */
+
+/* Grid Post ------------------ */
+
+/* News List --------------------- */
+
+
+/* Authar Info --------------------- */
+
+/* News Block --------------------- */
+
+/* Category List --------------------- */
+
+/*------------------------------------------------------------------------------
+  - Blog Details
+------------------------------------------------------------------------------*/
+
+/* DROP CAP ------- */
+
+/* -----------------------------------------------------------------
+    -  Contact Page
+----------------------------------------------------------------- */
+
+/*------------------------------------------------------------------------------
+  - Signup & Login Page
+------------------------------------------------------------------------------*/
+
+/* -----------------------------------------------------------------
+    -  Property Details Page
+----------------------------------------------------------------- */
+
+/* Property Details Header ------ */
+
+/* Appointment Form ------ */
+
+/* Property Galary Hover ------ */
+
+/* Input Form With Icon ---- */
+
+/* video Icon button-------------*/
+
+
+/* -----------------------------------------------------------------
+    - Style Guide Page
+----------------------------------------------------------------- */

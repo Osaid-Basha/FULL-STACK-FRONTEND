@@ -1,0 +1,120 @@
+<!-- Start Newsletter -->
+<div class="bg-primary newslatter position-relative py-5 mx-3 mx-xl-5 rounded-4 overflow-hidden">
+  <div class="container p-4 position-relative z-1">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="section-header text-center mb-5">
+          <div class="bg-white d-inline-block fw-medium mb-3 rounded-pill section-header__subtitle text-capitalize text-primary">
+            {{ newsletter.subtitle }}
+          </div>
+          <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize text-white">{{ newsletter.title }}</h2>
+          <div class="sub-title fs-16 text-white">
+            {{ newsletter.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <div class="row g-4 align-items-end newslatter-form">
+          <div class="col-sm">
+            <div class="form-group">
+              <label class="text-white bg-primary fw-semibold">Full Name</label>
+              <input type="text" class="form-control bg-transparent" />
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label class="text-white bg-primary">Enter Email</label>
+              <input type="email" class="form-control bg-transparent" />
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <button type="button" class="btn btn-lg btn-light w-100">Join Now</button>
+          </div>
+        </div>
+        <small class="d-block mt-3 text-white text-center">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni cum consectetur alias laudantium dolore sunt quis similique!
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="card-sketch">
+    <img src="assets/wall-sketch.png" alt="" class="card-sketch-image" />
+  </div>
+</div>
+
+<!-- Start Blog Section -->
+<div class="py-5">
+  <div class="container py-4">
+    <div class="align-items-end row g-4 mb-5">
+      <div class="col">
+        <div class="section-header text-center text-xl-start">
+          <div class="bg-soft-primary d-inline-block fw-medium mb-3 rounded-pill section-header__subtitle text-capitalize text-primary">Our Latest Articles</div>
+          <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
+            Browse Our Latest <span class="underline position-relative text-primary">Articles</span> & News
+          </h2>
+          <div class="sub-title fs-16">
+            It is a long established fact that a reader will be distracted by the
+            <br class="d-none d-lg-block" />
+            readable content of a page when looking at its layout.
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-auto text-center text-xl-end">
+        <a href="blog-1.html" class="btn btn-primary btn-lg d-inline-flex hstack gap-2">
+          <span>Browse More Articles</span>
+          <span class="vr"></span>
+          <i class="fa-arrow-right fa-solid fs-14"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left: Big Articles -->
+      <div class="col-md-6 col-lg-8 pe-xxl-5">
+        <div class="row">
+          <div class="col-md-12 col-lg-6" *ngFor="let article of articles">
+            <div class="masonry-post position-relative h-100 overflow-hidden rounded-3">
+              <img [src]="article.image" alt="" class="img-fluid shadow news-block" />
+              <div class="bottom-0 left-0 p-3 p-sm-4 position-absolute post-block w-100 z-1">
+                <h3 class="fw-semibold mb-3 post-title_hover">
+                  <a href="blog-details.html">{{ article.title }}</a>
+                </h3>
+                <div class="text-white align-items-start flex-wrap fs-15 gap-2 hstack text-capitalize">
+                  <div class="fw-medium">{{ article.category }}</div>
+                  <span class="vr"></span>
+                  <div>{{ article.date }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Blog List -->
+      <div class="col-md-6 col-lg-4">
+        <div class="news-list">
+          <div *ngFor="let blog of blogList" class="news-list-item d-flex py-3 news-list-item-lg">
+            <div class="flex-shrink-0 img-wrapper">
+              <a href="blog-details.html" class="thumb d-block overflow-hidden position-relative rounded">
+                <img [src]="blog.image" alt="" height="110" width="160" />
+              </a>
+            </div>
+            <div class="flex-grow-1 p-post ms-3">
+              <h3 class="news-title fs-17 mb-2 overflow-hidden text-capitalize">
+                <a href="blog-details.html">{{ blog.title }}</a>
+              </h3>
+              <div class="align-items-start flex-wrap fs-15 gap-2 hstack text-capitalize">
+                <div class="text-primary fw-medium d-md-none d-xxl-block">{{ blog.category }}</div>
+                <span class="vr d-md-none d-xxl-block"></span>
+                <div>{{ blog.date }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

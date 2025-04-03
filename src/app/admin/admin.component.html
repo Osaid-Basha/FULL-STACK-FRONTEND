@@ -1,0 +1,17 @@
+<div class="d-flex flex-column vh-100">
+  <!-- Navbar -->
+  <app-navbar-admin></app-navbar-admin>
+
+  <!-- Main Content Area -->
+  <div class="d-flex flex-grow-1">
+
+    <!-- Sidebar -->
+   <app-sidbar-admin></app-sidbar-admin>
+
+    <!-- Page Content -->
+    <div class="flex-grow-1 p-4" style="overflow-y: auto;">
+    <router-outlet></router-outlet>
+
+    </div>
+  </div>
+</div>

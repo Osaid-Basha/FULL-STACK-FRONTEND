@@ -1,0 +1,364 @@
+/*
+Theme Name: FindHusly - Real Estate Directory Listing HTML Template
+Author: themeparker
+Author URL: https://themeforest.net/user/themeparker
+Version: 1.0
+*/
+/* ------------------------------------------------
+ - Google Fonts
+ - General Styles
+ - Page Loader
+ - Utilities
+ - Components
+ - Navbar
+ - Hero Header
+ - Footer
+ - About Page
+ - Blog Page
+ - Blog Details
+ - Contact page
+ - Signup & Login Page
+ - Property Details Page
+ - Style Guide Page
+------------------------------------------------ */
+/* Google Fonts ------ */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ----------------------------------------------------------------
+    -   General Styles
+----------------------------------------------------------------- */
+:root {
+  --bs-body-color: #707070;
+  --blog-post-bg-color: rgba(10, 115, 192, .9);
+  --footer-bg-color: #212529;
+  --bs-border-color-translucent: #dee2e6;
+  --bs-link-color-rgb: 36, 35, 37;
+  --bs-link-hover-color-rgb: 10, 115, 192;
+  --bs-link-hover-color: #0a73c0;
+  --bs-primary: #0a73c0;
+  --bs-primary-rgb: 10, 115, 192;
+  --bs-font-sans-serif: 'Inter Tight', sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h2,
+h6 {
+  color: var(--bs-dark);
+}
+
+@media(min-width: 992px) {
+  .main-content {
+    padding-top: 37px;
+  }
+}
+
+/* -----------------------------------------------------------------
+    -  Page Loader
+----------------------------------------------------------------- */
+
+
+/* -----------------------------------------------------------------
+    -  Utilities
+----------------------------------------------------------------- */
+
+/* Background --- */
+
+/* Shadow -------- */
+
+/* Letter spacing ----- */
+.l-spacing-1 {
+  letter-spacing: .1rem;
+}
+
+
+/*Font weight ---------*/
+
+/* Font size ------------------ */
+
+.fs-14 {
+  font-size: 14px !important;
+}
+
+/*Background color -----------------*/
+
+/* Docs css -----------------*/
+
+.cs-content> :target {
+  padding-top: 5rem;
+  margin-top: -5rem;
+}
+
+/* -----------------------------------------------------------------
+    -  Components
+----------------------------------------------------------------- */
+/* Form Checkbox --------- */
+
+/* Form Control & Form Select --------- */
+
+/* Buttons --------- */
+
+/*Button primary*/
+
+/* Underline --------- */
+
+/* Accordion --------- */
+/* List Style (checked) --------- */
+
+.list-checked {
+  padding-left: 0;
+  text-align: left;
+  list-style-type: none;
+}
+
+.list-checked>li {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.list-checked>li+li {
+  margin-top: .75rem;
+}
+
+.list-checked>li::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-family: "Font Awesome 6 Free";
+  content: "\f00c";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  font-size: .75rem;
+  border-radius: 50%;
+  background-color: rgb(10, 115, 192, .1);
+  color: var(--bs-primary);
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  font-weight: 900;
+}
+
+/* Select2 --------- */
+
+/* Breadcrumb ----- */
+
+/* Pagination ------- */
+
+/* Nav tabs -------------*/
+
+/* Angled -------------*/
+
+/* Tags -------------*/
+
+
+/* Avatar --------- */
+
+/* To Top -------------*/
+
+/* Avatar Badge -------------*/
+
+
+/* Topbar -------------*/
+
+/* Counter Content -------------*/
+
+/* Work Process -------------*/
+
+/* Category -------------*/
+
+/* Newslatter -------------*/
+
+/* Agent Card ------------ */
+
+/* Card Property Hover ------------ */
+
+/* Card Link -------- */
+
+/* Testimonial -------- */
+
+/* Map -------------*/
+
+/* -----------------------------------------------------------------
+    -  Navbar
+----------------------------------------------------------------- */
+
+/*Navbar Brand ------*/
+
+/* Dropdown Menu ------- */
+
+@media(max-width: 991px) {
+
+  /*Navbar collaps*/
+
+  /*navbar collapse toggler icon*/
+
+  /*navbar link*/
+
+  /*navbar collapsible sub-arrow*/
+
+  /*Navbar dropdown menu*/
+
+}
+
+@media(min-width: 992px) {
+
+  /*Navbar dropdown menu*/
+}
+
+/*Menu badge ----- */
+
+/*navbar toggle ----- */
+
+/* Cart Button ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Hero Header
+------------------------------------------------------------------------------*/
+
+/* Oblique -------------------- */
+
+/* Header Search Input ---------------------*/
+
+
+/* Search Suggestion List --------------------- */
+
+/* Tags ----------------------*/
+
+/* Section Header Title ----------------------*/
+
+/*------------------------------------------------------------------------------
+  - Footer
+------------------------------------------------------------------------------*/
+/* Card Sketch ------- */
+
+/* Main Footer ----- */
+
+/*Dark footer-----*/
+
+/* -----------------------------------------------------------------
+    -  About Page
+----------------------------------------------------------------- */
+
+.text-block .heading-sm {
+  padding-left: 45px;
+}
+
+.text-block .heading-sm::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -1px;
+  height: 2px;
+  width: 30px;
+  content: '';
+  background: var(--bs-primary);
+}
+
+
+.line-shape {
+  position: absolute;
+  opacity: .6;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  top: -80px;
+  left: -70px;
+  background: -o-repeating-linear-gradient(145deg, rgba(255, 255, 255, 0) .8px, var(--bs-primary) 1.6px, var(--bs-primary) 3px, rgba(255, 255, 255, 0) 3.8px, rgba(255, 255, 255, 0) 10px);
+  background: repeating-linear-gradient(-55deg, rgba(255, 255, 255, 0) .8px, var(--bs-primary) 1.6px, var(--bs-primary) 3px, rgba(255, 255, 255, 0) 3.8px, rgba(255, 255, 255, 0) 10px);
+}
+
+/* About Video ----- */
+
+
+/* Counter Content ------ */
+
+/* Customers ------- */
+
+
+/*------------------------------------------------------------------------------
+  - Blog Page
+------------------------------------------------------------------------------*/
+
+/* Masonry Post ---------- */
+
+/* Masonry Carousel ------------ */
+
+/* Grid Post ------------------ */
+
+/* News List --------------------- */
+
+
+/* Authar Info --------------------- */
+
+/* News Block --------------------- */
+
+/* Category List --------------------- */
+
+/*------------------------------------------------------------------------------
+  - Blog Details
+------------------------------------------------------------------------------*/
+
+/* DROP CAP ------- */
+
+.blockquote {
+  position: relative;
+  padding: 0.4em 1.2em;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: var(--bs-primary);
+}
+
+.blockquote cite {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding-right: 1em;
+  margin-top: .8em;
+  font-style: normal;
+  font-weight: 400;
+  color: #bbb;
+}
+
+@media screen and (min-width: 768px) {
+
+  .blockquote {
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.7em;
+    line-height: 1.3;
+  }
+}
+
+/* -----------------------------------------------------------------
+    -  Contact Page
+----------------------------------------------------------------- */
+
+/*------------------------------------------------------------------------------
+  - Signup & Login Page
+------------------------------------------------------------------------------*/
+
+/* -----------------------------------------------------------------
+    -  Property Details Page
+----------------------------------------------------------------- */
+
+/* Property Details Header ------ */
+
+/* Appointment Form ------ */
+
+/* Property Galary Hover ------ */
+
+/* Input Form With Icon ---- */
+
+/* video Icon button-------------*/
+
+
+/* -----------------------------------------------------------------
+    - Style Guide Page
+----------------------------------------------------------------- */
+
+*{padding-left: 15px;
+padding-right: 15px;}

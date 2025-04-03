@@ -1,0 +1,47 @@
+.link-item {
+  color: #000;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: background 0.3s ease;
+}
+
+.link-item:hover {
+  background-color: #0078D7;
+}
+
+.active-menu {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.link-item {
+  color: #000;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px 14px;         /* أكبر شوي */
+  font-size: 16px;            /* أكبر شوي من العادي */
+  transition: background 0.3s ease;
+}
+
+.link-item i {
+  font-size: 18px;            /* الأيقونة أكبر شوي */
+}
+
+.link-item:hover {
+  background-color: #f1f1f1;
+}
+
+.active-menu {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.active-menu i {
+  color: #fff !important;     /* يخلي الأيقونة بيضاء مع النص */
+}
+.sidtop{
+
+
+  margin-top: 200px;
+}

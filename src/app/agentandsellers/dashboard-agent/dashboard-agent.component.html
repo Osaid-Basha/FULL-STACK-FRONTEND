@@ -1,0 +1,43 @@
+<div class="container-fluid py-4">
+  <!-- Top Stats -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-3 col-md-6" *ngFor="let stat of stats">
+      <div class="bg-white rounded-4 p-4 d-flex align-items-center justify-content-between shadow-sm border">
+        <div>
+          <div class="text-secondary fw-semibold mb-1" style="font-size: 15px;">{{ stat.label }}</div>
+          <div class="fs-3 fw-bold">{{ stat.value }}</div>
+        </div>
+        <div class="bg-white d-flex justify-content-center align-items-center rounded-circle border"
+             style="width: 50px; height: 50px;">
+          <i class="{{ stat.icon }}" style="font-size: 22px; color: #0078D7;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Section (Full Width) -->
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-white rounded-4 p-4 shadow-sm border h-100">
+        <h5 class="fw-bold mb-4">Recent Message</h5>
+        <div *ngFor="let message of messages"
+             class="p-3 rounded-3 mb-3 message-card border d-flex justify-content-between align-items-start"
+             style="transition: 0.3s ease;">
+
+          <div>
+            <div class="fw-bold mb-1" style="color: #0078D7;">{{ message.name }}</div>
+            <div class="text-dark fw-semibold mb-1">{{ message.subject }}</div>
+            <div class="text-muted small">{{ message.snippet }}</div>
+          </div>
+
+          <div>
+            <span class="badge bg-light text-dark rounded-pill px-3 py-2 small">
+              {{ message.date }}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<!-- Start Main Content -->
+<div class="main-content">
+  <!-- Top Navigation -->
+  <div class="border-bottom py-3">
+    <div class="container">
+      <a routerLink="/home" class="d-flex align-items-center fw-medium text-primary">
+        <i class="fa-solid fa-chevron-left me-1"></i> Back To Home
+      </a>
+    </div>
+  </div>
+
+  <!-- Login Section -->
+  <div class="py-5">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-lg-10">
+          <div class="row g-4 align-items-center">
+
+            <!-- Left Side: Login Form -->
+            <div class="col-lg-6 col-xl-5 text-center">
+              <!-- Title -->
+              <div class="mb-4">
+                <h3 class="fw-semibold">Sign into your <span class="text-primary underline position-relative">account!</span></h3>
+                <p class="text-muted mb-0">Nice to see you! Please log in with your account.</p>
+              </div>
+
+              <!-- Social Login -->
+              <div class="d-grid gap-3 mb-3">
+                <a class="btn btn-lg d-flex align-items-center bg-grey linkedin-btn" href="#">
+                  <img src="assets/img/linkdin.svg" alt=""> <span class="ms-3">Sign up with LinkedIn</span>
+                </a>
+                <a class="btn btn-lg d-flex align-items-center bg-grey google-btn" href="#">
+                  <img src="assets/img/google.svg" alt=""> <span class="ms-3">Sign up with Google</span>
+                </a>
+              </div>
+
+              <p class="text-muted small">We won't post anything without your permission and your personal details are kept private.</p>
+
+              <!-- Divider -->
+              <div class="d-flex align-items-center my-4">
+                <hr class="flex-grow-1 m-0">
+                <span class="px-3 text-dark fw-bold">Or</span>
+                <hr class="flex-grow-1 m-0">
+              </div>
+
+              <!-- Login Form -->
+              <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+                <!-- Select User Type -->
+                <div class="form-group mb-4">
+                  <label class="required">User Type</label>
+                  <select class="form-select" [(ngModel)]="userType" name="userType" required>
+                    <option value="" disabled selected>Select user type</option>
+                    <option value="agent">Agent</option>
+                    <option value="buyer">Buyer</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group mb-4">
+                  <label class="required">Enter Email</label>
+                  <input type="email" class="form-control" [(ngModel)]="email" name="email" required #emailInput="ngModel">
+                  <div class="invalid-feedback text-start" *ngIf="emailInput.invalid && emailInput.touched">
+                    Enter your valid email
+                  </div>
+                </div>
+
+                              <!-- Password -->
+                              <div class="form-group mb-4">
+                                <label class="required">Password</label>
+                                <div class="input-group position-relative">
+                                  <input
+                                    id="password"
+                                    type="{{ showPassword ? 'text' : 'password' }}"
+                                    [(ngModel)]="password"
+                                    name="password"
+                                    class="form-control"
+                                    autocomplete="off"
+                                    required
+                                  />
+                                  <span class="input-group-text bg-white" style="cursor: pointer" (click)="togglePassword()">
+                                    <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                  </span>
+                                </div>
+                              </div>
+
+
+                <!-- Remember Me -->
+                <div class="form-check mb-4 text-start">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="rememberMe">
+                  <label class="form-check-label" for="rememberMe"> Remember me next time </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary btn-lg w-100">Sign in</button>
+              </form>
+
+              <!-- Footer Links -->
+              <div class="text-center my-3">
+                Don't have an account?
+                <a routerLink="/signup" class="fw-medium text-decoration-underline">Sign Up</a><br>
+                Remind
+                <a routerLink="/forgotpassword" class="fw-medium text-decoration-underline">Password</a>
+              </div>
+            </div>
+
+            <!-- Right Side: Image -->
+            <div class="col-lg-6 col-xl-7 order-lg-first pe-xl-5">
+              <img src="assets/login.png" alt="" class="img-fluid">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /. End Main Content -->

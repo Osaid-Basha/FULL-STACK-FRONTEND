@@ -1,0 +1,86 @@
+<!-- Start Property List Section 2 -->
+<app-property-header></app-property-header>
+<div >
+  <div class="container py-4">
+    <!-- Start Toolbox  -->
+    <div class="d-flex flex-wrap align-items-center mb-4 gap-2">
+      <h5 class="fw-semibold text-capitalize mb-0 col">(145) Result For All Listing</h5>
+      <div class="btn-group ms-auto" role="group" aria-label="Basic example">
+        <a routerLink="/buyerHome/properties-grid"class="btn btn-outline-default btn-sm">
+          <i class="fa-solid fa-border-all"></i>
+        </a>
+        <a routerLink="/buyerHome/properties-list" class="btn btn-outline-default btn-sm active">
+          <i class="fa-solid fa-table-list"></i>
+        </a>
+      </div>
+    </div>
+    <!-- /.End Toolbox  -->
+
+    <div class="row g-4">
+
+    <div class="col-xl-6" *ngFor="let property of properties">
+
+      <!-- Start Card -->
+      <div class="card mb-4 overflow-hidden bg-grey border-0 shadow rounded-3">
+        <a [routerLink]="['/buyerHome/properties-details', property.id]" class="card-link"></a>
+        <div class="card-body p-0">
+          <div class="g-0 row">
+            <div class="bg-white col-lg-5 col-md-6 col-xl-5 position-relative">
+              <div class="card-image-hover overflow-hidden position-relative h-100">
+                <img [src]="property.image" alt="" class="h-100 w-100 object-fit-cover">
+                <div class="bg-primary card-property-badge d-inline-block end-1 fs-13 fw-semibold position-absolute property-tags px-2 py-1 rounded-3 text-white top-1">
+                  {{ property.tag }}
+                </div>
+              </div>
+            </div>
+            <div class="bg-white col-lg-7 col-md-6 col-xl-7 p-3 p-lg-4 p-md-3 p-sm-4">
+              <div class="d-flex flex-column h-100">
+                <div class="mb-4">
+                  <div class="d-flex align-items-end card-property-price flex-row gap-1 mb-2">
+                    <h2 class="m-0 fw-semibold text-primary">${{ property.price }}</h2>
+                    <div> /{{ property.period }}</div>
+                  </div>
+                  <h6 class="fs-23 mb-2">{{ property.title }}</h6>
+                  <div class="fs-16">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>{{ property.location }}</span>
+                  </div>
+                  <div class="mt-3">{{ property.description }}</div>
+                </div>
+                <div class="border card-property-facilities gap-2 hstack mt-auto p-3 pt-3 rounded-3 text-center">
+                  <div><i class="fa-solid fa-bed text-dark me-1"></i><span>{{ property.bedrooms }} bedroom</span></div>
+                  <span class="vr"></span>
+                  <div><i class="fa-solid fa-bath text-dark me-1"></i><span>{{ property.bathrooms }} bathroom</span></div>
+                  <span class="vr"></span>
+                  <div><i class="fa-solid fa-vector-square text-dark me-1"></i><span>{{ property.size }}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- /.End Card -->
+
+        <!-- Repeat above card block for more listings -->
+
+        <!-- Start Pagination -->
+        <nav class="align-items-center border-top d-flex flex-wrap justify-content-center justify-content-sm-between pagination mt-5">
+          <ul class="list-unstyled m-0 pages mt-3">
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li>...</li>
+            <li><a href="#">12</a></li>
+          </ul>
+          <div class="ms-3 ms-sm-0 mt-3">
+            <a class="btn btn-primary btn-sm" href="#">Next<i class="fa-solid fa-arrow-right ms-2"></i></a>
+          </div>
+        </nav>
+        <!-- End Pagination -->
+      </div>
+    </div>
+
+<!-- /. End Property List Section 2 -->

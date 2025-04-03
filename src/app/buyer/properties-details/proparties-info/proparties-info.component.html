@@ -1,0 +1,176 @@
+<div class="h-details_content py-5">
+  <div class="container py-4">
+    <div class="row g-4">
+      <div class="col-lg-8 content pe-xxl-5">
+        <div class="cs-content">
+          <div class="mb-5 border-bottom pb-5">
+            <div class="fs-16 mb-1">
+              <i class="fa-solid fa-location-dot me-1"></i>{{ address }}
+            </div>
+            <h2 class="mt-0">Entire villa hosted by {{ host }}</h2>
+
+            <!-- Card Property Facilities -->
+            <div class="card-property-facilities gap-2 hstack mt-auto pt-3 text-center">
+              <div><i class="fa-solid fa-bed text-dark me-1"></i><span>{{ bedrooms }} bedroom</span></div>
+              <span class="vr"></span>
+              <div><i class="fa-solid fa-bath text-dark me-1"></i><span>{{ bathrooms }} bathroom</span></div>
+              <span class="vr"></span>
+              <div><i class="fa-solid fa-vector-square text-dark me-1"></i><span>{{ area }} sqft</span></div>
+              <span class="vr"></span>
+              <div><i class="fa-solid fa-calendar-days text-dark me-1"></i><span>Built in {{ yearBuilt }}</span></div>
+            </div>
+          </div>
+
+          <div class="mb-5 border-bottom pb-5">
+            <h4 class="fw-semibold mb-4 text-capitalize">
+              About the <span class="underline position-relative text-primary"> property</span>
+            </h4>
+            <p *ngFor="let paragraph of about">{{ paragraph }}</p>
+          </div>
+
+          <!-- Amenities -->
+          <div class="mb-5 border-bottom pb-5">
+            <h4 class="fw-semibold mb-4 text-capitalize">
+              Amenities <span class="underline position-relative text-primary">available</span>
+            </h4>
+            <div class="row g-4">
+              <div class="col-auto col-lg-3" *ngFor="let amenity of amenities">
+                <div class="d-flex align-items-center text-dark">
+                  <div class="flex-shrink-0">
+                    <i class="{{ amenity.icon }} fs-18"></i>
+                  </div>
+                  <div class="flex-grow-1 fs-16 fw-medium ms-3">{{ amenity.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floor Plans -->
+          <div class="mb-5 border-bottom pb-5">
+            <h4 class="fw-semibold mb-4 text-capitalize">Floor <span class="underline position-relative text-primary">Plans</span></h4>
+            <img [src]="floorPlanImage" alt="" class="img-fluid" />
+          </div>
+
+          <!-- Agent -->
+          <div class="mb-5 border-bottom pb-5">
+            <h4 class="fw-semibold mb-4 text-capitalize">Reach the <span class="underline position-relative text-primary">agent</span></h4>
+            <div class="agent-card d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avatar rounded-circle p-1 border border-primary">
+                  <a [href]="agent.link"><img [src]="agent.image" alt="" class="avatar-img rounded-circle" /></a>
+                  <div class="align-items-center avatar-badge bg-primary d-flex justify-content-center position-absolute rounded-circle text-white"><i class="fas fa-medal"></i></div>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h5 class="mb-1"><a [href]="agent.link">{{ agent.name }}</a></h5>
+                <div>{{ agent.title }}</div>
+                <div class="row g-2 mt-3">
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-outline-primary btn-sm fw-semibold">
+                      Ask Question<i class="fa-regular fa-circle-question ms-1"></i>
+                    </button>
+                  </div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-outline-primary btn-sm fw-semibold">
+                      Contact Agent<i class="fa-regular fa-address-book ms-1"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div>
+            <h4 class="fw-semibold mb-4 text-capitalize"><span class="underline position-relative text-primary">Location</span></h4>
+            <div id="mapCanvasTwo" class="property-map rounded-4"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4 sidebar">
+        <div class="appointment-form p-3 p-lg-4 p-xl-5 rounded-4 shadow">
+          <div>{{ propertyType }}</div>
+          <h2 class="fw-bold">${{ price }} USD</h2>
+
+          <ul class="nav nav-tabs mb-5" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link ms-0 active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true">Schedule a Tour</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false">Request Quote</button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <!-- Schedule a Tour -->
+            <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel">
+              <form (submit)="scheduleTour()">
+                <div class="row g-4">
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Phone Number</label>
+                      <input type="number" class="form-control" placeholder="Phone Number" [(ngModel)]="form.phone" name="phone" required />
+                      <i class="fa-solid fa-mobile-button form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Appointment Date</label>
+                      <input type="text" class="form-control datepicker" placeholder="mm-dd-yyyy" [(ngModel)]="form.date" name="date" />
+                      <i class="fa-regular fa-calendar-days form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Email</label>
+                      <input type="email" class="form-control" placeholder="Enter Your Email" [(ngModel)]="form.email" name="email" />
+                      <i class="fa-solid fa-envelope form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-primary btn-lg w-100" type="submit">Schedule a Tour</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Request Quote -->
+            <div class="tab-pane fade" id="tab-two-pane" role="tabpanel">
+              <form (submit)="requestQuote()">
+                <div class="row g-4">
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Phone Number</label>
+                      <input type="number" class="form-control" placeholder="Phone Number" [(ngModel)]="form.phone" name="phone2" required />
+                      <i class="fa-solid fa-mobile-button form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Appointment Date</label>
+                      <input type="text" class="form-control datepicker" placeholder="mm-dd-yyyy" [(ngModel)]="form.date" name="date2" />
+                      <i class="fa-regular fa-calendar-days form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon">
+                      <label class="required fw-semibold text-dark">Email</label>
+                      <input type="email" class="form-control" placeholder="Enter Your Email" [(ngModel)]="form.email" name="email2" />
+                      <i class="fa-solid fa-envelope form-icon fs-16 position-absolute top-50"></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-primary btn-lg w-100" type="submit">Request info</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /. End Sidebar -->
+    </div>
+  </div>
+</div>

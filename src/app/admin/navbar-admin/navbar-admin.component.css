@@ -1,0 +1,27 @@
+.logo-img {
+  height: 52px;            /* ممتاز للـ Navbar */
+  width: auto;             /* يحافظ على النسبة الأصلية */
+  object-fit: contain;
+  margin-right: 1rem;
+  display: block;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+.main-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: #fff;
+  transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+
+.main-navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.75); /* شفاف */
+  backdrop-filter: blur(10px); /* تعطيه نعومة */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* ظل خفيف */
+}

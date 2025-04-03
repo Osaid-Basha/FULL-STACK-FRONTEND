@@ -1,0 +1,127 @@
+<!-- Start Main Content -->
+<div class="main-content">
+  <div class="border-bottom py-3">
+      <div class="container">
+          <!-- Start Back To Search -->
+          <a href="index.html" class="align-items-center d-flex fw-medium text-primary"><i class="fa-solid fa-chevron-left me-1"></i>Back To Home</a>
+          <!-- /. End Back To Search -->
+      </div>
+  </div>
+  <div class="py-5">
+      <div class="container py-4">
+          <div class="row justify-content-center">
+              <div class="col-sm-10 col-lg-10">
+                  <div class="align-items-center g-4 row">
+                      <div class="col-lg-6 col-xl-5 text-center">
+                          <!-- Start Header Text -->
+                          <div class="text-center mb-4">
+                              <h3 class="fw-semibold">Sign up your your <span class="underline position-relative text-primary">account!</span></h3>
+                              <p class="text-muted text-center mb-0">Start your 15-day trial, no credit card required</p>
+                          </div>
+                          <!-- /.End Header Text -->
+                          <!-- Start Social Button Wrapper -->
+                          <div class="d-grid gap-3 mb-3">
+                              <!-- Start Social login Button -->
+                              <a class="align-items-center bg-grey btn btn-lg d-flex linkedin-btn position-relative text-start" href="#"> <img src="assets/img/linkdin.svg" alt=""> <span class="ms-3">Sign up with LinkedIn</span> </a>
+                              <!-- /.End Social login Button -->
+                              <!-- Start Social login Button -->
+                              <a class="bg-grey btn btn-lg google-btn d-flex align-items-center position-relative text-start" href="#"> <img src="assets/img/google.svg" alt=""> <span class="ms-3">Sign up with Google</span> </a>
+                              <!-- Start Social login Button -->
+                          </div>
+                          <!-- /.End Social Button Wrapper -->
+                          <!-- Start Text -->
+                          <p>We won't post anything without your permission and your personal details are kept private</p>
+                          <!-- /.End Text -->
+                          <!-- Start Divider -->
+                          <div class="align-items-center d-flex my-4">
+                              <hr class="flex-grow-1 m-0"> <span class="fs-16 fw-bold px-3 text-dark">Or</span>
+                              <hr class="flex-grow-1 m-0">
+                          </div>
+                          <!-- /.End Divider -->
+
+                            <form (ngSubmit)="onSignUp()" #signupForm="ngForm" class="register-form">
+
+                              <!-- Full Name -->
+                              <div class="form-group mb-4">
+                                <label class="required">Full Name</label>
+                                <input type="text" class="form-control" name="fullName" [(ngModel)]="fullName" required>
+                              </div>
+
+                              <!-- Email -->
+                              <div class="form-group mb-4">
+                                <label class="required">Enter Email</label>
+                                <input type="email" class="form-control" name="email" [(ngModel)]="email" required>
+                              </div>
+
+                              <!-- User Type -->
+                              <div class="form-group mb-4">
+                                <label class="required">User Type</label>
+                                <select class="form-select" name="userType" [(ngModel)]="userType" required>
+                                  <option value="" disabled selected>Select user type</option>
+                                  <option value="agent">Agent</option>
+                                  <option value="buyer">Buyer</option>
+                                  <option value="admin">Admin</option>
+                                </select>
+                              </div>
+
+                       
+<div class="form-group mb-4 position-relative">
+  <label class="required">Password</label>
+  <div class="input-group">
+    <input [type]="showPassword ? 'text' : 'password'"
+           class="form-control"
+           name="password"
+           [(ngModel)]="password"
+           autocomplete="off"
+           required>
+    <span class="input-group-text bg-white border-start-0" style="cursor: pointer;" (click)="togglePassword()">
+      <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+    </span>
+  </div>
+</div>
+
+<!-- Confirm Password -->
+<div class="form-group mb-4">
+  <label class="required">Confirm Password</label>
+  <div class="input-group">
+    <input type="password"
+           class="form-control"
+           name="confirmPassword"
+           [(ngModel)]="confirmPassword"
+           required>
+    <span class="input-group-text bg-white border-start-0">
+      <i class="fa-regular fa-lock"></i>
+    </span>
+  </div>
+</div>
+
+                              <!-- Terms Checkbox -->
+                              <div class="form-check mb-4 text-start">
+                                <input class="form-check-input" type="checkbox" name="terms" [(ngModel)]="agreedToTerms" required>
+                                <label class="form-check-label">
+                                  By signing up, you agree to the <a href="#" class="text-decoration-underline">terms of service</a>
+                                </label>
+                              </div>
+
+                              <!-- Submit Button -->
+                              <button type="submit" class="btn btn-primary btn-lg w-100">Sign Up</button>
+
+                            </form>
+
+
+                          <!-- Start Bottom Text -->
+                          <div class="bottom-text text-center mt-3"> Already have an account? <a routerLink="/login" class="fw-medium text-decoration-underline">Sign In</a> </div>
+                          <!-- /.End Bottom Text -->
+                      </div>
+                      <div class="col-lg-6 col-xl-7 order-lg-first pe-xl-5">
+                          <!-- Start Image -->
+                          <img src="assets/login.png" alt="" class="img-fluid">
+                          <!-- /.End Image -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /. End Main Content -->

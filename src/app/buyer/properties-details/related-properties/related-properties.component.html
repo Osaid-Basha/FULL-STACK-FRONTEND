@@ -1,0 +1,48 @@
+<div class="border-top py-5">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="section-header text-center mb-5">
+          <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
+            More <span class="underline position-relative text-primary">available </span> in the same area
+          </h2>
+          <div class="sub-title fs-16">
+            Our guests always travel the world in style. Mention Kempinski
+            <br class="d-none d-lg-block"> on Instagram for a chance to be featured!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-sm-6 col-md-6 col-xl-3 d-flex" *ngFor="let item of moreProperties">
+        <div class="card border-0 shadow card-property rounded-3 w-100 flex-fill overflow-hidden">
+          <a [href]="item.link" class="card-link"></a>
+          <div class="property-img card-image-hover overflow-hidden position-relative">
+            <img [src]="item.image" alt="" class="img-fluid">
+            <div
+              class="card-property-badge d-inline-block end-1 fs-13 fw-semibold position-absolute property-tags px-2 py-1 rounded-3 top-1"
+              [ngClass]="{'bg-white text-dark': item.type === 'For Rent', 'bg-primary text-white': item.type === 'For Sale'}">
+              {{ item.type }}
+            </div>
+          </div>
+          <div class="card-property-content-wrap d-flex flex-column h-100 position-relative p-4">
+            <div class="align-items-end card-property-price d-flex flex-row mb-1 gap-1">
+              <h3 class="m-0 fw-bold text-primary">{{ item.price }}</h3>
+              <div>{{ item.priceUnit }}</div>
+            </div>
+            <h4 class="property-card-title mb-3">{{ item.location }}</h4>
+            <div class="card-property-description mb-3">{{ item.address }}</div>
+            <div class="border card-property-facilities gap-2 hstack mt-auto p-3 pt-3 rounded-3 text-center">
+              <div><i class="fa-solid fa-bed text-dark me-1"></i><span>{{ item.beds }} Beds</span></div>
+              <span class="vr"></span>
+              <div><i class="fa-solid fa-bath text-dark me-1"></i><span>{{ item.baths }} Baths</span></div>
+              <span class="vr"></span>
+              <div><i class="fa-solid fa-vector-square text-dark me-1"></i><span>{{ item.size }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

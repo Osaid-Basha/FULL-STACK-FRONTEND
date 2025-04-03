@@ -1,0 +1,48 @@
+<!-- Start Masonry -->
+<div class="container">
+  <div class="position-relative">
+    <!-- Start Header Masonry -->
+    <div class="header-masonry position-relative">
+      <div id="gallery-1" class="header-masonry-grid zoom-gallery">
+        <!-- العمود الأول -->
+        <div class="column-start" *ngIf="galleryImages[0]">
+          <a [href]="galleryImages[0]" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 h-100 w-100 d-block">
+            <img [src]="galleryImages[0]" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
+          </a>
+        </div>
+
+        <!-- العمود الثاني -->
+        <div class="column-start-end">
+          <ng-container *ngFor="let image of galleryImages.slice(1)">
+            <a [href]="image" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 w-100 box-ratio-2-3 d-block">
+              <img [src]="image" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- /. End Header Masonry -->
+
+    <!-- أزرار المشاركة -->
+    <div class="header-share align-items-center bg-dark d-flex gap-2 flex-wrap g-3 header-btn-group p-3 p-lg-4 mt-3 mt-md-0">
+      <button type="button" class="btn btn-sm btn-primary">
+        <i class="fa-solid fa-share-nodes me-2"></i>Share
+      </button>
+      <a href="#gallery-1" class="btn btn-sm btn-primary btn-gallery">
+        <i class="fa-solid fa-image me-2"></i>Browse Gallery
+      </a>
+
+      <!-- زر الفيديو -->
+      <div class="product-video-btn">
+        <a class="popup-youtube d-flex align-items-center justify-content-center" [href]="videoUrl">
+          <div class="btn-video bg-primary text-white d-flex align-items-center justify-content-center rounded-pill me-2">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <span class="text-white fw-medium">Watch video</span>
+        </a>
+      </div>
+      <!-- /.End of product video button -->
+    </div>
+  </div>
+</div>
+<!-- /. End Masonry -->

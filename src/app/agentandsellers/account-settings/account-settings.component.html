@@ -1,0 +1,55 @@
+<div class="container-fluid py-5">
+  <div class="card shadow border-0 rounded-4 p-4 px-md-5">
+
+    <h4 class="fw-bold mb-4 text-dark">Edit & Update</h4>
+
+    <form>
+      <div class="row g-3">
+
+        <!-- First Name -->
+        <div class="col-md-6">
+          <label class="form-label text-muted">First Name</label>
+          <input type="text" class="form-control" placeholder="Rashed">
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-md-6">
+          <label class="form-label text-muted">Last Name</label>
+          <input type="text" class="form-control" placeholder="Kabir">
+        </div>
+
+        <!-- Email -->
+        <div class="col-12">
+          <label class="form-label text-muted">Email</label>
+          <input type="email" class="form-control" placeholder="example@email.com">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-12">
+          <label class="form-label text-muted">Phone Number</label>
+          <input type="tel" class="form-control" placeholder="+970 599 123 456">
+        </div>
+
+        <!-- Password -->
+        <div class="col-12 position-relative">
+          <label class="form-label text-muted">Password</label>
+          <input type="password" class="form-control" placeholder="●●●●●●●●">
+
+          <!-- Change Password Link -->
+          <small class="position-absolute end-0 bottom-0 mb-2 me-3">
+            <a routerLink="/agent-dashboard/changepassword-agent" class="text-decoration-none text-danger fw-semibold">Change Password</a>
+          </small>
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-4 d-flex gap-3">
+        <button type="submit" class="btn btn-primary px-4">Save</button>
+        <button type="button" class="btn btn-outline-secondary">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+

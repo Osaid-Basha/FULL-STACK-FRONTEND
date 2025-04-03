@@ -1,0 +1,10 @@
+.content {
+  width: 100%;
+}
+.sidebar {
+  position: sticky;
+  top: 100px; /* المسافة من الأعلى */
+  z-index: 1000;
+  width: 100%;
+}
+

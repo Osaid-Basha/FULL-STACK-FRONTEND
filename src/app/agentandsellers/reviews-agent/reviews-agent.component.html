@@ -1,0 +1,57 @@
+<div class="container-fluid bg-light-subtle rounded-4 p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <small class="text-muted">Showing <strong>1–5</strong> of <strong>40</strong> results</small>
+    <select class="form-select form-select-sm w-auto">
+      <option selected>Newest</option>
+      <option>Oldest</option>
+      <option>Highest Rated</option>
+    </select>
+  </div>
+
+  <!-- Review Item -->
+  <div class="border-bottom pb-4 mb-4" *ngFor="let review of reviews">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <img [src]="review.image" class="rounded-circle me-3" width="40" height="40" />
+        <div>
+          <strong>{{ review.name }}</strong>
+          <div class="text-muted small">{{ review.date }}</div>
+        </div>
+      </div>
+      <div class="text-end">
+        <div class="small text-muted">({{ review.rating }} Rating)</div>
+        <div class="text-warning">
+          <i class="fas fa-star" *ngFor="let s of [].constructor(5)"></i>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-3 mb-2">{{ review.comment }}</p>
+
+    <!-- Attached Images -->
+    <div class="d-flex gap-2 mb-3" *ngIf="review.images?.length">
+      <img *ngFor="let img of review.images.slice(0,4)" [src]="img" class="rounded" width="70" height="50" style="object-fit: cover;" />
+      <div *ngIf="review.images.length > 4" class="d-flex align-items-center justify-content-center rounded bg-dark text-white" style="width: 70px; height: 50px;">
+        +{{ review.images.length - 4 }}
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex gap-3 text-muted small">
+      <a href="#" class="text-decoration-none"><i class="fa-regular fa-thumbs-up me-1"></i> Helpful</a>
+      <a href="#" class="text-decoration-none"><i class="fa-regular fa-flag me-1"></i> Flag</a>
+      <a href="#" class="text-decoration-none"><i class="fa-regular fa-reply me-1"></i> Reply</a>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <nav>
+    <ul class="pagination justify-content-center mb-0">
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item active"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
+      <li class="page-item"><a class="page-link" href="#">Last <i class="fa-solid fa-arrow-right ms-1"></i></a></li>
+    </ul>
+  </nav>
+</div>

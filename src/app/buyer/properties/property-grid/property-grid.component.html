@@ -1,0 +1,89 @@
+<app-property-header></app-property-header>
+<div >
+  <div class="container ">
+    <!-- Start Toolbox  -->
+    <div class="d-flex flex-wrap align-items-center mb-4 gap-2">
+      <h5 class="fw-semibold text-capitalize mb-0 col">(145) Result For All Listing</h5>
+      <div class="btn-group ms-auto" role="group" aria-label="Basic example">
+        <a routerLink="/buyerHome/properties-grid"  class="btn btn-outline-default btn-sm">
+          <i class="fa-solid fa-border-all"></i>
+        </a>
+        <a routerLink="/buyerHome/properties-list" class="btn btn-outline-default btn-sm active">
+          <i class="fa-solid fa-table-list"></i>
+        </a>
+      </div>
+    </div>
+    <!-- /.End Toolbox  -->
+
+
+
+
+
+        <div class="row g-4">
+          <div
+            class="col-sm-6 col-lg-4 col-xl-6 d-flex"
+            *ngFor="let property of properties"
+          >
+            <div
+              class="border-0 card card-property rounded-3 shadow w-100 flex-fill overflow-hidden"
+            >
+              <a routerLink="/buyerHome/properties-details" class="card-link"></a>
+
+              <div class="property-img card-image-hover overflow-hidden">
+                <img [src]="property.image" alt="" class="img-fluid" />
+                <div
+                  class="card-property-badge d-inline-block end-1 fs-13 fw-semibold position-absolute property-tags px-2 py-1 rounded-3 top-1"
+                  [ngClass]="{
+                    'bg-white': property.tagColor === 'white',
+                    'bg-primary': property.tagColor === 'primary',
+                    'text-dark': property.tagTextColor === 'text-dark',
+                    'text-white': property.tagTextColor === 'text-white'
+                  }"
+                >
+                  {{ property.tag }}
+                </div>
+              </div>
+
+              <div
+                class="card-property-content-wrap d-flex flex-column h-100 position-relative p-4"
+              >
+                <div
+                  class="align-items-end card-property-price d-flex flex-row mb-1 gap-1"
+                >
+                  <h3 class="m-0 fw-bold text-primary">{{ property.price }}</h3>
+                  <div>{{ property.period }}</div>
+                </div>
+
+                <h4 class="property-card-title mb-3">{{ property.title }}</h4>
+                <div class="card-property-description mb-3">
+                  {{ property.address }}
+                </div>
+
+                <div
+                  class="border card-property-facilities gap-2 hstack mt-auto p-3 pt-3 rounded-3 text-center"
+                >
+                  <div>
+                    <i class="fa-solid fa-bed text-dark me-1"></i
+                    ><span>{{ property.beds }} Beds</span>
+                  </div>
+                  <span class="vr"></span>
+                  <div>
+                    <i class="fa-solid fa-bath text-dark me-1"></i
+                    ><span>{{ property.baths }} Baths</span>
+                  </div>
+                  <span class="vr"></span>
+                  <div>
+                    <i class="fa-solid fa-vector-square text-dark me-1"></i
+                    ><span>{{ property.size }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+<!-- /. End Property List Section 2 -->
