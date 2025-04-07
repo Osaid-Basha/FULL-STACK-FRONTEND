@@ -80,10 +80,75 @@
             </div>
           </div>
 
-          <!-- Map -->
+          <!-- reviews and reat -->
           <div>
-            <h4 class="fw-semibold mb-4 text-capitalize"><span class="underline position-relative text-primary">Location</span></h4>
-            <div id="mapCanvasTwo" class="property-map rounded-4"></div>
+            <h4 class="fw-semibold mb-4 text-capitalize"><span class="underline position-relative text-primary">reviews and reat</span></h4>
+           <!-- Start Testimonial Section -->
+<div class="py-5 border-top position-relative">
+  <div class="container py-4 position-relative">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 background-image" data-image-src="assets/img/world-map.png">
+        <div class="section-header text-center mb-5">
+          <div class="bg-soft-primary d-inline-block fw-medium mb-3 rounded-pill section-header__subtitle text-capitalize text-primary">Testimonial</div>
+          <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
+            See what our <span class="underline position-relative text-primary">clients</span> say about us
+          </h2>
+          <div class="sub-title fs-16">
+            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+            <br class="d-none d-lg-block" />
+            default model text, and a search for 'lorem ipsum' will uncover many.
+          </div>
+          <div class="align-items-center d-flex flex-wrap fs-18 gap-1 justify-content-center mt-3 text-warning">
+            <i class="fa-solid fa-circle"></i>
+            <i class="fa-solid fa-circle"></i>
+            <i class="fa-solid fa-circle"></i>
+            <i class="fa-solid fa-circle"></i>
+            <i class="fa-solid fa-circle"></i>
+            <i class="fa-solid fa-circle-half-stroke"></i>
+            <span class="text-dark">(4.8/5)</span>
+          </div>
+          <h6 class="text-center mb-0 mt-2 fs-17">Overall Customer Ratings</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Testimonials -->
+    <div class="row">
+      <div class="col-sm-6 col-lg-4 mb-4" *ngFor="let t of testimonials">
+        <div class="border-0 card rounded-4 shadow h-100">
+          <div class="card-body p-4 p-xxl-5 d-flex flex-column justify-content-between">
+            <div>
+              <div class="align-items-center d-flex flex-wrap fs-12 gap-1 text-warning mb-2">
+                <ng-container *ngFor="let star of [1,2,3,4,5]">
+                  <i class="fa-solid fa-circle"></i>
+                </ng-container>
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                <span class="fw-medium text-dark">({{ t.rating }}/5)</span>
+              </div>
+              <h5 class="fs-18">{{ t.title }}</h5>
+              <p>{{ t.content }}</p>
+            </div>
+            <div class="d-flex align-items-center mt-4">
+              <div class="flex-shrink-0">
+                <img [src]="t.image" alt="" class="rounded-circle" height="60" width="60" />
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1 fw-semibold">{{ t.name }}</h6>
+                <div class="fs-15 text-primary">{{ t.username }}</div>
+              </div>
+              <i class="fa-brands fa-twitter fs-4 text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
           </div>
         </div>
       </div>

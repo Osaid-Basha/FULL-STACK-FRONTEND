@@ -100,6 +100,14 @@ import { ChangepasswordAdminComponent } from './admin/changepassword-admin/chang
 import { ProfailAdminComponent } from './admin/profail-admin/profail-admin.component';
 import { AllpropertiesComponent } from './admin/allproperties/allproperties.component';
 
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { NotificationAdminComponent } from './admin/notification-admin/notification-admin.component';
+
+import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
+import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.component';
+
+
+
 
 
 
@@ -187,6 +195,14 @@ import { AllpropertiesComponent } from './admin/allproperties/allproperties.comp
         ChangepasswordAdminComponent,
         ProfailAdminComponent,
         AllpropertiesComponent,
+
+        ResetPasswordComponent,
+        NotificationAdminComponent,
+
+        NotificationBuyerComponent,
+          MaseegeBuyerComponent,
+
+
 
 
 
