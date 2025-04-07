@@ -48,11 +48,6 @@ import { AccountAdminComponent } from './admin/account-admin/account-admin.compo
 import { ChangepasswordAdminComponent } from './admin/changepassword-admin/changepassword-admin.component';
 import { ProfailAdminComponent } from './admin/profail-admin/profail-admin.component';
 import { AllpropertiesComponent } from './admin/allproperties/allproperties.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { NotificationAdminComponent } from './admin/notification-admin/notification-admin.component';
-import { NotificationAgentComponent } from './agentandsellers/notification-agent/notification-agent.component';
-import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
-import { MassegeBuyerComponent } from './buyer/massege-buyer/massege-buyer.component';
 
 
 
@@ -81,7 +76,6 @@ const routes: Routes = [
       { path: 'location2', component: LocationComponent },
       { path: 'agent-list2', component: AgentListComponent },
       { path: 'agent-grid2', component: AgentGridComponent },
-      {path:'resetpassword', component: ResetPasswordComponent},
 
 
       { path: 'agent-details2', component: AgentDetailsComponent },
@@ -103,7 +97,6 @@ const routes: Routes = [
       { path: 'changepassword-admin', component: ChangepasswordAdminComponent },
       { path: 'profail-admin', component: ProfailAdminComponent },
       { path: 'allproperties', component: AllpropertiesComponent },
-      { path: 'notification-admin', component: NotificationAdminComponent },
 
     ]
   },
@@ -122,8 +115,6 @@ const routes: Routes = [
       { path: 'changepassword-agent', component: ChangepasswordAgentComponent },
       { path:'reviews-agent', component: ReviewsAgentComponent },
       { path: 'profail-agent', component: ProfailAgentComponent },
-      { path: 'notification-agent', component: NotificationAgentComponent },
-
 
     ]
   },
@@ -145,10 +136,7 @@ const routes: Routes = [
       { path: 'profail-buyer', component: ProfailBuyerComponent },
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
-      { path: 'property-details/:id', component: PropertiesDetailsComponent },
-      { path: 'notification-buyer', component: NotificationBuyerComponent },
-      { path:'massege-buyer', component: MassegeBuyerComponent },
-
+      { path: 'property-details/:id', component: PropertiesDetailsComponent }
 
 
 
