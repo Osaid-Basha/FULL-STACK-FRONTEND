@@ -172,7 +172,7 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
       MessageComponent,
       ProfailAgentComponent,
       AccountSettingsComponent,
-      MypropertiesAgentComponent,
+
       ReviewsAgentComponent,
       ChangepasswordAgentComponent,
       AdminComponent,
