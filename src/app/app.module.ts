@@ -105,6 +105,8 @@ import { NotificationAdminComponent } from './admin/notification-admin/notificat
 
 import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
 import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 
@@ -240,8 +242,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatIconModule,
     MatChipsModule,
 
+    BrowserAnimationsModule,
+
     BrowserModule,
     NgApexchartsModule
+
 
 
 
