@@ -110,7 +110,9 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
 
 
 
-
+// Ensure the file exists at the correct path or update the path accordingly
+import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -201,6 +203,8 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
 
         NotificationBuyerComponent,
           MaseegeBuyerComponent,
+          NotificationAdminComponent,
+          NotificationAgentComponent
 
 
 
@@ -236,7 +240,8 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
     MatIconModule,
     MatChipsModule,
 
-
+    BrowserModule,
+    NgApexchartsModule
 
 
 
