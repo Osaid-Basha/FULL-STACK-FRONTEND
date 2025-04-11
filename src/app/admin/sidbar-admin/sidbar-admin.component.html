@@ -1,65 +1,79 @@
-<div class="d-flex flex-column p-4 vh-100 border-end bg-white" style="width: 260px; font-family: 'Segoe UI', sans-serif;">
+<div class="d-flex flex-column vh-100 border-end bg-white overflow-auto"
+     style="width: 230px; font-family: 'Segoe UI', sans-serif;">
 
-
-
-
-  <!-- Menu Top -->
-  <ul class="nav flex-column mb-4">
+  <!-- ========= Menu Top ========= -->
+  <ul class="nav flex-column mb-4 px-3 pt-4">
     <li class="nav-item">
-      <a routerLink="/admin-dashboard/" routerLinkActive="active-menu"
+      <a routerLink="/admin-dashboard/"
+         routerLinkActive="active-menu"
          [routerLinkActiveOptions]="{ exact: true }"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-solid fa-border-all me-2"></i> Dashboard
       </a>
     </li>
     <li class="nav-item">
-      <a routerLink="/admin-dashboard/user-requests-admin" routerLinkActive="active-menu"
+      <a routerLink="/admin-dashboard/user-requests-admin"
+         routerLinkActive="active-menu"
          class="nav-link link-item mb-2 d-flex align-items-center">
-        <i class="fa-regular fa-envelope me-2"></i>  User Requests
-
+        <i class="fa-regular fa-envelope me-2"></i> User Requests
       </a>
     </li>
   </ul>
 
-  <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Profile</div>
-  <ul class="nav flex-column mb-4">
-    <li><a routerLink="/admin-dashboard/profail-admin" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-    <li><a routerLink="/admin-dashboard/account-admin" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center"><i class="fa-solid fa-gear me-2"></i> Account Settings</a></li>
+  <!-- ========= Profile ========= -->
+  <div class="text-uppercase text-muted small fw-semibold mb-2 px-3">Profile</div>
+  <ul class="nav flex-column mb-4 px-3">
+    <li>
+      <a routerLink="/admin-dashboard/profail-admin" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-regular fa-user me-2"></i> Profile
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin-dashboard/account-admin" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-solid fa-gear me-2"></i> Account Settings
+      </a>
+    </li>
   </ul>
 
-  <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Listing</div>
-  <ul class="nav flex-column mb-4">
-    <li><a routerLink="/admin-dashboard/allproperties" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center"><i class="fa-regular fa-file-lines me-2"></i> ALL Properties</a></li>
-    <li><a routerLink="/admin-dashboard/remove-admin" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center"><i class="fa-solid fa-trash me-2"></i>remove</a></li>
-
+  <!-- ========= Listing ========= -->
+  <div class="text-uppercase text-muted small fw-semibold mb-2 px-3">Listing</div>
+  <ul class="nav flex-column mb-4 px-3">
     <li>
-      <a routerLink="/admin-dashboard/reports-analytics-admin" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center">
+      <a routerLink="/admin-dashboard/allproperties" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-regular fa-file-lines me-2"></i> ALL Properties
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin-dashboard/remove-admin" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-solid fa-trash me-2"></i> Remove
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin-dashboard/reports-analytics-admin" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-solid fa-chart-pie me-2"></i> Reports & Analytics
-
       </a>
     </li>
     <li>
-      <a routerLink="/admin-dashboard/manage-reviews" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center">
-        <i class="fa-solid fa-star me-2"></i>  Manag Reviews
+      <a routerLink="/admin-dashboard/manage-reviews" routerLinkActive="active-menu"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-solid fa-star me-2"></i> Manage Reviews
+      </a>
+    </li>
 
-      </a>
-    </li>
-    <li>
-      <a routerLink="/admin-dashboard/notification-admin" routerLinkActive="active-menu" class="nav-link link-item mb-2 d-flex align-items-center">
-        <i class="fa-regular fa-calendar-xmark text-dark"></i> notification
-      </a>
-    </li>
+ <a routerLink="/"
+           class="nav-link link-item mb-2 d-flex align-items-center text-dark ml-5 mt-3">
+          <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+        </a>
 
 
   </ul>
 
-  <div class="sidtop"></div>
 
-  <!-- Logout -->
-  <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
-    <div class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 36px; height: 36px;">
-      <i class="fa-solid fa-right-from-bracket"></i>
-    </div>
-    <span class="fw-semibold">Logout</span>
-  </a>
+
+
 </div>
