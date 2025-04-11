@@ -1,17 +1,15 @@
-<div class="d-flex flex-column vh-100">
+<div class="d-flex flex-column vh-100 overflow-hidden">
   <!-- Navbar -->
   <app-navbar-admin></app-navbar-admin>
 
   <!-- Main Content Area -->
-  <div class="d-flex flex-grow-1">
-
+  <div class="d-flex flex-grow-1 overflow-hidden">
     <!-- Sidebar -->
-   <app-sidbar-admin></app-sidbar-admin>
+    <app-sidbar-admin></app-sidbar-admin>
 
-    <!-- Page Content -->
-    <div class="flex-grow-1 p-4" style="overflow-y: auto;">
-    <router-outlet></router-outlet>
-
+    <!-- Page Content (Scrollable Only) -->
+    <div class="flex-grow-1 p-4" style="overflow-y: auto; height: 100%;">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
