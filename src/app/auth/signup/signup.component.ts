@@ -11,12 +11,16 @@ export class SignupComponent {
   email: string = '';
   userType: string = '';
   password: string = '';
+  showConfirmPassword = false;
   confirmPassword: string = '';
   agreedToTerms: boolean = false;
   showPassword: boolean = false;
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   onSignUp() {
