@@ -174,7 +174,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       MessageComponent,
       ProfailAgentComponent,
       AccountSettingsComponent,
-      MypropertiesAgentComponent,
+
       ReviewsAgentComponent,
       ChangepasswordAgentComponent,
       AdminComponent,
