@@ -1,6 +1,6 @@
 
-<div class="container-fluid "></div>
-  <!-- العنوان والبحث -->
+<div class="container-fluid py-4 animate-in ">
+
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
     <h2 class="fw-bold text-dark">
       <i class="bi bi-chat-left-dots-fill text-primary me-2"></i> User Requests
@@ -10,21 +10,29 @@
     </div>
   </div>
 
-  <!-- الفلاتر -->
-  <div class="mb-5 d-flex flex-wrap gap-2">
-    <button class="btn btn-primary rounded-pill px-4 py-2">All</button>
-    <button class="btn btn-outline-secondary rounded-pill px-4 py-2">Buyers</button>
-    <button class="btn btn-outline-secondary rounded-pill px-4 py-2">Agents</button>
-    <button class="btn btn-outline-secondary rounded-pill px-4 py-2">Pending</button>
-    <button class="btn btn-outline-secondary rounded-pill px-4 py-2">Handled</button>
-  </div>
 
-  <!-- الكروت -->
+<div class="mb-5 d-flex flex-wrap gap-2">
+  <button class="btn rounded-pill px-4 py-2"
+  [ngClass]="activeFilter === 'All' ? 'btn-primary' : 'btn-outline-secondary'"
+  (click)="filterRequests('All')">All</button>
+
+<button class="btn rounded-pill px-4 py-2"
+  [ngClass]="activeFilter === 'Buyer' ? 'btn-primary' : 'btn-outline-secondary'"
+  (click)="filterRequests('Buyer')">Buyers</button>
+
+<button class="btn rounded-pill px-4 py-2"
+  [ngClass]="activeFilter === 'Agent' ? 'btn-primary' : 'btn-outline-secondary'"
+  (click)="filterRequests('Agent')">Agents</button>
+
+</div>
+
+
   <div class="row g-4">
     <div class="col-lg-6" *ngFor="let req of requests">
-      <div class="card shadow border-0 rounded-4 p-4">
+      <div class="card shadow border-0 rounded-4 p-4 animate-in">
 
-        <!-- رأس البطاقة -->
+
+
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="d-flex align-items-center gap-3">
             <img src="assets/371225.jpg" class="rounded-circle border shadow-sm" width="60" height="60" alt="User">
@@ -36,27 +44,28 @@
           <span class="badge bg-info text-dark px-3 py-2 fs-6">{{ req.type }}</span>
         </div>
 
-        <!-- الرسالة والموقع -->
+
         <p class="text-muted small mb-2">
           <i class="bi bi-geo-alt-fill me-1 text-primary"></i>{{ req.location }}
         </p>
-        <p class="mb-3 fs-6">{{ req.message }}</p>
 
-        <!-- الإجراءات -->
+
+
         <div class="d-flex justify-content-end gap-3 mt-2">
-          <button class="btn btn-lg btn-outline-primary rounded-pill px-4">
-            <i class="bi bi-reply me-1"></i> Reply
-          </button>
-          <button class="btn btn-lg btn-outline-secondary rounded-pill px-4">
-            <i class="bi bi-person-plus-fill me-1"></i> Assign
-          </button>
-          <button class="btn btn-lg btn-outline-danger rounded-pill px-4">
-            <i class="bi bi-trash-fill me-1"></i> Delete
-          </button>
+
+          <button class="btn btn-lg btn-outline-primary rounded-pill px-4"
+          (click)="approveRequest(req)">
+    <i class="bi bi-person-plus-fill me-1"></i> approve
+  </button>
+  <button class="btn btn-lg btn-outline-danger rounded-pill px-4"
+  (click)="rejectRequest(req)">
+<i class="bi bi-trash-fill me-1"></i> reject
+</button>
         </div>
 
       </div>
     </div>
+  </div>
   </div>
 
 

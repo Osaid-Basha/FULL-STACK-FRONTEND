@@ -105,12 +105,16 @@ import { NotificationAdminComponent } from './admin/notification-admin/notificat
 
 import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
 import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
 
 
 
+// Ensure the file exists at the correct path or update the path accordingly
+import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -172,7 +176,7 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
       MessageComponent,
       ProfailAgentComponent,
       AccountSettingsComponent,
-      MypropertiesAgentComponent,
+
       ReviewsAgentComponent,
       ChangepasswordAgentComponent,
       AdminComponent,
@@ -201,6 +205,8 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
 
         NotificationBuyerComponent,
           MaseegeBuyerComponent,
+          NotificationAdminComponent,
+          NotificationAgentComponent
 
 
 
@@ -236,6 +242,10 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
     MatIconModule,
     MatChipsModule,
 
+    BrowserAnimationsModule,
+
+    BrowserModule,
+    NgApexchartsModule
 
 
 
