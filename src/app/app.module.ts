@@ -73,6 +73,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
 import { AccountSettingsComponent } from './agentandsellers/account-settings/account-settings.component';
@@ -85,7 +86,7 @@ import { SidbarAdminComponent } from './admin/sidbar-admin/sidbar-admin.componen
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UserRequestsAdminComponent } from './admin/user-requests-admin/user-requests-admin.component';
 import { RemoveAdminComponent } from './admin/remove-admin/remove-admin.component';
-import { ReportsAnalyticsAdminComponent } from './admin/reports-analytics-admin/reports-analytics-admin.component';
+
 import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.component';
 import { FooterBuyerComponent } from './buyer/footer-buyer/footer-buyer.component';
 import { NavbarBuyerComponent } from './buyer/navbar-buyer/navbar-buyer.component';
@@ -185,8 +186,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       DashboardAdminComponent,
       UserRequestsAdminComponent,
       RemoveAdminComponent,
-      ReportsAnalyticsAdminComponent,
-      ManageReviewsComponent,
+
       FooterBuyerComponent,
       NavbarBuyerComponent,
       PropartiesInfoComponent,
@@ -245,8 +245,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     BrowserAnimationsModule,
 
     BrowserModule,
-    NgApexchartsModule
-
+    MatCheckboxModule,
+    MatCheckboxModule,
+    ManageReviewsComponent,
 
 
 

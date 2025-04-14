@@ -1,13 +1,20 @@
 
-<div class="container py-5 animation-n shadow-lg p-3 mb-5 bg-white rounded" >
-  <div class="row">
+<div class="container-fluid py-5  animate-in shadow-lg p-3 mb-5 bg-white rounded" >
+  <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+    <h2 class="fw-bold text-dark">
+      <i class="fa-regular fa-user me-2"></i> Profile
+    </h2>
+
+  </div>
+  <!-- End Breadcrumbs -->
+  <div class="row gy-4">
     <!-- Left Column: Contact Information and Social Media -->
-    <div class="col-md-8">
+    <div class="col-12 col-md-8">
       <div class="card p-4">
         <h4>Contact Information</h4>
         <form>
           <!-- First Name and Last Name -->
-          <div class="row mb-3">
+          <div class="row gy-3 mb-3">
             <div class="col">
               <label for="firstName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> First Name</label>
               <input type="text" class="form-control bg-secondary-subtle fw-bold" id="firstName" value="Ahmed" readonly>
@@ -19,7 +26,7 @@
           </div>
 
           <!-- Email and Phone -->
-          <div class="row mb-3">
+          <div class="row gy-3 mb-3">
             <div class="col">
               <label for="email" class="form-label"><i class="bi bi-envelope fw-bold"></i> Email</label>
               <input type="email" class="form-control bg-secondary-subtle fw-bold bi bi-envelope" id="email"  value="omerahmad@gmail.com" readonly>
@@ -31,7 +38,7 @@
           </div>
 
           <!-- Location and Position -->
-          <div class="row mb-3">
+          <div class="row gy-3 mb-3">
             <div class="col">
               <label for="location" class="form-label"><i class="bi bi-geo-alt fw-bold "></i> Location</label>
               <input type="text" class="form-control bg-secondary-subtle fw-bold" id="location" value="🇵🇸 Nablus, Palestine" readonly>
@@ -44,7 +51,7 @@
 
           <!-- Social Media Section -->
           <h4>Social Media</h4>
-          <div class="row mb-3 ">
+          <div class="row gy-3 mb-3">
             <div class="col">
               <label for="facebookUrl" class="form-label">Facebook Url</label>
               <input type="url" class="form-control bg-secondary-subtle fw-bold" id="facebookUrl" value="https://www.facebook.com/ahmad_omar" readonly>
@@ -54,7 +61,7 @@
               <input type="url" class="form-control bg-secondary-subtle fw-bold" id="twitterUrl" value="https://twitter.com/ahmad" readonly>
             </div>
           </div>
-          <div class="row mb-3">
+          <div class="row gy-3 mb-3">
             <div class="col">
               <label for="linkedinUrl" class="form-label">LinkedIn Url</label>
               <input type="url" class="form-control bg-secondary-subtle fw-bold" id="linkedinUrl" value="https://www.linkedin.com/in/ahmad.omar/" readonly>
@@ -69,7 +76,7 @@
     </div>
 
     <!-- Right Column: Profile Photo -->
-    <div class="col-md-4">
+    <div class="col-12 col-md-4">
       <div class="card p-4">
         <div class="photo_animation" [@fadeIn]>
         <img src="assets/371225.jpg" alt="Profile Image" class="profile-image img-fluid mb-3 rounded" >
