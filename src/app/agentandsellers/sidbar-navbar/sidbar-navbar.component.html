@@ -6,7 +6,8 @@
   <ul class="nav flex-column mb-4">
     <li class="nav-item">
 
-      <a routerLink="/agent-dashboard/" class="nav-link link-item mb-2 d-flex align-items-center">
+      <a routerLink="/agent-dashboard/"   routerLinkActive="active-menu"
+      [routerLinkActiveOptions]="{ exact: true }"class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-envelope me-2"></i> Dashboard
 
       </a>
