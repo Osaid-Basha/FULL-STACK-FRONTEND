@@ -187,7 +187,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       UserRequestsAdminComponent,
       RemoveAdminComponent,
       ReportsAnalyticsAdminComponent,
-      ManageReviewsComponent,
       FooterBuyerComponent,
       NavbarBuyerComponent,
       PropartiesInfoComponent,
@@ -248,6 +247,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     BrowserModule,
     MatCheckboxModule,
     MatCheckboxModule,
+    ManageReviewsComponent,
 
 
 
