@@ -73,6 +73,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
 import { AccountSettingsComponent } from './agentandsellers/account-settings/account-settings.component';
@@ -245,8 +246,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     BrowserAnimationsModule,
 
     BrowserModule,
-    NgApexchartsModule
-
+    MatCheckboxModule,
+    MatCheckboxModule,
 
 
 
