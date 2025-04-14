@@ -61,7 +61,7 @@ import { Erorr505Component } from './erorr/erorr-505/erorr-505.component';
 import { AgentandsellersComponent } from './agentandsellers/agentandsellers.component';
 import { SidbarNavbarComponent } from './agentandsellers/sidbar-navbar/sidbar-navbar.component';
 import { NavbarAgentComponent } from './agentandsellers/navbar-agent/navbar-agent.component';
-import { DashboardComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
+import { DashboardAgentComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
 import { MessageComponent } from './agentandsellers/message/message.component';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -173,7 +173,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       AgentandsellersComponent,
 
       NavbarAgentComponent,
-      DashboardComponent,
+      DashboardAgentComponent,
       MessageComponent,
       ProfailAgentComponent,
       AccountSettingsComponent,
