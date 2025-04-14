@@ -4,40 +4,46 @@
     <h4 class="fw-bold mb-4 text-dark">Edit & Update</h4>
 
     <form>
-      <div class="row g-3">
+      <div class="row g-4">
 
         <!-- First Name -->
         <div class="col-md-6">
-          <label class="form-label text-muted">First Name</label>
-          <input type="text" class="form-control" placeholder="Rashed">
+          <label class="form-label text-muted d-flex align-items-center">
+            <i class="bi bi-person-fill fw-bold"></i> First Name</label>
+          <input type="text" class="form-control " placeholder="Rashed">
         </div>
 
         <!-- Last Name -->
         <div class="col-md-6">
-          <label class="form-label text-muted">Last Name</label>
+          <label class="form-label text-muted d-flex align-items-center">
+            <i class="bi bi-person-fill fw-bold"></i> Last Name</label>
           <input type="text" class="form-control" placeholder="Kabir">
         </div>
 
         <!-- Email -->
         <div class="col-12">
-          <label class="form-label text-muted">Email</label>
+          <label class="form-label text-muted d-flex align-items-center">
+            <i class="bi bi-envelope-fill fw-bold"></i> Email</label>
           <input type="email" class="form-control" placeholder="example@email.com">
         </div>
 
         <!-- Phone Number -->
         <div class="col-12">
-          <label class="form-label text-muted">Phone Number</label>
+          <label class="form-label text-muted d-flex align-items-center">
+            <i class="bi bi-telephone-inbound-fill fw-bold"></i> Phone Number</label>
           <input type="tel" class="form-control" placeholder="+970 599 123 456">
         </div>
 
         <!-- Password -->
         <div class="col-12 position-relative">
-          <label class="form-label text-muted">Password</label>
+          <label class="form-label text-muted d-flex align-items-center">
+            <i class="bi bi-key-fill fw-bold"></i> Password</label>
           <input type="password" class="form-control" placeholder="●●●●●●●●">
 
           <!-- Change Password Link -->
-          <small class="position-absolute end-0 bottom-0 mb-2 me-3">
-            <a routerLink="/agent-dashboard/changepassword-agent" class="text-decoration-none text-danger fw-semibold">Change Password</a>
+
+          <small class="d-block text-end text-md-end mt-2 mt-md-0">
+            <a routerLink="/admin-dashboard/changepassword-admin" class="text-decoration-none text-danger fw-semibold">Change Password</a>
           </small>
         </div>
 
