@@ -1,3 +1,6 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<h2>Reviwes</h2>
 <div class="container-fluid bg-light-subtle rounded-4 p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <small class="text-muted">Showing <strong>1–5</strong> of <strong>40</strong> results</small>
@@ -7,51 +10,64 @@
       <option>Highest Rated</option>
     </select>
   </div>
-
-  <!-- Review Item -->
-  <div class="border-bottom pb-4 mb-4" *ngFor="let review of reviews">
-    <div class="d-flex justify-content-between">
-      <div class="d-flex">
-        <img [src]="review.image" class="rounded-circle me-3" width="40" height="40" />
-        <div>
+  <div class="container-4">
+    <div class=" card col g-12" ></div>
+  <div class="border-bottom pb-8 mb-4" *ngFor="let review of reviews">
+    <div class="card shadow-sm border-1 rounded-4 bg-light  h-100" >
+      <div class="d-flex flex-wrap align-items-lg-center  " style="margin: 10px">
+      <div class="d-flex fa-align-center">
+        <img ngSrc= "{{review.image}}" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
+        <div class="col-12">
           <strong>{{ review.name }}</strong>
-          <div class="text-muted small">{{ review.date }}</div>
+              <div class="text-muted small" style="font-size: 12px">{{ review.date }}</div>
+        <div class="d-flex flex-wrap align-items-lg-center" style="margin: 10px">
+          <div class="small text-muted" style="font-size: 14px">({{ review.rating }} Rating)</div>
+          <div class="text-warning">
+            <i class="fas fa-star" *ngFor="let s of [].constructor(5)"></i>
+          </div>
         </div>
       </div>
-      <div class="text-end">
-        <div class="small text-muted">({{ review.rating }} Rating)</div>
-        <div class="text-warning">
-          <i class="fas fa-star" *ngFor="let s of [].constructor(5)"></i>
-        </div>
       </div>
-    </div>
 
-    <p class="mt-3 mb-2">{{ review.comment }}</p>
+      </div>
+
+<div class="col" style="margin-left: 20px">
+    <p class="mt-3 mb-2" style="text-align:left">{{ review.comment }}</p>
 
     <!-- Attached Images -->
     <div class="d-flex gap-2 mb-3" *ngIf="review.images?.length">
-      <img *ngFor="let img of review.images.slice(0,4)" [src]="img" class="rounded" width="70" height="50" style="object-fit: cover;" />
+      <img *ngFor="let img of review.images.slice(0,4)" [ngSrc]="img" class="rounded" width="70" height="50" style="object-fit: cover;margin-left: 20px" alt="image" />
       <div *ngIf="review.images.length > 4" class="d-flex align-items-center justify-content-center rounded bg-dark text-white" style="width: 70px; height: 50px;">
         +{{ review.images.length - 4 }}
       </div>
     </div>
+  <div id="comment-box">
 
-    <!-- Actions -->
-    <div class="d-flex gap-3 text-muted small">
+  </div>
+  </div>
+
+
+    <div class="d-flex gap-4 text-muted small" style="margin-bottom: 25px ;margin-left: 25px" >
       <a href="#" class="text-decoration-none"><i class="fa-regular fa-thumbs-up me-1"></i> Helpful</a>
       <a href="#" class="text-decoration-none"><i class="fa-regular fa-flag me-1"></i> Flag</a>
       <a href="#" class="text-decoration-none"><i class="fa-regular fa-reply me-1"></i> Reply</a>
     </div>
-  </div>
 
-  <!-- Pagination -->
-  <nav>
-    <ul class="pagination justify-content-center mb-0">
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
-      <li class="page-item"><a class="page-link" href="#">Last <i class="fa-solid fa-arrow-right ms-1"></i></a></li>
-    </ul>
-  </nav>
+
+
+
 </div>
+</div>
+  </div>
+</div>
+<nav>
+  <ul class="pagination justify-content-center mb-0">
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
+    <li class="page-item"><a class="page-link" href="#">Last <i class="fa-solid fa-arrow-right ms-1"></i></a></li>
+  </ul>
+</nav>
+
+
