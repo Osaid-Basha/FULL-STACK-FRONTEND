@@ -7,7 +7,7 @@ import { ChartConfiguration, ChartType } from 'chart.js';
   templateUrl: './dashboard-agent.component.html',
   styleUrls: ['./dashboard-agent.component.css']
 })
-export class DashboardComponent {
+export class DashboardAgentComponent {
   selectedPeriod = 'Weekly';
 
   stats = [

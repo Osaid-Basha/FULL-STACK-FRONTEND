@@ -23,7 +23,7 @@ import { PropertyListComponent } from './buyer/properties/property-list/property
 import { PropertyGridComponent } from './buyer/properties/property-grid/property-grid.component';
 import { AccountSettingsComponent } from './agentandsellers/account-settings/account-settings.component';
 import { ReviewsAgentComponent } from './agentandsellers/reviews-agent/reviews-agent.component';
-import { DashboardComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
+import { DashboardAgentComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
 import { MessageComponent } from './agentandsellers/message/message.component';
 import { MypropertiesAgentComponent } from './agentandsellers/myproperties-agent/myproperties-agent.component';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
@@ -114,7 +114,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
 
-      { path: '', component: DashboardComponent },
+      { path: '', component: DashboardAgentComponent },
 
       { path: 'addproperty', component: AddPropertyComponent },
       { path: 'message', component: MessageComponent },
