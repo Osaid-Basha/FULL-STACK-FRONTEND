@@ -33,7 +33,6 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UserRequestsAdminComponent } from './admin/user-requests-admin/user-requests-admin.component';
 import { RemoveAdminComponent } from './admin/remove-admin/remove-admin.component';
-import { ReportsAnalyticsAdminComponent } from './admin/reports-analytics-admin/reports-analytics-admin.component';
 import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.component';
 import { AuthComponent } from './auth/auth.component';
 import { BuyerComponent } from './buyer/buyer.component';
@@ -97,7 +96,7 @@ const routes: Routes = [
 
       { path: 'manage-reviews', component: ManageReviewsComponent },
       { path: 'user-requests-admin', component: UserRequestsAdminComponent },
-      { path: 'reports-analytics-admin', component: ReportsAnalyticsAdminComponent },
+    
       { path: 'remove-admin', component: RemoveAdminComponent },
       { path: 'account-admin', component: AccountAdminComponent },
       { path: 'changepassword-admin', component: ChangepasswordAdminComponent },

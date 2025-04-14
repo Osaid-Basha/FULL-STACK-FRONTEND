@@ -86,7 +86,7 @@ import { SidbarAdminComponent } from './admin/sidbar-admin/sidbar-admin.componen
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UserRequestsAdminComponent } from './admin/user-requests-admin/user-requests-admin.component';
 import { RemoveAdminComponent } from './admin/remove-admin/remove-admin.component';
-import { ReportsAnalyticsAdminComponent } from './admin/reports-analytics-admin/reports-analytics-admin.component';
+
 import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.component';
 import { FooterBuyerComponent } from './buyer/footer-buyer/footer-buyer.component';
 import { NavbarBuyerComponent } from './buyer/navbar-buyer/navbar-buyer.component';
@@ -186,7 +186,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       DashboardAdminComponent,
       UserRequestsAdminComponent,
       RemoveAdminComponent,
-      ReportsAnalyticsAdminComponent,
+
       FooterBuyerComponent,
       NavbarBuyerComponent,
       PropartiesInfoComponent,
