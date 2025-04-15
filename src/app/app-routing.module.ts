@@ -96,7 +96,7 @@ const routes: Routes = [
 
       { path: 'manage-reviews', component: ManageReviewsComponent },
       { path: 'user-requests-admin', component: UserRequestsAdminComponent },
-    
+
       { path: 'remove-admin', component: RemoveAdminComponent },
       { path: 'account-admin', component: AccountAdminComponent },
       { path: 'changepassword-admin', component: ChangepasswordAdminComponent },
