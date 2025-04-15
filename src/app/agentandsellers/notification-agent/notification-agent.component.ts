@@ -3,11 +3,15 @@ import {NgClass, NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-notification-admin',
-  templateUrl: './notification-agent.component.html',
+
   imports: [
     NgClass,
     NgForOf
   ],
+
+  standalone: false,
+  templateUrl: './notification-agent.component.html',
+
   styleUrls: ['./notification-agent.component.css'] // تأكد من أنها بصيغة "styleUrls" وليس "styleUrl"
 })
 export class NotificationAgentComponent {
@@ -16,7 +20,9 @@ export class NotificationAgentComponent {
     {
       type: 'info',
       icon: 'bi-envelope-fill',
+
       title: 'New advertisement',
+
       message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
       time: 'Just now'
     },
@@ -24,7 +30,9 @@ export class NotificationAgentComponent {
       type: 'warning',
       icon: 'bi-tag-fill',
       title: 'Price Drop',
+
       message: 'Wafa adham replay your massage.',
+
       time: '10 mins ago'
     },
     {

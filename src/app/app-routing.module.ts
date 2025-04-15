@@ -23,7 +23,7 @@ import { PropertyListComponent } from './buyer/properties/property-list/property
 import { PropertyGridComponent } from './buyer/properties/property-grid/property-grid.component';
 import { AccountSettingsComponent } from './agentandsellers/account-settings/account-settings.component';
 import { ReviewsAgentComponent } from './agentandsellers/reviews-agent/reviews-agent.component';
-import { DashboardComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
+import { DashboardAgentComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
 import { MessageComponent } from './agentandsellers/message/message.component';
 import { MypropertiesAgentComponent } from './agentandsellers/myproperties-agent/myproperties-agent.component';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
@@ -33,7 +33,6 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UserRequestsAdminComponent } from './admin/user-requests-admin/user-requests-admin.component';
 import { RemoveAdminComponent } from './admin/remove-admin/remove-admin.component';
-import { ReportsAnalyticsAdminComponent } from './admin/reports-analytics-admin/reports-analytics-admin.component';
 import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.component';
 import { AuthComponent } from './auth/auth.component';
 import { BuyerComponent } from './buyer/buyer.component';
@@ -97,7 +96,7 @@ const routes: Routes = [
 
       { path: 'manage-reviews', component: ManageReviewsComponent },
       { path: 'user-requests-admin', component: UserRequestsAdminComponent },
-      { path: 'reports-analytics-admin', component: ReportsAnalyticsAdminComponent },
+
       { path: 'remove-admin', component: RemoveAdminComponent },
       { path: 'account-admin', component: AccountAdminComponent },
       { path: 'changepassword-admin', component: ChangepasswordAdminComponent },
@@ -114,7 +113,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
 
-      { path: '', component: DashboardComponent },
+      { path: '', component: DashboardAgentComponent },
 
       { path: 'addproperty', component: AddPropertyComponent },
       { path: 'message', component: MessageComponent },
@@ -151,7 +150,8 @@ const routes: Routes = [
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
       { path:'maseege-buyer', component: MaseegeBuyerComponent },
-
+        {path:'505', component: Erorr505Component},
+        {path:'404', component: Erorr404Component},
 
     ]
   },

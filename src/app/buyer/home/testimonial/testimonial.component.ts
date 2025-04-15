@@ -7,6 +7,18 @@ import { Component } from '@angular/core';
   styleUrl: './testimonial.component.css'
 })
 export class TestimonialComponent {
+  showFeedbackForm = false;
+  hoverRating = 0;
+
+  feedback = {
+    rating: 4.8,
+    title: '',
+    comment: '',
+    name: '',
+    username: '',
+    image: 'assets/img/avatar/01.jpg'
+  };
+
   testimonials = [
     {
       name: 'Naeem Khan',
@@ -57,4 +69,28 @@ export class TestimonialComponent {
       rating: 4.8
     }
   ];
+
+  addFeedback() {
+    const newFeedback = {
+      name: this.feedback.name,
+      username: this.feedback.username,
+      image: this.feedback.image,
+      title: this.feedback.title,
+      content: this.feedback.comment,
+      rating: this.feedback.rating
+    };
+
+    this.testimonials.push(newFeedback);
+    this.showFeedbackForm = false;
+
+    // Reset النموذج
+    this.feedback = {
+      rating: 0,
+      title: '',
+      comment: '',
+      name: '',
+      username: '',
+      image: 'assets/img/avatar/01.jpg'
+    };
+  }
 }

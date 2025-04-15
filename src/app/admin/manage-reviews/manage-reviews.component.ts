@@ -12,11 +12,8 @@ import Chart from 'chart.js/auto';
     FormsModule,
     NgForOf,
     MatCheckbox,
-    NgOptimizedImage,
-    NgIf,
-
-
-  ],
+    NgIf
+],
   styleUrl: './manage-reviews.component.css'
 })
 export class ManageReviewsComponent{

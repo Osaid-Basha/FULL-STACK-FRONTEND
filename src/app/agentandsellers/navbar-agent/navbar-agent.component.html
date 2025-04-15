@@ -4,7 +4,6 @@
   <div class="d-flex align-items-center">
     <img src="assets/ChatGPT Image Mar 31, 2025, 01_45_15 PM.png" alt="FindHusly Logo" class="logo-img">
   </div>
-
   <!-- Right Section -->
   <div class="d-flex align-items-center gap-3">
     <!-- Search Bar -->
@@ -19,7 +18,9 @@
   <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-white rounded-circle"></span>
 
   <div class="dropdown-menu dropdown-menu-end p-3 shadow rounded-4" style="width: 300px;">
-    <h6 class="fw-bold mb-3">Notification</h6>
+    <a routerLink="/agent-dashboard/notification-agent" class="d-block text-center text-primary fw-bold mb-3" style="text-decoration: none;">
+      View All Notifications
+    </a>
 
     <!-- Notification Item -->
     <div class="d-flex align-items-start mb-3">
@@ -73,12 +74,12 @@
 
   <ul class="dropdown-menu dropdown-menu-end shadow rounded-4 mt-2 p-2" style="min-width: 200px;">
     <li>
-      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/profail-agent">
+      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/agent-dashboard/profail-agent">
         <i class="fa-regular fa-user"></i> Profile
       </a>
     </li>
     <li>
-      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/account-settings">
+      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/agent-dashboard/account-settings">
         <i class="fa-solid fa-gear"></i> Account Settings
       </a>
     </li>

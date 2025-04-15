@@ -1,7 +1,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <h2>Reviwes</h2>
-<div class="container-fluid bg-light-subtle rounded-4 p-4">
+<div class="container bg-light-subtle rounded-4 p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <small class="text-muted">Showing <strong>1–5</strong> of <strong>40</strong> results</small>
     <select class="form-select form-select-sm w-auto">
@@ -16,7 +16,7 @@
     <div class="card shadow-sm border-1 rounded-4 bg-light  h-100" >
       <div class="d-flex flex-wrap align-items-lg-center  " style="margin: 10px">
       <div class="d-flex fa-align-center">
-        <img ngSrc= "{{review.image}}" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
+        <img [src]="review.image" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
         <div class="col-12">
           <strong>{{ review.name }}</strong>
               <div class="text-muted small" style="font-size: 12px">{{ review.date }}</div>
@@ -36,7 +36,7 @@
 
     <!-- Attached Images -->
     <div class="d-flex gap-2 mb-3" *ngIf="review.images?.length">
-      <img *ngFor="let img of review.images.slice(0,4)" [ngSrc]="img" class="rounded" width="70" height="50" style="object-fit: cover;margin-left: 20px" alt="image" />
+      <img *ngFor="let img of review.images.slice(0,4)" [src]="img" class="rounded" width="70" height="50" style="object-fit: cover;margin-left: 20px" alt="image" />
       <div *ngIf="review.images.length > 4" class="d-flex align-items-center justify-content-center rounded bg-dark text-white" style="width: 70px; height: 50px;">
         +{{ review.images.length - 4 }}
       </div>

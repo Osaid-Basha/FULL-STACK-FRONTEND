@@ -1,3 +1,4 @@
+
 <div class="container" >
   <h2 class="fw-bold text-dark mb-4">
     <i class="bi bi-bell-fill text-primary me-2"></i>Notifications
@@ -5,6 +6,7 @@
 <div class="card">
   <div *ngFor="let n of notifications"
        class="card border-0 shadow-sm rounded-4 p-3 mb-3 d-flex flex-row justify-content-between align-items-start notification-card "
+
        [ngClass]="{ 'bg-light': n.type === 'info', 'bg-white': n.type !== 'info' }">
 
     <div class="d-flex">
@@ -20,13 +22,16 @@
       <button class="btn btn-sm btn-outline-primary" (click)="openModal(n)" title="Read">
         <i class="bi bi-check2-circle"></i> Read
       </button>
+
       <button class="btn btn-sm btn-outline-danger" title="Delete" (click)="removeReview(n)">
+
         <i class="bi bi-x-lg"></i> Delete
       </button>
     </div>
   </div>
 
   <!-- Elegant Modal -->
+
   <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 rounded-4 shadow" [ngClass]="'border-start border-5 border-' + selectedNotification?.type">
@@ -52,8 +57,8 @@
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Mark as Read</button>
         </div>
+
       </div>
     </div>
   </div>
-</div>
 </div>

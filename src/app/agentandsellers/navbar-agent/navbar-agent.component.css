@@ -11,6 +11,10 @@
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
+.drop{
+  width: 300px;
+  margin-top: 1.5rem!important;
+}
 .main-navbar {
   position: sticky;
   top: 0;
