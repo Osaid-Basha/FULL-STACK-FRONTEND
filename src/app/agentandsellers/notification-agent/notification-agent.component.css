@@ -1,0 +1,11 @@
+.notification-card {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .notification-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
