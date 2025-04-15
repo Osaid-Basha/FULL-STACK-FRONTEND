@@ -206,7 +206,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         NotificationBuyerComponent,
           MaseegeBuyerComponent,
           NotificationAdminComponent,
-          NotificationAgentComponent
 
 
 
@@ -247,8 +246,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     BrowserModule,
     MatCheckboxModule,
     MatCheckboxModule,
+    MatCheckboxModule,
     ManageReviewsComponent,
-
+    NotificationAgentComponent
 
 
 
