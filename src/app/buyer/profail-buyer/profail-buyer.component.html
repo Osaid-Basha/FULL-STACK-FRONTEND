@@ -1,52 +1,111 @@
-<div class="container py-5">
-<div class="card shadow-lg border-0 rounded-4 p-4 px-md-5">
-  <div class="text-center mb-4">
-    <div class="position-relative d-inline-block">
-      <img src="assets/371225.jpg" class="rounded-circle border border-3 border-primary" width="100" height="100" alt="Profile Picture">
+
+<div class="container py-5 animation-n shadow-lg p-3 mb-5 bg-white rounded" >
+  <!-- Start Breadcrumbs -->
+  <div class="row gy-2 gx-4 gx-md-5">
+    <h4 class="col-auto fs-18 fw-semibold mb-0 page-title text-capitalize">Admin Profile</h4>
+    <div class="border-start col-auto">
+      <ol class="align-items-center breadcrumb fw-medium mb-0">
+        <li class="breadcrumb-item d-flex align-items-center">
+          <a href="../../../../index.html" class="text-decoration-none">
+            <i class="fa-solid fa-house-chimney-crack fs-18"></i>
+          </a>
+        </li>
+        <li class="breadcrumb-item d-flex align-items-center active" aria-current="page">
+          Admin Profile
+        </li>
+      </ol>
     </div>
-    <h5 class="fw-bold mt-3 mb-1">Osaid Basha</h5>
-    <p class="text-muted mb-1">Full-Stack Developer</p>
-    <small class="text-primary">This is your profile overview</small>
   </div>
+  <!-- End Breadcrumbs -->
+  <div class="row gy-4">
+    <!-- Left Column: Contact Information and Social Media -->
+    <div class="col-12 col-md-8">
+      <div class="card p-4">
+        <h4>Contact Information</h4>
+        <form>
+          <!-- First Name and Last Name -->
+          <div class="row gy-3 mb-3">
+            <div class="col">
+              <label for="firstName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> First Name</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="firstName" value="Ahmed" readonly>
+            </div>
+            <div class="col">
+              <label for="lastName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> Last Name</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="lastName" value="Omar" readonly>
+            </div>
+          </div>
 
-  <div class="row g-4">
-    <!-- First Name -->
-    <div class="col-md-6">
-      <label class="form-label fw-semibold">First Name</label>
-      <p class="form-control-plaintext ps-2">Mohammad</p>
+          <!-- Email and Phone -->
+          <div class="row gy-3 mb-3">
+            <div class="col">
+              <label for="email" class="form-label"><i class="bi bi-envelope fw-bold"></i> Email</label>
+              <input type="email" class="form-control bg-secondary-subtle fw-bold bi bi-envelope" id="email"  value="omerahmad@gmail.com" readonly>
+            </div>
+            <div class="col">
+              <label for="phone" class="form-label"><i class="bi bi-telephone-inbound fw-bold"></i> Phone</label>
+              <input type="tel" class="form-control bg-secondary-subtle fw-bold"  id="phone" value="0592256699" readonly>
+            </div>
+          </div>
+
+          <!-- Location and Position -->
+          <div class="row gy-3 mb-3">
+            <div class="col">
+              <label for="location" class="form-label"><i class="bi bi-geo-alt fw-bold "></i> Location</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="location" value="🇵🇸 Nablus, Palestine" readonly>
+            </div>
+            <div class="col">
+              <label for="position" class="form-label"><i class="bi bi-person-vcard fw-bold"></i> Current Position</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="position" value="Full-Stack Developer" readonly>
+            </div>
+          </div>
+
+          <!-- Social Media Section -->
+          <h4>Social Media</h4>
+          <div class="row gy-3 mb-3">
+            <div class="col">
+              <label for="facebookUrl" class="form-label">Facebook Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="facebookUrl" value="https://www.facebook.com/ahmad_omar" readonly>
+            </div>
+            <div class="col">
+              <label for="twitterUrl" class="form-label">X - Twitter Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="twitterUrl" value="https://twitter.com/ahmad" readonly>
+            </div>
+          </div>
+          <div class="row gy-3 mb-3">
+            <div class="col">
+              <label for="linkedinUrl" class="form-label">LinkedIn Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="linkedinUrl" value="https://www.linkedin.com/in/ahmad.omar/" readonly>
+            </div>
+            <div class="col">
+              <label for="instagramUrl" class="form-label">Instagram Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="instagramUrl" value="https://www.instagram.com/ahmadOmar" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <!-- Last Name -->
-    <div class="col-md-6">
-      <label class="form-label fw-semibold">Last Name</label>
-      <p class="form-control-plaintext ps-2">Nabulsi</p>
-    </div>
+    <!-- Right Column: Profile Photo -->
+    <div class="col-12 col-md-4">
+      <div class="card p-4">
+        <div class="photo_animation" [@fadeIn]>
+          <img src="assets/371225.jpg" alt="Profile Image" class="profile-image img-fluid mb-3 rounded" >
+        </div>
+        <div class="d-flex justify-content-between mt-3 ">
+          <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;">
+            <i class="bi bi-image"></i> Change
+          </button>
+          <button type="button" class="btn btn-outline-danger mb-2 " style="width: 45%;">
+            <i class="bi bi-trash3"></i> Remove
+          </button>
+        </div>
+        <div class="text-center ">
+          <h5 class="fw-bold mt-3 mb-1">Ahmad Omar</h5>
+          <p class="text-muted mb-1">Full-Stack Developer</p>
+          <small class="text-primary">This is your profile overview</small>
 
-    <!-- Email -->
-    <div class="col-md-6">
-      <label class="form-label fw-semibold">Email Address</label>
-      <p class="form-control-plaintext ps-2">exampleemail.com</p>
-    </div>
-
-    <!-- Location -->
-    <div class="col-md-6">
-      <label class="form-label fw-semibold">Location</label>
-      <p class="form-control-plaintext ps-2">🇵🇸 Nablus, Palestine</p>
-    </div>
-
-    <!-- Position -->
-    <div class="col-md-12">
-      <label class="form-label fw-semibold">Current Position</label>
-      <p class="form-control-plaintext ps-2">Full-Stack Developer</p>
-    </div>
-
-    <!-- Bio -->
-    <div class="col-md-12">
-      <label class="form-label fw-semibold">About Me</label>
-      <div class="border rounded-3 p-3 bg-light">
-        I am a passionate developer who loves building full-stack applications and learning new technologies.
+        </div>
       </div>
     </div>
   </div>
 </div>
-

@@ -1,136 +1,136 @@
-<div class="container-fluid ">
-  <h2 class="fw-bold text-dark mb-4">Admin Dashboard</h2>
+<div class="container-fluid py-4 animate-in">
+  <!-- Page Header -->
+  <h2 class="fw-bold text-dark mb-5">📊 Admin Dashboard</h2>
 
-  <!-- Stats Section -->
-  <div class="row g-4 mb-4">
-    <div class="col-md-3" *ngFor="let stat of stats">
-      <div class="card border-0 shadow-sm text-center p-3 rounded-4 bg-light">
-        <i class="bi bi-bar-chart-fill display-6 text-primary mb-2"></i>
+  <!-- Stats Cards -->
+  <div class="row row-cols-2 row-cols-md-4 g-4 mb-5">
+    <div class="col" *ngFor="let stat of stats">
+      <div class="card border-0 shadow-sm text-center p-4 rounded-4 bg-light h-100">
+        <i class="bi bi-bar-chart-fill display-5 text-primary mb-3"></i>
         <h6 class="text-muted mb-1">{{ stat.label }}</h6>
         <h4 class="fw-bold text-dark">{{ stat.value }}</h4>
       </div>
     </div>
   </div>
+  <div class="card text-white border-0 p-4 mb-4" style="background-color: #fd5f00;">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h4 class="fw-bold">Total Properties</h4>
+        <p>431 more to break last month record</p>
+      </div>
+      <h1 class="fw-bold">4,562</h1>
+    </div>
+    <div class="progress mt-2" style="height: 6px;">
+      <div class="progress-bar bg-light" style="width: 85%"></div>
+    </div>
+  </div>
 
-  <!-- Charts and Requests Side-by-Side -->
-  <div class="row g-4 mb-4">
-    <!-- Left: Charts -->
-    <div class="col-lg-8">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-header fw-bold bg-white border-0">📈 Listings Over Time</div>
-            <div class="card-body">
-              <canvas id="lineChart"></canvas>
+
+  <!-- Charts Section -->
+  <div class="row g-4 mb-5">
+    <!-- Chart: Listings Over Time -->
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+        <div class="p-4 bg-light d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <div class="bg-primary text-white rounded-circle p-2">
+              <i class="bi bi-graph-up-arrow fs-5"></i>
             </div>
+            <h6 class="mb-0 fw-bold text-dark">Listings Over Time</h6>
           </div>
+          <span class="badge bg-primary-subtle text-primary">Live</span>
         </div>
-        <div class="col-md-6">
-          <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-header fw-bold bg-white border-0">🏆 Top Rated Agents</div>
-            <div class="card-body">
-              <canvas id="barChart"></canvas>
-            </div>
-          </div>
+        <div class="card-body pt-3">
+          <canvas id="lineChart" height="200"></canvas>
         </div>
       </div>
     </div>
 
+    <!-- Chart: Top Rated Agents -->
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+        <div class="p-4 bg-light d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <div class="bg-warning text-white rounded-circle p-2">
+              <i class="bi bi-star-fill fs-5"></i>
+            </div>
+            <h6 class="mb-0 fw-bold text-dark">Top Rated Agents</h6>
+          </div>
+          <span class="badge bg-warning-subtle text-warning">Updated</span>
+        </div>
+        <div class="card-body pt-3">
+          <canvas id="barChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Right: Requests -->
-    <div class="col-lg-4">
-      <div class="card shadow-sm border-0 rounded-4 p-3 bg-white h-100">
-        <h5 class="fw-bold text-dark mb-3">
-          <i class="bi bi-envelope-paper-fill text-primary me-2"></i>Latest Requests
+
+  <div class="row mb-5">
+    <!-- Listings Overview Table -->
+    <div class="col-lg-7">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h5 class="fw-bold text-dark mb-0">
+            <i class="bi bi-house-door-fill text-success me-2"></i> Listings Overview
+          </h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center mb-0">
+            <thead class="table-light">
+              <tr>
+                <th><i class="bi bi-house-door-fill me-1"></i> Title</th>
+                <th><i class="bi bi-person-fill me-1"></i> Agent</th>
+                <th><i class="bi bi-pin-angle-fill me-1"></i> Status</th>
+                <th><i class="bi bi-gear-fill me-1"></i> Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let listing of listings">
+                <td>{{ listing.title }}</td>
+                <td>{{ listing.agent }}</td>
+                <td>
+                  <span class="badge bg-success-subtle text-success fw-semibold rounded-pill px-3">
+                    {{ listing.status }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-danger" title="Delete" (click)="deleteListing(listing)">
+                    <i class="bi bi-trash3-fill"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Users Approval -->
+    <div class="col-lg-5">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white h-100">
+        <h5 class="fw-bold text-dark mb-4">
+          <i class="bi bi-person-check-fill text-primary me-2"></i> Pending User Approvals
         </h5>
-        <div *ngFor="let req of requests" class="border-bottom pb-3 mb-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <strong>{{ req.email }}</strong>
-            <span class="badge bg-info">New</span>
+        <div *ngFor="let user of pendingUsers; let last = last"
+             class="d-flex justify-content-between align-items-start flex-wrap pb-3 mb-3"
+             [ngClass]="{ 'border-bottom': !last }">
+          <div>
+            <h6 class="fw-bold mb-1">{{ user.name }}</h6>
+            <p class="mb-1 small text-muted">{{ user.email }}</p>
+            <span class="badge bg-info-subtle text-dark">{{ user.type }}</span>
           </div>
-          <p class="mb-2 small">{{ req.message }}</p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-reply"></i> Reply</button>
-            <button class="btn btn-sm btn-outline-dark"><i class="bi bi-person-plus-fill"></i> Assign</button>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-sm btn-outline-success" (click)="approveUser(user)">
+              <i class="bi bi-check-circle-fill"></i> Approve
+            </button>
+
+            <button class="btn btn-sm btn-outline-danger" (click)="rejectUser(user)">
+              <i class="bi bi-x-circle-fill"></i> Reject
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Listings Table -->
-  <div class="mb-4">
-    <div class="card shadow-sm border-0 rounded-4 p-3">
-      <h5 class="fw-bold text-dark mb-3">
-        <i class="bi bi-house-door-fill text-success me-2"></i>Listings Overview
-      </h5>
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Title</th>
-              <th>Agent</th>
-              <th>Status</th>
-              <th class="text-end">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let listing of listings">
-              <td>{{ listing.title }}</td>
-              <td>{{ listing.agent }}</td>
-              <td><span class="badge bg-success rounded-pill px-3">{{ listing.status }}</span></td>
-              <td class="text-end">
-                <button class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-<!-- Row: Flagged Users + Pending Approvals -->
-<div class="row g-4 mb-4">
-  <!-- Flagged Users -->
-  <div class="col-lg-4">
-    <div class="alert alert-danger d-flex flex-column justify-content-between rounded-4 p-4 shadow-sm h-100">
-      <div class="d-flex align-items-start">
-        <i class="bi bi-shield-exclamation me-3 fs-4 text-danger"></i>
-        <div>
-          <h6 class="mb-1 fw-bold">Flagged User</h6>
-          <p class="mb-1 small"><strong>User:</strong> fake_usergmail.com</p>
-          <p class="mb-0 small text-muted">Suspicious activity detected</p>
-        </div>
-      </div>
-      <div class="text-end mt-3">
-        <button class="btn btn-danger btn-sm">
-          <i class="bi bi-trash"></i> Remove Account
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pending Approvals -->
-  <div class="col-lg-8">
-    <div class="card shadow-sm border-0 rounded-4 p-4 h-100 bg-white">
-      <h5 class="fw-bold text-dark mb-4">
-        <i class="bi bi-person-check-fill text-primary me-2"></i>Pending User Approvals
-      </h5>
-      <div *ngFor="let user of pendingUsers; let last = last" [ngClass]="{ 'border-bottom pb-3 mb-3': !last }" class="d-flex justify-content-between align-items-center">
-        <div>
-          <strong>{{ user.name }}</strong><br>
-          <small class="text-muted">{{ user.email }}</small><br>
-          <span class="badge bg-info text-dark">{{ user.type }}</span>
-        </div>
-        <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-success" title="Approve"><i class="bi bi-check-circle-fill"></i></button>
-          <button class="btn btn-sm btn-outline-danger" title="Reject"><i class="bi bi-x-circle-fill"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 </div>

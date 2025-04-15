@@ -1,20 +1,41 @@
 <div class="container-fluid chat-container">
   <div class="row h-100">
 
-    <!-- Sidebar -->
-    <div class="col-md-4 bg-white border-end p-3 d-flex flex-column">
-      <h5 class="fw-bold mb-3">Chats</h5>
-      <input class="form-control mb-3" type="text" placeholder="Search contacts or messages" />
+    <!-- Sidebar for md+ screens -->
+    <div class="col-md-4 bg-white border-end p-3 d-none d-md-flex flex-column sidebar">
+      <!-- Header Icons -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">Chats</h5>
+        <div class="d-flex gap-2">
+          <i class="bi bi-pencil-square fs-5 text-secondary"></i>
+          <i class="bi bi-three-dots-vertical fs-5 text-secondary"></i>
+        </div>
+      </div>
 
-     
+      <!-- Search Input -->
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control border-start-0 chat-search"
+            placeholder="Search"
+            [(ngModel)]="searchTerm"
+          />
+        </div>
+      </div>
+
+      <!-- Chat List -->
       <div class="flex-grow-1 overflow-auto">
         <div
-          *ngFor="let chat of chatList"
-          class="d-flex align-items-center gap-2 p-2 rounded chat-item mb-2"
+          *ngFor="let chat of filteredChatList"
+          class="d-flex align-items-center gap-2 chat-item mb-2"
           [class.active]="chat === selectedChat"
           (click)="selectChat(chat)"
         >
-          <img [src]="chat.avatar" class="rounded-circle" width="45" height="45" alt="">
+          <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
           <div class="flex-grow-1">
             <div class="fw-bold">{{ chat.name }}</div>
             <small class="text-muted">{{ chat.lastMessage | slice:0:25 }}...</small>
@@ -24,28 +45,109 @@
       </div>
     </div>
 
+    <!-- Offcanvas Sidebar for small screens -->
+    <div
+      class="offcanvas offcanvas-start d-md-none"
+      tabindex="-1"
+      id="chatSidebar"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold">Chats</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+
+      <div class="offcanvas-body d-flex flex-column p-3">
+        <!-- Search Input -->
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control border-start-0 chat-search"
+              placeholder="Search"
+              [(ngModel)]="searchTerm"
+            />
+          </div>
+        </div>
+
+        <!-- Chat List -->
+        <div class="flex-grow-1 overflow-auto">
+          <div
+            *ngFor="let chat of filteredChatList"
+            class="d-flex align-items-center gap-2 chat-item mb-2"
+            [class.active]="chat === selectedChat"
+            (click)="selectChat(chat)"
+            data-bs-dismiss="offcanvas"
+          >
+            <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+            <div class="flex-grow-1">
+              <div class="fw-bold">{{ chat.name }}</div>
+              <small class="text-muted">{{ chat.lastMessage | slice:0:25 }}...</small>
+            </div>
+            <div class="text-end small text-muted">{{ chat.time }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Chat Window -->
-    <div class="col-md-8 d-flex flex-column bg-light p-4">
+    <div class="col-md-8 col-12 d-flex flex-column bg-light p-4 message-place" >
+      <!-- Header with toggle button for mobile -->
       <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3">
-        <img [src]="selectedChat.avatar" class="rounded-circle" width="50" height="50" alt="">
-        <div>
+        <!-- Toggle Sidebar Button (only on small screens) -->
+        <button
+          class="btn d-md-none"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#chatSidebar"
+        >
+          <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <img [src]="selectedChat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+        <div class="flex-grow-1">
           <h6 class="mb-0 fw-bold">{{ selectedChat.name }}</h6>
-          <small class="text-success">Online</small>
+          <small class="text-muted">Last seen 2 hours ago</small>
+        </div>
+        <div class="d-flex gap-2">
+          <i class="bi bi-search text-muted fs-5"></i>
+          <i class="bi bi-three-dots-vertical text-muted fs-5"></i>
         </div>
       </div>
 
-      <div class="flex-grow-1 overflow-auto mb-3" style="max-height: 60vh;">
+      <!-- Chat Messages -->
+      <div #chatWindow class="chat-window flex-grow-1 overflow-auto mb-3" style="max-height: 60vh;">
         <div *ngFor="let msg of selectedChat.messages" class="mb-3 d-flex" [class.justify-content-end]="msg.me">
-          <div class="msg-bubble p-2 rounded px-3" [class.bg-primary]="msg.me" [class.bg-white]="!msg.me" [class.text-white]="msg.me">
+          <div
+            class="msg-bubble"
+            [class.bg-primary]="msg.me"
+            [class.text-white]="msg.me"
+            [class.bg-white]="!msg.me"
+          >
             <div>{{ msg.text }}</div>
             <small class="d-block mt-1 text-end opacity-75" [class.text-white]="msg.me">{{ msg.time }}</small>
           </div>
         </div>
       </div>
 
+      <!-- Message Input -->
       <div class="d-flex align-items-center border-top pt-3">
-        <input class="form-control me-2" type="text" placeholder="Type a message..." [(ngModel)]="newMessage">
-        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+        <input
+          class="form-control me-2"
+          type="text"
+          placeholder="Type a message here..."
+          [(ngModel)]="newMessage"
+          (keydown.enter)="sendMessage()"
+        />
+        <button
+          class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center"
+          style="width: 45px; height: 45px;"
+          (click)="sendMessage()"
+        >
+          <i class="bi bi-send-fill text-white"></i>
+        </button>
       </div>
     </div>
 

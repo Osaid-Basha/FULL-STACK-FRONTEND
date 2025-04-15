@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-remove-admin',
   standalone: false,
@@ -7,45 +7,68 @@ import { Component } from '@angular/core';
   styleUrl: './remove-admin.component.css'
 })
 export class RemoveAdminComponent {
-  searchTerm: string = '';
 
-  items = [
-    {
-      name: 'Ali Mahmoud',
-      email: 'ali@gmail.com',
-      location: 'Ramallah, Palestine',
-      reason: 'Fake listing with no real contact info.',
-      type: 'Listing'
-    },
-    {
-      name: 'Fatima Zaid',
-      email: 'fatima@hotmail.com',
-      location: 'Nablus, Palestine',
-      reason: 'Reported spam activity and misleading title.',
-      type: 'User'
-    },
-    {
-      name: 'Kareem Saleh',
-      email: 'kareem@outlook.com',
-      location: 'Hebron, Palestine',
-      reason: 'Duplicate property added multiple times.',
-      type: 'Listing'
+
+
+    searchTerm: string = '';
+    activeFilter: string = 'All';
+
+    allItems = [
+      { name: 'Mohammad', email: 'm@example.com', location: 'Nablus', type: 'Spam', reason: 'Repeated content' },
+      { name: 'Sara', email: 'sara@example.com', location: 'Hebron', type: 'Abuse', reason: 'Inappropriate language' },
+      { name: 'Ali', email: 'ali@example.com', location: 'Tulkarm', type: 'Other', reason: 'Misleading info' }
+    ];
+
+    items = [...this.allItems];
+
+    filterByType(type: string) {
+      this.activeFilter = type;
     }
-  ];
 
-  removeItem(itemToRemove: any) {
-    this.items = this.items.filter(item => item !== itemToRemove);
+    filteredItems() {
+      return this.items
+        .filter(item => this.activeFilter === 'All' || item.type === this.activeFilter)
+        .filter(item =>
+          !this.searchTerm ||
+          item.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          item.reason.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+    }
+
+    removeItem(item: any) {
+      Swal.fire({
+        title: 'Remove this item?',
+        html: `<strong>${item.name}</strong> will be permanently removed.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        background: '#f9fafb',
+        customClass: {
+          popup: 'rounded-4 shadow border',
+          title: 'fw-bold text-dark',
+          htmlContainer: 'text-muted'
+        }
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.items = this.items.filter(i => i !== item);
+          Swal.fire({
+            toast: true,
+            position: 'bottom',
+            icon: 'success',
+            title: 'Item removed',
+            showConfirmButton: false,
+            timer: 2000,
+            background: '#e0f7ec',
+            customClass: {
+              popup: 'rounded-3 shadow text-dark px-4 py-3 fw-bold fs-6'
+            }
+          });
+        }
+      });
+    }
   }
 
-  filteredItems() {
-    if (!this.searchTerm) return this.items;
-
-    const term = this.searchTerm.toLowerCase();
-    return this.items.filter(item =>
-      item.name.toLowerCase().includes(term) ||
-      item.email.toLowerCase().includes(term) ||
-      item.reason.toLowerCase().includes(term)
-    );
-  }
-
-}

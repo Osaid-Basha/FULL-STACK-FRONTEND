@@ -10,5 +10,11 @@ standalone: false,
 
 })
 export class SidbarNavbarComponent {
+  sidebarVisibleOnMobile: boolean = false;
+
+  toggleSidebar() {
+    this.sidebarVisibleOnMobile = !this.sidebarVisibleOnMobile;
+  }
+
 
 }

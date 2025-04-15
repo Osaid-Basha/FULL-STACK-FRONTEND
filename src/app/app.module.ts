@@ -61,7 +61,7 @@ import { Erorr505Component } from './erorr/erorr-505/erorr-505.component';
 import { AgentandsellersComponent } from './agentandsellers/agentandsellers.component';
 import { SidbarNavbarComponent } from './agentandsellers/sidbar-navbar/sidbar-navbar.component';
 import { NavbarAgentComponent } from './agentandsellers/navbar-agent/navbar-agent.component';
-import { DashboardComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
+import { DashboardAgentComponent } from './agentandsellers/dashboard-agent/dashboard-agent.component';
 import { MessageComponent } from './agentandsellers/message/message.component';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -73,6 +73,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
 import { AccountSettingsComponent } from './agentandsellers/account-settings/account-settings.component';
@@ -85,7 +86,7 @@ import { SidbarAdminComponent } from './admin/sidbar-admin/sidbar-admin.componen
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UserRequestsAdminComponent } from './admin/user-requests-admin/user-requests-admin.component';
 import { RemoveAdminComponent } from './admin/remove-admin/remove-admin.component';
-import { ReportsAnalyticsAdminComponent } from './admin/reports-analytics-admin/reports-analytics-admin.component';
+
 import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.component';
 import { FooterBuyerComponent } from './buyer/footer-buyer/footer-buyer.component';
 import { NavbarBuyerComponent } from './buyer/navbar-buyer/navbar-buyer.component';
@@ -105,12 +106,16 @@ import { NotificationAdminComponent } from './admin/notification-admin/notificat
 
 import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
 import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
 
 
 
+// Ensure the file exists at the correct path or update the path accordingly
+import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -168,11 +173,11 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
       AgentandsellersComponent,
 
       NavbarAgentComponent,
-      DashboardComponent,
+      DashboardAgentComponent,
       MessageComponent,
       ProfailAgentComponent,
       AccountSettingsComponent,
-      MypropertiesAgentComponent,
+
       ReviewsAgentComponent,
       ChangepasswordAgentComponent,
       AdminComponent,
@@ -181,8 +186,7 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
       DashboardAdminComponent,
       UserRequestsAdminComponent,
       RemoveAdminComponent,
-      ReportsAnalyticsAdminComponent,
-      ManageReviewsComponent,
+
       FooterBuyerComponent,
       NavbarBuyerComponent,
       PropartiesInfoComponent,
@@ -201,6 +205,8 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
 
         NotificationBuyerComponent,
           MaseegeBuyerComponent,
+          NotificationAdminComponent,
+          NotificationAgentComponent
 
 
 
@@ -236,7 +242,12 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
     MatIconModule,
     MatChipsModule,
 
+    BrowserAnimationsModule,
 
+    BrowserModule,
+    MatCheckboxModule,
+    MatCheckboxModule,
+    ManageReviewsComponent,
 
 
 

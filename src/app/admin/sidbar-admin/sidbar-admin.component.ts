@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './sidbar-admin.component.css'
 })
 export class SidbarAdminComponent {
+  isListingOpen = false;
 
 }

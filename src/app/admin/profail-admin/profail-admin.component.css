@@ -1,0 +1,85 @@
+input:focus[readonly] {
+  box-shadow: none !important;
+  outline: none !important;
+}
+input[readonly] {
+  background-color: #f8f9fa !important;
+  cursor: not-allowed !important;
+}
+.card{
+  border: none;
+}
+/* Font size ------------------ */
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-17 {
+  font-size: 17px !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+/* Breadcrumb ----- */
+
+.breadcrumb {
+  --bs-breadcrumb-divider-color: #0a73c0;
+  --bs-breadcrumb-item-active-color: #0a73c0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Font Awesome 6 Free", serif;
+}
+
+.breadcrumb li a,
+.breadcrumb li a:hover {
+  color: #0a73c0;
+}
+
+.breadcrumb li.active {
+  font-weight: 600;
+}
+/* Image responsiveness */
+.profile-image {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+/* Button spacing and stacking for small screens */
+@media (max-width: 576px) {
+  .btn {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-label i {
+    margin-right: 5px;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Adjust spacing on tablets */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.9rem;
+  }
+}
+
