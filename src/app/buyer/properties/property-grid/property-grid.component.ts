@@ -20,7 +20,9 @@ export class PropertyGridComponent {
       address: '37 Ambleside Gardens, Ilford, IG4',
       beds: 3,
       baths: 3,
-      size: '5x7 m²'
+      size: '5x7 m²',
+      isFavorited: false,
+      animateHeart: false
     },
     {
       id: 2,
@@ -34,7 +36,9 @@ export class PropertyGridComponent {
       address: '37 Ambleside Gardens, Ilford, IG4',
       beds: 3,
       baths: 3,
-      size: '5x7 m²'
+      size: '5x7 m²',
+      isFavorited: false,
+      animateHeart: false
     },
     {
       id: 3,
@@ -48,10 +52,12 @@ export class PropertyGridComponent {
       address: '37 Ambleside Gardens, Ilford, IG4',
       beds: 3,
       baths: 3,
-      size: '5x7 m²'
+      size: '5x7 m²',
+      isFavorited: false,
+      animateHeart: false
     },
     {
-      id: 3,
+      id: 4,
       image: 'assets/img/properties/03.jpg',
       tag: 'For Sale',
       tagColor: 'primary',
@@ -62,10 +68,12 @@ export class PropertyGridComponent {
       address: '37 Ambleside Gardens, Ilford, IG4',
       beds: 3,
       baths: 3,
-      size: '5x7 m²'
+      size: '5x7 m²',
+      isFavorited: false,
+      animateHeart: false
     },
     {
-      id: 3,
+      id: 5,
       image: 'assets/img/properties/03.jpg',
       tag: 'For Sale',
       tagColor: 'primary',
@@ -76,8 +84,15 @@ export class PropertyGridComponent {
       address: '37 Ambleside Gardens, Ilford, IG4',
       beds: 3,
       baths: 3,
-      size: '5x7 m²'
-    },
-    // ... كمّل باقي العناصر بنفس الشكل
+      size: '5x7 m²',
+      isFavorited: false,
+      animateHeart: false
+    }
   ];
+
+  toggleFavorite(property: any): void {
+    property.isFavorited = !property.isFavorited;
+    property.animateHeart = true;
+    setTimeout(() => property.animateHeart = false, 400);
+  }
 }

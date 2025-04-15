@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component , AfterViewInit } from '@angular/core';
+import * as AOS  from 'aos';
 
 @Component({
   selector: 'app-agent-list',
   standalone: false,
   templateUrl: './agent-list.component.html',
-  styleUrl: './agent-list.component.css'
+  styleUrls:[ './agent-list.component.css']
 })
-export class AgentListComponent {
-
+export class AgentListComponent implements AfterViewInit {
+ngAfterViewInit() {
+  AOS.init({
+    duration:800,
+    once:false
+  })
+}
 }

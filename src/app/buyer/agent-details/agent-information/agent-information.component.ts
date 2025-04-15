@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-agent-information',
   standalone: false,
   templateUrl: './agent-information.component.html',
-  styleUrl: './agent-information.component.css'
+  styleUrls: ['./agent-information.component.css']
 })
-export class AgentInformationComponent {
+export class AgentInformationComponent implements AfterViewInit {
   agent = {
     name: 'Alexander Kaminski',
     designation: 'Property Consultant',
@@ -19,6 +20,18 @@ export class AgentInformationComponent {
     forSell: 633,
     commercial: 10,
     image: 'assets/img/avatar/01.jpg',
+  };
+
+  showFeedbackForm = false;
+  hoverRating = 0;
+
+  feedback = {
+    rating: 4.8,
+    title: '',
+    comment: '',
+    name: '',
+    username: '',
+    image: 'assets/img/avatar/01.jpg'
   };
 
   testimonials = [
@@ -71,6 +84,35 @@ export class AgentInformationComponent {
       rating: 4.8
     }
   ];
+
+  addFeedback() {
+    const newFeedback = {
+      name: this.feedback.name,
+      username: this.feedback.username,
+      image: this.feedback.image,
+      title: this.feedback.title,
+      content: this.feedback.comment,
+      rating: this.feedback.rating
+    };
+
+    this.testimonials.push(newFeedback);
+    this.showFeedbackForm = false;
+
+    // Reset النموذج
+    this.feedback = {
+      rating: 0,
+      title: '',
+      comment: '',
+      name: '',
+      username: '',
+      image: 'assets/img/avatar/01.jpg'
+    };
+  }
+
+  ngAfterViewInit(): void {
+    AOS.init({
+      duration: 800,
+      once: false
+    });
+  }
 }
-
-
