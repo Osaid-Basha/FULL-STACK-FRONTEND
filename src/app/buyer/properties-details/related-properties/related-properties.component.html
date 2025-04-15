@@ -2,7 +2,7 @@
   <div class="container py-4">
     <div class="row">
       <div class="col-md-10 offset-md-1">
-        <div class="section-header text-center mb-5">
+        <div class="section-header text-center mb-5" data-aos="fade-down">
           <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
             More <span class="underline position-relative text-primary">available </span> in the same area
           </h2>
@@ -15,7 +15,9 @@
     </div>
 
     <div class="row g-4">
-      <div class="col-sm-6 col-md-6 col-xl-3 d-flex" *ngFor="let item of moreProperties">
+      <div class="col-sm-6 col-md-6 col-xl-3 d-flex" *ngFor="let item of moreProperties; let i = index"
+      data-aos="zoom-in" [attr.data-aos-delay] = "i*100" data-aos-duration="800"
+      >
         <div class="card border-0 shadow card-property rounded-3 w-100 flex-fill overflow-hidden">
           <a [href]="item.link" class="card-link"></a>
           <div class="property-img card-image-hover overflow-hidden position-relative">

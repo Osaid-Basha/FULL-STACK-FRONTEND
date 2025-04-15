@@ -19,7 +19,8 @@ export class PropertyListComponent {
       description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.',
       bedrooms: 3,
       bathrooms: 3,
-      size: '620 sqft'
+      size: '620 sqft',
+      isFavorited: false
     },
     {
       id: 2,
@@ -32,7 +33,8 @@ export class PropertyListComponent {
       description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.',
       bedrooms: 3,
       bathrooms: 3,
-      size: '620 sqft'
+      size: '620 sqft',
+      isFavorited: false
     },
     {
       id: 3,
@@ -45,7 +47,8 @@ export class PropertyListComponent {
       description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.',
       bedrooms: 3,
       bathrooms: 3,
-      size: '620 sqft'
+      size: '620 sqft',
+      isFavorited: false
     },
     {
       id: 4,
@@ -58,7 +61,13 @@ export class PropertyListComponent {
       description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.',
       bedrooms: 3,
       bathrooms: 3,
-      size: '620 sqft'
+      size: '620 sqft',
+      isFavorited: false
     }
   ];
+
+  toggleFavorite(event: MouseEvent, property: any): void {
+    event.stopPropagation(); // حتى ما يفتح رابط البطاقة
+    property.isFavorited = !property.isFavorited;
+  }
 }
