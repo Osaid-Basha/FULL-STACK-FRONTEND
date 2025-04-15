@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-location',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './location.component.css'
 })
 export class LocationComponent {
-
+  ngOnInit() {
+    AOS.init({
+      duration: 1000,
+      once: false
+    });
+  }
 }

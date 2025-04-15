@@ -96,7 +96,7 @@ const routes: Routes = [
 
       { path: 'manage-reviews', component: ManageReviewsComponent },
       { path: 'user-requests-admin', component: UserRequestsAdminComponent },
-    
+
       { path: 'remove-admin', component: RemoveAdminComponent },
       { path: 'account-admin', component: AccountAdminComponent },
       { path: 'changepassword-admin', component: ChangepasswordAdminComponent },
@@ -150,7 +150,8 @@ const routes: Routes = [
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
       { path:'maseege-buyer', component: MaseegeBuyerComponent },
-
+        {path:'505', component: Erorr505Component},
+        {path:'404', component: Erorr404Component},
 
     ]
   },

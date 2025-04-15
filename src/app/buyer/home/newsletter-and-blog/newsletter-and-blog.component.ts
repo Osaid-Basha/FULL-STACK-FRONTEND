@@ -20,7 +20,7 @@ export class NewsletterAndBlogComponent {
       title: 'Eu Feugiat Pretium Nibh Ipsum Consequat Nisl Vel Pretium Lectus',
       category: 'Construction',
       date: 'Jun 23, 2023',
-      image: 'assets/01.jpg'
+      image: 'assets/img/blog/lg-01.jpg'
     },
     {
       title: 'Ullamcorper A Lacus Vestibulum Sed Arcu Non Odio Euismod Lacinia',
