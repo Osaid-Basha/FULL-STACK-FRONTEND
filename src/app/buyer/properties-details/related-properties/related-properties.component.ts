@@ -45,7 +45,7 @@ export class RelatedPropertiesComponent {
       link: 'property-details.html'
     },
     {
-      image: 'assets/img/properties/04.jpg',
+      image: 'assets/img/properties/02.jpg',
       type: 'For Rent',
       price: '$1,295,000',
       priceUnit: '/ year',

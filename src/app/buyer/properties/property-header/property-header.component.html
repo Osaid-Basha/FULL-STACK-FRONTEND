@@ -28,6 +28,7 @@
         <div class="col-md-10 offset-md-1">
           <!-- Start Section Header Title -->
           <div class="section-header text-center mb-5">
+            <div data-aos="zoom-in" data-aos-duration="800">
             <!-- Start Section Header title -->
             <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
               Find The Houses,
@@ -43,69 +44,98 @@
               <br class="d-none d-lg-block"> on Instagram for a chance to be featured!
             </div>
             <!-- /.End Section Header Sub Title -->
-          </div>
           <!--/. End Section Header -->
-        </div>
       </div>
-
-      <!-- Start Search Form -->
-      <div class="search-form__wrap z-1 position-relative mb-5 properties-search">
         <!-- Start Main Search Content -->
-        <form class="row g-4 main-search">
+        <form class="row g-2 main-search">
           <div class="col-md-7">
-            <div class="row g-4">
+            <div class="row g-2">
               <div class="col-md-4">
-                <!-- Start Search Select -->
-                <div class="search-select">
-                  <select class="select2 form-select" aria-label="Default select example">
-                    <option selected>Location</option>
-                    <option value="1">San Diego</option>
-                    <option value="2">Los Angeles</option>
-                    <option value="3">San Francisco</option>
-                  </select>
-                  <i class="fa-solid fa-location-crosshairs search-icon"></i>
+                <div class="search-select d-flex position-relative">
+                  <i class="fa-solid fa-location-crosshairs search-icon me-2"></i>
+                  <input type="text"
+                         class="form-control ps-5"
+                         placeholder="Enter Location"
+                         [(ngModel)]="location"
+                         name="location"
+                         (ngModelChange)="validateLocation()"
+                         [ngClass]="{'is-invalid': !isLocationValid && locationTouched}"
+                         (blur)="locationTouched = true">
                 </div>
-                <!-- /.End Search Select -->
+                <div *ngIf="!isLocationValid && locationTouched" class="invalid-feedback d-block">
+                  Please enter a valid location (letters or letters with numbers, no symbols).
+                </div>
               </div>
+
+              <!-- Property Type Dropdown -->
               <div class="col-md-4">
-                <!-- Start Search Select -->
-                <div class="search-select">
-                  <select class="select2 form-select" aria-label="Default select example">
-                    <option selected>Property type</option>
+                <div class="search-select d-flex align-items-center">
+                  <i class="fa-solid fa-house fs-17 search-icon me-2"></i>
+                  <select class="form-select">
+                    <option selected>Property</option>
                     <option value="1">Offices</option>
                     <option value="2">Apartments</option>
                     <option value="3">Houses</option>
+                    <option value="4">Villa</option>
+                    <option value="5">Studio</option>
+                    <option value="6">Duplex</option>
+                    <option value="7">Penthouse</option>
+                    <option value="8">Townhouse</option>
                   </select>
-                  <i class="fa-solid fa-house fs-17 search-icon"></i>
                 </div>
-                <!-- /.End Search Select -->
               </div>
+
+              <!-- Price Input & Type Dropdown -->
               <div class="col-md-4">
-                <!-- Start Search Select -->
-                <div class="search-select">
-                  <select class="select2 form-select" aria-label="Default select example">
-                    <option selected>Listing type</option>
-                    <option value="1">Rent</option>
-                    <option value="2">Sale</option>
+                <div class="position-relative">
+                  <input type="text"
+                         class="form-control pe-5 text-start"
+                         placeholder="Price $"
+                         [(ngModel)]="price"
+                         name="price"
+                         (input)="validatePrice()"
+                         [ngClass]="{ 'is-invalid': !isValidPrice }" />
+                  <i class="fa-solid fa-sack-dollar position-absolute top-50 end-0 translate-middle-y me-4 text-muted"></i>
+                  <select class="form-select position-absolute end-0 top-0 h-100 border-0 bg-transparent text-muted"
+                          style="width: 97px; appearance: none; padding-right: 35px; cursor: pointer;"
+                          [(ngModel)]="priceType"
+                          name="priceType">
+                    <option disabled selected hidden>Select</option>
+                    <option value="rent">Rent</option>
+                    <option value="sale">Sale</option>
                   </select>
-                  <i class="fa-solid fa-sack-dollar fs-18 search-icon"></i>
+                  <div *ngIf="!isValidPrice" class="text-danger mt-1 small">
+                    Price must contain numbers only.
+                  </div>
                 </div>
-                <!-- /.End Search Select -->
               </div>
-            </div>
-          </div>
+
+            </div> <!-- /end inner row -->
+          </div> <!-- /end col-md-7 -->
+
+          <!-- Search Button -->
+
+          <!-- Search Bar -->
           <div class="col-md-5">
-            <!-- Start Search Input -->
-            <div class="search-input">
+            <div class="search-input position-relative">
               <i class="fa-solid fa-magnifying-glass search-icon"></i>
-              <input type="text" class="form-control shadow" placeholder="Search For Properties .....">
-              <a href="properties-list.html" class="btn btn-primary search-btn position-absolute top-50">
+              <input type="text" class="form-control" placeholder="Search For Properties .....">
+
+              <!-- زر السهم المعدل للتنقل إلى صفحة العقارات -->
+              <button type="button"
+                      class="btn btn-primary search-btn position-absolute top-50"
+                      routerLink="/buyerHome/properties-grid">
                 <i class="fa-solid fa-angle-right"></i>
-              </a>
+              </button>
             </div>
-            <!-- /.End Search Input -->
           </div>
         </form>
+            <!-- /.End Search Input -->
+          </div>
+
         <!-- /.End Main Search Content -->
-      </div>
-      <!-- /.End Search Form -->
+    </div>
+  </div>
+    </div>
+  </div>
+</div>

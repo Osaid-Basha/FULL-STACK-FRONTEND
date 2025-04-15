@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
+import {NgClass, NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-notification-admin',
+
+  imports: [
+    NgClass,
+    NgForOf
+  ],
+
   standalone: false,
   templateUrl: './notification-agent.component.html',
+
   styleUrls: ['./notification-agent.component.css'] // تأكد من أنها بصيغة "styleUrls" وليس "styleUrl"
 })
 export class NotificationAgentComponent {
@@ -12,7 +20,9 @@ export class NotificationAgentComponent {
     {
       type: 'info',
       icon: 'bi-envelope-fill',
-      title: 'New Inquiry',
+
+      title: 'New advertisement',
+
       message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
       time: 'Just now'
     },
@@ -20,7 +30,9 @@ export class NotificationAgentComponent {
       type: 'warning',
       icon: 'bi-tag-fill',
       title: 'Price Drop',
-      message: '“Luxury Villa” price dropped by 10%.',
+
+      message: 'Wafa adham replay your massage.',
+
       time: '10 mins ago'
     },
     {
@@ -52,4 +64,8 @@ export class NotificationAgentComponent {
       modal.show();
     }
   }
+  removeReview(review: any) {
+    this.notifications = this.notifications.filter(r => r !== review);
+  }
+
 }

@@ -3,7 +3,7 @@
   <div class="container py-4 position-relative">
     <div class="row">
       <div class="col-md-10 offset-md-1 background-image" data-image-src="assets/img/world-map.png">
-        <div class="section-header text-center mb-5">
+        <div class="section-header text-center mb-5" data-aos="fade-down" data-aos-duration="1000">
           <div class="bg-soft-primary d-inline-block fw-medium mb-3 rounded-pill section-header__subtitle text-capitalize text-primary">Testimonial</div>
           <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
             See what our <span class="underline position-relative text-primary">clients</span> say about us
@@ -27,13 +27,16 @@
       </div>
     </div>
 
-    <!-- Start Testimonials -->
+    <!-- Testimonial Cards -->
     <div class="row">
-      <div class="col-sm-6 col-lg-4 mb-4" *ngFor="let t of testimonials">
+      <div class="col-sm-6 col-lg-4 mb-4"
+           *ngFor="let t of testimonials; let i = index"
+           data-aos="fade-up" [attr.data-aos-delay]="i * 100"
+           data-aos-duration="600">
         <div class="border-0 card rounded-4 shadow h-100">
-          <div class="card-body p-4 p-xxl-5 d-flex flex-column justify-content-between">
+          <div class="card-body p-4 d-flex flex-column justify-content-between">
             <div>
-              <div class="align-items-center d-flex flex-wrap fs-12 gap-1 text-warning mb-2">
+              <div class="d-flex flex-wrap fs-12 gap-1 text-warning mb-2">
                 <ng-container *ngFor="let star of [1,2,3,4,5]">
                   <i class="fa-solid fa-circle"></i>
                 </ng-container>
@@ -51,25 +54,89 @@
                 <h6 class="mb-1 fw-semibold">{{ t.name }}</h6>
                 <div class="fs-15 text-primary">{{ t.username }}</div>
               </div>
-              <i class="fa-brands fa-twitter fs-4 text-info"></i>
+              <i class="fa-brands fa-twitter fs-4 text-info ms-auto"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Feedback Button -->
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-primary btn-sm" (click)="showFeedbackForm = !showFeedbackForm">
+        Add Your Feedback
+      </button>
+    </div>
 
-    <!-- Button -->
-    <div class="mt-5 text-center position-relative z-1">
-      <a href="contact.html" class="btn btn-primary btn-lg d-inline-flex hstack gap-2">
+    <!-- Feedback Card -->
+    <div class="row mt-4" *ngIf="showFeedbackForm">
+      <div class="col-lg-6">
+        <div class="card border-0 rounded-4 shadow p-4">
+          <!-- Rating Circles -->
+          <div class="mb-3 d-flex align-items-center gap-1 fs-5 text-warning">
+            <ng-container *ngFor="let star of [1,2,3,4,5]">
+              <i class="fa-solid fa-circle"
+                 [ngClass]="feedback.rating >= star ? '' : 'text-muted'"
+                 (click)="feedback.rating = star"
+                 (mouseenter)="hoverRating = star"
+                 (mouseleave)="hoverRating = 0"
+                 [style.color]="hoverRating >= star ? '#ffc107' : ''"
+                 style="cursor: pointer; transition: color 0.3s;"></i>
+            </ng-container>
+            <span class="ms-2 fw-medium text-dark">({{ feedback.rating }}/5)</span>
+          </div>
+
+          <!-- Title -->
+          <input type="text" [(ngModel)]="feedback.title" placeholder="Review Title"
+                 class="form-control border-0 fw-semibold fs-5 mb-3 shadow-none" />
+
+          <!-- Comment -->
+          <textarea [(ngModel)]="feedback.comment"
+                    placeholder="Let us hear your thoughts..."
+                    rows="4"
+                    class="form-control mb-3 shadow-sm"
+                    style="border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;"></textarea>
+
+          <!-- User Info -->
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <img [src]="feedback.image" class="rounded-circle me-3" height="60" width="60" />
+              <div>
+                <input type="text" [(ngModel)]="feedback.name"
+                       placeholder="Your Name"
+                       class="form-control border-0 p-0 fw-semibold fs-15 mb-1 shadow-none" />
+                <input type="text" [(ngModel)]="feedback.username"
+                       placeholder="@yourhandle"
+                       class="form-control border-0 p-0 text-primary fs-14 shadow-none" />
+              </div>
+            </div>
+            <i class="fa-brands fa-twitter fs-3 text-info" style="opacity: 0.7;"></i>
+          </div>
+
+          <!-- Add Button -->
+          <div class="text-end mt-3">
+            <button class="btn btn-sm btn-primary px-4" (click)="addFeedback()">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Note -->
+      <div class="col-lg-6 d-flex align-items-center justify-content-start text-start">
+        <div data-aos="fade-down" data-aos-duration="1000">
+          <h3 class="fw-bold">Please rate us</h3>
+          <p class="fs-5 text-muted">
+            We are happy with your feedback and we will study it carefully.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Contact Button -->
+    <div class="mt-5 text-center">
+      <a routerLink="/buyerHome/contact" class="btn btn-primary btn-lg d-inline-flex hstack gap-2">
         <span>Contact Us</span>
         <span class="vr"></span>
         <i class="fa-arrow-right fa-solid fs-14"></i>
       </a>
     </div>
-  </div>
-
-  <!-- Sketch Image -->
-  <div class="bottom-0 end-0 position-absolute section-sketch">
-    <img src="assets/img/png-img/section-sketch.png" class="img-fluid" alt="" />
-  </div>
-</div>

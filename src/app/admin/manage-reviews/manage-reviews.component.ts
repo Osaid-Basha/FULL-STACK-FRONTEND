@@ -12,13 +12,8 @@ import Chart from 'chart.js/auto';
     FormsModule,
     NgForOf,
     MatCheckbox,
-    NgOptimizedImage,
-    NgIf,
-
-
-
-
-  ],
+    NgIf
+],
   styleUrl: './manage-reviews.component.css'
 })
 export class ManageReviewsComponent{
@@ -124,6 +119,17 @@ export class ManageReviewsComponent{
       }
     });
   }
+  stats = [
+
+    { label: 'Total Listings', value: 1230 },
+    { label: 'Website Visits', value: '8.2K' },
+    { label: 'Active Agents', value: 56 },
+    { label: 'Avg. Rating', value: '4.7/5'}
+
+ ];
+
+
+
 }
 
 

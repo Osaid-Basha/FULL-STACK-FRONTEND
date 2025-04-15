@@ -150,7 +150,8 @@ const routes: Routes = [
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
       { path:'maseege-buyer', component: MaseegeBuyerComponent },
-
+        {path:'505', component: Erorr505Component},
+        {path:'404', component: Erorr404Component},
 
     ]
   },

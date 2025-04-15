@@ -7,30 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./proparties-info.component.css']
 })
 export class PropartiesInfoComponent {
-
   // Basic Property Info
-  address: string = '1123 Fictional St, San Francisco, CA 94103';
-  host: string = 'Wayan';
-  bedrooms: number = 3;
-  bathrooms: number = 3;
-  area: number = 620;
-  yearBuilt: number = 2010;
-  price: number = 18000;
-  propertyType: string = 'Property for rent';
-  floorPlanImage: string = 'assets/img/png-img/floor-plans.png';
+  address = '1123 Fictional St, San Francisco, CA 94103';
+  host = 'Wayan';
+  bedrooms = 3;
+  bathrooms = 3;
+  area = 620;
+  yearBuilt = 2010;
+  price = 18000;
+  propertyType = 'Property for rent';
+  floorPlanImage = 'assets/img/png-img/floor-plans.png';
 
-  // About Property
   about: string[] = [
-    `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-    when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
-
-    `It has survived not only five centuries, but also the leap into electronic typesetting,
-    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker.`
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.,It has survived not only five centuries, but also the leap into electronic typesetting."
   ];
 
-  // Amenities List
   amenities = [
     { icon: 'fa-solid fa-video', name: 'Security cameras' },
     { icon: 'fa-solid fa-fan', name: 'Garden' },
@@ -45,7 +36,6 @@ export class PropartiesInfoComponent {
     { icon: 'fa-solid fa-utensils', name: 'Kitchen Appliances' },
   ];
 
-  // Agent Info
   agent = {
     name: 'Alexander Kaminski',
     title: 'Property Advisor',
@@ -53,23 +43,32 @@ export class PropartiesInfoComponent {
     link: 'agent-details.html'
   };
 
-  // Form Data
   form = {
     phone: '',
     email: '',
     date: ''
   };
 
-  // Methods
   scheduleTour() {
     console.log('Scheduling tour with info:', this.form);
-
   }
 
   requestQuote() {
     console.log('Requesting quote with info:', this.form);
-
   }
+
+  // Feedback Logic
+  showFeedbackForm = false;
+  hoverRating = 0;
+
+  feedback = {
+    rating: 0,
+    title: '',
+    comment: '',
+    name: '',
+    username: '',
+    image: 'assets/img/avatar/01.jpg'
+  };
 
   testimonials = [
     {
@@ -106,7 +105,7 @@ export class PropartiesInfoComponent {
     },
     {
       name: 'Mehedi Hasan',
-      username: 'mirandaholmes',
+      username: 'mehedihasan',
       image: 'assets/img/avatar/05.jpg',
       title: '"ultrices mi tempus imperdiet nulla"',
       content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
@@ -121,6 +120,28 @@ export class PropartiesInfoComponent {
       rating: 4.8
     }
   ];
+
+  addFeedback() {
+    const newFeedback = {
+      name: this.feedback.name,
+      username: this.feedback.username,
+      image: this.feedback.image,
+      title: this.feedback.title,
+      content: this.feedback.comment,
+      rating: this.feedback.rating
+    };
+
+    this.testimonials.push(newFeedback);
+    this.showFeedbackForm = false;
+
+    // Reset fields
+    this.feedback = {
+      rating: 0,
+      title: '',
+      comment: '',
+      name: '',
+      username: '',
+      image: 'assets/img/avatar/01.jpg'
+    };
+  }
 }
-
-

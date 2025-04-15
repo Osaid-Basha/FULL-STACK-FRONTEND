@@ -441,3 +441,24 @@ a:hover {
 /* -----------------------------------------------------------------
     - Style Guide Page
 ----------------------------------------------------------------- */
+.fav-btn {
+  background-color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  padding: 6px 10px;
+  transition: transform 0.2s ease;
+}
+
+.fav-btn:hover {
+  transform: scale(1.1);
+}
+
+.big-heart {
+  font-size: 26px;
+  transition: color 0.3s ease;
+}
+
+.card-clickable-content {
+  cursor: pointer;
+}
