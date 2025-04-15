@@ -9,10 +9,10 @@ import {NgClass, NgForOf} from '@angular/common';
     NgForOf
   ],
 
-  standalone: false,
+  standalone: true,
   templateUrl: './notification-agent.component.html',
 
-  styleUrls: ['./notification-agent.component.css'] // تأكد من أنها بصيغة "styleUrls" وليس "styleUrl"
+  styleUrls: ['./notification-agent.component.css'] 
 })
 export class NotificationAgentComponent {
 
