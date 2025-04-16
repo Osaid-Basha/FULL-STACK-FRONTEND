@@ -1,5 +1,6 @@
 import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -11,7 +12,22 @@ export class NavbarComponent implements OnInit {
   isScrolled = false;
   showLogo = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  logout() {
+   
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userType');
+    }
+
+    // تحويل المستخدم إلى صفحة تسجيل الدخول
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit(): void {}
 

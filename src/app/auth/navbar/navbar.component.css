@@ -1,4 +1,27 @@
-
+/*
+Theme Name: FindHusly - Real Estate Directory Listing HTML Template
+Author: themeparker
+Author URL: https://themeforest.net/user/themeparker
+Version: 1.0
+*/
+/* ------------------------------------------------
+ - Google Fonts
+ - General Styles
+ - Page Loader
+ - Utilities
+ - Components
+ - Navbar
+ - Hero Header
+ - Footer
+ - About Page
+ - Blog Page
+ - Blog Details
+ - Contact page
+ - Signup & Login Page
+ - Property Details Page
+ - Style Guide Page
+------------------------------------------------ */
+/* Google Fonts ------ */
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* ----------------------------------------------------------------
@@ -61,7 +84,7 @@ a:hover {
   --bs-btn-border-radius: 0.5rem;
 }
 
-/*Button primary*/
+
 .btn-primary {
   --bs-btn-bg: #0a73c0;
   --bs-btn-border-color: #0a73c0;
@@ -94,7 +117,7 @@ a:hover {
   transition: all .3s ease;
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-          box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
   background-color: var(--bs-primary);
   --bs-navbar-toggler-icon-bg: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="%230a73c0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg>');
 }
@@ -117,7 +140,7 @@ a:hover {
     -webkit-transition: none;
     -o-transition: none;
     transition: none;
-    position: absolute;
+    position: static;
     border-radius: .5rem;
     margin-top: -2.352rem;
     width: calc(100% - 24px);
@@ -133,7 +156,7 @@ a:hover {
   --bs-nav-link-padding-y: 1.5rem;
 }
 
-/*Navbar Brand ------*/
+
 .navbar-brand img {
   height: 36px;
 }
@@ -176,8 +199,8 @@ a:hover {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     border-bottom: 4px solid transparent;
   }
 
@@ -207,45 +230,45 @@ a:hover {
 
 @media(max-width: 991px) {
 
-  /*Navbar collaps*/
-  .navbar-collapse {
-    position: fixed;
-    top: 0.75rem;
-    right: 0.75rem;
-    left: 0.75rem;
-    z-index: 1050;
-    padding: 1.5rem;
-    height: auto !important;
-    max-height: calc(100vh - 2rem);
-    background-color: #fff;
-    border-radius: .375rem;
-    -webkit-box-shadow: 0 1.5rem 4rem rgba(22, 28, 45, .15);
-    box-shadow: 0 1.5rem 4rem rgba(22, 28, 45, .15);
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    -webkit-transition-property: opacity, -webkit-transform;
-    transition-property: opacity, -webkit-transform;
-    -o-transition-property: opacity, transform;
-    transition-property: opacity, transform;
-    transition-property: opacity, transform, -webkit-transform;
-    -webkit-transform-origin: top right;
-    -ms-transform-origin: top right;
-    transform-origin: top right;
-  }
+
+.navbar-collapse {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  left: 0.75rem;
+  z-index: 1050;
+  padding: 1.5rem;
+  height: auto !important;
+  max-height: calc(100vh - 2rem);
+  background-color: #fff;
+  border-radius: .375rem;
+  -webkit-box-shadow: 0 1.5rem 4rem rgba(22, 28, 45, .15);
+  box-shadow: 0 1.5rem 4rem rgba(22, 28, 45, .15);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  -o-transition-property: opacity, transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transform-origin: top right;
+  -ms-transform-origin: top right;
+  transform-origin: top right;
+}
 
   .navbar-collapse .collapse-brand img {
     height: 36px;
   }
 
-  /*navbar collapse toggler icon*/
-  .navbar-collapse .collapse-close {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
+
+.navbar-collapse .collapse-close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
 
   .navbar-collapse .collapse-close span {
     position: absolute;
@@ -269,24 +292,22 @@ a:hover {
     transform: rotate(-135deg);
   }
 
-  /*navbar link*/
-  .navbar-nav .nav-link {
-    padding: .5rem 0;
-    font-weight: 600;
-  }
 
-  /*navbar collapsible sub-arrow*/
+.navbar-nav .nav-link {
+  padding: .5rem 0;
+  font-weight: 600;
+}
 
-  /*Navbar dropdown menu*/
-  .navbar-nav .dropdown-menu {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
-    background-color: transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
+
+.navbar-nav .dropdown-menu {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
   .dropdown-menu {
     --bs-dropdown-link-active-bg: transparent;
@@ -296,22 +317,22 @@ a:hover {
 
 @media(min-width: 992px) {
 
-  /*Navbar dropdown menu*/
-  .dropdown-menu {
-    border: 0;
-    border-radius: 6px;
-    font-size: 15px;
-    padding: 15px 15px 13px 15px;
-    margin-top: 10px;
-    animation-duration: 0.3s;
-    -webkit-animation-duration: 0.3s;
-    animation-fill-mode: both;
-    -webkit-animation-fill-mode: both;
-    -webkit-animation-name: slideIn;
-    animation-name: slideIn;
-    -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, .15), 0 0 1px rgba(27, 31, 35, .2);
-    box-shadow: 0 3px 12px rgba(27, 31, 35, .15), 0 0 1px rgba(27, 31, 35, .2);
-  }
+
+.dropdown-menu {
+  border: 0;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 15px 15px 13px 15px;
+  margin-top: 10px;
+  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+  -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, .15), 0 0 1px rgba(27, 31, 35, .2);
+  box-shadow: 0 3px 12px rgba(27, 31, 35, .15), 0 0 1px rgba(27, 31, 35, .2);
+}
 
   .dropdown-menu.mega-menu {
     max-width: 30em !important;
@@ -388,7 +409,7 @@ a:hover {
 
 .navbar-toggler:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 /* Cart Button ------- */
@@ -419,7 +440,7 @@ a:hover {
   color: var(--bs-white);
   border-color: var(--bs-primary);
   background-color: var(--bs-primary);
-  ;
+;
 }
 
 @media(max-width: 991px) {
@@ -440,3 +461,11 @@ a:hover {
 
 
 
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
