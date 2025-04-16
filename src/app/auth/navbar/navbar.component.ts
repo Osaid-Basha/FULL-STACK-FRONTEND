@@ -1,41 +1,35 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   standalone: false,
-
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  // لتغيير كلاس الخلفية عند التمرير
   isScrolled = false;
-
-  // لإظهار الشعار عند التمرير لمسافة معينة
   showLogo = false;
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {}
 
-  // الاستماع لحدث التمرير على النافذة
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    const scrollY = window.scrollY;
-
-    // إذا تم التمرير، أضف كلاس الخلفية
-    this.isScrolled = scrollY > 0;
-
-    // إظهار الشعار عند التمرير أكثر من 81px
-    this.showLogo = scrollY >= 81;
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollY = window.scrollY;
+      this.isScrolled = scrollY > 0;
+      this.showLogo = scrollY >= 81;
+    }
   }
 
-  // إغلاق الـ Navbar في وضع الموبايل
   closeNavbar(): void {
-    const navbarCollapse = document.querySelector('.navbar-collapse') as HTMLElement;
-    if (navbarCollapse?.classList.contains('show')) {
-      navbarCollapse.classList.remove('show');
+    if (isPlatformBrowser(this.platformId)) {
+      const navbarCollapse = document.querySelector('.navbar-collapse') as HTMLElement;
+      if (navbarCollapse?.classList.contains('show')) {
+        navbarCollapse.classList.remove('show');
+      }
     }
   }
 }

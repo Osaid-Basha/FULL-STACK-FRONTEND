@@ -230,7 +230,7 @@ a:hover {
 
 @media(max-width: 991px) {
 
-/Navbar collaps/
+
 .navbar-collapse {
   position: fixed;
   top: 0.75rem;
@@ -263,7 +263,7 @@ a:hover {
     height: 36px;
   }
 
-/navbar collapse toggler icon/
+
 .navbar-collapse .collapse-close {
   width: 20px;
   height: 20px;
@@ -292,15 +292,13 @@ a:hover {
     transform: rotate(-135deg);
   }
 
-/navbar link/
+
 .navbar-nav .nav-link {
   padding: .5rem 0;
   font-weight: 600;
 }
 
-/navbar collapsible sub-arrow/
 
-/Navbar dropdown menu/
 .navbar-nav .dropdown-menu {
   border: 0;
   margin: 0;
@@ -319,7 +317,7 @@ a:hover {
 
 @media(min-width: 992px) {
 
-/Navbar dropdown menu/
+
 .dropdown-menu {
   border: 0;
   border-radius: 6px;

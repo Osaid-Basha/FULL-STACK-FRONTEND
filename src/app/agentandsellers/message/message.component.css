@@ -83,7 +83,7 @@
 }
 
 .msg-bubble.bg-primary {
-  background: linear-gradient(135deg, #6C63FF, #C85FFC);!important;
+  background: linear-gradient(135deg, #6C63FF, #C85FFC) !important;
   box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
   color: white;
   border-top-left-radius: 20px;
