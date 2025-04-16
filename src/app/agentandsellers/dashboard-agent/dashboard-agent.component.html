@@ -1,43 +1,82 @@
 <div class="container-fluid py-4">
-  <!-- Top Stats -->
-  <div class="row g-4 mb-4">
+
+  <!-- 🚀 Quick Action Buttons -->
+  <div class="d-flex flex-wrap gap-3 mb-5">
+
+    <!-- 🏘️ My Properties -->
+    <a routerLink="/agent-dashboard/myproperties-agent"
+       class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3 rounded-pill shadow-sm"
+       style="min-height: 52px;">
+      <i class="fa-solid fa-building-user fs-5"></i>
+      <span class="fw-semibold fs-6">My Properties</span>
+    </a>
+
+    <!-- ➕ Add New Property -->
+    <a routerLink="/agent-dashboard/addproperty"
+       class="btn btn-success d-flex align-items-center gap-2 px-4 py-3 rounded-pill shadow-sm"
+       style="min-height: 52px;">
+      <i class="fa-solid fa-circle-plus fs-5"></i>
+      <span class="fw-semibold fs-6">Add Property</span>
+    </a>
+
+    <!-- ⭐ Reviews -->
+    <a routerLink="/agent-dashboard/reviews-agent"
+       class="btn btn-warning d-flex align-items-center gap-2 px-4 py-3 rounded-pill shadow-sm text-dark"
+       style="min-height: 52px;">
+      <i class="fa-solid fa-star fs-5"></i>
+      <span class="fw-semibold fs-6">Reviews</span>
+    </a>
+
+  </div>
+
+  <!-- 🌟 Top Stats Cards -->
+  <div class="row g-4 mb-5">
     <div class="col-lg-3 col-md-6" *ngFor="let stat of stats">
-      <div class="bg-white rounded-4 p-4 d-flex align-items-center justify-content-between shadow-sm border">
-        <div>
-          <div class="text-secondary fw-semibold mb-1" style="font-size: 15px;">{{ stat.label }}</div>
-          <div class="fs-3 fw-bold">{{ stat.value }}</div>
+      <mat-card class="mat-elevation-z4 rounded-4 overflow-hidden position-relative stat-card" data-aos="fade-up">
+        <div class="d-flex justify-content-between align-items-center p-4">
+          <div>
+            <div class="text-uppercase text-muted fw-medium mb-1" style="font-size: 13px;">{{ stat.label }}</div>
+            <h4 class="fw-bold text-dark m-0">{{ stat.value }}</h4>
+          </div>
+          <div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle"
+               style="width: 52px; height: 52px;">
+            <i class="{{ stat.icon }} fs-5"></i>
+          </div>
         </div>
-        <div class="bg-white d-flex justify-content-center align-items-center rounded-circle border"
-             style="width: 50px; height: 50px;">
-          <i class="{{ stat.icon }}" style="font-size: 22px; color: #0078D7;"></i>
-        </div>
-      </div>
+        <div class="position-absolute bottom-0 start-0 w-100" style="height: 4px; background: linear-gradient(to right, #007bff, #00d4ff);"></div>
+      </mat-card>
     </div>
   </div>
 
-  <!-- Messages Section (Full Width) -->
-  <div class="row">
-    <div class="col-12">
-      <div class="bg-white rounded-4 p-4 shadow-sm border h-100">
-        <h5 class="fw-bold mb-4">Recent Message</h5>
-        <div *ngFor="let message of messages"
-             class="p-3 rounded-3 mb-3 message-card border d-flex justify-content-between align-items-start"
-             style="transition: 0.3s ease;">
+  <!-- 💬 Recent Messages Section -->
+  <mat-card class="p-4 rounded-4 shadow border-0" data-aos="fade-up">
+    <h4 class="fw-bold text-primary mb-4">
+      <i class="fa-solid fa-inbox text-primary me-2"></i>
+      Recent Messages
+    </h4>
 
-          <div>
-            <div class="fw-bold mb-1" style="color: #0078D7;">{{ message.name }}</div>
-            <div class="text-dark fw-semibold mb-1">{{ message.subject }}</div>
-            <div class="text-muted small">{{ message.snippet }}</div>
-          </div>
+    <mat-list>
+      <mat-list-item *ngFor="let message of messages"
+                     class="rounded-3 border mb-3 p-3 shadow-sm message-box d-flex align-items-start position-relative"
+                     style="background-color: #f9fbff;" data-aos="fade-up">
 
-          <div>
-            <span class="badge bg-light text-dark rounded-pill px-3 py-2 small">
-              {{ message.date }}
-            </span>
-          </div>
+        <!-- Avatar -->
+        <div class="me-3 d-flex justify-content-center align-items-center rounded-circle bg-primary text-white"
+             style="min-width: 45px; height: 45px;">
+          <i class="fa-regular fa-user"></i>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <!-- Message Info -->
+        <div class="flex-grow-1">
+          <div matLine class="fw-bold text-dark mb-1">{{ message.subject }}</div>
+          <div matLine class="text-muted small">{{ message.snippet }}</div>
+          <div matLine class="text-primary fw-semibold mt-1" style="font-size: 14px;">From: {{ message.name }}</div>
+        </div>
+
+        <!-- Date -->
+        <mat-chip class="ms-auto text-primary bg-white border border-primary">{{ message.date }}</mat-chip>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
 </div>

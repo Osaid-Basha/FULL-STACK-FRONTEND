@@ -54,3 +54,20 @@ border-color: #3f729b;
   transform: scale(1.05);
 
 }
+.rating {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-size: 1.2rem;
+}
+.rating input {
+  display: none;
+}
+.rating label {
+  color: #ddd;
+  cursor: pointer;
+}
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #ffc107;
+}

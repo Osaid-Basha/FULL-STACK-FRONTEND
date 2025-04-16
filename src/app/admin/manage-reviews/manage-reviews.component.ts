@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {MatCheckbox} from '@angular/material/checkbox';
 import Chart from 'chart.js/auto';
+import AOS from 'aos';
 
 
 @Component({
@@ -128,7 +129,9 @@ export class ManageReviewsComponent{
 
  ];
 
-
+ ngOnInit() {
+  AOS.init({ duration: 600, once: true });
+}
 
 }
 
