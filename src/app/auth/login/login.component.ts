@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,28 +17,22 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   onLogin() {
-    if (!this.userType) {
-      alert('Please select a user type');
-      return;
-    }
 
 
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      localStorage.setItem('userType', this.userType);
-    }
-
-    if (this.userType === 'admin') {
-      window.location.href = '/admin-dashboard';
-    } else if (this.userType === 'agent') {
-      window.location.href = '/agent-dashboard';
-    } else if (this.userType === 'buyer') {
-      window.location.href = '/buyerHome';
-    }
-    console.log('Login clicked');
-console.log('Selected userType:', this.userType);
-console.log('Saved to localStorage:', localStorage.getItem('userType'));
-
+  if (!this.userType) {
+    alert('Please select a user type');
+    return;
   }
 
+  localStorage.setItem('userType', this.userType);
+
+  if (this.userType === 'admin') {
+    this.router.navigateByUrl('/admin-dashboard');
+  } else if (this.userType === 'agent') {
+    this.router.navigateByUrl('/agent-dashboard');
+  } else if (this.userType === 'buyer') {
+    this.router.navigateByUrl('/buyerHome');
+  }
+}
 
 }

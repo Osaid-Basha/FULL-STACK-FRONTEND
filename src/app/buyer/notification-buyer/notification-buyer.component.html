@@ -1,6 +1,5 @@
-
-<div class="container my-5">
-  <div class="border-bottom py-3">
+<div class="container my-5" data-aos="fade-up">
+  <div class="border-bottom py-3" data-aos="fade-down">
     <div class="container">
       <div class="row gy-2 gx-4 gx-md-5">
         <h4 class="col-auto fs-18 fw-semibold mb-0 page-title text-capitalize">Notification</h4>
@@ -19,13 +18,14 @@
       </div>
     </div>
   </div>
-  <h2 class="fw-bold text-dark mb-4 py-4">
+  <h2 class="fw-bold text-dark mb-4 py-4" data-aos="zoom-in">
     <i class="bi bi-bell-fill text-primary me-2"></i>Notifications
   </h2>
 
   <div *ngFor="let n of notifications"
        class="card border-0 shadow-sm rounded-4 p-3 mb-3 d-flex flex-row justify-content-between align-items-start notification-card"
-       [ngClass]="{ 'bg-light': n.type === 'info', 'bg-white': n.type !== 'info' }">
+       [ngClass]="{ 'bg-light': n.type === 'info', 'bg-white': n.type !== 'info' }"
+       data-aos="fade-up" [attr.data-aos-delay]="notifications.indexOf(n) * 100">
 
     <div class="d-flex">
       <i class="bi {{ n.icon }} text-{{ n.type }} fs-4 me-3 mt-1"></i>
