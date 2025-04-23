@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import AOS from 'aos';
-
-
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-reviews-agent',
@@ -29,8 +28,23 @@ export class ReviewsAgentComponent {
       images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png']
     }
   ];
-ngOnInit() {
-  AOS.init();
-}
+  ngOnInit(){
+    AOS.init();
+  }
+
+  likeCount: number = 0
+  incrementLikes(): void {
+    this.likeCount++;
+  }
+  isVisible: boolean = true;
+
+  reportPost() {
+    this.isVisible = false;
+    alert('Done,we flag of this publication');
+  }
 
 }
+
+
+
+
