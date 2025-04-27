@@ -45,7 +45,7 @@ font-family:"monospace"}
 }
 
 .card  {
-
+border-color: #3f729b;
   border-radius: 0.5cm;
   transition: transform 0.1s ease-in-out;
 }
