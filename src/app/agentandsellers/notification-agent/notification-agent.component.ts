@@ -20,28 +20,32 @@ export class NotificationAgentComponent {
       icon: 'bi-envelope-fill',
       title: 'New advertisement',
       message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
-      time: 'Just now'
+      time: 'Just now',
+
     },
     {
       type: 'warning',
       icon: 'bi-tag-fill',
       title: 'Price Drop',
       message: 'Wafa adham replay your massage.',
-      time: '10 mins ago'
+      time: '10 mins ago',
+
     },
     {
       type: 'success',
       icon: 'bi-calendar-check-fill',
       title: 'Booking Confirmed',
       message: 'Booking for Apartment #12B is confirmed by Nour Khaled.',
-      time: '1 hour ago'
+      time: '1 hour ago',
+
     },
     {
       type: 'danger',
       icon: 'bi-x-octagon-fill',
       title: 'Payment Failed',
       message: 'Transaction for property #2013 failed. Please check payment gateway.',
-      time: '2 hours ago'
+      time: '2 hours ago',
+
     }
   ];
 
@@ -59,7 +63,8 @@ export class NotificationAgentComponent {
     }
   }
 
-  removeReview(review: any) {
+  removenotifaction(review: any) {
     this.notifications = this.notifications.filter(r => r !== review);
   }
+
 }

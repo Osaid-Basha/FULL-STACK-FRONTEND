@@ -189,7 +189,7 @@ export class ManageReviewsComponent {
   deletecardreview(review: any) {
     Swal.fire({
       title: `Are you sure?`,
-      html: `<strong>"${review.title}"</strong> will be permanently deleted.`,
+      html: `<strong >"${review.name}"</strong> will be permanently deleted.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete',
@@ -207,7 +207,7 @@ export class ManageReviewsComponent {
         this.reviews = this.reviews.filter(l => l !== review);
         Swal.fire({
           title: 'Deleted!',
-          text: `"${review.title}"  Done ,has been removed.`,
+          text: `"${review.name}"  Done ,has been removed.`,
           icon: 'success',
           timer: 1800,
           showConfirmButton: false,

@@ -54,4 +54,7 @@ export class NotificationAdminComponent {
       }
     }
   }
+  removenotifaction(review: any) {
+    this.notifications = this.notifications.filter(r => r !== review);
+  }
 }

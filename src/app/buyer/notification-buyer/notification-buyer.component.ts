@@ -1,6 +1,5 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import{ Component, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-notification-buyer',
@@ -54,5 +53,8 @@ export class NotificationBuyerComponent {
         modal.show();
       }
     }
+  }
+  removenotifaction(review: any) {
+    this.notifications = this.notifications.filter(r => r !== review);
   }
 }

@@ -37,10 +37,7 @@
     </div>
 
     <div class="d-flex gap-2">
-      <button class="btn btn-sm btn-outline-primary" (click)="openModal(n)" title="Read">
-        <i class="bi bi-check2-circle"></i> Read
-      </button>
-      <button class="btn btn-sm btn-outline-danger" title="Delete">
+      <button class="btn btn-sm btn-outline-danger" title="Delete" (click)="removenotifaction(n)">
         <i class="bi bi-x-lg"></i> Delete
       </button>
     </div>
@@ -67,11 +64,7 @@
           <i class="bi bi-clock me-1"></i>{{ selectedNotification?.time }}
         </div>
       </div>
-
-      <div class="modal-footer bg-light border-top-0 rounded-bottom-4">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Mark as Read</button>
-      </div>
     </div>
   </div>
+</div>
 </div>
