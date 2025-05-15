@@ -75,15 +75,15 @@
       <div class="card p-4 text-center">
         <!-- 🎯 Animated Profile Photo -->
         <div class="photo_animation" [@fadeSlideUp]>
-          <img src="assets/371225.jpg" alt="Profile Image" class="profile-image img-fluid mb-3 rounded">
+          <img  *ngIf="profileImage" src="assets/371225.jpg" alt="Profile Image" class="profile-image img-fluid mb-3 rounded" >
+          <p *ngIf="!profileImage" class="text-center text-muted">No image available</p>
         </div>
-
         <!-- Buttons -->
-        <div class="d-flex justify-content-between mt-3">
+        <div class="d-flex justify-content-between mt-3 ">
           <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;">
             <i class="bi bi-image"></i> Change
           </button>
-          <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;">
+          <button type="button" class="btn btn-outline-danger mb-2 " style="width: 45%;" (click)="removeImage()">
             <i class="bi bi-trash3"></i> Remove
           </button>
         </div>
