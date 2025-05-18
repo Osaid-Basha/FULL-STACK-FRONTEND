@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-property-grid',
   standalone: false,
   templateUrl: './property-grid.component.html',
-  styleUrl: './property-grid.component.css'
+  styleUrls: ['./property-grid.component.css'] // انتبه انها styleUrls وليس styleUrl
 })
 export class PropertyGridComponent {
   properties = [
@@ -22,7 +22,8 @@ export class PropertyGridComponent {
       baths: 3,
       size: '5x7 m²',
       isFavorited: false,
-      animateHeart: false
+      animateHeart: false,
+      description: 'Modern apartment with beach view.'
     },
     {
       id: 2,
@@ -38,7 +39,8 @@ export class PropertyGridComponent {
       baths: 3,
       size: '5x7 m²',
       isFavorited: false,
-      animateHeart: false
+      animateHeart: false,
+      description: 'Beautiful property near the sea.'
     },
     {
       id: 3,
@@ -54,7 +56,8 @@ export class PropertyGridComponent {
       baths: 3,
       size: '5x7 m²',
       isFavorited: false,
-      animateHeart: false
+      animateHeart: false,
+      description: 'Peaceful area with modern finish.'
     },
     {
       id: 4,
@@ -70,7 +73,8 @@ export class PropertyGridComponent {
       baths: 3,
       size: '5x7 m²',
       isFavorited: false,
-      animateHeart: false
+      animateHeart: false,
+      description: 'Close to schools and shops.'
     },
     {
       id: 5,
@@ -86,13 +90,18 @@ export class PropertyGridComponent {
       baths: 3,
       size: '5x7 m²',
       isFavorited: false,
-      animateHeart: false
+      animateHeart: false,
+      description: 'Perfect for small families.'
     }
   ];
 
   toggleFavorite(property: any): void {
     property.isFavorited = !property.isFavorited;
     property.animateHeart = true;
-    setTimeout(() => property.animateHeart = false, 400);
+
+    // Reset heart animation after 400ms
+    setTimeout(() => {
+      property.animateHeart = false;
+    }, 400);
   }
 }

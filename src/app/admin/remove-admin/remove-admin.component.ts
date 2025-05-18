@@ -14,9 +14,9 @@ export class RemoveAdminComponent {
     activeFilter: string = 'All';
 
     allItems = [
-      { name: 'Mohammad', email: 'm@example.com', location: 'Nablus', type: 'Spam', reason: 'Repeated content' },
-      { name: 'Sara', email: 'sara@example.com', location: 'Hebron', type: 'Abuse', reason: 'Inappropriate language' },
-      { name: 'Ali', email: 'ali@example.com', location: 'Tulkarm', type: 'Other', reason: 'Misleading info' }
+      { name: 'Mohammad', email: 'm@example.com', location: 'Nablus', type: 'Agent', reason: 'Repeated content' },
+      { name: 'Sara', email: 'sara@example.com', location: 'Hebron', type: 'Buyer', reason: 'Inappropriate language' },
+      { name: 'Ali', email: 'ali@example.com', location: 'Tulkarm', type: 'Agent', reason: 'Misleading info' }
     ];
 
     items = [...this.allItems];

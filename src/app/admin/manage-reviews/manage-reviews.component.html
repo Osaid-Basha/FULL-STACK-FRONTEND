@@ -1,7 +1,7 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<h2>Manage reviews & Rating</h2>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<h2 data-aos="fade-right">Manage reviews & Rating</h2>
 <br>
-<div class="row align-items-center mb-2">
+<div class="row align-items-center mb-2" data-aos="fade-up">
   <div class="col-md-6">
     <input type="text" [(ngModel)]="search" class="form-control" placeholder="Search by name, email, or date or comment" />
   </div>
@@ -9,62 +9,65 @@
 <br>
 <div class="container4">
   <div class="row g-4">
-    <div class="col-md-6 col-lg-4" *ngFor="let review of filteredReviews() ">
-      <div class="card shadow-sm border-1 rounded-4 bg-light h-200">
-      <div class="d-flex flex-wrap align-items-md-start  ">
-        <img [src]="review.image" class="rounded-circle border" style="margin: 10px 10px" width="48" height="48" alt="Userphoto" />
-        <div class="card-body d-flex flex-column">
-          <b style="align-self: start">{{review.name}} </b>
-          <a href="#" class="text-muted" style="font-size: 12px  ;color: #0a73c0">{{ review.email }} </a>
-          <div class="rating"><input type="radio" name="rating" value="5" id="5"  ><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-          </div>
 
-          <p style="font-size: 10px ;text-align: right;color: #8d9193 " >{{review.date}}</p>
-          <div style="font-weight: 500">{{review.comment}}</div>
+    <div class="col-md-6 col-lg-4" *ngFor="let review of filteredReviews(); let i = index">
+      <div class="card shadow-sm  rounded-4  h-100 d-flex flex-column justify-content-between" >
+        <div class="d-flex flex-wrap align-items-start p-3 pb-0">
+          <img ngSrc="{{review.image}}" class="rounded-circle border me-3" width="48" height="48" alt="Userphoto" />
+          <div class="card-body p-0">
+            <b>{{review.name}}</b>
+            <a href="#" class="text-muted d-block mb-1" style="font-size: 12px; color: #0a73c0;">{{ review.email }}</a>
+            <!-- Rating Stars -->
+            <div class="rating mb-2">
+              <ng-container *ngFor="let star of [5, 4, 3, 2, 1]">
+                <input type="radio" [id]="'star' + star + i" [name]="'rating' + i" [value]="star">
+                <label [for]="'star' + star + i">☆</label>
+              </ng-container>
+            </div>
+            <p class="text-end text-muted" style="font-size: 10px;">{{review.date}}</p>
+            <div style="font-weight: 500">{{review.comment}}</div>
+          </div>
         </div>
-      </div>
-        <div class=" flex " style="align-items: end">
-          <mat-checkbox class="example-margin" style="color:brown ;margin: 15px">Abuse</mat-checkbox>
-          <button class="btn btn-outline-danger" (click)="removeReview(review)" style="margin-left: 170px   ">
-            <i class="bi bi-trash-fill"></i>
-            Delete
+        <div class="d-flex justify-content-between align-items-center px-3 pb-3 mt-2">
+          <button class="btn btn-outline-danger"  (click)=" deletecardreview(review)" style="margin-left: 16.5rem" >
+            <i class="bi bi-trash-fill me-1"></i> Delete
           </button>
         </div>
-</div>
-
-  </div>
-</div>
-</div>
-<br>
-<div class="d-flex justify-content-between">
-  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="show the before" style="background-color: #0a73c0;">
-    Before
-  </button>
-
-  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="show more" style="background-color: #0a73c0;">
-    More
-  </button>
-</div>
-
-<br>
-<div class="row g-4 mb-4"><div class="col-md-3" *ngFor="let stat of stats" >
-  <div class="card border-2 shadow-sm text-center p-3 rounded-4 bg-light-subtle" >
-    <i class="bi bi-bar-chart-fill display-6 text-primary mb-2"></i>
-    <h6 class="text-muted mb-1">{{ stat.label }}</h6><h4 class="fw-bold text-dark">{{ stat.value }}</h4>
-  </div>
-</div>
-</div>
-
-<br>
-<div class="chart-container"><h2>Rating reviwes</h2>
-  <div *ngIf="filteredReviews().length === 0" class="text-center mt-5 text-muted">
-    <i class="bi bi-inbox-fill fs-1 d-block mb-2"></i>
-    No reviews found.
-  </div>
-  <div class="card shadow-sm border-0 rounded-4 mt-5">
-
-    <div class="card-body">
-      <canvas id="ratingChart"></canvas>
+      </div>
     </div>
   </div>
 </div>
+<br>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item"><button class="page-link"  (click)="changePage(1)">1</button></li>
+    <li class="page-item"><button class="page-link"  (click)="changePage(2)">2</button></li>
+    <li class="page-item"><button class="page-link" (click)="changePage(3)">3</button></li>
+    <li class="page-item"><button class="page-link"  (click)="changePage(4)" >Next</button></li>
+  </ul>
+</nav>
+<br>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-4" data-aos="fade-up">
+  <div class="col-md-6 col-lg-3" *ngFor="let stat of stats; let i = index" data-aos="zoom-in">
+    <div class="card shadow-sm text-center p-3 rounded 5 border-3" [ngStyle]="{'background-color': cardColors[i],'border-color':cardBorder[i]}">
+      <i class="bi bi-bar-chart-fill display-6 text-primary mb-2"></i>
+      <h6 class="text-bold mb-1">{{ stat.label }}</h6>
+      <h4 class="fw-bold text-dark">{{ stat.value }}</h4>
+    </div>
+  </div>
+</div>
+
+<br>
+    <div class="chart-container">
+      <h2>Rating Reviews</h2>
+      <div *ngIf="filteredReviews().length === 0" class="text-center mt-5 text-muted"></div>
+      <div class="card shadow-sm border-0 rounded-4 mt-5" style="height: 25rem;width: 50rem">
+        <div class="card-body-chart">
+          <canvas id="ratingChart"></canvas>
+        </div>
+      </div>
+    </div>
+

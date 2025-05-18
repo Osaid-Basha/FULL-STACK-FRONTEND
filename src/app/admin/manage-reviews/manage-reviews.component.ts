@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {MatCheckbox} from '@angular/material/checkbox';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from '@angular/common';
 import Chart from 'chart.js/auto';
+import AOS from 'aos';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,13 +12,17 @@ import Chart from 'chart.js/auto';
   imports: [
     FormsModule,
     NgForOf,
-    MatCheckbox,
-    NgIf
-],
+    NgOptimizedImage,
+    NgIf,
+    NgStyle,
+
+  ],
   styleUrl: './manage-reviews.component.css'
 })
-export class ManageReviewsComponent{
+export class ManageReviewsComponent {
   search: string = '';
+  currentPage = 1;
+  cardsPerPage = 3;
 
   reviews = [
     {
@@ -47,60 +52,107 @@ export class ManageReviewsComponent{
       hidden: false,
       flagged: false,
       image: "assets/371225.jpg"
+    }
+    ,
+    {
+      name: 'wafa adham',
+      email: 'wafa@live.com',
+      rating: 4,
+      date: '5-5-2025',
+      comment: 'so bad.!',
+      hidden: false,
+      flagged: false,
+      image: "assets/371225.jpg"
+    }
+    ,
+    {
+      name: 'Hana',
+      email: 'Hana@live.com',
+      rating: 4,
+      date: '19-2-2000',
+      comment: 'Good but can improve.!',
+      hidden: false,
+      flagged: false,
+      image: "assets/371225.jpg"
     },
+
+    {
+      name: 'KInda',
+      email: 'Kinda@live.com',
+      rating: 4,
+      date: '19-2-2025',
+      comment: 'Good but can improve.!',
+      hidden: false,
+      flagged: false,
+      image: "assets/img/profile3.png"
+    },
+    {
+      name: 'yahya basha',
+      email: 'yahya@live.com',
+      rating: 4,
+      date: '19-2-2022',
+      comment: 'Good but can improve.!',
+      hidden: false,
+      flagged: false,
+      image: "assets/371225.jpg"
+    }, {
+      name: 'kharma',
+      email: 'kharma@live.com',
+      rating: 4,
+      date: '19-2-2025',
+      comment: 'amazing.!',
+      hidden: false,
+      flagged: false,
+      image: "assets/img/profile3.png"
+    },
+
 
   ];
 
-  getStarsArray(rating: number): number[] {
-    return Array(rating).fill(0);
-  }
-
   filteredReviews() {
-    return this.reviews.filter(input =>
+    const filtered = this.reviews.filter(input =>
       input.name.toLowerCase().includes(this.search.toLowerCase()) ||
       input.email.toLowerCase().includes(this.search.toLowerCase()) ||
       input.comment.toLowerCase().includes(this.search.toLowerCase()) ||
       input.date.toLowerCase().includes(this.search.toLowerCase())
     );
-  }
-  removeReview(review: any) {
-    this.reviews = this.reviews.filter(r => r !== review);
+    return this.paginateReviews(filtered);
   }
 
-  toggleVisibility(review: any) {
-    review.hidden = !review.hidden;
+  paginateReviews(data: any[]) {
+    const startIndex = (this.currentPage - 1) * this.cardsPerPage;
+    const endIndex = startIndex + this.cardsPerPage;
+    return data.slice(startIndex, endIndex);
   }
-  chart: any;
+
+  changePage(page: number) {
+    this.currentPage = page;
+  }
+
+
 
   ngAfterViewInit(): void {
     new Chart("ratingChart", {
       type: 'bar',
       data: {
-        labels: ['1★', '2★', '3★', '4★', '5★'],
+        labels: ['1★', '2★', '3★', '4★'],
         datasets: [{
           label: 'Number of Ratings',
-          data: [3, 5, 7, 15, 25],
+          data: [3, 5, 7, 15],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
             'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
+            'rgba(75, 192, 192, 0.2)'
           ],
           borderColor: [
             'rgb(255, 99, 132)',
             'rgb(255, 159, 64)',
             'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
+            'rgb(75, 192, 192)'
           ],
-          borderWidth: 1
+          borderWidth: 2
         }]
-
       },
       options: {
         responsive: true,
@@ -126,14 +178,46 @@ export class ManageReviewsComponent{
     { label: 'Active Agents', value: 56 },
     { label: 'Avg. Rating', value: '4.7/5'}
 
- ];
+  ];
 
+  ngOnInit() {
+    AOS.init({ duration: 600, once: true });
+  }
 
-
+  cardColors = ['rgba(255, 159, 64,0.10)', 'rgba(75, 192, 192, 0.10)','rgba(255, 205, 86, 0.10)', 'rgba(255, 99, 132,0.10)',];
+  cardBorder= ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)','rgb(255, 99, 132)',];
+  deletecardreview(review: any) {
+    Swal.fire({
+      title: `Are you sure?`,
+      html: `<strong>"${review.title}"</strong> will be permanently deleted.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#4f46e5',
+      cancelButtonColor: '#d1d5db',
+      background: '#f9fafb',
+      customClass: {
+        popup: 'rounded-4 shadow-lg border',
+        title: 'fw-bold text-dark',
+        htmlContainer: 'text-muted'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.reviews = this.reviews.filter(l => l !== review);
+        Swal.fire({
+          title: 'Deleted!',
+          text: `"${review.title}"  Done ,has been removed.`,
+          icon: 'success',
+          timer: 1800,
+          showConfirmButton: false,
+          background: '#f9fafb',
+          customClass: {
+            popup: 'rounded-4 shadow border',
+            title: 'fw-bold text-dark'
+          }
+        }).then(r => r !== review);
+      }
+    });
+  }
 }
-
-
-
-
-
-

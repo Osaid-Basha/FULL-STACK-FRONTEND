@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-reviews-agent',
@@ -24,24 +26,25 @@ export class ReviewsAgentComponent {
       comment: ' my house dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
       image: 'assets/img/profile2.png',
       images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png']
-    },
-    {
-      name: 'Perty Jinta',
-      date: '17 Aug, 23',
-      rating: 4.7,
-      comment: 'Amet amet id cursus dignissim. Eget vitae amet tempus sit mattis. Integer semper condimentum nunc augue aliquet quam.',
-      image: 'assets/img/profile2.png',
-      images: ['assets/img/regions/house.png','assets/img/regions/house.png']
-    },
-    {
-      name: 'Milon Ahmed',
-      date: '07 Jun, 23',
-      rating: 4.7,
-      comment: 'Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
-      image: 'assets/img/profile3.png',
-      images: ['assets/img/regions/house.png','assets/img/regions/house.png']
     }
   ];
+  ngOnInit(){
+    AOS.init();
+  }
 
+  likeCount: number = 0
+  incrementLikes(): void {
+    this.likeCount++;
+  }
+  isVisible: boolean = true;
+
+  reportPost() {
+    this.isVisible = false;
+    alert('Done,we flag of this publication');
+  }
 
 }
+
+
+
+

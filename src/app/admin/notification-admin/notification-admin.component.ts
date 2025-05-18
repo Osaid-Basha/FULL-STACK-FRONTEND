@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-notification-admin',
   standalone: false,
   templateUrl: './notification-admin.component.html',
-  styleUrls: ['./notification-admin.component.css'] // تأكد من أنها بصيغة "styleUrls" وليس "styleUrl"
+  styleUrls: ['./notification-admin.component.css']
 })
 export class NotificationAdminComponent {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   notifications = [
     {
@@ -39,17 +41,17 @@ export class NotificationAdminComponent {
     }
   ];
 
-
   selectedNotification: any = null;
 
- 
   openModal(notification: any) {
     this.selectedNotification = notification;
 
-    const modalElement = document.getElementById('notificationModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
+    if (isPlatformBrowser(this.platformId)) {
+      const modalElement = document.getElementById('notificationModal');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
     }
   }
 }

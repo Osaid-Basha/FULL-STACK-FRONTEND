@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar-agent',
@@ -7,17 +8,20 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./navbar-agent.component.css']
 })
 export class NavbarAgentComponent {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   // مراقبة السكروول
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const navbar = document.querySelector('.main-navbar');
-    if (!navbar) return;
+    if (isPlatformBrowser(this.platformId)) {
+      const navbar = document.querySelector('.main-navbar');
+      if (!navbar) return;
 
-    if (window.scrollY > 20) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+      if (window.scrollY > 20) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
     }
   }
 }

@@ -110,6 +110,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -248,9 +249,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatCheckboxModule,
     MatCheckboxModule,
     ManageReviewsComponent,
-    NotificationAgentComponent
+NotificationAgentComponent,
 
 
+MatListModule,
 
   ],
   providers: [

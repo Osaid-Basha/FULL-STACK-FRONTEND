@@ -2,7 +2,7 @@
   <div class="row h-100">
 
     <!-- Sidebar for md+ screens -->
-    <div class="col-md-4 bg-white border-end p-3 d-none d-md-flex flex-column sidebar">
+    <div class="col-md-4 bg-white border-end p-3 d-none d-md-flex flex-column sidebar" data-aos="fade-right">
       <!-- Header Icons -->
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold mb-0">Chats</h5>
@@ -30,10 +30,12 @@
       <!-- Chat List -->
       <div class="flex-grow-1 overflow-auto">
         <div
-          *ngFor="let chat of filteredChatList"
+          *ngFor="let chat of filteredChatList; let i = index"
           class="d-flex align-items-center gap-2 chat-item mb-2"
           [class.active]="chat === selectedChat"
           (click)="selectChat(chat)"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="i * 100"
         >
           <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
           <div class="flex-grow-1">
@@ -46,11 +48,7 @@
     </div>
 
     <!-- Offcanvas Sidebar for small screens -->
-    <div
-      class="offcanvas offcanvas-start d-md-none"
-      tabindex="-1"
-      id="chatSidebar"
-    >
+    <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="chatSidebar">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold">Chats</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
@@ -75,11 +73,13 @@
         <!-- Chat List -->
         <div class="flex-grow-1 overflow-auto">
           <div
-            *ngFor="let chat of filteredChatList"
+            *ngFor="let chat of filteredChatList; let i = index"
             class="d-flex align-items-center gap-2 chat-item mb-2"
             [class.active]="chat === selectedChat"
             (click)="selectChat(chat)"
             data-bs-dismiss="offcanvas"
+            data-aos="fade-up"
+            [attr.data-aos-delay]="i * 100"
           >
             <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
             <div class="flex-grow-1">
@@ -93,16 +93,11 @@
     </div>
 
     <!-- Chat Window -->
-    <div class="col-md-8 col-12 d-flex flex-column bg-light p-4 message-place" >
+    <div class="col-md-8 col-12 d-flex flex-column bg-light p-4 message-place" data-aos="fade-left">
       <!-- Header with toggle button for mobile -->
       <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3">
         <!-- Toggle Sidebar Button (only on small screens) -->
-        <button
-          class="btn d-md-none"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#chatSidebar"
-        >
+        <button class="btn d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatSidebar">
           <i class="bi bi-list fs-4"></i>
         </button>
 
@@ -119,7 +114,9 @@
 
       <!-- Chat Messages -->
       <div #chatWindow class="chat-window flex-grow-1 overflow-auto mb-3" style="max-height: 60vh;">
-        <div *ngFor="let msg of selectedChat.messages" class="mb-3 d-flex" [class.justify-content-end]="msg.me">
+        <div *ngFor="let msg of selectedChat.messages; let i = index" class="mb-3 d-flex" [class.justify-content-end]="msg.me"
+             data-aos="zoom-in"
+             [attr.data-aos-delay]="i * 80">
           <div
             class="msg-bubble"
             [class.bg-primary]="msg.me"
