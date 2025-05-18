@@ -39,7 +39,7 @@
           <td class="text-end">
             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
               <a class="btn-view">View Property</a>
-              <button class="action-buttons btn-update" (click)="openUpdateForm(property, i)">Update</button>
+
               <button class="action-buttons btn-delete" (click)="deleteProperty(i)">Delete</button>
             </div>
           </td>
@@ -71,27 +71,5 @@
   </div>
 </div>
 
-<!-- ✅ Edit Property Modal -->
-<div class="edit-modal animate__animated animate__fadeIn" *ngIf="selectedProperty">
-  <div class="edit-card container p-4 bg-white shadow rounded-4" style="max-width: 700px;">
-    <h5 class="mb-3">Edit Property</h5>
-    <div class="row">
-      <div class="col-12 col-md-4 mb-2">
-        <label class="form-label">Title</label>
-        <input class="form-control" [(ngModel)]="selectedProperty.title" />
-      </div>
-      <div class="col-12 col-md-4 mb-2">
-        <label class="form-label">Location</label>
-        <input class="form-control" [(ngModel)]="selectedProperty.location" />
-      </div>
-      <div class="col-12 col-md-4 mb-2">
-        <label class="form-label">Price</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.price" />
-      </div>
-    </div>
-    <div class="mt-3 d-flex flex-column flex-sm-row gap-2 justify-content-end">
-      <button class="btn btn-success" (click)="updateProperty()">Confirm Update</button>
-      <button class="btn btn-secondary" (click)="selectedProperty = null">Cancel</button>
-    </div>
-  </div>
-</div>
+
+

@@ -20,15 +20,37 @@
             </div>
           </div>
 
-          <!-- Phone -->
-          <div class="d-flex align-items-center help-info me-4 mb-2">
-            <div class="flex-shrink-0 icon">
-              <i class="fa-solid fa-mobile-button fs-30 text-white opacity-75"></i>
-            </div>
-            <div class="flex-grow-1 ms-3">
-              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">+ 0800 2466 7921</h6>
-              <p class="sub-text mb-0 fs-14">Contact Us For Help</p>
-            </div>
+          <div class="col-md-8 col-lg-9 col-xl-8 d-none d-md-block">
+              <div class="d-flex justify-content-end">
+                  <div class="d-flex align-items-center help-info">
+                      <div class="flex-shrink-0 icon">
+                          <i class="fa-clock fa-solid fs-30 text-white opacity-75"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">SUN - THU: 08:00AM - 20:00PM</h6>
+                          <p class="sub-text mb-0 fs-14"> friday -saturday - <span class="fw-semibold text-warning">CLOSED</span></p>
+                      </div>
+                  </div>
+                  <div class="d-flex align-items-center help-info ms-4">
+                      <div class="flex-shrink-0 icon">
+                          <i class="fa-solid fa-mobile-button fs-30 text-white opacity-75"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">972 543545784</h6>
+                          <p class="sub-text mb-0 fs-14">Contact Us For Help</p>
+                      </div>
+                  </div>
+                  <div class="d-flex align-items-center help-info ms-4">
+                      <div class="flex-shrink-0 icon">
+                          <i class="fa-solid fa-street-view fs-30 text-white opacity-75"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">Palestine</h6>
+                          <p class="sub-text mb-0 fs-14">Nablus</p>
+                      </div>
+                  </div>
+              </div>
+
           </div>
 
           <!-- Address -->
@@ -49,14 +71,64 @@
 <!-- /.End Topbar -->
 
 <!-- Start Navbar -->
-<div class="navbar-wrap sticky-top">
-  <div class="container-lg nav-container position-relative">
-    <nav class="custom-navbar navbar navbar-expand-lg">
 
-      <!-- Logo -->
-      <a class="border-end navbar-brand pe-3 pe-sm-4 py-0" href="/">
-        <img class="logo-dark" src="assets/img/logo.png" alt="">
-        <img class="logo-white" src="assets/img/logo-white.png" alt="">
+<div class="navbar-wrap sticky-top" >
+<div class="container-lg nav-container position-relative">
+  <nav class="custom-navbar navbar navbar-expand-lg">
+    <a class="border-end navbar-brand pe-3 pe-sm-4 py-0" href="/public">
+      <img class="logo-dark" src="assets/img/logo.png" alt="">
+      <img class="logo-white" src="assets/img/logo-white.png" alt="">
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="align-items-center border-bottom d-flex d-lg-none justify-content-between mb-3 navbar-collapse__header pb-3">
+        <div class="collapse-brand flex-shrink-0">
+          <a href="/public"><img src="assets/img/logo.png" alt=""></a>
+        </div>
+        <div class="flex-grow-1 ms-3 text-end">
+          <button type="button" class="bg-transparent border-0 collapse-close p-0 position-relative" (click)="closeNavbar()">
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a routerLink="/home"class="nav-link " role="button">Home</a>
+
+
+
+
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLink="/properties-grid2">Properties</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/agent-grid2">Agent Finder</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+          <ul class="dropdown-menu mega-menu">
+
+
+            <li><a class="dropdown-item" routerLink="/aboutus2">aboutus</a></li>
+
+
+            <li><a class="dropdown-item" routerLink="/location2">Locations</a></li>
+            <li><a class="dropdown-item" routerLink="/contact2">Contact Us</a></li>
+            <li><a class="dropdown-item" routerLink="/twofactor">two factor</a></li>
+            <li><a class="dropdown-item" routerLink="/resetpassword">reset-password</a></li>
+
+
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLink="/contact2">Contact</a></li>
+
+      </ul>
+    </div>
+
+    <div class="d-flex gap-1 ms-lg-5">
+      <a routerLink="/cart" class="align-items-center btn cart-button d-none d-xl-flex ms-2 ms-lg-0">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="ms-2">Cart</span>
+        <span class="align-items-center cart-quantity d-flex fw-bold justify-content-center ms-2 rounded-circle">0</span>
+
       </a>
 
       <!-- Toggler for mobile -->

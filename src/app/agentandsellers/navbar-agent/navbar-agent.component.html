@@ -1,119 +1,160 @@
 <!-- Top Navbar -->
-<nav class="main-navbar d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
-  <!-- Left: Logo -->
-  <div class="d-flex align-items-center">
-    <img src="assets/ChatGPT Image Mar 31, 2025, 01_45_15 PM.png" alt="FindHusly Logo" class="logo-img">
-  </div>
-  <!-- Right Section -->
-  <div class="d-flex align-items-center gap-3">
-    <!-- Search Bar -->
-    <div class="position-relative">
-      <input type="text" class="form-control rounded-pill ps-4 pe-5" placeholder="Search here.." style="border: 1px solid #333; width: 250px;">
-      <i class="fa-solid fa-magnifying-glass position-absolute top-50 end-0 translate-middle-y me-3 text-dark"></i>
-    </div>
-
-    <!-- Notification Dropdown -->
-<div class="dropdown position-relative">
-  <i class="fa-regular fa-bell fs-5 text-dark dropdown-toggle" data-bs-toggle="dropdown" role="button"></i>
-  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-white rounded-circle"></span>
-
-  <div class="dropdown-menu dropdown-menu-end p-3 shadow rounded-4" style="width: 300px;">
-    <a routerLink="/agent-dashboard/notification-agent" class="d-block text-center text-primary fw-bold mb-3" style="text-decoration: none;">
-      View All Notifications
+<nav class="main-navbar navbar navbar-expand-md px-3 py-3 border-bottom bg-white">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="assets/ChatGPT Image Mar 31, 2025, 01_45_15 PM.png" alt="FindHusly Logo" class="logo-img" style="height: 40px;">
     </a>
 
-    <!-- Notification Item -->
-    <div class="d-flex align-items-start mb-3">
-      <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-        <i class="fa-regular fa-envelope text-dark"></i>
-      </div>
-      <div class="flex-grow-1">
-        <div class="fw-semibold">You have 3 new mails</div>
-        <small class="text-muted">3 hours ago</small>
-      </div>
-      <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
-    </div>
-
-    <!-- Notification Item -->
-    <div class="d-flex align-items-start mb-3">
-      <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-        <i class="fa-regular fa-file-lines text-dark"></i>
-      </div>
-      <div class="flex-grow-1">
-        <div class="fw-semibold text-muted">Your listing post has been approved</div>
-        <small class="text-muted">1 day ago</small>
-      </div>
-      <span class="text-secondary ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
-    </div>
-
-    <!-- Notification Item -->
-    <div class="d-flex align-items-start">
-      <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-        <i class="fa-regular fa-calendar-xmark text-dark"></i>
-      </div>
-      <div class="flex-grow-1">
-        <div class="fw-semibold">Your meeting is cancelled</div>
-        <small class="text-muted">3 days ago</small>
-      </div>
-      <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
-    </div>
-  </div>
-</div>
 
 
-    <!-- Add Listing Button -->
-    <button  routerLink="/addproperty" class="btn fw-semibold text-white d-flex align-items-center" style="background-color: #0078D7; border-radius: 12px;">
-      Add Listing <i  class="fa-solid fa-arrow-up-right-from-square ms-2"></i>
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+      <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- User Profile Dropdown -->
-<div class="dropdown">
-  <img src="assets/371225.jpg" alt="User" class="rounded-circle dropdown-toggle"
-       style="height: 40px; width: 40px; object-fit: cover; border: 2px solid #fff; cursor: pointer;"
-       data-bs-toggle="dropdown" aria-expanded="false">
 
-  <ul class="dropdown-menu dropdown-menu-end shadow rounded-4 mt-2 p-2" style="min-width: 200px;">
-    <li>
-      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/agent-dashboard/profail-agent">
-        <i class="fa-regular fa-user"></i> Profile
-      </a>
-    </li>
-    <li>
-      <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/agent-dashboard/account-settings">
-        <i class="fa-solid fa-gear"></i> Account Settings
-      </a>
-    </li>
-    <li>
-      <a class="dropdown-item d-flex align-items-center gap-2 text-danger"
-      href="#" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-     <i class="fa-regular fa-trash-can"></i> Delete Account
-   </a>
+    <!-- Desktop Navbar Content -->
+    <div class="collapse navbar-collapse justify-content-end d-none d-md-flex">
+      <ul class="navbar-nav align-items-center gap-3">
+        <!-- Notifications -->
+        <li class="nav-item dropdown position-relative">
+          <i class="fa-regular fa-bell fs-5 text-dark dropdown-toggle" data-bs-toggle="dropdown" role="button"></i>
+          <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-white rounded-circle"></span>
 
-    </li>
-  </ul>
-</div>
+          <div class=" dropdown-menu dropdown-menu-end p-3 shadow rounded-4 " style="width:300px"  >
+            <a routerLink="/agent-dashboard/notification-agent" class="d-block text-center text-primary fw-bold mb-3 text-decoration-none">
+              View All Notifications
+            </a>
+            <div class="d-flex align-items-start mb-3">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-envelope text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">You have 3 new mails</div>
+                <small class="text-muted">3 hours ago</small>
+              </div>
+              <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </div>
+            <div class="d-flex align-items-start mb-3">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-file-lines text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold text-muted">Your listing post has been approved</div>
+                <small class="text-muted">1 day ago</small>
+              </div>
+              <span class="text-secondary ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </div>
+            <div class="d-flex align-items-start">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-calendar-xmark text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">Your meeting is cancelled</div>
+                <small class="text-muted">3 days ago</small>
+              </div>
+              <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </div>
+          </div>
+        </li>
 
+        <!-- Add Listing Button -->
+        <li class="nav-item">
+          <a routerLink="/addproperty" class="btn fw-semibold text-white d-flex align-items-center" style="background-color: #0078D7; border-radius: 12px;">
+            Add Listing <i class="fa-solid fa-arrow-up-right-from-square ms-2"></i>
+          </a>
+        </li>
+
+        <!-- Profile Dropdown -->
+        <li class="nav-item dropdown">
+          <img src="assets/371225.jpg" alt="User" class="rounded-circle dropdown-toggle" style="height: 40px; width: 40px; object-fit: cover; border: 2px solid #fff; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+          <ul class="dropdown-menu dropdown-menu-end shadow rounded-4 mt-2 p-2" style="min-width: 200px;">
+            <li><a class="dropdown-item d-flex align-items-center gap-2" routerLink="/profail-agent"><i class="fa-regular fa-user"></i> Profile</a></li>
+            <li><a class="dropdown-item d-flex align-items-center gap-2" routerLink="/account-settings"><i class="fa-solid fa-gear"></i> Account Settings</a></li>
+            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"><i class="fa-regular fa-trash-can"></i> Delete Account</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- Mobile Popup Menu -->
+    <div class="collapse d-md-none position-absolute end-0 me-3 bg-white shadow rounded-4 p-3" id="mobileMenu" style="z-index: 1050; min-width: 250px; margin-top: 15rem">
+      <ul class="list-unstyled mb-0">
+
+        <li class="mb-3">
+          <a routerLink="/addproperty" class="btn w-100 text-white fw-semibold" style="background-color: #0078D7; border-radius: 12px;">
+            Add Listing <i class="fa-solid fa-arrow-up-right-from-square ms-2"></i>
+          </a>
+        </li>
+        <li class="mb-3 dropdown">
+          <i class="fa-regular fa-bell fs-5 text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+
+          <ul class="dropdown-menu shadow rounded-4 p-3 me-2 mt-2" style="min-width: 250px;">
+            <li>
+              <a routerLink="/agent-dashboard/notification-agent" class="d-block text-center text-primary fw-bold mb-3 text-decoration-none">
+                View All Notifications
+              </a>
+            </li>
+            <li class="d-flex align-items-start mb-3">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-envelope text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">You have 3 new mails</div>
+                <small class="text-muted">3 hours ago</small>
+              </div>
+              <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </li>
+            <li class="d-flex align-items-start mb-3">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-file-lines text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold text-muted">Your listing post has been approved</div>
+                <small class="text-muted">1 day ago</small>
+              </div>
+              <span class="text-secondary ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </li>
+            <li class="d-flex align-items-start">
+              <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                <i class="fa-regular fa-calendar-xmark text-dark"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">Your meeting is cancelled</div>
+                <small class="text-muted">3 days ago</small>
+              </div>
+              <span class="text-danger ms-2" style="font-size: 8px;"><i class="fa-solid fa-circle"></i></span>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+            <i class="fa-regular fa-trash-can"></i> Delete Account
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4 rounded-4">
-
       <div class="mb-3">
         <div class="bg-dark rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
           <i class="fa-solid fa-trash-can text-white fs-3"></i>
         </div>
       </div>
-
       <h4 class="fw-bold mb-2">Are you sure?</h4>
       <p class="text-muted">Are you sure to delete your account? All data will be lost.</p>
-
       <div class="d-flex justify-content-center gap-3 mt-4">
         <button type="button" class="btn btn-danger px-4">Yes</button>
         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
       </div>
-
     </div>
   </div>
 </div>
