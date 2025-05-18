@@ -1,14 +1,12 @@
 <!-- ====== Sidebar (Visible on md and above) ====== -->
-<div class="d-flex flex-column vh-100 border-end bg-white overflow-auto"
-     style="width: 230px; font-family: 'Segoe UI', sans-serif;">
-
+<div class="sidebar bg-white border-end overflow-auto d-none d-md-flex flex-column p-4 vh-100"
+     style="width: 240px; font-family: 'Segoe UI', sans-serif;">
 
   <!-- Menu Top -->
-  <ul class="nav flex-column mb-4 px-3 pt-4">
+  <ul class="nav flex-column mb-4">
     <li class="nav-item">
 
-      <a routerLink="/agent-dashboard/"   routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }"class="nav-link link-item mb-2 d-flex align-items-center">
+      <a routerLink="/agent-dashboard/" class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-envelope me-2"></i> Dashboard
 
       </a>
@@ -22,8 +20,8 @@
   </ul>
 
   <!-- Profile -->
-  <div class="text-uppercase text-muted small fw-semibold mb-2 px-3">Profile</div>
-  <ul class="nav flex-column mb-4 px-3">
+  <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Profile</div>
+  <ul class="nav flex-column mb-4">
     <li>
       <a routerLink="/agent-dashboard/profail-agent" routerLinkActive="active-menu"
          class="nav-link link-item mb-2 d-flex align-items-center">
@@ -39,8 +37,8 @@
   </ul>
 
   <!-- Listing -->
-  <div class="text-uppercase text-muted small fw-semibold mb-2 px-3">Listing</div>
-  <ul class="nav flex-column mb-4 px-3">
+  <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Listing</div>
+  <ul class="nav flex-column mb-4">
     <li>
       <a routerLink="/agent-dashboard/myproperties-agent" routerLinkActive="active-menu"
          class="nav-link link-item mb-2 d-flex align-items-center">
@@ -68,10 +66,10 @@
 </div>
 <!-- ====== Toggle Button (Mobile only) ====== -->
 <div class="row">
-<button class="d-md-none bg-transparent border-0 text-black text-center m-2" (click)="toggleSidebar()" style="line-height: 1;">
-  <i class="fa-solid fa-arrow-right fs-5 d-block"></i>
-  <small style="font-size: 12px;">Menu</small>
-</button>
+  <button class="d-md-none bg-transparent border-0 text-black text-center m-2" (click)="toggleSidebar()" style="line-height: 1;">
+    <i class="fa-solid fa-arrow-right fs-5 d-block"></i>
+    <small style="font-size: 12px;">Menu</small>
+  </button>
 </div>
 
 
@@ -144,12 +142,10 @@
         <i class="fa-regular fa-comment me-2"></i> Reviews
       </a>
     </li>
-    <li>
-    <a routerLink="/"
-    class="nav-link link-item mb-2 d-flex align-items-center text-dark ml-5 mt-3">
-   <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
- </a></li>
   </ul>
 
-
+  <a routerLink="/" (click)="toggleSidebar()"
+     class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3">
+    <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+  </a>
 </div>

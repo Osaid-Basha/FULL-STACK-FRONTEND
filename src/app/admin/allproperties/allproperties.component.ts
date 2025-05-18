@@ -86,30 +86,6 @@ export class AllpropertiesComponent {
     }
   }
 
-  openUpdateForm(property: any, index: number) {
-    const globalIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-    this.selectedProperty = { ...property, index: globalIndex };
-  }
-
-  async updateProperty() {
-    const { index, ...updatedData } = this.selectedProperty;
-    this.properties[index] = updatedData;
-    this.selectedProperty = null;
-
-    await Swal.fire({
-      title: 'Updated!',
-      text: 'Property updated successfully.',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1500,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    });
-  }
 
   protected readonly Math = Math;
 }

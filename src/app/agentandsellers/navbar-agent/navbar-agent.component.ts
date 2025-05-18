@@ -4,7 +4,7 @@ import { Component, HostListener } from '@angular/core';
   selector: 'app-navbar-agent',
   standalone: false,
   templateUrl: './navbar-agent.component.html',
-  styleUrls: ['./navbar-agent.component.css']  
+  styleUrls: ['./navbar-agent.component.css']
 })
 export class NavbarAgentComponent {
 
