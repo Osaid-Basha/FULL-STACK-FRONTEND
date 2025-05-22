@@ -3,14 +3,17 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 
+
 @Component({
   selector: 'app-reviews-agent',
-  standalone: false,
   templateUrl: './reviews-agent.component.html',
-  styleUrl: './reviews-agent.component.css'
+  styleUrl: './reviews-agent.component.css',
+
+
+  standalone: false
 })
 export class ReviewsAgentComponent {
-  search: string = '';
+  searchreviewagent: string = '';
 
   reviews = [
     {
@@ -21,7 +24,7 @@ export class ReviewsAgentComponent {
       comment: 'Lorem ipsum dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
       image: 'assets/img/profile3.png',
       images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
-      likeCount:0,
+
 
     },
     {
@@ -32,7 +35,7 @@ export class ReviewsAgentComponent {
       comment: ' my house dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
       image: 'assets/img/profile2.png',
       images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
-      likeCount:0,
+
 
     },
     {
@@ -43,25 +46,19 @@ export class ReviewsAgentComponent {
       comment: ' my house dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
       image: 'assets/img/profile2.png',
       images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
-      likeCount:0,
+
 
     }
   ];
 
-
-  likeCount: number = 0
-  incrementLikes(review:any): void {
-    review.likeCount++;
-  }
-  isVisible: boolean = true;
-  filteredReviews() {
-    const filtered = this.reviews.filter(input =>
-      input.name.toLowerCase().includes(this.search.toLowerCase()) ||
-      input.comment.toLowerCase().includes(this.search.toLowerCase()) ||
-      input.date.toLowerCase().includes(this.search.toLowerCase())
+  get filteredReviews() {
+    return this.reviews.filter(review =>
+      review.name.toLowerCase().includes(this.searchreviewagent.toLowerCase()) ||
+      review.comment.toLowerCase().includes(this.searchreviewagent.toLowerCase()) ||
+      review.date.toLowerCase().includes(this.searchreviewagent.toLowerCase())
     );
-    return this.paginateReviews(filtered);
   }
+
 
   currentPage = 1;
   cardsPerPage = 2;
@@ -82,14 +79,18 @@ export class ReviewsAgentComponent {
 
 
 Massagenew:String='';
-  Sendmassage()
-  {
-  this.Massagenew= '';
+  bootstrap: any;
+  Sendmassage() {
 
+    console.log('Message to send:', this.Massagenew);
+    const modal = document.getElementById('exampleModal');
+    if (modal) {
+      const modalInstance = this.bootstrap.Modal.getInstance(modal);
+      modalInstance?.hide();
+    }
   }
   ngOnInit(){
-    AOS.init();
-  }
+    AOS.init();}
 
 
 

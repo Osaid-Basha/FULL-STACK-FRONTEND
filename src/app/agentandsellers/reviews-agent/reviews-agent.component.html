@@ -1,18 +1,17 @@
 <h2> Reviews Agent</h2>
+<div class="row align-items-center mb-2" >
+  <div class="col-md-6">
+    <input type="text" [(ngModel)]="searchreviewagent" class="form-control" placeholder="Search by name, email, or date or comment" />
+  </div>
+</div>
 <br>
-<select class="form-select form-select-sm w-auto">
-
-  <option selected>Newest</option>
-  <option>Oldest</option>
-  <option>Highest Rated</option>
-</select>
 <div class="container-fluid bg-light-subtle rounded-4 p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
 
 
   </div>
   <!-- Review Item -->
-  <div class="border-bottom pb-4 mb-4" *ngFor="let review of filteredReviews()">
+  <div class="border-bottom pb-4 mb-4" *ngFor="let review of filteredReviews">
     <div class="d-flex justify-content-between">
       <div class="d-flex">
         <img [ngSrc]="review.image" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
@@ -41,13 +40,11 @@
 
     <!-- Actions -->
     <div class="d-flex flex-wrap gap-2 text-muted small" style="margin-top: 25px ;margin-left: 20px ">
-      <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" (click)="incrementLikes(review)"><i class="fa-regular fa-thumbs-up me-1"></i>
-        {{ review.likeCount }} Like
-      </button>
-
-      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" (click)=" Sendmassage()"><i class="bi bi-reply" ></i>
+<form>
+      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-reply" ></i>
         Replay
       </button>
+</form>
 
       <!-- Scrollable modal -->
   </div>
