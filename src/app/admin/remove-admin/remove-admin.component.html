@@ -1,9 +1,9 @@
 <div class="container-fluid py-4 animate-in">
 
-  <!-- العنوان والبحث -->
+
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
     <h2 class="fw-bold text-dark">
-      <i class="bi bi-x-circle-fill text-danger me-2"></i> Manage Reported Content
+      <i class="bi bi-x-circle-fill text-danger me-2"></i> All User
     </h2>
     <div class="w-100 w-md-25 mt-3 mt-md-0">
       <input type="text" [(ngModel)]="searchTerm" class="form-control form-control-lg shadow-sm"
@@ -18,16 +18,14 @@
           (click)="filterByType('All')">All</button>
 
   <button class="btn rounded-pill px-4 py-2"
-          [ngClass]="activeFilter === 'Spam' ? 'btn-primary' : 'btn-outline-secondary'"
-          (click)="filterByType('Spam')">Spam</button>
+          [ngClass]="activeFilter === 'Agent' ? 'btn-primary' : 'btn-outline-secondary'"
+          (click)="filterByType('Agent')">Agent</button>
 
   <button class="btn rounded-pill px-4 py-2"
-          [ngClass]="activeFilter === 'Abuse' ? 'btn-primary' : 'btn-outline-secondary'"
-          (click)="filterByType('Abuse')">Abuse</button>
+          [ngClass]="activeFilter === 'Buyer' ? 'btn-primary' : 'btn-outline-secondary'"
+          (click)="filterByType('Buyer')">Buyer</button>
 
-  <button class="btn rounded-pill px-4 py-2"
-          [ngClass]="activeFilter === 'Other' ? 'btn-primary' : 'btn-outline-secondary'"
-          (click)="filterByType('Other')">Other</button>
+
 </div>
 
 
@@ -36,7 +34,7 @@
     <div class="col-lg-6" *ngFor="let item of filteredItems()">
       <div class="card shadow border-0 rounded-4 p-4 bg-light animate-in">
 
-        <!-- رأس البطاقة -->
+
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="d-flex align-items-center gap-3">
             <i class="bi bi-person-circle fs-1 text-primary"></i>

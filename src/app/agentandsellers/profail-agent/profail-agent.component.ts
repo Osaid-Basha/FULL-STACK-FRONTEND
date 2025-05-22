@@ -18,4 +18,11 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
     ])
   ]
 })
-export class ProfailAgentComponent {}
+export class ProfailAgentComponent {
+  profileImage: string | null = 'assets/371225.jpg';// Initial image path
+
+  // Method to remove the image
+  removeImage(): void {
+    this.profileImage = null; // Set the image source to null
+  }
+}

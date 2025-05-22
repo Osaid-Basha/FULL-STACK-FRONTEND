@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidbar-navbar',
-standalone: false,
+  standalone: false,
   templateUrl: './sidbar-navbar.component.html',
   styleUrls: ['./sidbar-navbar.component.css']
 
@@ -15,6 +15,4 @@ export class SidbarNavbarComponent {
   toggleSidebar() {
     this.sidebarVisibleOnMobile = !this.sidebarVisibleOnMobile;
   }
-
-
 }

@@ -16,5 +16,11 @@ import {animate, style, transition, trigger} from '@angular/animations';
   ]
 })
 export class ProfailBuyerComponent {
+  profileImage: string | null = 'assets/371225.jpg';// Initial image path
+
+  // Method to remove the image
+  removeImage(): void {
+    this.profileImage = null; // Set the image source to null
+  }
 
 }

@@ -160,3 +160,40 @@ body {
     padding: 0.6rem 1rem;
   }
 }
+/* Font size ------------------ */
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-17 {
+  font-size: 17px !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+/* Breadcrumb ----- */
+
+.breadcrumb {
+  --bs-breadcrumb-divider-color: #0a73c0;
+  --bs-breadcrumb-item-active-color: #0a73c0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Font Awesome 6 Free", serif;
+}
+
+.breadcrumb li a,
+.breadcrumb li a:hover {
+  color: #0a73c0;
+}
+
+.breadcrumb li.active {
+  font-weight: 600;
+}
+.container {
+  padding: 0 !important;
+}
