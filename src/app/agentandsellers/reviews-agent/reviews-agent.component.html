@@ -15,7 +15,7 @@
   <div class="border-bottom pb-4 mb-4" *ngFor="let review of filteredReviews">
     <div class="d-flex justify-content-between">
       <div class="d-flex">
-        <img [ngSrc]="review.image" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
+        <img [src]="review.image" class="rounded-circle me-3" width="40" height="40"  alt="image"/>
 
         <div>
           <strong>{{ review.name }}</strong>
@@ -35,7 +35,7 @@
 
     <!-- Attached Images -->
     <div class="d-flex gap-2 mb-3" *ngIf="review.images?.length">
-      <img *ngFor="let img of review.images.slice(0,4)" [ngSrc]="img" class="rounded" alt="image" width="70" height="50" style="object-fit: cover;" />
+      <img *ngFor="let img of review.images.slice(0,4)" [src]="img" class="rounded" alt="image" width="70" height="50" style="object-fit: cover;" />
       <div *ngIf="review.images.length > 4" class="d-flex align-items-center justify-content-center rounded bg-dark text-white" style="width: 70px; height: 50px;">
         +{{ review.images.length - 4 }}
       </div>
