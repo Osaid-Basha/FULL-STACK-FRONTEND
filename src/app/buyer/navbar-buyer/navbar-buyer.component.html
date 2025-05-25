@@ -1,3 +1,4 @@
+<!-- Start Topbar -->
 <div class="topbar d-none d-lg-block topbar-bg bg-primary text-white">
   <div class="container">
     <div class="row align-items-center">
@@ -14,44 +15,32 @@
               <i class="fa-clock fa-solid fs-30 text-white opacity-75"></i>
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">MON - FRI: 08:00AM - 20:00PM</h6>
-              <p class="sub-text mb-0 fs-14">Saturday and Sunday - <span class="fw-semibold text-warning">CLOSED</span></p>
+              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">SUN - THU: 08:00AM - 20:00PM</h6>
+              <p class="sub-text mb-0 fs-14">friday - saturday <span class="fw-semibold text-warning">CLOSED</span></p>
             </div>
           </div>
 
-          <div class="col-md-8 col-lg-9 col-xl-8 d-none d-md-block">
-              <div class="d-flex justify-content-end">
-                  <div class="d-flex align-items-center help-info">
-                      <div class="flex-shrink-0 icon">
-                          <i class="fa-clock fa-solid fs-30 text-white opacity-75"></i>
-                      </div>
-                      <div class="flex-grow-1 ms-3">
-                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">SUN - THU: 08:00AM - 20:00PM</h6>
-                          <p class="sub-text mb-0 fs-14"> friday -saturday - <span class="fw-semibold text-warning">CLOSED</span></p>
-                      </div>
-                  </div>
-                  <div class="d-flex align-items-center help-info ms-4">
-                      <div class="flex-shrink-0 icon">
-                          <i class="fa-solid fa-mobile-button fs-30 text-white opacity-75"></i>
-                      </div>
-                      <div class="flex-grow-1 ms-3">
-                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">972 543545784</h6>
-                          <p class="sub-text mb-0 fs-14">Contact Us For Help</p>
-                      </div>
-                  </div>
-                  <div class="d-flex align-items-center help-info ms-4">
-                      <div class="flex-shrink-0 icon">
-                          <i class="fa-solid fa-street-view fs-30 text-white opacity-75"></i>
-                      </div>
-                      <div class="flex-grow-1 ms-3">
-                          <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">Palestine</h6>
-                          <p class="sub-text mb-0 fs-14">Nablus</p>
-                      </div>
-                  </div>
-              </div>
-
+          <!-- Phone -->
+          <div class="d-flex align-items-center help-info me-4 mb-2">
+            <div class="flex-shrink-0 icon">
+              <i class="fa-solid fa-mobile-button fs-30 text-white opacity-75"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">972 52455255</h6>
+              <p class="sub-text mb-0 fs-14">Contact Us For Help</p>
+            </div>
           </div>
 
+          <!-- Address -->
+          <div class="d-flex align-items-center help-info mb-2">
+            <div class="flex-shrink-0 icon">
+              <i class="fa-solid fa-street-view fs-30 text-white opacity-75"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">Palestine</h6>
+              <p class="sub-text mb-0 fs-14">Nablus</p>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -73,8 +62,8 @@
 
       <!-- Toggler for mobile -->
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
         <i class="fa-solid fa-bars text-dark fs-4"></i>
       </button>
 
@@ -88,7 +77,7 @@
           </div>
           <div class="flex-grow-1 ms-3 text-end">
             <button type="button" class="bg-transparent border-0 collapse-close p-0 position-relative" (click)="closeNavbar()">
-              <span></span><span></span>
+              <i class="fa-solid fa-xmark fs-4 text-dark"></i>
             </button>
           </div>
         </div>
@@ -97,6 +86,7 @@
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a routerLink="/buyerHome" class="nav-link">Home</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/properties-grid">Properties</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/buyerproperties">My Properties</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/agent-grid">Agent Finder</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
@@ -130,7 +120,7 @@
           <!-- Profile -->
           <div class="dropdown">
             <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
+               data-bs-toggle="dropdown" aria-expanded="false">
               <img src="assets/371225.jpg" alt="Profile" class="rounded-circle me-2 border" width="36" height="36" style="object-fit: cover;">
               <span class="fw-semibold text-dark d-none d-sm-inline-block">Osaid</span>
             </a>
@@ -142,8 +132,10 @@
               <li><a class="dropdown-item text-danger" href="#" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
             </ul>
           </div>
-        </div>
-      </div>
+
+        </div> <!-- end user icons -->
+
+      </div> <!-- end collapse -->
     </nav>
   </div>
 </div>
