@@ -200,7 +200,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
         AccountAdminComponent,
         ChangepasswordAdminComponent,
         ProfailAdminComponent,
-        AllpropertiesComponent,
+
 
         ResetPasswordComponent,
         NotificationAdminComponent,
