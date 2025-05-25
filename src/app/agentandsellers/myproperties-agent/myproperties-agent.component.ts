@@ -3,6 +3,44 @@ import { FormsModule } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
 
+// Define the Amenities interface with an index signature
+interface Amenities {
+  garden: boolean;
+  securityCameras: boolean;
+  laundry: boolean;
+  internet: boolean;
+  pool: boolean;
+  videoSurveillance: boolean;
+  laundryRoom: boolean;
+  jacuzzi: boolean;
+  [key: string]: boolean; // Allows indexing with a string
+}
+
+// Define the Property interface for better type checking
+interface Property {
+  title: string;
+  location: string;
+  price: number;
+  date: string;
+  views: number;
+  status: string;
+  image: string;
+  address: string;
+  city: string;
+  propertyType: string;
+  listingType: string;
+  livingArea: number;
+  bedrooms: number;
+  bathrooms: number;
+  parking: number;
+  constructionSize: number;
+  landSize: number;
+  shortDescription: string;
+  longDescription: string;
+  amenities: Amenities; // Use the Amenities interface
+  images: any[]; // You might want to define a more specific type for images
+}
+
 @Component({
   selector: 'app-myproperties-agent',
   standalone: true,
@@ -16,7 +54,7 @@ import Swal from 'sweetalert2';
   ]
 })
 export class MypropertiesAgentComponent {
-  properties = [
+  properties: Property[] = [ // Apply the Property interface to the array
     {
       title: 'Sunset Villa',
       location: 'Al-Masayef, Ramallah, PS',
@@ -243,38 +281,69 @@ export class MypropertiesAgentComponent {
     }
   ];
 
-  // Initialize the allAmenities array
-  allAmenities: string[] = [
-    'Garden',
-    'Security Cameras',
-    'Laundry',
-    'Internet',
-    'Pool',
-    'Video Surveillance',
-    'Laundry Room',
-    'Jacuzzi'
+  // Initialize the allAmenities array using keyof Amenities for type safety
+  allAmenities: (keyof Amenities)[] = [
+    'garden',
+    'securityCameras',
+    'laundry',
+    'internet',
+    'pool',
+    'videoSurveillance',
+    'laundryRoom',
+    'jacuzzi'
   ];
+
+  // New properties for filtering
+  filteredTitle: string = '';
+  // Use a more specific type for selectedAmenities to ensure keys are valid amenity keys
+  selectedAmenities: { [K in keyof Amenities]?: boolean } = {};
 
   currentPage = 1;
   itemsPerPage = 2;
-  selectedProperty: any = null;
+  selectedProperty: (Property & { index?: number }) | null = null; // Add index for local tracking
 
-  get pagedProperties() {
+  // Getter for filtered properties based on title and amenities
+  get filteredProperties(): Property[] {
+    return this.properties.filter(property => {
+      // Filter by title (case-insensitive)
+      const matchesTitle = property.title.toLowerCase().includes(this.filteredTitle.toLowerCase());
+
+      // Filter by amenities: ensures property has ALL selected amenities
+      const matchesAmenities = this.allAmenities.every(amenityKey => {
+        // If an amenity checkbox is checked (selectedAmenities[amenityKey] is true)
+        // AND the property's amenities object does NOT have that amenity set to true,
+        // then it doesn't match, so return false.
+        // Otherwise, it matches for this amenity, so return true.
+        // Type assertion `as string` is technically not needed here due to `keyof Amenities`
+        // but helps if `selectedAmenities` was typed more broadly.
+        return !this.selectedAmenities[amenityKey] || property.amenities[amenityKey];
+      });
+
+      return matchesTitle && matchesAmenities;
+    });
+  }
+
+  // Getter for properties displayed on the current page after filtering
+  get displayedProperties(): Property[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.properties.slice(start, start + this.itemsPerPage);
+    const end = start + this.itemsPerPage;
+    return this.filteredProperties.slice(start, end);
   }
 
-  get totalPages() {
-    return Math.ceil(this.properties.length / this.itemsPerPage);
+  // Getter for the total number of pages based on filtered properties
+  get totalDisplayedPages(): number {
+    return Math.ceil(this.filteredProperties.length / this.itemsPerPage);
   }
 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
+  // Change the current page
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalDisplayedPages) {
       this.currentPage = page;
     }
   }
 
-  async deleteProperty(index: number) {
+  // Delete a property with SweetAlert2 confirmation
+  async deleteProperty(index: number): Promise<void> {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone!',
@@ -293,8 +362,14 @@ export class MypropertiesAgentComponent {
     });
 
     if (result.isConfirmed) {
-      const realIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-      this.properties.splice(realIndex, 1);
+      // Get the actual property object from the currently displayed page
+      const propertyToDelete = this.displayedProperties[index];
+      // Find its index in the original 'properties' array
+      const originalIndex = this.properties.indexOf(propertyToDelete);
+
+      if (originalIndex > -1) {
+        this.properties.splice(originalIndex, 1);
+      }
 
       await Swal.fire({
         title: 'Deleted!',
@@ -309,18 +384,47 @@ export class MypropertiesAgentComponent {
           popup: 'animate__animated animate__fadeOutUp'
         }
       });
+
+      // Adjust page if current page becomes empty after deletion
+      if (this.displayedProperties.length === 0 && this.currentPage > 1) {
+        this.currentPage--;
+      }
     }
   }
 
-  openUpdateForm(property: any, index: number) {
+  // Open the update form modal for a selected property
+  openUpdateForm(property: Property, index: number): void {
+    // We pass the property object itself to maintain its reference,
+    // and add a temporary 'index' property for internal tracking
     const globalIndex = (this.currentPage - 1) * this.itemsPerPage + index;
     this.selectedProperty = { ...property, index: globalIndex };
   }
 
-  async updateProperty() {
+  // Update a property and close the modal
+  async updateProperty(): Promise<void> {
+    if (!this.selectedProperty) return; // Guard clause if selectedProperty is null
+
+    // Destructure, ensuring updatedData is of type Property
     const { index, ...updatedData } = this.selectedProperty;
-    this.properties[index] = updatedData;
-    this.selectedProperty = null;
+
+    // Find the original property in the main 'properties' array by title and location
+    // This is safer than relying solely on 'index' if filtering/sorting changes positions
+    const originalPropertyIndex = this.properties.findIndex(p =>
+      p.title === updatedData.title && p.location === updatedData.location
+    );
+
+    if (originalPropertyIndex > -1) {
+      // Update the original property with the new data
+      this.properties[originalPropertyIndex] = updatedData as Property;
+    } else {
+      // Fallback: If for some reason the original property can't be found by title/location,
+      // update using the passed 'index'. This is less robust but provides a fallback.
+      if (typeof index === 'number' && index >= 0 && index < this.properties.length) {
+        this.properties[index] = updatedData as Property;
+      }
+    }
+
+    this.selectedProperty = null; // Close the modal
 
     await Swal.fire({
       title: 'Updated!',
@@ -337,19 +441,49 @@ export class MypropertiesAgentComponent {
     });
   }
 
-  onImagesSelected(event: Event) {
+  // Handle image selection for update form
+  onImagesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files) {
+    if (input.files && this.selectedProperty) {
       this.selectedProperty.images = Array.from(input.files);
     }
   }
 
-  protected readonly Math = Math;
-  viewedProperty: any = null;
+  protected readonly Math = Math; // Allow Math object to be used in template
+  viewedProperty: (Property & { index?: number }) | null = null; // Property being viewed in modal
 
-  viewProperty(property: any, index: number) {
+  // Open the view property modal
+  viewProperty(property: Property, index: number): void {
     const globalIndex = (this.currentPage - 1) * this.itemsPerPage + index;
     this.viewedProperty = { ...property, index: globalIndex };
   }
 
+  // Helper function to get display name for an amenity key
+  // Explicitly cast amenityKey to `string` within the switch statement
+  getAmenityDisplayName(amenityKey: keyof Amenities): string {
+    // Casting to `string` resolves the TS2322 error in switch cases.
+    // We know `keyof Amenities` will only yield string literals here.
+    switch (amenityKey as string) {
+      case 'garden': return 'Garden';
+      case 'securityCameras': return 'Security Cameras';
+      case 'laundry': return 'Laundry';
+      case 'internet': return 'Internet';
+      case 'pool': return 'Pool';
+      case 'videoSurveillance': return 'Video Surveillance';
+      case 'laundryRoom': return 'Laundry Room';
+      case 'jacuzzi': return 'Jacuzzi';
+      default:
+        // This default case should ideally not be reached because amenityKey is `keyof Amenities`
+        // which means it can only be one of the defined keys.
+        console.warn(`Unknown amenity key: ${amenityKey}`);
+        return amenityKey as string; // Ensure return type is string
+    }
+  }
+
+  // Reset all filters and return to the first page
+  resetFilters(): void {
+    this.filteredTitle = '';
+    this.selectedAmenities = {}; // Clear all amenity selections
+    this.currentPage = 1; // Go back to the first page
+  }
 }
