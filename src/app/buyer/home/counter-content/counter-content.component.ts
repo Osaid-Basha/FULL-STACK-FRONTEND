@@ -17,13 +17,13 @@ export class CounterContentComponent implements AfterViewInit {
 
   @ViewChildren('counter') counters!: QueryList<ElementRef>;
 
-  // ✅ نستقبل القيم من الـ @Input
+
   @Input() propertiesListed: number = 3000;
   @Input() satisfiedClients: number = 2500;
-  @Input() totalSales: number = 6.8; // بالمليار
+  @Input() totalSales: number = 6.8;
   @Input() totalAgents: number = 593;
 
-  // بنرتب القيم بنفس ترتيب العناصر في الـ HTML
+
   values: (number | string)[] = [];
 
   ngAfterViewInit(): void {
@@ -31,7 +31,7 @@ export class CounterContentComponent implements AfterViewInit {
     const steps = 60;
     const stepTime = duration / steps;
 
-    // ربط القيم بترتيب العناصر في الـ HTML
+   
     this.values = [
       this.propertiesListed,
       this.satisfiedClients,

@@ -30,7 +30,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@ng-select/ng-select": "^14.2.4",
     "aos": "^2.3.4",
-
     "bootstrap": "^5.3.5",
     "apexcharts": "^4.5.0",
     "bootstrap-datepicker": "^1.10.0",

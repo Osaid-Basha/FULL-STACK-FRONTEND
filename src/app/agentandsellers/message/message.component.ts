@@ -1,12 +1,12 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 @Component({
   selector: 'app-message',
   standalone: false,
   templateUrl: './message.component.html',
   styleUrl: './message.component.css'
 })
-export class MessageComponent implements AfterViewInit {
+export class MessageComponent implements AfterViewInit, OnInit {
   @ViewChild('chatWindow') chatWindow!: ElementRef;
 
   newMessage: string = '';
@@ -87,6 +87,15 @@ export class MessageComponent implements AfterViewInit {
 
   selectedChat = this.chatList[0];
   searchTerm: string = '';
+
+  ngOnInit(): void {
+    // 🚀 تفعيل AOS عند الدخول
+    AOS.init({
+      duration: 700,
+      once: true,
+      easing: 'ease-in-out'
+    });
+  }
 
   ngAfterViewInit() {
     this.scrollToBottom();

@@ -1,3 +1,4 @@
+
 <div class =" container-fluid">
 <div class="row justify-content-center">
   <form class="col-lg-8">
@@ -9,256 +10,132 @@
           <div class="align-items-center bg-soft-primary d-flex justify-content-center mb-2 rounded-circle" style="    height: 80px;
                                     width: 80px;">
             <i class="fa-solid fa-house-chimney fs-3 text-primary"></i>
+
           </div>
         </div>
-        <div class="flex-grow-1 ms-3">
-          <h5 class="fw-semibold">Information about the property</h5>
-          <p class="mb-0">There are many variations of passages of Lorem Ipsum<br class="d-none d-lg-block"> available, but the majority have</p>
-        </div>
-      </div>
-      <div class="row gx-3 gy-4">
-        <div class="col-md-12">
 
-          <div class="form-group">
-            <label class="required">Listing title</label>
+        <div class="row gy-4">
+          <div class="col-md-12">
+            <label class="form-label fw-medium">Listing title <span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="Property listing title" required>
           </div>
 
-        </div>
-        <div class="col-md-6">
-
-          <div class="form-group">
-            <label class="required">Address</label>
-            <input type="email" class="form-control" placeholder="example@email.com" required>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Address <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="Street address" required>
           </div>
 
-        </div>
-        <div class="col-md-6">
-
-          <div class="form-group">
-            <label class="required">City</label>
-            <input type="number" class="form-control" placeholder="(123) 456 - 789" required>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">City <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="City name" required>
           </div>
 
-        </div>
-        <div class="col-md-6">
-
-          <div class="form-group">
-            <label class="required">Type of the property</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Select</option>
-              <option value="1">Apartment</option>
-              <option value="2">House</option>
-              <option value="3">Office</option>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Type of property</label>
+            <select class="form-select">
+              <option selected>Select type</option>
+              <option>Apartment</option>
+              <option>House</option>
+              <option>Office</option>
             </select>
           </div>
 
-        </div>
-        <div class="col-md-6">
-
-          <div class="form-group">
-            <label class="required">Type of the listing</label>
-            <select class="form-select" aria-label="Default select example">
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Listing type</label>
+            <select class="form-select">
               <option selected>Select</option>
-              <option value="1">For Rent</option>
-              <option value="2">For Sale</option>
+              <option>For Rent</option>
+              <option>For Sale</option>
             </select>
           </div>
 
-        </div>
-        <div class="col-md-12">
-
-          <div class="form-group">
-            <label class="required">Listing price</label>
-            <input type="number" class="form-control" placeholder="ex. $10,000" required>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Price ($)</label>
+            <input type="number" class="form-control" placeholder="ex. 10000" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Living area</label>
-            <input type="number" class="form-control" placeholder="e.g. 1200 sqft" required>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Living area (sqft)</label>
+            <input type="number" class="form-control" placeholder="e.g. 1200" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Bedrooms</label>
+          <div class="col-md-4">
+            <label class="form-label fw-medium">Bedrooms</label>
             <input type="number" class="form-control" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Bathrooms</label>
+          <div class="col-md-4">
+            <label class="form-label fw-medium">Bathrooms</label>
             <input type="number" class="form-control" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Parking lots</label>
+          <div class="col-md-4">
+            <label class="form-label fw-medium">Parking</label>
             <input type="number" class="form-control" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Construction sqft.</label>
-            <input type="number" class="form-control" placeholder="ex. 4795 sqft" required>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Construction size (sqft)</label>
+            <input type="number" class="form-control" required>
           </div>
 
-        </div>
-        <div class="col-md-4">
-
-          <div class="form-group">
-            <label class="required">Land sqft.</label>
-            <input type="number" class="form-control" placeholder="ex. 4795 sqft" required>
-          </div>
-
-        </div>
-        <div class="col-md-12">
-
-          <div class="form-group">
-            <label class="required">Listing short description</label>
-            <textarea class="form-control" placeholder="Please enter up to 240 characters." rows="4"></textarea>
-          </div>
-
-        </div>
-        <div class="col-md-12">
-
-          <div class="form-group">
-            <label class="required">Listing long description</label>
-            <textarea class="form-control" placeholder="Please enter up to 4000 characters." rows="4"></textarea>
-          </div>
-
-        </div>
-        <div class="col-md-12">
-          <div class="fw-medium text-dark mb-3">Property amenities</div>
-          <div class="row gx-3 gy-2">
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultOne">
-                <label class="form-check-label" for="flexCheckDefaultOne">
-                  Garden
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultTwo">
-                <label class="form-check-label" for="flexCheckDefaultTwo">
-                  Security cameras
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultThree">
-                <label class="form-check-label" for="flexCheckDefaultThree">
-                  Laundry
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultFour">
-                <label class="form-check-label" for="flexCheckDefaultFour">
-                  Internet
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultFive">
-                <label class="form-check-label" for="flexCheckDefaultFive">
-                  Pool
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultSix">
-                <label class="form-check-label" for="flexCheckDefaultSix">
-                  Video surveillance
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultSeven">
-                <label class="form-check-label" for="flexCheckDefaultSeven">
-                  Laundry room
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultEight">
-                <label class="form-check-label" for="flexCheckDefaultEight">
-                  Jacuzzi
-                </label>
-              </div>
-
-            </div>
-            <div class="col-sm-6 col-md-4">
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultNine">
-                <label class="form-check-label" for="flexCheckDefaultNine">
-                  Security cameras
-                </label>
-              </div>
-
-            </div>
+          <div class="col-md-6">
+            <label class="form-label fw-medium">Land size (sqft)</label>
+            <input type="number" class="form-control" required>
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label class="required mb-2 d-block">Listing images</label>
-            <div class="custom-file-upload border border-2 border-primary-subtle rounded-4 p-4 text-center position-relative" style="cursor: pointer;">
-              <i class="fa fa-upload text-primary fs-3 mb-2 d-block"></i>
-              <strong>Click to upload or drag & drop</strong>
-              <p class="text-muted mb-0 small">You can upload multiple JPG or PNG images</p>
-              <input type="file" id="imageUpload" class="form-control-file position-absolute top-0 start-0 w-100 h-100 opacity-0" accept="image/*" multiple required>
-            </div>
-            <div id="imagePreview" class="mt-3 d-flex flex-wrap"></div>
-          </div>
-        </div>
-
-
       </div>
-    </div>
-    <div class="mt-5">
-      <!-- Start Button -->
-      <button type="submit" class="btn btn-primary btn-lg d-inline-flex hstack gap-2">
-        <span>Submit for approval</span>
-        <span class="vr"></span>
-        <i class="fa-arrow-right fa-solid fs-14"></i>
-      </button>
-      <!-- /.End Button -->
-    </div>
-  </form>
+
+      <!-- Card: Descriptions -->
+      <div class="card shadow-sm p-4 rounded-4 mb-4 border-0">
+        <h5 class="fw-bold mb-3">Descriptions</h5>
+        <div class="mb-3">
+          <label class="form-label">Short Description</label>
+          <textarea class="form-control" rows="3" placeholder="Up to 240 characters"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Long Description</label>
+          <textarea class="form-control" rows="5" placeholder="Up to 4000 characters"></textarea>
+        </div>
+      </div>
+
+      <!-- Card: Amenities -->
+      <div class="card shadow-sm p-4 rounded-4 mb-4 border-0">
+        <h5 class="fw-bold mb-3">Amenities</h5>
+        <div class="row gy-2">
+          <div class="col-md-4" *ngFor="let amenity of ['Garden','Security cameras','Laundry','Internet','Pool','Video surveillance','Laundry room','Jacuzzi']">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [id]="amenity" />
+              <label class="form-check-label" [for]="amenity">{{ amenity }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Image Upload -->
+      <div class="card shadow-sm p-4 rounded-4 mb-4 border-0">
+        <h5 class="fw-bold mb-3">Listing Images</h5>
+        <div class="custom-file-upload border border-primary-subtle rounded-4 p-4 text-center position-relative" style="cursor: pointer;">
+          <i class="fa fa-upload text-primary fs-3 mb-2 d-block"></i>
+          <strong>Click to upload or drag & drop</strong>
+          <p class="text-muted mb-0 small">Upload JPG or PNG files</p>
+          <input type="file" class="form-control-file position-absolute top-0 start-0 w-100 h-100 opacity-0" accept="image/*" multiple required>
+        </div>
+        <div class="mt-3 d-flex flex-wrap" id="imagePreview"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-end mt-4">
+        <button type="submit" class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2">
+          <span>Submit for approval</span>
+          <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </form>
+  </div>
 </div>
+
 </div>
     <!-- /. End Main Content -->
+

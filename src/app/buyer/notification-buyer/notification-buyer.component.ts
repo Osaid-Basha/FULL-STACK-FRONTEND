@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-notification-buyer',
   standalone: false,
   templateUrl: './notification-buyer.component.html',
-  styleUrl: './notification-buyer.component.css'
+  styleUrls: ['./notification-buyer.component.css'] // ✅ تصحيح من styleUrl إلى styleUrls
 })
 export class NotificationBuyerComponent {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   notifications = [
     {
       type: 'info',
@@ -38,17 +42,17 @@ export class NotificationBuyerComponent {
     }
   ];
 
-
   selectedNotification: any = null;
-
 
   openModal(notification: any) {
     this.selectedNotification = notification;
 
-    const modalElement = document.getElementById('notificationModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
+    if (isPlatformBrowser(this.platformId)) {
+      const modalElement = document.getElementById('notificationModal');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
     }
   }
 }

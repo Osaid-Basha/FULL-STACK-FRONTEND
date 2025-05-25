@@ -1,51 +1,51 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-navbar-buyer',
   standalone: false,
   templateUrl: './navbar-buyer.component.html',
-  styleUrl: './navbar-buyer.component.css'
+  styleUrls: ['./navbar-buyer.component.css'] // ✅ تصحيح من styleUrl إلى styleUrls
 })
 export class NavbarBuyerComponent implements OnInit {
-   // لتغيير كلاس الخلفية عند التمرير
-   isScrolled = false;
+  isScrolled = false;
+  showLogo = false;
 
-   // لإظهار الشعار عند التمرير لمسافة معينة
-   showLogo = false;
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-   constructor(private router: Router) {}
+  logout() {
+    // امسح بيانات المستخدم من التخزين المحلي
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userType');
+    }
 
-   logout() {
-     // امسح بيانات المستخدم من التخزين المحلي
-     localStorage.removeItem('user');
-     localStorage.removeItem('token');
-     localStorage.removeItem('userType');
+    // تحويل المستخدم إلى صفحة تسجيل الدخول
+    this.router.navigate(['/login']);
+  }
 
-     // تحويل المستخدم إلى صفحة تسجيل الدخول
-     this.router.navigate(['/login']);
-   }
+  ngOnInit(): void {}
 
-   ngOnInit(): void {}
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollY = window.scrollY;
+      this.isScrolled = scrollY > 0;
+      this.showLogo = scrollY >= 81;
+    }
+  }
 
-   // الاستماع لحدث التمرير على النافذة
-   @HostListener('window:scroll', [])
-   onWindowScroll(): void {
-     const scrollY = window.scrollY;
-
-     // إذا تم التمرير، أضف كلاس الخلفية
-     this.isScrolled = scrollY > 0;
-
-     // إظهار الشعار عند التمرير أكثر من 81px
-     this.showLogo = scrollY >= 81;
-   }
-
-   // إغلاق الـ Navbar في وضع الموبايل
-   closeNavbar(): void {
-     const navbarCollapse = document.querySelector('.navbar-collapse') as HTMLElement;
-     if (navbarCollapse?.classList.contains('show')) {
-       navbarCollapse.classList.remove('show');
-     }
-   }
-
-
+  closeNavbar(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const navbarCollapse = document.querySelector('.navbar-collapse') as HTMLElement;
+      if (navbarCollapse?.classList.contains('show')) {
+        navbarCollapse.classList.remove('show');
+      }
+    }
+  }
 }

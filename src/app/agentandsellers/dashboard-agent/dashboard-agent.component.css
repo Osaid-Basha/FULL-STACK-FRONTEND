@@ -22,3 +22,53 @@ select.form-select {
 canvas {
   max-height: 280px;
 }
+/* أيقونة الإحصائيات */
+.icon-wrap {
+  background: linear-gradient(135deg, #0078D7, #00B6F1);
+  box-shadow: 0 4px 10px rgba(0, 120, 215, 0.3);
+}
+
+/* الشريط السفلي الملون في كروت الإحصائيات */
+.gradient-bar {
+  background: linear-gradient(to right, #0078D7, #00B6F1);
+}
+
+/* صندوق الرسائل */
+.message-box:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.015);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+}
+/* Gradient bar under stat cards */
+.gradient-bar {
+  height: 4px;
+  background: linear-gradient(to right, #0078D7, #00B6F1);
+}
+
+/* الرسائل بتأثير hover جميل */
+.message-box:hover {
+  background-color: #f2f9ff;
+  transform: scale(1.01);
+  transition: 0.3s ease;
+}
+
+/* AOS animation support */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition-property: opacity, transform;
+}
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  transition: 0.3s ease-in-out;
+}
+
+.message-box:hover {
+  background-color: #eef7ff;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.1);
+  transform: scale(1.01);
+}

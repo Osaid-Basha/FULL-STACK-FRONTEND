@@ -1,11 +1,11 @@
 <!-- Start Masonry -->
-<div class="container">
+<div class="container" data-aos="fade-up">
   <div class="position-relative">
     <!-- Start Header Masonry -->
-    <div class="header-masonry position-relative">
+    <div class="header-masonry position-relative" data-aos="fade-up">
       <div id="gallery-1" class="header-masonry-grid zoom-gallery">
         <!-- العمود الأول -->
-        <div class="column-start" *ngIf="galleryImages[0]">
+        <div class="column-start" *ngIf="galleryImages[0]" data-aos="zoom-in">
           <a [href]="galleryImages[0]" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 h-100 w-100 d-block">
             <img [src]="galleryImages[0]" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
           </a>
@@ -13,8 +13,9 @@
 
         <!-- العمود الثاني -->
         <div class="column-start-end">
-          <ng-container *ngFor="let image of galleryImages.slice(1)">
-            <a [href]="image" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 w-100 box-ratio-2-3 d-block">
+          <ng-container *ngFor="let image of galleryImages.slice(1); let i = index">
+            <a [href]="image" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 w-100 box-ratio-2-3 d-block"
+               data-aos="fade-up" [attr.data-aos-delay]="i * 100">
               <img [src]="image" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
             </a>
           </ng-container>
@@ -24,7 +25,7 @@
     <!-- /. End Header Masonry -->
 
     <!-- أزرار المشاركة -->
-    <div class="header-share align-items-center bg-dark d-flex gap-2 flex-wrap g-3 header-btn-group p-3 p-lg-4 mt-3 mt-md-0">
+    <div class="header-share align-items-center bg-dark d-flex gap-2 flex-wrap g-3 header-btn-group p-3 p-lg-4 mt-3 mt-md-0" data-aos="fade-up" data-aos-delay="400">
       <button type="button" class="btn btn-sm btn-primary">
         <i class="fa-solid fa-share-nodes me-2"></i>Share
       </button>

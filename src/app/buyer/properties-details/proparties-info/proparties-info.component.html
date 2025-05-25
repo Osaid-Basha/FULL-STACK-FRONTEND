@@ -6,14 +6,14 @@
       <div class="col-lg-8 content pe-xxl-5">
 
         <!-- Location + Title -->
-        <div class="mb-5 border-bottom pb-5">
+        <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <div class="fs-16 mb-1">
             <i class="fa-solid fa-location-dot me-1"></i>{{ address }}
           </div>
-          <h2 class="mt-0">Entire villa hosted by {{ host }}</h2>
+          <h2 class="mt-0" data-aos="fade-up">Entire villa hosted by {{ host }}</h2>
 
           <!-- Facilities -->
-          <div class="card-property-facilities gap-2 hstack mt-auto pt-3 text-center">
+          <div class="card-property-facilities gap-2 hstack mt-auto pt-3 text-center" data-aos="fade-up" data-aos-delay="100">
             <div><i class="fa-solid fa-bed text-dark me-1"></i><span>{{ bedrooms }} bedroom</span></div>
             <span class="vr"></span>
             <div><i class="fa-solid fa-bath text-dark me-1"></i><span>{{ bathrooms }} bathroom</span></div>
@@ -25,16 +25,16 @@
         </div>
 
         <!-- About -->
-        <div class="mb-5 border-bottom pb-5">
+        <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <h4 class="fw-semibold mb-4 text-capitalize">About the <span class="text-primary">property</span></h4>
           <p *ngFor="let paragraph of about">{{ paragraph }}</p>
         </div>
 
         <!-- Amenities -->
-        <div class="mb-5 border-bottom pb-5">
+        <div class="mb-5 border-bottom pb-5" data-aos="fade-up" data-aos-delay="100">
           <h4 class="fw-semibold mb-4 text-capitalize">Amenities <span class="text-primary">available</span></h4>
           <div class="row g-4">
-            <div class="col-auto col-lg-4" *ngFor="let amenity of amenities">
+            <div class="col-auto col-lg-4" *ngFor="let amenity of amenities" data-aos="fade-up" data-aos-delay="200">
               <div class="d-flex align-items-center text-dark">
                 <i class="{{ amenity.icon }} fs-18 me-2"></i>
                 <span class="fs-16 fw-medium">{{ amenity.name }}</span>
@@ -44,13 +44,13 @@
         </div>
 
         <!-- Floor Plan -->
-        <div class="mb-5 border-bottom pb-5">
+        <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <h4 class="fw-semibold mb-4 text-capitalize">Floor <span class="text-primary">Plans</span></h4>
           <img [src]="floorPlanImage" class="img-fluid" alt="Floor Plan" />
         </div>
 
         <!-- Agent Info -->
-        <div class="mb-5 border-bottom pb-5">
+        <div class="mb-5 border-bottom pb-5" data-aos="fade-up" data-aos-delay="300">
           <h4 class="fw-semibold mb-4 text-capitalize">Reach the <span class="text-primary">agent</span></h4>
           <div class="agent-card d-flex align-items-center">
             <div class="flex-shrink-0">
@@ -83,7 +83,7 @@
         </div>
 
         <!-- Reviews -->
-        <div class="mb-4">
+        <div class="mb-4" data-aos="fade-up">
           <h4 class="fw-semibold mb-4 text-capitalize">Reviews & <span class="text-primary">Ratings</span></h4>
           <div class="row">
             <div class="col-sm-6 col-lg-4 mb-4"
@@ -114,69 +114,15 @@
               </div>
             </div>
           </div>
-
-          <!-- Feedback Button -->
-          <div class="text-center mt-4">
-            <button class="btn btn-outline-primary btn-sm" (click)="showFeedbackForm = !showFeedbackForm">
-              Add Your Feedback
-            </button>
-          </div>
-
-          <!-- Feedback Form -->
-          <div class="row mt-4" *ngIf="showFeedbackForm">
-            <div class="col-lg-6">
-              <div class="card border-0 shadow p-4 rounded-4">
-                <!-- Rating -->
-                <div class="mb-3 d-flex gap-1 text-warning fs-5">
-                  <ng-container *ngFor="let star of [1,2,3,4,5]">
-                    <i class="fa-solid fa-circle"
-                       [ngClass]="feedback.rating >= star ? '' : 'text-muted'"
-                       (click)="feedback.rating = star"
-                       (mouseenter)="hoverRating = star"
-                       (mouseleave)="hoverRating = 0"
-                       [style.color]="hoverRating >= star ? '#ffc107' : ''"
-                       style="cursor: pointer;"></i>
-                  </ng-container>
-                  <span class="ms-2 text-dark">({{ feedback.rating }}/5)</span>
-                </div>
-
-                <!-- Inputs -->
-                <input [(ngModel)]="feedback.title" placeholder="Review Title"
-                       class="form-control border-0 fw-semibold mb-3 shadow-none" />
-
-                <textarea [(ngModel)]="feedback.comment" rows="4" placeholder="Let us hear your thoughts..."
-                          class="form-control mb-3 shadow-sm"
-                          style="border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;"></textarea>
-
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <img [src]="feedback.image" class="rounded-circle me-3" width="60" height="60" />
-                    <div>
-                      <input [(ngModel)]="feedback.name" placeholder="Your Name"
-                             class="form-control border-0 p-0 mb-1 fw-semibold shadow-none" />
-                      <input [(ngModel)]="feedback.username" placeholder="@yourhandle"
-                             class="form-control border-0 p-0 text-primary shadow-none" />
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-twitter text-info fs-3" style="opacity: 0.7;"></i>
-                </div>
-
-                <div class="text-end mt-3">
-                  <button class="btn btn-sm btn-primary px-4" (click)="addFeedback()">Add</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 d-flex align-items-center">
-              <div data-aos="fade-down">
-                <h3 class="fw-bold">Please rate us</h3>
-                <p class="text-muted fs-5">We are happy with your feedback and will review it carefully.</p>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
+
+    
+
+
+
+
 
       <!-- Sidebar (Right Side) -->
       <div class="col-lg-4 sidebar">

@@ -1,28 +1,24 @@
-import { Component } from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { NgClass, NgForOf, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-notification-admin',
-
+  standalone: true,
   imports: [
     NgClass,
     NgForOf
   ],
-
-  standalone: true,
   templateUrl: './notification-agent.component.html',
-
-  styleUrls: ['./notification-agent.component.css'] 
+  styleUrls: ['./notification-agent.component.css']
 })
 export class NotificationAgentComponent {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   notifications = [
     {
       type: 'info',
       icon: 'bi-envelope-fill',
-
       title: 'New advertisement',
-
       message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
       time: 'Just now'
     },
@@ -30,9 +26,7 @@ export class NotificationAgentComponent {
       type: 'warning',
       icon: 'bi-tag-fill',
       title: 'Price Drop',
-
       message: 'Wafa adham replay your massage.',
-
       time: '10 mins ago'
     },
     {
@@ -51,21 +45,21 @@ export class NotificationAgentComponent {
     }
   ];
 
-
   selectedNotification: any = null;
-
 
   openModal(notification: any) {
     this.selectedNotification = notification;
 
-    const modalElement = document.getElementById('notificationModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
+    if (isPlatformBrowser(this.platformId)) {
+      const modalElement = document.getElementById('notificationModal');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
     }
   }
+
   removeReview(review: any) {
     this.notifications = this.notifications.filter(r => r !== review);
   }
-
 }

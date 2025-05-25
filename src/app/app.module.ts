@@ -110,6 +110,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -199,7 +200,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
         AccountAdminComponent,
         ChangepasswordAdminComponent,
         ProfailAdminComponent,
-
+        AllpropertiesComponent,
 
         ResetPasswordComponent,
         NotificationAdminComponent,
@@ -254,6 +255,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
     AllpropertiesComponent,
     BuyerPropertiesComponent,
 
+MatListModule,
 
   ],
   providers: [
