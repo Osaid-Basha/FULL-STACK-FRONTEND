@@ -112,6 +112,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { MatListModule } from '@angular/material/list';
 
+import { HttpClientModule } from '@angular/common/http';
 
 
 // Ensure the file exists at the correct path or update the path accordingly
@@ -256,6 +257,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
     BuyerPropertiesComponent,
 
 MatListModule,
+HttpClientModule
 
   ],
   providers: [
