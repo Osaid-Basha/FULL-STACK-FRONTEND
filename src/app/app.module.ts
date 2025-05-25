@@ -116,6 +116,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // Ensure the file exists at the correct path or update the path accordingly
 import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-properties.component';
 
 
 
@@ -198,7 +199,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         AccountAdminComponent,
         ChangepasswordAdminComponent,
         ProfailAdminComponent,
-        AllpropertiesComponent,
+
 
         ResetPasswordComponent,
         NotificationAdminComponent,
@@ -219,6 +220,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
+
   ],
   imports: [
     BrowserModule,
@@ -226,7 +228,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     FormsModule,
     MatChipsModule,
     MatIconModule
-,
+    ,
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
@@ -248,8 +250,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatCheckboxModule,
     MatCheckboxModule,
     ManageReviewsComponent,
-    NotificationAgentComponent
-
+    NotificationAgentComponent,
+    AllpropertiesComponent,
+    BuyerPropertiesComponent,
 
 
   ],

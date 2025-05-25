@@ -1,6 +1,17 @@
-<!-- container -->
 <div class="container-fluid animate__animated animate__fadeIn">
   <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
+
+    <div class="p-3 bg-light border-bottom">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6 col-lg-4">
+          <label for="filterTitle" class="form-label fw-bold small mb-1">Filter by Property Title</label>
+          <input type="text" id="filterTitle" class="form-control" placeholder="Enter title..."
+                 [(ngModel)]="filteredTitle" (ngModelChange)="currentPage = 1">
+        </div>
+      </div>
+    </div>
+
+
     <div class="table-responsive">
       <table class="table align-middle mb-0">
         <thead class="bg-dark text-white text-uppercase small">
@@ -13,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let property of pagedProperties; let i = index">
+        <tr *ngFor="let property of displayedProperties; let i = index">
           <td>
             <div class="d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">
               <img [src]="property.image" class="rounded-3 shadow" width="80" alt="Image"
@@ -30,39 +41,41 @@
           <td>
               <span class="badge px-3 py-1 rounded-pill"
                     [ngClass]="{
-                  'bg-success-subtle text-success': property.status === 'Active',
-                  'bg-danger-subtle text-danger': property.status === 'Pending'
+                  'bg-success-subtle text-success': property.status === 'Rent',
+                  'bg-danger-subtle text-danger': property.status === 'Sale'
                 }">
                 {{ property.status }}
               </span>
           </td>
           <td class="text-end">
             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
-              <a class="btn-view">View Property</a>
-
+              <button class="action-buttons btn-view" (click)="viewProperty(property, i)">View Property</button>
+              <button class="action-buttons btn-update" (click)="openUpdateForm(property, i)">Update</button>
               <button class="action-buttons btn-delete" (click)="deleteProperty(i)">Delete</button>
             </div>
           </td>
+        </tr>
+        <tr *ngIf="displayedProperties.length === 0">
+          <td colspan="5" class="text-center py-4 text-muted">No properties match your filter criteria.</td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Pagination -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2">
       <div class="text-muted small text-center text-md-start">
-        Showing {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, properties.length) }} of {{ properties.length }}
+        Showing {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, filteredProperties.length) }} of {{ filteredProperties.length }}
       </div>
       <nav>
         <ul class="pagination mb-0 justify-content-center">
           <li class="page-item" [class.disabled]="currentPage === 1">
             <a class="page-link" (click)="changePage(currentPage - 1)">«</a>
           </li>
-          <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+          <li class="page-item" *ngFor="let page of [].constructor(totalDisplayedPages); let i = index"
               [class.active]="currentPage === i + 1">
             <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
           </li>
-          <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <li class="page-item" [class.disabled]="currentPage === totalDisplayedPages">
             <a class="page-link" (click)="changePage(currentPage + 1)">»</a>
           </li>
         </ul>
@@ -71,5 +84,154 @@
   </div>
 </div>
 
+<div class="edit-modal animate__animated animate__fadeIn" *ngIf="selectedProperty">
+  <div class="edit-card container p-4 bg-white shadow rounded-4" style="max-width: 900px;">
+    <h5 class="mb-4">Edit Property</h5>
 
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Listing Title</label>
+        <input class="form-control" [(ngModel)]="selectedProperty.title" />
+      </div>
 
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Address</label>
+        <input class="form-control" [(ngModel)]="selectedProperty.address" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">City</label>
+        <input class="form-control" [(ngModel)]="selectedProperty.city" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Property Type</label>
+        <select class="form-select" [(ngModel)]="selectedProperty.propertyType">
+          <option value="Apartment">Apartment</option>
+          <option value="House">House</option>
+          <option value="Office">Office</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Listing Type</label>
+        <select class="form-select" [(ngModel)]="selectedProperty.listingType">
+          <option value="Rent">For Rent</option>
+          <option value="Sale">For Sale</option>
+        </select>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Listing Price</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.price" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Living Area</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.livingArea" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Bedrooms</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bedrooms" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Bathrooms</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bathrooms" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Parking Lots</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.parking" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Construction Sqft</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.constructionSize" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label fw-bold">Land Sqft</label>
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.landSize" />
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Short Description</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="selectedProperty.shortDescription"></textarea>
+      </div>
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Long Description</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="selectedProperty.longDescription"></textarea>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Amenities</label>
+        <div class="d-flex flex-wrap gap-3">
+          <div *ngFor="let amenity of allAmenities">
+            <input type="checkbox" [(ngModel)]="selectedProperty.amenities[amenity]" [id]="'edit-amenity-' + amenity" />
+            <label [for]="'edit-amenity-' + amenity">{{ getAmenityDisplayName(amenity) }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-4">
+        <label class="form-label fw-bold d-block">Images</label>
+
+        <div class="input-group">
+
+          <input type="file" id="imageUpload" class="form-control" multiple (change)="onImagesSelected($event)" />
+        </div>
+      </div>
+
+    </div>
+    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
+      <button class="btn btn-success" (click)="updateProperty()">Confirm Update</button>
+      <button class="btn btn-secondary" (click)="selectedProperty = null">Cancel</button>
+    </div>
+  </div>
+</div>
+<div
+  class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center z-3 animate__animated animate__fadeIn"
+  style="overflow-y: auto; backdrop-filter: blur(4px); padding: 3rem 1rem;"
+  *ngIf="viewedProperty"
+>
+  <div
+    class="bg-white shadow-lg rounded-4 p-4 position-relative d-flex flex-column flex-md-row align-items-start gap-4"
+    style="width: 95%; max-width: 1100px; min-height: 400px; font-size: 1.05rem;"
+  >
+    <button
+      class="btn btn-close position-absolute top-0 end-0 m-3"
+      (click)="viewedProperty = null"
+      aria-label="Close"
+    ></button>
+
+    <div class="flex-shrink-0">
+      <img
+        [src]="viewedProperty.image"
+        class="rounded-4 shadow-sm"
+        style="width: 350px; height: 250px; object-fit: cover;"
+        alt="Property Image"
+      />
+    </div>
+
+    <div class="flex-grow-1">
+      <h4 class="fw-bold mb-1">{{ viewedProperty.title }}</h4>
+      <p class="text-muted mb-2">{{ viewedProperty.address }}, {{ viewedProperty.city }}</p>
+      <div class="text-success fs-5 fw-semibold mb-3">${{ viewedProperty.price }}</div>
+
+      <div class="row gy-2 text-start small">
+        <div class="col-6"><strong>Type:</strong> {{ viewedProperty.propertyType }}</div>
+        <div class="col-6"><strong>Listing:</strong> {{ viewedProperty.listingType }}</div>
+        <div class="col-6"><strong>Area:</strong> {{ viewedProperty.livingArea }} sqft</div>
+        <div class="col-6"><strong>Bedrooms:</strong> {{ viewedProperty.bedrooms }}</div>
+        <div class="col-6"><strong>Bathrooms:</strong> {{ viewedProperty.bathrooms }}</div>
+        <div class="col-6"><strong>Parking:</strong> {{ viewedProperty.parking }}</div>
+        <div class="col-6"><strong>Construction:</strong> {{ viewedProperty.constructionSize }} sqft</div>
+        <div class="col-6"><strong>Land:</strong> {{ viewedProperty.landSize }} sqft</div>
+      </div>
+
+      <div class="mt-3">
+        <h6 class="fw-bold mb-1">Short Description:</h6>
+        <p class="text-muted mb-2">{{ viewedProperty.shortDescription || 'N/A' }}</p>
+
+        <h6 class="fw-bold mb-1">Long Description:</h6>
+        <p class="text-muted">{{ viewedProperty.longDescription || 'N/A' }}</p>
+      </div>
+    </div>
+  </div>
+</div>

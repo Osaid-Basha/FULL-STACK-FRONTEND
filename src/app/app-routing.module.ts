@@ -53,6 +53,7 @@ import { NotificationAdminComponent } from './admin/notification-admin/notificat
 import { NotificationAgentComponent } from './agentandsellers/notification-agent/notification-agent.component';
 import { NotificationBuyerComponent } from './buyer/notification-buyer/notification-buyer.component';
 import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.component';
+import {BuyerPropertiesComponent} from './buyer/buyer-properties/buyer-properties.component';
 
 
 
@@ -137,6 +138,7 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'properties-list', component: PropertyListComponent },
       { path: 'properties-grid', component: PropertyGridComponent },
+      { path: 'buyerproperties', component: BuyerPropertiesComponent },
       { path: 'location', component: LocationComponent },
       { path: 'agent-list', component: AgentListComponent },
       { path: 'agent-grid', component: AgentGridComponent },
