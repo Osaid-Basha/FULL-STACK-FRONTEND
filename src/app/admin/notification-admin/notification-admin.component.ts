@@ -8,8 +8,12 @@ import { NotificationService } from '../../services/notification-service.service
   templateUrl: './notification-admin.component.html',
   styleUrls: ['./notification-admin.component.css']
 })
+
+
+
 export class NotificationAdminComponent implements OnInit {
   notifications: any[] = [];
+
   selectedNotification: any = null;
 
   constructor(
@@ -99,4 +103,16 @@ export class NotificationAdminComponent implements OnInit {
       }
     }
   }
+  removenotifaction(review: any) {
+    this.notifications = this.notifications.filter(r => r !== review);
+  }
+  isRead: boolean = false;
+
+  markAsRead(reviewId: number) {
+    const review = this.notifications.find(n => n.id === reviewId);
+    if (review) {
+      review.isread = true;
+    }
+  }
+
 }

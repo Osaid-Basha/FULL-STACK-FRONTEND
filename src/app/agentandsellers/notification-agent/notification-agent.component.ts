@@ -9,6 +9,7 @@ import { NotificationService } from '../../services/notification-service.service
   templateUrl: './notification-agent.component.html',
   styleUrls: ['./notification-agent.component.css']
 })
+
 export class NotificationAgentComponent implements OnInit {
   notifications: any[] = [];
 
@@ -16,6 +17,7 @@ export class NotificationAgentComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     private notificationService: NotificationService
   ) {}
+
 
   ngOnInit(): void {
     this.loadNotifications();
@@ -86,7 +88,20 @@ export class NotificationAgentComponent implements OnInit {
     });
   }
 
+
   formatDate(date: string): string {
     return new Date(date).toLocaleString();
+
   }
+  isRead: boolean = false;
+
+  markAsRead(reviewId: number) {
+    const review = this.notifications.find(n => n.id === reviewId);
+    if (review) {
+      review.isread = true;
+    }
+  }
+
+
+
 }

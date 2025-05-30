@@ -36,7 +36,7 @@ selectedReviewId: number | null = null;
         if (res?.reviews) {
           this.reviews = res.reviews.map((review: any) => ({
             id: review.id,
-            name: `${review.user.first_name} ${review.user.last_name}`,
+            name: ${review.user.first_name} ${review.user.last_name},
             date: new Date(review.created_at).toLocaleDateString(),
             rating: review.rating,
             comment: review.content,

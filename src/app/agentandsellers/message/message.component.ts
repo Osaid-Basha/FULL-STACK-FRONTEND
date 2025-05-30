@@ -1,134 +1,118 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import * as AOS from 'aos';
+import { MessageService, Message, ChatContact } from '../../services/message.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-message',
   standalone: false,
   templateUrl: './message.component.html',
-  styleUrl: './message.component.css'
+  styleUrls: ['./message.component.css']
 })
-export class MessageComponent implements AfterViewInit, OnInit {
+export class MessageComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('chatWindow') chatWindow!: ElementRef;
 
   newMessage: string = '';
-
-  chatList = [
-
-      {
-        name: 'Lina Khoury',
-        avatar: 'assets/user1.webp',
-        lastMessage: 'I’m interested in the apartment...',
-        time: '10:25 AM',
-        messages: [
-          { text: 'Hi, I’m interested in the apartment in Al-Rawda.', time: '10:23 AM', me: false },
-          { text: 'Great choice! It’s still available and has 3 bedrooms, 2 bathrooms.', time: '10:25 AM', me: true },
-        ]
-      },
-      {
-        name: 'Mohammed Awad',
-        avatar: 'assets/user2.jpeg',
-        lastMessage: 'What’s the price for...',
-        time: '11:00 AM',
-        messages: [
-          { text: 'What’s the price for the land in Rafidia?', time: '10:58 AM', me: false },
-          { text: 'It’s listed for $85,000. It’s a 450m² plot in a prime location.', time: '11:00 AM', me: true },
-        ]
-      },
-      {
-        name: 'Noura Yassin',
-        avatar: 'assets/user3.jpeg',
-        lastMessage: 'Does the apartment come with...',
-        time: '1:10 PM',
-        messages: [
-          { text: 'Does the apartment come with furniture?', time: '1:08 PM', me: false },
-          { text: 'Yes, it’s semi-furnished: kitchen appliances and wardrobes are included.', time: '1:10 PM', me: true },
-        ]
-      },
-      {
-        name: 'Ahmed Saleh',
-        avatar: 'assets/user4.jpg',
-        lastMessage: 'Can I schedule a visit?',
-        time: '9:45 AM',
-        messages: [
-          { text: 'Can I schedule a visit to the house in Al-Masaken?', time: '9:43 AM', me: false },
-          { text: 'Of course! I’m available tomorrow at 4 PM or Friday morning. What suits you?', time: '9:45 AM', me: true },
-        ]
-      },
-      {
-        name: 'Rania Odeh',
-        avatar: 'assets/user5.jpg',
-        lastMessage: 'I’d like to know more about...',
-        time: '12:30 PM',
-        messages: [
-          { text: 'I’d like to know more about the villa in Asira.', time: '12:28 PM', me: false },
-          { text: 'Sure! It’s a 2-floor villa with a garden and garage, built in 2021.', time: '12:30 PM', me: true },
-        ]
-      },
-      {
-        name: 'Tariq Badran',
-        avatar: 'assets/user6.jpg',
-        lastMessage: 'Is it negotiable?',
-        time: '4:10 PM',
-        messages: [
-          { text: 'Is the price for the shop negotiable?', time: '4:08 PM', me: false },
-          { text: 'There’s room for negotiation, depending on the payment method. Let’s discuss!', time: '4:10 PM', me: true },
-        ]
-      },
-    {
-      name: 'Tariq Badran',
-      avatar: 'assets/user6.jpg',
-      lastMessage: 'Is it negotiable?',
-      time: '4:10 PM',
-      messages: [
-        { text: 'Is the price for the shop negotiable?', time: '4:08 PM', me: false },
-        { text: 'There’s room for negotiation, depending on the payment method. Let’s discuss!', time: '4:10 PM', me: true },
-      ]
-    }
-];
-
-  selectedChat = this.chatList[0];
   searchTerm: string = '';
 
+  chatList: ChatContact[] = [];
+  filteredChatList: ChatContact[] = [];
+
+  selectedChat: ChatContact | null = null;
+  messages: Message[] = [];
+
+  private chatListSubscription: Subscription | undefined;
+
+  constructor(public messageService: MessageService) { }
+
   ngOnInit(): void {
-    // 🚀 تفعيل AOS عند الدخول
     AOS.init({
       duration: 700,
       once: true,
-      easing: 'ease-in-out'
+
     });
+
+    this.chatListSubscription = this.messageService.fetchChatList().subscribe(
+      (list) => {
+        this.chatList = list;
+        this.filteredChatList = list;
+        if (list.length > 0) {
+          this.selectChat(list[0]);
+        }
+      },
+      (error) => {
+        console.error('Failed to load chat list:', error);
+      }
+    );
   }
 
   ngAfterViewInit() {
     this.scrollToBottom();
   }
 
-  selectChat(chat: any) {
+  selectChat(chat: ChatContact) {
     this.selectedChat = chat;
-    setTimeout(() => this.scrollToBottom(), 100);
+    this.messages = [];
+
+    if (this.selectedChat.id) {
+      this.messageService.getConversationMessages(this.selectedChat.id).subscribe(
+        (msgs) => {
+          this.messages = msgs;
+          setTimeout(() => this.scrollToBottom(), 100);
+        },
+        (error) => {
+          console.error('Failed to load messages for conversation:', this.selectedChat?.id, error);
+        }
+      );
+    }
   }
 
   sendMessage() {
-    if (this.newMessage.trim() !== '') {
-      this.selectedChat.messages.push({
-        text: this.newMessage,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        me: true
-      });
+    if (this.newMessage.trim() !== '' && this.selectedChat && this.selectedChat.id) {
+      const messageToSend = this.newMessage;
       this.newMessage = '';
-      setTimeout(() => this.scrollToBottom(), 100);
+
+      this.messageService.sendMessage(this.selectedChat.id, messageToSend).subscribe({
+        next: (response) => {
+          console.log('Message sent successfully:', response);
+          this.messages.push({
+            id: Date.now(),
+            user_sender_id: this.messageService.getCurrentUserId(),
+            user_receiver_id: this.selectedChat!.id,
+            textContent: messageToSend,
+            created_at: new Date().toISOString(),
+            me: true,
+            displayTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          setTimeout(() => this.scrollToBottom(), 100);
+        },
+        error: (error) => {
+          console.error('Error sending message:', error);
+          alert('Failed to send message!');
+        }
+      });
     }
   }
 
   scrollToBottom() {
     try {
       this.chatWindow.nativeElement.scrollTop = this.chatWindow.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error scrolling:", err);
+    }
   }
 
-  get filteredChatList() {
+  getFilteredChatList(): ChatContact[] {
+    if (!this.searchTerm) {
+      return this.chatList;
+    }
     return this.chatList.filter(chat =>
       chat.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      chat.lastMessage.toLowerCase().includes(this.searchTerm.toLowerCase())
+      (chat.lastMessage && chat.lastMessage.toLowerCase().includes(this.searchTerm.toLowerCase()))
     );
   }
 
+  ngOnDestroy(): void {
+    this.chatListSubscription?.unsubscribe();
+  }
 }

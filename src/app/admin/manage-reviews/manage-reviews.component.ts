@@ -128,4 +128,5 @@ export class ManageReviewsComponent implements OnInit {
     { label: 'Active Agents', value: 56 },
     { label: 'Avg. Rating', value: '4.7/5' }
   ];
+
 }
