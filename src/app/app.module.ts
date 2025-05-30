@@ -9,7 +9,7 @@ import { NavbarComponent } from './auth/navbar/navbar.component';
 import { FooterComponent } from './auth/footer/footer.component';
 import { BuyerComponent } from './buyer/buyer.component';
 import { HomeComponent } from './buyer/home/home.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -72,7 +72,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { CommonModule } from '@angular/common';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { ProfailAgentComponent } from './agentandsellers/profail-agent/profail-agent.component';
@@ -119,20 +119,25 @@ import { HttpClientModule } from '@angular/common/http';
 import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-properties.component';
+
 import { ReceivedComponent } from './agentandsellers/received/received.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
 @NgModule({
   declarations: [
+    
+ReceivedComponent,
+ManageReviewsComponent,
     AppComponent,
     NavbarComponent,
     FooterComponent,
     BuyerComponent,
     HomeComponent,
     HeroHeaderComponent,
-
-        CounterContentComponent,
+    CounterContentComponent,
     TopRegionsComponent,
     FeaturedPropertiesComponent,
     NewsletterAndBlogComponent,
@@ -149,11 +154,9 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     PropertiesDetailsComponent,
     PropertyGalleryComponent,
     SidbarNavbarComponent,
-
     RelatedPropertiesComponent,
     PropertyHeaderDetailsComponent,
     AboutUsComponent,
-
     AboutHeaderComponent,
     AboutCounterComponent,
     AboutDescriptionComponent,
@@ -174,13 +177,11 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     Erorr404Component,
     Erorr505Component,
     AgentandsellersComponent,
-
     NavbarAgentComponent,
     DashboardAgentComponent,
     MessageComponent,
     ProfailAgentComponent,
     AccountSettingsComponent,
-
     ReviewsAgentComponent,
     ChangepasswordAgentComponent,
     AdminComponent,
@@ -189,31 +190,23 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     DashboardAdminComponent,
     UserRequestsAdminComponent,
     RemoveAdminComponent,
-
     FooterBuyerComponent,
     NavbarBuyerComponent,
     PropartiesInfoComponent,
     ErorrComponent,
     SettingsComponent,
-
     ProfailBuyerComponent,
     FavoriteComponent,
     AccountAdminComponent,
     ChangepasswordAdminComponent,
     ProfailAdminComponent,
-
     ResetPasswordComponent,
     NotificationAdminComponent,
     NotificationBuyerComponent,
     MaseegeBuyerComponent,
-    
-    ManageReviewsComponent,      
-    ReceivedComponent            
-
-
   ],
   imports: [
-     
+
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -224,23 +217,12 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-
     MatCardModule,
     MatListModule,
     NgApexchartsModule,
-
     NotificationAgentComponent,
-
-    AllpropertiesComponent,
     BuyerPropertiesComponent,
-
-
-    MatListModule,
-    HttpClientModule,
-    ReactiveFormsModule
-
-
-
+ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(withEventReplay())
