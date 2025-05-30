@@ -1,12 +1,14 @@
 import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar-buyer',
   standalone: false,
   templateUrl: './navbar-buyer.component.html',
-  styleUrls: ['./navbar-buyer.component.css'] // ✅ تصحيح من styleUrl إلى styleUrls
+  styleUrls: ['./navbar-buyer.component.css']
 })
 export class NavbarBuyerComponent implements OnInit {
   isScrolled = false;
@@ -14,22 +16,59 @@ export class NavbarBuyerComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  logout() {
-    // امسح بيانات المستخدم من التخزين المحلي
+  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      localStorage.removeItem('userType');
+      const scrollY = window.scrollY;
+      this.isScrolled = scrollY > 0;
+      this.showLogo = scrollY >= 81;
     }
-
-    // تحويل المستخدم إلى صفحة تسجيل الدخول
-    this.router.navigate(['/login']);
   }
 
-  ngOnInit(): void {}
+  logout(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn(' No token found in localStorage!');
+      this.clearSession();
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    console.log(' Logging out with token:', token);
+
+    this.authService.logout().subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Logged Out',
+          text: 'You have been logged out successfully.',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        this.clearSession();
+        this.router.navigate(['/login']);
+      },
+      error: (err: any) => {
+        console.error('Logout error :', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Logout Failed',
+          text: err.error?.message || 'Something went wrong during logout.'
+        });
+        this.clearSession(); // بنظف التخزين بأي حال
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  clearSession(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userType');
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
