@@ -213,7 +213,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
 
 
 
-
+ManageReviewsComponent,
 
 
 
@@ -251,13 +251,13 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
     MatCheckboxModule,
     MatCheckboxModule,
     MatCheckboxModule,
-    ManageReviewsComponent,
+
     NotificationAgentComponent,
     AllpropertiesComponent,
     BuyerPropertiesComponent,
 
 MatListModule,
-HttpClientModule
+HttpClientModule,
 
   ],
   providers: [
