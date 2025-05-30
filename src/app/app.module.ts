@@ -9,7 +9,7 @@ import { NavbarComponent } from './auth/navbar/navbar.component';
 import { FooterComponent } from './auth/footer/footer.component';
 import { BuyerComponent } from './buyer/buyer.component';
 import { HomeComponent } from './buyer/home/home.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -148,9 +148,11 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     PropertiesDetailsComponent,
     PropertyGalleryComponent,
     SidbarNavbarComponent,
+
     RelatedPropertiesComponent,
     PropertyHeaderDetailsComponent,
     AboutUsComponent,
+
     AboutHeaderComponent,
     AboutCounterComponent,
     AboutDescriptionComponent,
@@ -171,11 +173,13 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     Erorr404Component,
     Erorr505Component,
     AgentandsellersComponent,
+
     NavbarAgentComponent,
     DashboardAgentComponent,
     MessageComponent,
     ProfailAgentComponent,
     AccountSettingsComponent,
+
     ReviewsAgentComponent,
     ChangepasswordAgentComponent,
     AdminComponent,
@@ -184,21 +188,25 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     DashboardAdminComponent,
     UserRequestsAdminComponent,
     RemoveAdminComponent,
+
     FooterBuyerComponent,
     NavbarBuyerComponent,
     PropartiesInfoComponent,
     ErorrComponent,
     SettingsComponent,
+
     ProfailBuyerComponent,
     FavoriteComponent,
     AccountAdminComponent,
     ChangepasswordAdminComponent,
     ProfailAdminComponent,
+
     ResetPasswordComponent,
     NotificationAdminComponent,
     NotificationBuyerComponent,
     MaseegeBuyerComponent,
     ReceivedComponent,
+
   ],
   imports: [
      
@@ -216,7 +224,15 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     MatListModule,
     NgApexchartsModule,
     NotificationAgentComponent,
-    BuyerPropertiesComponent
+
+    AllpropertiesComponent,
+    BuyerPropertiesComponent,
+
+    MatListModule,
+    HttpClientModule,
+    ReactiveFormsModule
+
+
   ],
   providers: [
     provideClientHydration(withEventReplay())
