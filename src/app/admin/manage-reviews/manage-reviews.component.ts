@@ -1,223 +1,131 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ManagereviewService } from '../../services/managereview.service';
+import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
 import AOS from 'aos';
-import Swal from 'sweetalert2';
-
 
 @Component({
+
+  standalone: false,
   selector: 'app-manage-reviews',
   templateUrl: './manage-reviews.component.html',
-  imports: [
-    FormsModule,
-    NgForOf,
-    NgOptimizedImage,
-    NgIf,
-    NgStyle,
-
-  ],
-  styleUrl: './manage-reviews.component.css'
+  styleUrls: ['./manage-reviews.component.css']
 })
-export class ManageReviewsComponent {
+export class ManageReviewsComponent implements OnInit {
   search: string = '';
   currentPage = 1;
   cardsPerPage = 3;
 
-  reviews = [
-    {
-      name: 'Menna kharma',
-      email: 'mennajihad@gmail.com',
-      rating: 5,
-      date: '20-3-2025',
-      comment: 'Perfect experience!',
-      image: "assets/img/profile3.png"
-    },
-    {
-      name: 'dareen',
-      email: 'dareen@yahoo.com',
-      rating: 2,
-      date: '18-3-2025',
-      comment: 'Agent was late and rude.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/img/profile2.png"
-    },
-    {
-      name: 'osied basha',
-      email: 'osied@live.com',
-      rating: 4,
-      date: '19-2-2025',
-      comment: 'Good but can improve.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/371225.jpg"
-    }
-    ,
-    {
-      name: 'wafa adham',
-      email: 'wafa@live.com',
-      rating: 4,
-      date: '5-5-2025',
-      comment: 'so bad.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/371225.jpg"
-    }
-    ,
-    {
-      name: 'Hana',
-      email: 'Hana@live.com',
-      rating: 4,
-      date: '19-2-2000',
-      comment: 'Good but can improve.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/371225.jpg"
-    },
+  reviews: any[] = [];
+  filtered: any[] = [];
 
-    {
-      name: 'KInda',
-      email: 'Kinda@live.com',
-      rating: 4,
-      date: '19-2-2025',
-      comment: 'Good but can improve.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/img/profile3.png"
-    },
-    {
-      name: 'yahya basha',
-      email: 'yahya@live.com',
-      rating: 4,
-      date: '19-2-2022',
-      comment: 'Good but can improve.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/371225.jpg"
-    }, {
-      name: 'kharma',
-      email: 'kharma@live.com',
-      rating: 4,
-      date: '19-2-2025',
-      comment: 'amazing.!',
-      hidden: false,
-      flagged: false,
-      image: "assets/img/profile3.png"
-    },
+  constructor(private reviewService: ManagereviewService) {}
 
+  ngOnInit() {
+    AOS.init({ duration: 600, once: true });
+    this.getAllReviews();
+  }
 
-  ];
+  getAllReviews(): void {
+    this.reviewService.getAllReviews().subscribe((res: any) => {
+      this.reviews = res.reviews ?? [];
+      this.filtered = [...this.reviews];
+      this.renderChart();
+    });
+  }
 
-  filteredReviews() {
-    const filtered = this.reviews.filter(input =>
-      input.name.toLowerCase().includes(this.search.toLowerCase()) ||
-      input.email.toLowerCase().includes(this.search.toLowerCase()) ||
-      input.comment.toLowerCase().includes(this.search.toLowerCase()) ||
-      input.date.toLowerCase().includes(this.search.toLowerCase())
+  filterReviews(): void {
+    const term = this.search.toLowerCase();
+    this.filtered = this.reviews.filter(r =>
+      `${r.user.first_name} ${r.user.last_name}`.toLowerCase().includes(term) ||
+      r.user.email.toLowerCase().includes(term) ||
+      r.title.toLowerCase().includes(term) ||
+      r.content.toLowerCase().includes(term) ||
+      r.created_at.toLowerCase().includes(term)
     );
-    return this.paginateReviews(filtered);
   }
 
-  paginateReviews(data: any[]) {
-    const startIndex = (this.currentPage - 1) * this.cardsPerPage;
-    const endIndex = startIndex + this.cardsPerPage;
-    return data.slice(startIndex, endIndex);
+  paginateReviews(): any[] {
+    const start = (this.currentPage - 1) * this.cardsPerPage;
+    return this.filtered.slice(start, start + this.cardsPerPage);
   }
 
-  changePage(page: number) {
+  changePage(page: number): void {
     this.currentPage = page;
   }
 
+  deletecardreview(review: any) {
+  Swal.fire({
+    title: `Are you sure?`,
+    html: `<strong>"${review.title}"</strong> will be permanently deleted.`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#4f46e5',
+    cancelButtonColor: '#d1d5db',
+    background: '#f9fafb',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.reviewService.deleteReview(review.id).subscribe({
+        next: () => {
+          this.reviews = this.reviews.filter(r => r.id !== review.id);
+          this.filtered = this.filtered.filter(r => r.id !== review.id);
+          Swal.fire({
+            title: 'Deleted!',
+            text: `"${review.title}" has been removed from the server.`,
+            icon: 'success',
+            timer: 1800,
+            showConfirmButton: false,
+          });
+        },
+        error: () => {
+          Swal.fire({
+            title: 'Error!',
+            text: `Failed to delete "${review.title}". Please try again.`,
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+        }
+      });
+    }
+  });
+}
 
 
-  ngAfterViewInit(): void {
+  renderChart(): void {
+    const ratingCounts = [0, 0, 0, 0, 0];
+    this.reviews.forEach(r => {
+      if (r.rating >= 1 && r.rating <= 5) ratingCounts[r.rating - 1]++;
+    });
+
     new Chart("ratingChart", {
       type: 'bar',
       data: {
-        labels: ['1★', '2★', '3★', '4★'],
+        labels: ['1★', '2★', '3★', '4★', '5★'],
         datasets: [{
-          label: 'Number of Ratings',
-          data: [3, 5, 7, 15],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)'
-          ],
-          borderWidth: 2
+          label: 'Ratings',
+          data: ratingCounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.3)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#666' }
-          },
-          x: {
-            ticks: { color: '#333' }
-          }
-        }
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
       }
     });
   }
-  stats = [
 
+  cardColors = ['rgba(255, 159, 64,0.10)', 'rgba(75, 192, 192, 0.10)', 'rgba(255, 205, 86, 0.10)', 'rgba(255, 99, 132,0.10)'];
+  cardBorder = ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'];
+
+  stats = [
     { label: 'Total Listings', value: 1230 },
     { label: 'Website Visits', value: '8.2K' },
     { label: 'Active Agents', value: 56 },
-    { label: 'Avg. Rating', value: '4.7/5'}
-
+    { label: 'Avg. Rating', value: '4.7/5' }
   ];
-
-  ngOnInit() {
-    AOS.init({ duration: 600, once: true });
-  }
-
-  cardColors = ['rgba(255, 159, 64,0.10)', 'rgba(75, 192, 192, 0.10)','rgba(255, 205, 86, 0.10)', 'rgba(255, 99, 132,0.10)',];
-  cardBorder= ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)','rgb(255, 99, 132)',];
-  deletecardreview(review: any) {
-    Swal.fire({
-      title: `Are you sure?`,
-      html: `<strong >"${review.name}"</strong> will be permanently deleted.`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: '#4f46e5',
-      cancelButtonColor: '#d1d5db',
-      background: '#f9fafb',
-      customClass: {
-        popup: 'rounded-4 shadow-lg border',
-        title: 'fw-bold text-dark',
-        htmlContainer: 'text-muted'
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.reviews = this.reviews.filter(l => l !== review);
-        Swal.fire({
-          title: 'Deleted!',
-          text: `"${review.name}"  Done ,has been removed.`,
-          icon: 'success',
-          timer: 1800,
-          showConfirmButton: false,
-          background: '#f9fafb',
-          customClass: {
-            popup: 'rounded-4 shadow border',
-            title: 'fw-bold text-dark'
-          }
-        }).then(r => r !== review);
-      }
-    });
-  }
 }

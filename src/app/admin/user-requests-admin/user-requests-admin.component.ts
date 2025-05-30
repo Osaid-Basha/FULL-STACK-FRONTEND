@@ -1,65 +1,103 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 import Swal from 'sweetalert2';
-@Component({
-  selector: 'app-user-requests-admin',
-  standalone: false,
-  templateUrl: './user-requests-admin.component.html',
-  styleUrl: './user-requests-admin.component.css'
-})
-export class UserRequestsAdminComponent {
-  allRequests = [
-    { name: 'Mohammad N.', email: 'm@example.com', type: 'Buyer', location: 'Nablus' },
-    { name: 'Lina H.', email: 'lina@example.com', type: 'Agent', location: 'Tulkarm' },
-    { name: 'Ali Z.', email: 'ali@example.com', type: 'Buyer', location: 'Hebron' },
-    { name: 'Sara S.', email: 'sara@example.com', type: 'Agent', location: 'Jenin' }
-  ];
 
-  requests = [...this.allRequests];
+@Component({
+  standalone: false,
+  selector: 'app-user-requests-admin',
+  templateUrl: './user-requests-admin.component.html',
+  styleUrls: ['./user-requests-admin.component.css']
+})
+export class UserRequestsAdminComponent implements OnInit {
+
+  allRequests: any[] = [];
+  paginatedRequests: any[][] = [];
+  currentPage: number = 0;
+  itemsPerPage: number = 4;
   activeFilter: string = 'All';
+  searchTerm: string = '';
+
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit() {
+    this.fetchPendingUsers();
+  }
+
+  fetchPendingUsers() {
+    this.adminService.getPendingUsers().subscribe(response => {
+      this.allRequests = response.pending_users ?? [];
+      this.updatePagination();
+    });
+  }
 
   approveRequest(req: any) {
-    this.requests = this.requests.filter(r => r !== req);
-    Swal.fire({
-      toast: true,
-      position: 'bottom',
-      icon: 'success',
-      title: `${req.name} approved`,
-      showConfirmButton: false,
-      timer: 2000,
-      background: '#e0f7ec',
-      customClass: {
-        popup: 'rounded-3 shadow text-dark px-4 py-3 fw-bold fs-6'
-      }
+    this.adminService.approveUser(req.id).subscribe(() => {
+      this.allRequests = this.allRequests.filter(r => r.id !== req.id);
+      this.updatePagination();
+      Swal.fire({
+        toast: true,
+        position: 'bottom',
+        icon: 'success',
+        title: `${req.first_name} approved`,
+        showConfirmButton: false,
+        timer: 2000
+      });
     });
   }
 
   rejectRequest(req: any) {
-    this.requests = this.requests.filter(r => r !== req);
-    Swal.fire({
-      toast: true,
-      position: 'bottom',
-      icon: 'error',
-      title: `${req.name} rejected`,
-      showConfirmButton: false,
-      timer: 2000,
-      background: '#ffe0e0',
-      customClass: {
-        popup: 'rounded-3 shadow text-dark px-4 py-3 fw-bold fs-6'
-      }
+    this.adminService.rejectUser(req.id).subscribe(() => {
+      this.allRequests = this.allRequests.filter(r => r.id !== req.id);
+      this.updatePagination();
+      Swal.fire({
+        toast: true,
+        position: 'bottom',
+        icon: 'error',
+        title: `${req.first_name} rejected`,
+        showConfirmButton: false,
+        timer: 2000
+      });
     });
   }
 
   filterRequests(type: string) {
     this.activeFilter = type;
-    if (type === 'All') {
-      this.requests = [...this.allRequests];
-    } else {
-      this.requests = this.allRequests.filter(r =>
-        r.type.toLowerCase() === type.toLowerCase()
-      );
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    const filtered = this.filteredRequests();
+    this.paginatedRequests = [];
+    for (let i = 0; i < filtered.length; i += this.itemsPerPage) {
+      this.paginatedRequests.push(filtered.slice(i, i + this.itemsPerPage));
     }
+    this.currentPage = 0;
+  }
 
+  filteredRequests(): any[] {
+    return this.allRequests
+      .filter(r =>
+        this.activeFilter === 'All' ||
+        (this.activeFilter === 'Agent' && r.role_id === 2) ||
+        (this.activeFilter === 'Buyer' && r.role_id === 3)
+      )
+      .filter(r =>
+        !this.searchTerm ||
+        r.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        r.first_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        r.last_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+  }
+
+  goToPage(index: number) {
+    this.currentPage = index;
+  }
+
+  previousPage() {
+    if (this.currentPage > 0) this.currentPage--;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.paginatedRequests.length - 1) this.currentPage++;
+  }
 }
-}
-
-

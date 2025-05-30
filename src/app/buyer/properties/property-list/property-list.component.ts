@@ -74,6 +74,7 @@ export class PropertyListComponent implements OnInit, OnChanges {
     }
   ];
 
+
   constructor(private propertyService: PropertyBuyerService) {}
 
   ngOnInit() {
@@ -137,6 +138,7 @@ export class PropertyListComponent implements OnInit, OnChanges {
       return locationMatch && keywordMatch && typeMatch && listingMatch && minMatch && maxMatch;
     });
   }
+
 
   toggleFavorite(event: MouseEvent, property: any): void {
     event.stopPropagation();

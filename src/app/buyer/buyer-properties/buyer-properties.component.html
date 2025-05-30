@@ -1,24 +1,43 @@
-<div class="container-fluid animate__animated animate__fadeIn py-4 px-4">
+<div class="container animate__animated animate__fadeIn py-5 px-3" style="max-width: 1200px; font-family: 'Segoe UI', Arial, sans-serif;">
 
-
-  <div class="card shadow-sm rounded-4 border-0 overflow-hidden mb-5">
-    <div class="card-header bg-primary text-white p-3">
-      <h3 class="mb-0 fw-bold">Currently Rented Properties</h3>
+  <!-- Breadcrumb & Page Title -->
+  <div class="row align-items-center mb-4">
+    <div class="col-auto">
+      <h2 class="fs-2 fw-bold mb-0 page-title text-capitalize text-primary" style="letter-spacing: 1px;">
+        <i class="fa-solid fa-cart-shopping me-2"></i> Purchase
+      </h2>
     </div>
+    <div class="col-auto border-start ps-3">
+      <ol class="breadcrumb mb-0 align-items-center fw-medium bg-transparent p-0">
+        <li class="breadcrumb-item">
+          <a routerLink="/buyerHome" class="text-decoration-none text-primary">
+            <i class="fa-solid fa-house-chimney-crack fs-5"></i>
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Purchase
+        </li>
+      </ol>
+    </div>
+  </div>
 
-    <div class="p-3 bg-light border-bottom">
+  <!-- Currently Rented Properties Card -->
+  <div class="card shadow-lg rounded-5 border-0 overflow-hidden mb-5" style="background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);">
+    <div class="card-header bg-gradient bg-primary text-white py-4 px-4 border-0">
+      <h3 class="mb-0 fw-bold fs-4"><i class="bi bi-house-door me-2"></i>Currently Rented Properties</h3>
+    </div>
+    <div class="p-4 bg-light border-bottom">
       <div class="row g-3 align-items-end">
         <div class="col-md-6 col-lg-4">
           <label for="currentFilterTitle" class="form-label fw-bold small mb-1">Filter by Property Title</label>
-          <input type="text" id="currentFilterTitle" class="form-control" placeholder="Enter title..."
+          <input type="text" id="currentFilterTitle" class="form-control rounded-pill shadow-sm border-primary" placeholder="Enter title..."
                  [(ngModel)]="currentFilteredTitle" (ngModelChange)="currentPropertiesPage = 1">
         </div>
       </div>
     </div>
-
     <div class="table-responsive">
       <table class="table align-middle mb-0">
-        <thead class="bg-dark text-white text-uppercase small">
+        <thead class="bg-primary text-white text-uppercase small">
         <tr>
           <th>Title</th>
           <th>Rent Start Date</th>
@@ -27,24 +46,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let property of displayedCurrentProperties; let i = index">
+        <tr *ngFor="let property of displayedCurrentProperties; let i = index" class="align-middle">
           <td>
-            <div class="d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">
-              <img [src]="property.image" class="rounded-3 shadow" width="80" alt="Image"
-                   style="object-fit: cover; height: 80px;">
+            <div class="d-flex align-items-center gap-3">
+              <img [src]="property.image" class="rounded-4 shadow border border-2 border-primary" width="70" height="70" alt="Image" style="object-fit: cover;">
               <div>
-                <div class="fw-semibold">{{ property.title }}</div>
-                <small class="text-muted d-block">{{ property.location }}</small>
+                <div class="fw-semibold fs-6 text-primary">{{ property.title }}</div>
+                <small class="text-muted">{{ property.location }}</small>
               </div>
             </div>
           </td>
           <td class="text-muted">{{ property.date }}</td>
-          <td class="text-muted">${{ property.price }}</td>
+          <td class="text-success fw-semibold fs-6">${{ property.price }}</td>
           <td class="text-end">
-            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
-              <button class="btn btn-primary btn-sm shadow-sm rounded-pill" (click)="viewProperty(property, 'current')">
-                <i class="bi bi-eye"></i> View Details </button>
-            </div>
+            <button class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm" (click)="viewProperty(property, 'current')">
+              <i class="bi bi-eye"></i> View Details
+            </button>
           </td>
         </tr>
         <tr *ngIf="displayedCurrentProperties.length === 0">
@@ -53,13 +70,12 @@
         </tbody>
       </table>
     </div>
-
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2">
-      <div class="text-muted small text-center text-md-start">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2 bg-white">
+      <div class="text-muted small">
         Showing {{ (currentPropertiesPage - 1) * currentItemsPerPage + 1 }}–{{ Math.min(currentPropertiesPage * currentItemsPerPage, filteredCurrentProperties.length) }} of {{ filteredCurrentProperties.length }}
       </div>
       <nav>
-        <ul class="pagination mb-0 justify-content-center">
+        <ul class="pagination mb-0">
           <li class="page-item" [class.disabled]="currentPropertiesPage === 1">
             <a class="page-link" (click)="changeCurrentPage(currentPropertiesPage - 1)">«</a>
           </li>
@@ -75,24 +91,23 @@
     </div>
   </div>
 
-  <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
-    <div class="card-header bg-secondary text-white p-3">
-      <h3 class="mb-0 fw-bold">Previous Properties </h3>
+  <!-- Previous Properties Card -->
+  <div class="card shadow-lg rounded-5 border-0 overflow-hidden" style="background: linear-gradient(135deg, #f8fafc 60%, #f1f5f9 100%);">
+    <div class="card-header bg-gradient bg-secondary text-white py-4 px-4 border-0">
+      <h3 class="mb-0 fw-bold fs-4"><i class="bi bi-clock-history me-2"></i>Previous Properties</h3>
     </div>
-
-    <div class="p-3 bg-light border-bottom">
+    <div class="p-4 bg-light border-bottom">
       <div class="row g-3 align-items-end">
         <div class="col-md-6 col-lg-4">
           <label for="previousFilterTitle" class="form-label fw-bold small mb-1">Filter by Property Title</label>
-          <input type="text" id="previousFilterTitle" class="form-control" placeholder="Enter title..."
+          <input type="text" id="previousFilterTitle" class="form-control rounded-pill shadow-sm border-secondary" placeholder="Enter title..."
                  [(ngModel)]="previousFilteredTitle" (ngModelChange)="previousPropertiesPage = 1">
         </div>
       </div>
     </div>
-
     <div class="table-responsive">
       <table class="table align-middle mb-0">
-        <thead class="bg-dark text-white text-uppercase small">
+        <thead class="bg-secondary text-white text-uppercase small">
         <tr>
           <th>Title</th>
           <th>Transaction Date</th>
@@ -101,32 +116,30 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let property of displayedPreviousProperties; let i = index">
+        <tr *ngFor="let property of displayedPreviousProperties; let i = index" class="align-middle">
           <td>
-            <div class="d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">
-              <img [src]="property.image" class="rounded-3 shadow" width="80" alt="Image"
-                   style="object-fit: cover; height: 80px;">
+            <div class="d-flex align-items-center gap-3">
+              <img [src]="property.image" class="rounded-4 shadow border border-2 border-secondary" width="70" height="70" alt="Image" style="object-fit: cover;">
               <div>
-                <div class="fw-semibold">{{ property.title }}</div>
-                <small class="text-muted d-block">{{ property.location }}</small>
+                <div class="fw-semibold fs-6 text-secondary">{{ property.title }}</div>
+                <small class="text-muted">{{ property.location }}</small>
               </div>
             </div>
           </td>
           <td class="text-muted">{{ property.date }} <span *ngIf="property.endDate"> - {{ property.endDate }}</span></td>
           <td>
-              <span class="badge px-3 py-1 rounded-pill"
-                    [ngClass]="{
-                  'bg-success-subtle text-success': property.status === 'Bought',
-                  'bg-info-subtle text-info': property.status === 'Rented'
-                }">
-                {{ property.status }}
-              </span>
+            <span class="badge px-3 py-1 rounded-pill"
+                  [ngClass]="{
+                    'bg-success-subtle text-success': property.status === 'Bought',
+                    'bg-info-subtle text-info': property.status === 'Rented'
+                  }">
+              {{ property.status }}
+            </span>
           </td>
           <td class="text-end">
-            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
-              <button class="btn btn-primary btn-sm shadow-sm rounded-pill" (click)="viewProperty(property, 'current')">
-                <i class="bi bi-eye"></i> View Details </button>
-            </div>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm" (click)="viewProperty(property, 'current')">
+              <i class="bi bi-eye"></i> View Details
+            </button>
           </td>
         </tr>
         <tr *ngIf="displayedPreviousProperties.length === 0">
@@ -135,13 +148,12 @@
         </tbody>
       </table>
     </div>
-
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2">
-      <div class="text-muted small text-center text-md-start">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2 bg-white">
+      <div class="text-muted small">
         Showing {{ (previousPropertiesPage - 1) * previousItemsPerPage + 1 }}–{{ Math.min(previousPropertiesPage * previousItemsPerPage, filteredPreviousProperties.length) }} of {{ filteredPreviousProperties.length }}
       </div>
       <nav>
-        <ul class="pagination mb-0 justify-content-center">
+        <ul class="pagination mb-0">
           <li class="page-item" [class.disabled]="previousPropertiesPage === 1">
             <a class="page-link" (click)="changePreviousPage(previousPropertiesPage - 1)">«</a>
           </li>
@@ -158,14 +170,15 @@
   </div>
 </div>
 
+<!-- Property Details Modal -->
 <div
   class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center z-3 animate__animated animate__fadeIn"
   style="overflow-y: auto; backdrop-filter: blur(4px); padding: 3rem 1rem;"
   *ngIf="viewedProperty"
 >
   <div
-    class="bg-white shadow-lg rounded-4 p-4 position-relative d-flex flex-column flex-md-row align-items-start gap-4"
-    style="width: 95%; max-width: 1100px; min-height: 400px; font-size: 1.05rem;"
+    class="bg-white shadow-lg rounded-5 p-4 position-relative d-flex flex-column flex-md-row align-items-start gap-4"
+    style="width: 95%; max-width: 1100px; min-height: 400px; font-size: 1.08rem; border: 2px solid #e0e7ff;"
   >
     <button
       class="btn btn-close position-absolute top-0 end-0 m-3"
@@ -176,15 +189,15 @@
     <div class="flex-shrink-0">
       <img
         [src]="viewedProperty.image"
-        class="rounded-4 shadow-sm"
+        class="rounded-4 shadow border border-2 border-primary"
         style="width: 350px; height: 250px; object-fit: cover;"
         alt="Property Image"
       />
     </div>
 
     <div class="flex-grow-1">
-      <h4 class="fw-bold mb-1">{{ viewedProperty.title }}</h4>
-      <p class="text-muted mb-2">{{ viewedProperty.address }}, {{ viewedProperty.city }}</p>
+      <h4 class="fw-bold mb-1 text-primary">{{ viewedProperty.title }}</h4>
+      <p class="text-muted mb-2"><i class="bi bi-geo-alt me-1"></i>{{ viewedProperty.address }}, {{ viewedProperty.city }}</p>
       <div class="text-success fs-5 fw-semibold mb-3">
         <span *ngIf="viewedProperty.status === 'Bought'">${{ viewedProperty.price }} (Bought)</span>
         <span *ngIf="viewedProperty.status === 'Rented' || viewedProperty.status === 'Currently Rented'">${{ viewedProperty.price }} / month ({{ viewedProperty.status === 'Currently Rented' ? 'Current Rent' : 'Previous Rent' }})</span>
@@ -197,8 +210,8 @@
         <div class="col-6"><strong>Bedrooms:</strong> {{ viewedProperty.bedrooms }}</div>
         <div class="col-6"><strong>Bathrooms:</strong> {{ viewedProperty.bathrooms }}</div>
         <div class="col-6"><strong>Parking:</strong> {{ viewedProperty.parking }}</div>
-        <div class="6"><strong>Construction:</strong> {{ viewedProperty.constructionSize }} sqft</div>
-        <div class="6"><strong>Land:</strong> {{ viewedProperty.landSize }} sqft</div>
+        <div class="col-6"><strong>Construction:</strong> {{ viewedProperty.constructionSize }} sqft</div>
+        <div class="col-6"><strong>Land:</strong> {{ viewedProperty.landSize }} sqft</div>
         <div class="col-6"><strong>Transaction Date:</strong> {{ viewedProperty.date }}</div>
         <div class="col-6" *ngIf="viewedProperty.endDate"><strong>End Date:</strong> {{ viewedProperty.endDate }}</div>
       </div>

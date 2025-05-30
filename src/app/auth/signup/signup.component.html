@@ -41,11 +41,22 @@
 
                             <form (ngSubmit)="onSignUp()" #signupForm="ngForm" class="register-form">
 
-                              <!-- Full Name -->
-                              <div class="form-group mb-4">
-                                <label class="required">Full Name</label>
-                                <input type="text" class="form-control" name="fullName" [(ngModel)]="fullName" required>
-                              </div>
+
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                      <label class="required">First Name</label>
+                                      <input type="text" class="form-control" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                      <label class="required">Last Name</label>
+                                      <input type="text" class="form-control" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" required>
+                                    </div>
+                                  </div>
+                                </div>
+
 
                               <!-- Email -->
                               <div class="form-group mb-4">

@@ -1,10 +1,132 @@
+<!--&lt;!&ndash; Start Topbar &ndash;&gt;-->
+<!--<div class="topbar d-none d-lg-block topbar-bg bg-primary text-white">-->
+<!--  <div class="container">-->
+<!--    <div class="row align-items-center">-->
+<!--      <div class="col-md-4 col-lg-3 col-xl-4">-->
+<!--        <a href="/" class="headerLogo">-->
+<!--          <img src="assets/img/logo-white.png" alt="" height="40">-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-md-8 col-lg-9 col-xl-8 d-none d-md-block">-->
+<!--        <div class="d-flex justify-content-end flex-wrap">-->
+<!--          &lt;!&ndash; Work Time &ndash;&gt;-->
+<!--          <div class="d-flex align-items-center help-info me-4 mb-2">-->
+<!--            <div class="flex-shrink-0 icon">-->
+<!--              <i class="fa-clock fa-solid fs-30 text-white opacity-75"></i>-->
+<!--            </div>-->
+<!--            <div class="flex-grow-1 ms-3">-->
+<!--              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">SUN - THU: 08:00AM - 20:00PM</h6>-->
+<!--              <p class="sub-text mb-0 fs-14">Friday - Saturday - <span class="fw-semibold text-warning">CLOSED</span></p>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; Phone &ndash;&gt;-->
+<!--          <div class="d-flex align-items-center help-info me-4 mb-2">-->
+<!--            <div class="flex-shrink-0 icon">-->
+<!--              <i class="fa-solid fa-mobile-button fs-30 text-white opacity-75"></i>-->
+<!--            </div>-->
+<!--            <div class="flex-grow-1 ms-3">-->
+<!--              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">972 543545784</h6>-->
+<!--              <p class="sub-text mb-0 fs-14">Contact Us For Help</p>-->
+<!--            </div>-->
+<!--          </div>-->
+
+
+<!--          &lt;!&ndash; Address &ndash;&gt;-->
+<!--          <div class="d-flex align-items-center help-info mb-2">-->
+<!--            <div class="flex-shrink-0 icon">-->
+<!--              <i class="fa-solid fa-street-view fs-30 text-white opacity-75"></i>-->
+<!--            </div>-->
+<!--            <div class="flex-grow-1 ms-3">-->
+<!--              <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">Palestine</h6>-->
+<!--              <p class="sub-text mb-0 fs-14">Nablus</p>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; /.End Topbar &ndash;&gt;-->
+
+<!--&lt;!&ndash; Start Navbar &ndash;&gt;-->
+<!--<div class="navbar-wrap sticky-top">-->
+<!--  <div class="container-lg nav-container position-relative">-->
+<!--    <nav class="custom-navbar navbar navbar-expand-lg">-->
+<!--      <a class="border-end navbar-brand pe-3 pe-sm-4 py-0" href="/public">-->
+<!--        <img class="logo-dark" src="assets/img/logo.png" alt="">-->
+<!--        <img class="logo-white" src="assets/img/logo-white.png" alt="">-->
+<!--      </a>-->
+
+<!--      &lt;!&ndash; Toggler for mobile &ndash;&gt;-->
+<!--      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"-->
+<!--              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"-->
+<!--              aria-label="Toggle navigation">-->
+<!--        <i class="fa-solid fa-bars text-dark fs-4"></i>-->
+<!--      </button>-->
+
+<!--      &lt;!&ndash; Navbar Menu &ndash;&gt;-->
+<!--      <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--        &lt;!&ndash; Collapsible Header (for mobile) &ndash;&gt;-->
+<!--        <div class="align-items-center border-bottom d-flex d-lg-none justify-content-between mb-3 navbar-collapse__header pb-3">-->
+<!--          <div class="collapse-brand flex-shrink-0">-->
+<!--            <a href="/"><img src="assets/img/logo.png" alt=""></a>-->
+<!--          </div>-->
+<!--          <div class="flex-grow-1 ms-3 text-end">-->
+<!--            <button type="button" class="bg-transparent border-0 collapse-close p-0 position-relative" (click)="closeNavbar()">-->
+<!--              <span></span><span></span>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        &lt;!&ndash; Main Nav &ndash;&gt;-->
+<!--        <ul class="navbar-nav me-auto">-->
+<!--          <li class="nav-item"><a routerLink="/home" class="nav-link">Home</a></li>-->
+<!--          <li class="nav-item"><a class="nav-link" routerLink="/properties-list2">Properties</a></li>-->
+<!--          <li class="nav-item"><a class="nav-link" routerLink="/agent-grid2">Agent Finder</a></li>-->
+<!--          <li class="nav-item dropdown">-->
+<!--            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>-->
+<!--            <ul class="dropdown-menu mega-menu">-->
+<!--              <li><a class="dropdown-item" routerLink="/aboutus2">About Us</a></li>-->
+<!--              <li><a class="dropdown-item" routerLink="/location2">Locations</a></li>-->
+<!--              <li><a class="dropdown-item" routerLink="/contact2">Contact Us</a></li>-->
+<!--              <li><a class="dropdown-item" routerLink="/twofactor">Two Factor</a></li>-->
+<!--              <li><a class="dropdown-item" routerLink="/resetpassword">Reset Password</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--          <li class="nav-item"><a class="nav-link" routerLink="/contact2">Contact</a></li>-->
+<!--        </ul>-->
+
+
+<!--        &lt;!&ndash; Cart & Login &ndash;&gt;-->
+<!--        <div class="d-flex align-items-center gap-3 ms-lg-4 mt-3 mt-lg-0 flex-wrap justify-content-start justify-content-lg-end">-->
+<!--          <a routerLink="/cart" class="align-items-center btn cart-button d-none d-xl-flex ms-2 ms-lg-0">-->
+<!--            <i class="fa-solid fa-cart-shopping"></i>-->
+<!--            <span class="ms-2">Cart</span>-->
+<!--            <span class="align-items-center cart-quantity d-flex fw-bold justify-content-center ms-2 rounded-circle">0</span>-->
+<!--          </a>-->
+
+<!--          <a routerLink="/login" class="btn btn-primary btn-login hstack gap-2">-->
+<!--            <i class="fa-solid fa-arrow-right-to-bracket"></i>-->
+<!--            <div class="vr d-none d-sm-inline-block"></div>-->
+<!--            <span class="d-none d-sm-inline-block">Login / Signup</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--  </div>-->
+<!--</nav>-->
+<!--</div>-->
+<!--</div>-->
 <!-- Start Topbar -->
 <div class="topbar d-none d-lg-block topbar-bg bg-primary text-white">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-4 col-lg-3 col-xl-4">
-        <a href="/" class="headerLogo">
-          <img src="assets/img/logo-white.png" alt="" height="40">
+        <a routerLink="/" class="headerLogo">
+          <img src="./assets/img/logo-white.png" alt="" height="40">
         </a>
       </div>
       <div class="col-md-8 col-lg-9 col-xl-8 d-none d-md-block">
@@ -12,7 +134,7 @@
           <!-- Work Time -->
           <div class="d-flex align-items-center help-info me-4 mb-2">
             <div class="flex-shrink-0 icon">
-              <i class="fa-clock fa-solid fs-30 text-white opacity-75"></i>
+              <i class="fa-solid fa-clock fs-30 text-white opacity-75"></i>
             </div>
             <div class="flex-grow-1 ms-3">
               <h6 class="fs-15 fw-semibold help-info__title mb-0 text-white">SUN - THU: 08:00AM - 20:00PM</h6>
@@ -31,7 +153,6 @@
             </div>
           </div>
 
-
           <!-- Address -->
           <div class="d-flex align-items-center help-info mb-2">
             <div class="flex-shrink-0 icon">
@@ -42,7 +163,6 @@
               <p class="sub-text mb-0 fs-14">Nablus</p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -54,9 +174,9 @@
 <div class="navbar-wrap sticky-top">
   <div class="container-lg nav-container position-relative">
     <nav class="custom-navbar navbar navbar-expand-lg">
-      <a class="border-end navbar-brand pe-3 pe-sm-4 py-0" href="/public">
-        <img class="logo-dark" src="assets/img/logo.png" alt="">
-        <img class="logo-white" src="assets/img/logo-white.png" alt="">
+      <a routerLink="/public" class="border-end navbar-brand pe-3 pe-sm-4 py-0">
+        <img class="logo-dark" src="./assets/img/logo.png" alt="">
+        <img class="logo-white" src="./assets/img/logo-white.png" alt="">
       </a>
 
       <!-- Toggler for mobile -->
@@ -71,7 +191,7 @@
         <!-- Collapsible Header (for mobile) -->
         <div class="align-items-center border-bottom d-flex d-lg-none justify-content-between mb-3 navbar-collapse__header pb-3">
           <div class="collapse-brand flex-shrink-0">
-            <a href="/"><img src="assets/img/logo.png" alt=""></a>
+            <a routerLink="/"><img src="./assets/img/logo.png" alt=""></a>
           </div>
           <div class="flex-grow-1 ms-3 text-end">
             <button type="button" class="bg-transparent border-0 collapse-close p-0 position-relative" (click)="closeNavbar()">
@@ -80,25 +200,23 @@
           </div>
         </div>
 
-
         <!-- Main Nav -->
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a routerLink="/home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/properties-list2">Properties</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/agent-grid2">Agent Finder</a></li>
+          <li class="nav-item"><a routerLink="/properties-list2" class="nav-link">Properties</a></li>
+          <li class="nav-item"><a routerLink="/agent-grid2" class="nav-link">Agent Finder</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
             <ul class="dropdown-menu mega-menu">
-              <li><a class="dropdown-item" routerLink="/aboutus2">About Us</a></li>
-              <li><a class="dropdown-item" routerLink="/location2">Locations</a></li>
-              <li><a class="dropdown-item" routerLink="/contact2">Contact Us</a></li>
-              <li><a class="dropdown-item" routerLink="/twofactor">Two Factor</a></li>
-              <li><a class="dropdown-item" routerLink="/resetpassword">Reset Password</a></li>
+              <li><a routerLink="/aboutus2" class="dropdown-item">About Us</a></li>
+              <li><a routerLink="/location2" class="dropdown-item">Locations</a></li>
+              <li><a routerLink="/contact2" class="dropdown-item">Contact Us</a></li>
+              <li><a routerLink="/twofactor" class="dropdown-item">Two Factor</a></li>
+              <li><a routerLink="/resetpassword" class="dropdown-item">Reset Password</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" routerLink="/contact2">Contact</a></li>
+          <li class="nav-item"><a routerLink="/contact2" class="nav-link">Contact</a></li>
         </ul>
-
 
         <!-- Cart & Login -->
         <div class="d-flex align-items-center gap-3 ms-lg-4 mt-3 mt-lg-0 flex-wrap justify-content-start justify-content-lg-end">
@@ -116,7 +234,14 @@
         </div>
       </div>
 
-</nav>
-</div>
-</div>
+
+
+
+
+    </nav>
+  </div>
+
+
+
+
 
