@@ -46,8 +46,8 @@
             <!-- Image -->
             <div class="property-img card-image-hover overflow-hidden position-relative" style="height: 180px;">
               <img
-                [src]="item.image"
-                alt=""
+                [src]="item.property.images[0]?.imageUrl || 'assets/img/properties/01.jpg'"
+                alt="property image"
                 class="img-fluid w-100 h-100 object-fit-cover"
               />
               <div
@@ -73,24 +73,26 @@
             <!-- Content -->
             <div class="card-property-content-wrap d-flex flex-column h-100 position-relative p-3">
               <div class="align-items-end card-property-price d-flex flex-row mb-1 gap-1">
-                <h5 class="m-0 fw-bold text-primary">${{ item.price }}</h5>
-                <div class="fs-13">/{{ item.period }}</div>
+<!--                <h5 class="m-0 fw-bold text-primary">${{ item.price }}</h5>-->
+                <h5 class="m-0 fw-bold text-primary">${{ item.property.price }}</h5>
+                <div class="fs-13">/{{ item.property.period }}</div>
               </div>
-              <h6 class="fs-16 fw-semibold mb-2">{{ item.title }}</h6>
-              <div class="fs-14 text-muted mb-2">{{ item.address }}</div>
+
+              <h6 class="fs-16 fw-semibold mb-2">{{ item.property.title }}</h6>
+              <div class="fs-14 text-muted mb-2">{{ item.property.address }}</div>
 
               <!-- Facilities -->
               <div class="border card-property-facilities gap-2 hstack mt-auto p-2 rounded-3 text-center">
                 <div>
-                  <i class="fa-solid fa-bed text-dark me-1"></i><span class="fs-13">{{ item.beds }}</span>
+                  <i class="fa-solid fa-bed text-dark me-1"></i><span class="fs-13">{{ item.property.bedroom }}</span>
                 </div>
                 <span class="vr"></span>
                 <div>
-                  <i class="fa-solid fa-bath text-dark me-1"></i><span class="fs-13">{{ item.baths }}</span>
+                  <i class="fa-solid fa-bath text-dark me-1"></i><span class="fs-13">{{ item.property.bathroom }}</span>
                 </div>
                 <span class="vr"></span>
                 <div>
-                  <i class="fa-solid fa-vector-square text-dark me-1"></i><span class="fs-13">{{ item.area }}</span>
+                  <i class="fa-solid fa-vector-square text-dark me-1"></i><span class="fs-13">{{ item.property.livingArea }}</span>
                 </div>
               </div>
             </div>

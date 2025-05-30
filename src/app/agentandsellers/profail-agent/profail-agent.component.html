@@ -1,4 +1,5 @@
 <div class="container-fluid py-5 animation-n shadow-lg p-3 mb-5 bg-white rounded">
+
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
     <h2 class="fw-bold text-dark">
       <i class="fa-regular fa-user me-2"></i> Profile
@@ -6,92 +7,93 @@
   </div>
 
   <div class="row gy-4">
-    <!-- Contact Info -->
+    <!-- Left Column: Contact Information and Social Media -->
     <div class="col-12 col-md-8">
       <div class="card p-4">
         <h4>Contact Information</h4>
         <form>
+          <!-- First Name and Last Name -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label class="form-label"><i class="bi bi-person-fill fw-bold"></i> First Name</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" value="Ahmed" readonly>
+              <label for="firstName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> First Name</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="firstName" [value]="user.first_name" readonly>
             </div>
             <div class="col">
-              <label class="form-label"><i class="bi bi-person-fill fw-bold"></i> Last Name</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" value="Omar" readonly>
+              <label for="lastName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> Last Name</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="lastName" [value]="user.last_name" readonly>
             </div>
           </div>
 
+          <!-- Email and Phone -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label class="form-label"><i class="bi bi-envelope fw-bold"></i> Email</label>
-              <input type="email" class="form-control bg-secondary-subtle fw-bold" value="omerahmad@gmail.com" readonly>
+              <label for="email" class="form-label"><i class="bi bi-envelope fw-bold"></i> Email</label>
+              <input type="email" class="form-control bg-secondary-subtle fw-bold" id="email" [value]="user.email" readonly>
             </div>
             <div class="col">
-              <label class="form-label"><i class="bi bi-telephone-inbound fw-bold"></i> Phone</label>
-              <input type="tel" class="form-control bg-secondary-subtle fw-bold" value="0592256699" readonly>
+              <label for="phone" class="form-label"><i class="bi bi-telephone-inbound fw-bold"></i> Phone</label>
+              <input type="tel" class="form-control bg-secondary-subtle fw-bold" id="phone" [value]="profile.phone" readonly>
             </div>
           </div>
 
+          <!-- Location and Position -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label class="form-label"><i class="bi bi-geo-alt fw-bold"></i> Location</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" value="🇵🇸 Nablus, Palestine" readonly>
+              <label for="location" class="form-label"><i class="bi bi-geo-alt fw-bold"></i> Location</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="location" [value]="profile.location" readonly>
             </div>
             <div class="col">
-              <label class="form-label"><i class="bi bi-person-vcard fw-bold"></i> Current Position</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" value="Full-Stack Developer" readonly>
+              <label for="position" class="form-label"><i class="bi bi-person-vcard fw-bold"></i> Current Position</label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="position" [value]="profile.current_position" readonly>
             </div>
           </div>
 
+          <!-- Social Media Section -->
           <h4>Social Media</h4>
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label class="form-label">Facebook Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" value="https://www.facebook.com/ahmad_omar" readonly>
+              <label for="facebookUrl" class="form-label">Facebook Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="facebookUrl" [value]="profile.facebook_url" readonly>
             </div>
             <div class="col">
-              <label class="form-label">X - Twitter Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" value="https://twitter.com/ahmad" readonly>
+              <label for="twitterUrl" class="form-label">X - Twitter Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="twitterUrl" [value]="profile.twitter_url" readonly>
             </div>
           </div>
-
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label class="form-label">LinkedIn Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" value="https://www.linkedin.com/in/ahmad.omar/" readonly>
+              <label for="linkedinUrl" class="form-label">LinkedIn Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="linkedinUrl" [value]="profile.linkedin_url" readonly>
             </div>
             <div class="col">
-              <label class="form-label">Instagram Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" value="https://www.instagram.com/ahmadOmar" readonly>
+              <label for="instagramUrl" class="form-label">Instagram Url</label>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="instagramUrl" [value]="profile.instagram_url" readonly>
             </div>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- Profile Photo -->
+    <!-- Right Column: Profile Photo -->
     <div class="col-12 col-md-4">
-      <div class="card p-4 text-center">
-        <!-- 🎯 Animated Profile Photo -->
-        <div class="photo_animation" [@fadeSlideUp]>
-          <img  *ngIf="profileImage" src="assets/371225.jpg" alt="Profile Image" class="profile-image img-fluid mb-3 rounded" >
+      <div class="card p-4">
+        <div class="photo_animation" [@fadeIn]>
+          <img *ngIf="profileImage" [src]="profileImage" alt="Profile Image" class="profile-image img-fluid mb-3 rounded">
           <p *ngIf="!profileImage" class="text-center text-muted">No image available</p>
         </div>
-        <!-- Buttons -->
-        <div class="d-flex justify-content-between mt-3 ">
+        <div class="d-flex justify-content-between mt-3">
           <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;">
             <i class="bi bi-image"></i> Change
           </button>
-          <button type="button" class="btn btn-outline-danger mb-2 " style="width: 45%;" (click)="removeImage()">
+          <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;" (click)="removeImage()">
             <i class="bi bi-trash3"></i> Remove
           </button>
         </div>
-
-        <!-- Info -->
-        <h5 class="fw-bold mt-3 mb-1">Ahmad Omar</h5>
-        <p class="text-muted mb-1">Full-Stack Developer</p>
-        <small class="text-primary">This is your profile overview</small>
+        <div class="text-center">
+          <h5 class="fw-bold mt-3 mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
+          <p class="text-muted mb-1">{{ profile.current_position }}</p>
+          <small class="text-primary">This is your profile overview</small>
+        </div>
       </div>
     </div>
   </div>

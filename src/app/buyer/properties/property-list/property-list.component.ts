@@ -66,6 +66,7 @@ export class PropertyListComponent {
     }
   ];
 
+
   toggleFavorite(event: MouseEvent, property: any): void {
     event.stopPropagation(); // حتى ما يفتح رابط البطاقة
     property.isFavorited = !property.isFavorited;
