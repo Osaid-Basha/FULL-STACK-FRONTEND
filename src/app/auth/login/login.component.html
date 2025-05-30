@@ -44,7 +44,10 @@
               </div>
 
               <!-- Login Form -->
-              <form (ngSubmit)="onLogin()" >
+              <form (ngSubmit)="onLogin($event)" #loginForm="ngForm" novalidate>
+
+
+
 
                 <!-- Select User Type -->
                 <div class="form-group mb-4">
@@ -80,9 +83,10 @@
                   <div class="invalid-feedback text-start" *ngIf="passwordInput.invalid && passwordInput.touched">
                     Enter your valid password
                   </div>
-                  <span class="toggle-password" >
-           <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
-                 </span>
+                <span class="toggle-password" (click)="togglePassword()">
+  <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+</span>
+
                 </div>
 
 
@@ -93,7 +97,10 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary btn-lg w-100">Sign in</button>
+              <button type="submit" class="btn btn-primary btn-lg w-100">
+    Sign in
+  </button>
+
               </form>
 
               <!-- Footer Links -->

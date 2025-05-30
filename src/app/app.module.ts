@@ -119,18 +119,17 @@ import { HttpClientModule } from '@angular/common/http';
 import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-properties.component';
+import { ReceivedComponent } from './agentandsellers/received/received.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
     NavbarComponent,
     FooterComponent,
     BuyerComponent,
     HomeComponent,
-
     HeroHeaderComponent,
     CounterContentComponent,
     TopRegionsComponent,
@@ -202,57 +201,30 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
     ChangepasswordAdminComponent,
     ProfailAdminComponent,
 
-
     ResetPasswordComponent,
     NotificationAdminComponent,
-
     NotificationBuyerComponent,
     MaseegeBuyerComponent,
-    NotificationAdminComponent,
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ReceivedComponent,
 
   ],
   imports: [
+     
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatChipsModule,
-    MatIconModule
-    ,
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatChipsModule,
-
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatChipsModule,
-
+    HttpClientModule,
     BrowserAnimationsModule,
-
-    BrowserModule,
+    MatIconModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatCheckboxModule,
-    MatCheckboxModule,
-    MatCheckboxModule,
-    ManageReviewsComponent,
+    MatCardModule,
+    MatListModule,
+    NgApexchartsModule,
     NotificationAgentComponent,
+
     AllpropertiesComponent,
     BuyerPropertiesComponent,
 
@@ -260,10 +232,11 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
     HttpClientModule,
     ReactiveFormsModule
 
+
   ],
   providers: [
     provideClientHydration(withEventReplay())
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
