@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , Input} from '@angular/core';
 
 @Component({
   selector: 'app-property-gallery',
@@ -7,12 +7,20 @@ import { Component } from '@angular/core';
   styleUrl: './property-gallery.component.css'
 })
 export class PropertyGalleryComponent {
-  galleryImages: string[] = [
-    'assets/img/property-details/01.jpg',
-    'assets/img/property-details/02.jpg',
-    'assets/img/property-details/03.jpg'
-  ];
+  @Input() proprety: any;
 
-  videoUrl: string = 'http://www.youtube.com/watch?v=0O2aH4XLbto';
+  get galleryImages(): string[] {
+    return this.proprety?.galleryImages || [
+      'assets/img/property-details/01.jpg',
+      'assets/img/property-details/02.jpg',
+      'assets/img/property-details/03.jpg'
+    ];
+  }
 
+  get videoUrl(): string {
+
+    return this.proprety?.VideoUrl || ''
+    'http://www.youtube.com/watch?v=0O2aH4XLbto';
+
+  }
 }

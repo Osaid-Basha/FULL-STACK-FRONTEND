@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './properties.component.css'
 })
 export class PropertiesComponent {
+  currentFilters: any = {};
 
+  onFiltersChanged(event: any) {
+    this.currentFilters = event;
+  }
 }

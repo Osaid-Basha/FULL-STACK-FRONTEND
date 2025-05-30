@@ -150,6 +150,8 @@ const routes: Routes = [
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
 
+      { path: 'properties-details/:id', component: PropertiesDetailsComponent },
+
 
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
@@ -186,7 +188,9 @@ const routes: Routes = [
 ];
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
+
   anchorScrolling: 'enabled',
+
 
 };
 

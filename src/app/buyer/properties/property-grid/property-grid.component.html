@@ -1,5 +1,4 @@
-<app-property-header></app-property-header>
-
+<app-property-header (filterChange)="onFiltersChanged($event)"></app-property-header>
 
   <div class="container">
     <!-- Start Toolbox -->
@@ -15,13 +14,15 @@
       </div>
     </div>
     <!-- /.End Toolbox -->
-
+    <div *ngIf="properties.length === 0" class="text-center w-100">
+      <p class="text-danger fw-bold fs-5">Error: No matching data found for your search criteria.</p>
+    </div>
     <!-- Cards Loop (Horizontal Style) -->
     <div *ngFor="let property of properties; let i=index"
          class="card mb-4 overflow-hidden bg-grey border-0 shadow rounded-3" data-aos="fade-up"
          [attr.data-aos-delay]="i * 100" data-aos-duration="1000">
 
-      <a routerLink="/buyerHome/properties-details" class="card-link"></a>
+      <a [routerLink] ="['/buyerHome/properties-details', property.id]" [state]="{data:property}" class="card-link"></a>
 
       <div class="card-body p-0">
         <div class="row g-0">
@@ -93,7 +94,7 @@
       </div>
     </div>
     <!-- Start Pagination -->
-    <nav class="align-items-center border-top d-flex flex-wrap justify-content-center justify-content-sm-between pagination mt-5">
+    <nav class="align-items-center border-top d-flex flex-wrap justify-content-center justify-content-sm-between pagination mt-5 mb-4">
       <ul class="list-unstyled m-0 pages mt-3">
         <li class="active"><a href="#">1</a></li>
         <li><a href="#">2</a></li>
