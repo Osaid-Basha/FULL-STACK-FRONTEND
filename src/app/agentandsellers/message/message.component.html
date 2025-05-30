@@ -1,9 +1,7 @@
 <div class="container-fluid chat-container">
   <div class="row h-100">
 
-    <!-- Sidebar for md+ screens -->
     <div class="col-md-4 bg-white border-end p-3 d-none d-md-flex flex-column sidebar" data-aos="fade-right">
-      <!-- Header Icons -->
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold mb-0">Chats</h5>
         <div class="d-flex gap-2">
@@ -12,7 +10,6 @@
         </div>
       </div>
 
-      <!-- Search Input -->
       <div class="mb-3">
         <div class="input-group">
           <span class="input-group-text bg-white border-end-0">
@@ -23,11 +20,11 @@
             class="form-control border-start-0 chat-search"
             placeholder="Search"
             [(ngModel)]="searchTerm"
+            (input)="filteredChatList = getFilteredChatList()"
           />
         </div>
       </div>
 
-      <!-- Chat List -->
       <div class="flex-grow-1 overflow-auto">
         <div
           *ngFor="let chat of filteredChatList; let i = index"
@@ -37,17 +34,16 @@
           data-aos="fade-up"
           [attr.data-aos-delay]="i * 100"
         >
-          <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+          <img [src]="chat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
           <div class="flex-grow-1">
             <div class="fw-bold">{{ chat.name }}</div>
-            <small class="text-muted">{{ chat.lastMessage | slice:0:25 }}...</small>
-          </div>
+            <small class="text-muted" *ngIf="chat.lastMessage">{{ chat.lastMessage | slice:0:25 }}{{ chat.lastMessage.length > 25 ? '...' : '' }}</small>
+            <small class="text-muted" *ngIf="!chat.lastMessage">No messages yet.</small> </div>
           <div class="text-end small text-muted">{{ chat.time }}</div>
         </div>
       </div>
     </div>
 
-    <!-- Offcanvas Sidebar for small screens -->
     <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="chatSidebar">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold">Chats</h5>
@@ -55,7 +51,6 @@
       </div>
 
       <div class="offcanvas-body d-flex flex-column p-3">
-        <!-- Search Input -->
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text bg-white border-end-0">
@@ -66,11 +61,11 @@
               class="form-control border-start-0 chat-search"
               placeholder="Search"
               [(ngModel)]="searchTerm"
+              (input)="filteredChatList = getFilteredChatList()"
             />
           </div>
         </div>
 
-        <!-- Chat List -->
         <div class="flex-grow-1 overflow-auto">
           <div
             *ngFor="let chat of filteredChatList; let i = index"
@@ -81,27 +76,24 @@
             data-aos="fade-up"
             [attr.data-aos-delay]="i * 100"
           >
-            <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+            <img [src]="chat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
             <div class="flex-grow-1">
               <div class="fw-bold">{{ chat.name }}</div>
-              <small class="text-muted">{{ chat.lastMessage | slice:0:25 }}...</small>
-            </div>
+              <small class="text-muted" *ngIf="chat.lastMessage">{{ chat.lastMessage | slice:0:25 }}{{ chat.lastMessage.length > 25 ? '...' : '' }}</small>
+              <small class="text-muted" *ngIf="!chat.lastMessage">No messages yet.</small> </div>
             <div class="text-end small text-muted">{{ chat.time }}</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Chat Window -->
     <div class="col-md-8 col-12 d-flex flex-column bg-light p-4 message-place" data-aos="fade-left">
-      <!-- Header with toggle button for mobile -->
-      <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3">
-        <!-- Toggle Sidebar Button (only on small screens) -->
+      <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3" *ngIf="selectedChat">
         <button class="btn d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatSidebar">
           <i class="bi bi-list fs-4"></i>
         </button>
 
-        <img [src]="selectedChat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+        <img [src]="selectedChat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
         <div class="flex-grow-1">
           <h6 class="mb-0 fw-bold">{{ selectedChat.name }}</h6>
           <small class="text-muted">Last seen 2 hours ago</small>
@@ -112,25 +104,29 @@
         </div>
       </div>
 
-      <!-- Chat Messages -->
-      <div #chatWindow class="chat-window flex-grow-1 overflow-auto mb-3" style="max-height: 60vh;">
-        <div *ngFor="let msg of selectedChat.messages; let i = index" class="mb-3 d-flex" [class.justify-content-end]="msg.me"
-             data-aos="zoom-in"
-             [attr.data-aos-delay]="i * 80">
-          <div
-            class="msg-bubble"
-            [class.bg-primary]="msg.me"
-            [class.text-white]="msg.me"
-            [class.bg-white]="!msg.me"
-          >
-            <div>{{ msg.text }}</div>
-            <small class="d-block mt-1 text-end opacity-75" [class.text-white]="msg.me">{{ msg.time }}</small>
-          </div>
-        </div>
+      <div *ngIf="!selectedChat" class="d-flex justify-content-center align-items-center flex-grow-1">
+        <p class="text-muted">Select a chat to start messaging.</p>
       </div>
 
-      <!-- Message Input -->
-      <div class="d-flex align-items-center border-top pt-3">
+      <div #chatWindow class="chat-window flex-grow-1 overflow-auto mb-3" style="max-height: 60vh;">
+        <ng-container *ngIf="selectedChat">
+          <div *ngFor="let msg of messages; let i = index" class="mb-3 d-flex" [class.justify-content-end]="msg.me"
+               data-aos="zoom-in"
+               [attr.data-aos-delay]="i * 80">
+            <div
+              class="msg-bubble"
+              [class.bg-primary]="msg.me"
+              [class.text-white]="msg.me"
+              [class.bg-white]="!msg.me"
+            >
+              <div>{{ msg.textContent }}</div>
+              <small class="d-block mt-1 text-end opacity-75" [class.text-white]="msg.me">{{ msg.displayTime }}</small>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="d-flex align-items-center border-top pt-3" *ngIf="selectedChat">
         <input
           class="form-control me-2"
           type="text"

@@ -1,44 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
+import { PropertyService } from '../../services/property.service';
 
-// Define the Amenities interface with an index signature
-interface Amenities {
-  garden: boolean;
-  securityCameras: boolean;
-  laundry: boolean;
-  internet: boolean;
-  pool: boolean;
-  videoSurveillance: boolean;
-  laundryRoom: boolean;
-  jacuzzi: boolean;
-  [key: string]: boolean; // Allows indexing with a string
+// Define the Amenity interface for what we expect from the backend
+interface Amenity {
+  id: number;
+  name: string;
+}
+
+// Define the PropertyImage interface for image objects
+interface PropertyImage {
+  id?: number;
+  imageUrl: string;
+  property_id?: number;
 }
 
 // Define the Property interface for better type checking
 interface Property {
+  id: number; // Add ID as it's crucial for backend operations
   title: string;
-  location: string;
-  price: number;
-  date: string;
-  views: number;
-  status: string;
-  image: string;
   address: string;
   city: string;
-  propertyType: string;
-  listingType: string;
-  livingArea: number;
-  bedrooms: number;
-  bathrooms: number;
+  landArea: number;
+  price: number;
+  bedroom: number;
+  bathroom: number;
   parking: number;
-  constructionSize: number;
-  landSize: number;
-  shortDescription: string;
-  longDescription: string;
-  amenities: Amenities; // Use the Amenities interface
-  images: any[]; // You might want to define a more specific type for images
+  longDescreption: string;
+  shortDescreption: string;
+  constructionArea: number;
+  livingArea: number;
+  property_listing_id: number; // Changed to ID
+  property_type_id: number;     // Changed to ID
+  purchase_id: number;          // Added purchase_id as per backend
+  user_id: number; // Add user_id
+  images: PropertyImage[]; // Array of image objects
+  amenities: Amenity[]; // Array of amenity objects
+
+  // Properties used for display in the table, derived from backend data
+  location?: string; // Derived from address, city
+  date?: string;     // Placeholder for date
+  views?: number;    // Placeholder for views
+  status?: string;   // Derived from property_listing_id
+  image?: string; // The "main" image for display
+  propertyType?: string; // Derived from property_type_id
+  listingType?: string; // Derived from property_listing_id
+  constructionSize?: number; // Renamed for display consistency
+  landSize?: number;         // Renamed for display consistency
+  bedrooms?: number;         // Renamed for display consistency
+  bathrooms?: number;        // Renamed for display consistency
 }
 
 @Component({
@@ -53,272 +65,85 @@ interface Property {
     NgIf
   ]
 })
-export class MypropertiesAgentComponent {
-  properties: Property[] = [ // Apply the Property interface to the array
-    {
-      title: 'Sunset Villa',
-      location: 'Al-Masayef, Ramallah, PS',
-      price: 185000,
-      date: '21 Feb, 2023',
-      views: 543,
-      status: 'Sale',
-      image: 'assets/01.jpg',
-      address: 'Al-Nuzha Street',
-      city: 'Ramallah',
-      propertyType: 'Villa',
-      listingType: 'For Sale',
-      livingArea: 320,
-      bedrooms: 4,
-      bathrooms: 3,
-      parking: 2,
-      constructionSize: 350,
-      landSize: 500,
-      shortDescription: 'Beautiful villa with panoramic sunset view.',
-      longDescription: 'A luxurious 4-bedroom villa located in a quiet neighborhood, perfect for families. Features a private garden, rooftop terrace, and modern interior design.',
-      amenities: {
-        garden: true,
-        securityCameras: true,
-        laundry: true,
-        internet: true,
-        pool: false,
-        videoSurveillance: true,
-        laundryRoom: true,
-        jacuzzi: false
-      },
-      images: []
-    },
-    {
-      title: 'Modern Apartment',
-      location: 'City Center, Nablus, PS',
-      price: 95000,
-      date: '5 Mar, 2023',
-      views: 302,
-      status: 'Rent',
-      image: 'assets/01.jpg',
-      address: 'Main Boulevard',
-      city: 'Nablus',
-      propertyType: 'Apartment',
-      listingType: 'For Rent',
-      livingArea: 120,
-      bedrooms: 2,
-      bathrooms: 2,
-      parking: 1,
-      constructionSize: 130,
-      landSize: 0,
-      shortDescription: 'Centrally located modern apartment.',
-      longDescription: 'Fully furnished apartment with open living space, 2 bedrooms, and close access to public transport and shops.',
-      amenities: {
-        garden: false,
-        securityCameras: false,
-        laundry: true,
-        internet: true,
-        pool: false,
-        videoSurveillance: false,
-        laundryRoom: false,
-        jacuzzi: false
-      },
-      images: []
-    },
-    {
-      title: 'Green Garden House',
-      location: 'Beit Safafa, Jerusalem, PS',
-      price: 230000,
-      date: '10 Apr, 2023',
-      views: 880,
-      status: 'Sale',
-      image: 'assets/01.jpg',
-      address: 'Olive Street',
-      city: 'Jerusalem',
-      propertyType: 'House',
-      listingType: 'For Sale',
-      livingArea: 200,
-      bedrooms: 3,
-      bathrooms: 2,
-      parking: 1,
-      constructionSize: 220,
-      landSize: 400,
-      shortDescription: 'Family house with spacious garden.',
-      longDescription: 'Located in a peaceful suburb, this house features a big green garden, updated kitchen, and solar panels.',
-      amenities: {
-        garden: true,
-        securityCameras: false,
-        laundry: true,
-        internet: true,
-        pool: false,
-        videoSurveillance: false,
-        laundryRoom: true,
-        jacuzzi: false
-      },
-      images: []
-    },
-    {
-      title: 'Luxury Penthouse',
-      location: 'Rawabi, PS',
-      price: 370000,
-      date: '18 May, 2023',
-      views: 1121,
-      status: 'Sale',
-      image: 'assets/01.jpg',
-      address: 'Freedom Tower',
-      city: 'Rawabi',
-      propertyType: 'Penthouse',
-      listingType: 'For Sale',
-      livingArea: 250,
-      bedrooms: 3,
-      bathrooms: 3,
-      parking: 2,
-      constructionSize: 270,
-      landSize: 0,
-      shortDescription: 'Top-floor penthouse with skyline view.',
-      longDescription: 'Luxury penthouse with floor-to-ceiling windows, smart home system, and huge balcony overlooking the city.',
-      amenities: {
-        garden: false,
-        securityCameras: true,
-        laundry: true,
-        internet: true,
-        pool: true,
-        videoSurveillance: true,
-        laundryRoom: true,
-        jacuzzi: true
-      },
-      images: []
-    },
-    {
-      title: 'Cozy Cottage',
-      location: 'Deir Ballut, Salfit, PS',
-      price: 67000,
-      date: '1 Jun, 2023',
-      views: 198,
-      status: 'Sale',
-      image: 'assets/01.jpg',
-      address: 'Hilltop Lane',
-      city: 'Salfit',
-      propertyType: 'Cottage',
-      listingType: 'For Sale',
-      livingArea: 95,
-      bedrooms: 2,
-      bathrooms: 1,
-      parking: 1,
-      constructionSize: 100,
-      landSize: 200,
-      shortDescription: 'Charming cottage in a quiet village.',
-      longDescription: 'A perfect countryside getaway with lovely views and cozy fireplace. Ideal for small families or couples.',
-      amenities: {
-        garden: true,
-        securityCameras: false,
-        laundry: false,
-        internet: false,
-        pool: false,
-        videoSurveillance: false,
-        laundryRoom: false,
-        jacuzzi: false
-      },
-      images: []
-    },
-    {
-      title: 'Beachside Studio',
-      location: 'Gaza Marina, Gaza, PS',
-      price: 42000,
-      date: '11 Jul, 2023',
-      views: 332,
-      status: 'Rent',
-      image: 'assets/01.jpg',
-      address: 'Sea Road',
-      city: 'Gaza',
-      propertyType: 'Studio',
-      listingType: 'For Rent',
-      livingArea: 60,
-      bedrooms: 1,
-      bathrooms: 1,
-      parking: 0,
-      constructionSize: 60,
-      landSize: 0,
-      shortDescription: 'Studio apartment with sea view.',
-      longDescription: 'Open-plan studio just steps from the beach. Enjoy the fresh breeze and calm vibes.',
-      amenities: {
-        garden: false,
-        securityCameras: false,
-        laundry: true,
-        internet: true,
-        pool: false,
-        videoSurveillance: false,
-        laundryRoom: false,
-        jacuzzi: false
-      },
-      images: []
-    },
-    {
-      title: 'Business Loft',
-      location: 'Al-Tireh, Ramallah, PS',
-      price: 155000,
-      date: '9 Aug, 2023',
-      views: 412,
-      status: 'Sale',
-      image: 'assets/01.jpg',
-      address: 'Business Avenue',
-      city: 'Ramallah',
-      propertyType: 'Loft',
-      listingType: 'For Sale',
-      livingArea: 180,
-      bedrooms: 2,
-      bathrooms: 2,
-      parking: 2,
-      constructionSize: 190,
-      landSize: 0,
-      shortDescription: 'Modern loft for professionals.',
-      longDescription: 'Perfect for business people or couples, this loft has high ceilings, sleek finishes, and a great location.',
-      amenities: {
-        garden: false,
-        securityCameras: true,
-        laundry: true,
-        internet: true,
-        pool: false,
-        videoSurveillance: true,
-        laundryRoom: true,
-        jacuzzi: false
-      },
-      images: []
-    }
+export class MypropertiesAgentComponent implements OnInit {
+  properties: Property[] = [];
+
+  // All possible amenities with their IDs
+  allAmenities: Amenity[] = [
+    { id: 1, name: 'Garden' },
+    { id: 2, name: 'Security Cameras' },
+    { id: 3, name: 'Laundry' },
+    { id: 4, name: 'Internet' },
+    { id: 5, name: 'Pool' },
+    { id: 6, name: 'Video Surveillance' },
+    { id: 7, name: 'Laundry Room' },
+    { id: 8, name: 'Jacuzzi' }
   ];
 
-  // Initialize the allAmenities array using keyof Amenities for type safety
-  allAmenities: (keyof Amenities)[] = [
-    'garden',
-    'securityCameras',
-    'laundry',
-    'internet',
-    'pool',
-    'videoSurveillance',
-    'laundryRoom',
-    'jacuzzi'
-  ];
+  // Helper maps for display values
+  propertyTypeMap: { [key: number]: string } = {
+    1: 'Apartment',
+    2: 'House',
+    3: 'Office'
+  };
 
-  // New properties for filtering
+  listingTypeMap: { [key: number]: string } = {
+    1: 'Rent',
+    2: 'Sale'
+  };
+
   filteredTitle: string = '';
-  // Use a more specific type for selectedAmenities to ensure keys are valid amenity keys
-  selectedAmenities: { [K in keyof Amenities]?: boolean } = {};
+  selectedAmenityIds: number[] = []; // Store selected amenity IDs
 
   currentPage = 1;
   itemsPerPage = 2;
-  selectedProperty: (Property & { index?: number }) | null = null; // Add index for local tracking
+  selectedProperty: Property | null = null;
+  viewedProperty: Property | null = null;
+  newImages: File[] = []; // For new images to be uploaded on update
+
+  constructor(private propertyService: PropertyService) {}
+
+  ngOnInit(): void {
+    this.getAllAgentProperties();
+  }
+
+  // Method to fetch all properties
+  getAllAgentProperties(): void {
+    this.propertyService.getAllProperties().subscribe({
+      next: (data: Property[]) => {
+        // Map backend data to frontend display model
+        this.properties = data.map(prop => ({
+          ...prop,
+          location: `${prop.address}, ${prop.city}`,
+          date: new Date().toLocaleDateString(), // Placeholder: Use actual date from backend if available
+          views: Math.floor(Math.random() * 1000), // Placeholder: Use actual views from backend if available
+          status: this.listingTypeMap[prop.property_listing_id],
+          // Ensure image path is correct, assuming 'property_images' is the folder name in public storage
+          image: prop.images && prop.images.length > 0 ? `http://127.0.0.1:8081/storage/${prop.images[0].imageUrl}` : 'assets/placeholder.jpg', // Use first image or a local default
+          propertyType: this.propertyTypeMap[prop.property_type_id],
+          listingType: this.listingTypeMap[prop.property_listing_id],
+          constructionSize: prop.constructionArea,
+          landSize: prop.landArea,
+          bedrooms: prop.bedroom,
+          bathrooms: prop.bathroom,
+          // Ensure amenities array is initialized for display
+          amenities: prop.amenities || []
+        }));
+        console.log("Mapped Properties:", this.properties);
+      },
+      error: (err) => {
+        console.error("Error fetching properties:", err);
+        Swal.fire('Error', 'Failed to load properties.', 'error');
+      }
+    });
+  }
 
   // Getter for filtered properties based on title and amenities
   get filteredProperties(): Property[] {
     return this.properties.filter(property => {
-      // Filter by title (case-insensitive)
       const matchesTitle = property.title.toLowerCase().includes(this.filteredTitle.toLowerCase());
-
-      // Filter by amenities: ensures property has ALL selected amenities
-      const matchesAmenities = this.allAmenities.every(amenityKey => {
-        // If an amenity checkbox is checked (selectedAmenities[amenityKey] is true)
-        // AND the property's amenities object does NOT have that amenity set to true,
-        // then it doesn't match, so return false.
-        // Otherwise, it matches for this amenity, so return true.
-        // Type assertion `as string` is technically not needed here due to `keyof Amenities`
-        // but helps if `selectedAmenities` was typed more broadly.
-        return !this.selectedAmenities[amenityKey] || property.amenities[amenityKey];
-      });
-
+      const matchesAmenities = this.selectedAmenityIds.length === 0 ||
+        this.selectedAmenityIds.every(id => property.amenities.some(amenity => amenity.id === id));
       return matchesTitle && matchesAmenities;
     });
   }
@@ -343,7 +168,7 @@ export class MypropertiesAgentComponent {
   }
 
   // Delete a property with SweetAlert2 confirmation
-  async deleteProperty(index: number): Promise<void> {
+  async deleteProperty(propertyId: number): Promise<void> {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone!',
@@ -362,81 +187,111 @@ export class MypropertiesAgentComponent {
     });
 
     if (result.isConfirmed) {
-      // Get the actual property object from the currently displayed page
-      const propertyToDelete = this.displayedProperties[index];
-      // Find its index in the original 'properties' array
-      const originalIndex = this.properties.indexOf(propertyToDelete);
-
-      if (originalIndex > -1) {
-        this.properties.splice(originalIndex, 1);
-      }
-
-      await Swal.fire({
-        title: 'Deleted!',
-        text: 'Property has been deleted successfully.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
+      this.propertyService.deleteProperty(propertyId).subscribe({
+        next: () => {
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Property has been deleted successfully.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          });
+          this.getAllAgentProperties(); // Refresh the list
         },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
+        error: (err) => {
+          console.error('Error deleting property:', err);
+          Swal.fire('Error', 'Failed to delete property.', 'error');
         }
       });
-
-      // Adjust page if current page becomes empty after deletion
-      if (this.displayedProperties.length === 0 && this.currentPage > 1) {
-        this.currentPage--;
-      }
     }
   }
 
   // Open the update form modal for a selected property
-  openUpdateForm(property: Property, index: number): void {
-    // We pass the property object itself to maintain its reference,
-    // and add a temporary 'index' property for internal tracking
-    const globalIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-    this.selectedProperty = { ...property, index: globalIndex };
+  openUpdateForm(property: Property): void {
+    // Deep copy the property to avoid modifying original data before saving
+    this.selectedProperty = JSON.parse(JSON.stringify(property));
+    // Transform image paths for display in the update form
+    if (this.selectedProperty && this.selectedProperty.images) { // <--- Added null check here
+      this.selectedProperty.images = this.selectedProperty.images.map(img => ({
+        ...img,
+        imageUrl: `http://127.0.0.1:8081/storage/${img.imageUrl}`
+      }));
+    }
+    // Reset newImages array
+    this.newImages = [];
   }
 
   // Update a property and close the modal
   async updateProperty(): Promise<void> {
-    if (!this.selectedProperty) return; // Guard clause if selectedProperty is null
-
-    // Destructure, ensuring updatedData is of type Property
-    const { index, ...updatedData } = this.selectedProperty;
-
-    // Find the original property in the main 'properties' array by title and location
-    // This is safer than relying solely on 'index' if filtering/sorting changes positions
-    const originalPropertyIndex = this.properties.findIndex(p =>
-      p.title === updatedData.title && p.location === updatedData.location
-    );
-
-    if (originalPropertyIndex > -1) {
-      // Update the original property with the new data
-      this.properties[originalPropertyIndex] = updatedData as Property;
-    } else {
-      // Fallback: If for some reason the original property can't be found by title/location,
-      // update using the passed 'index'. This is less robust but provides a fallback.
-      if (typeof index === 'number' && index >= 0 && index < this.properties.length) {
-        this.properties[index] = updatedData as Property;
-      }
+    if (!this.selectedProperty) {
+      await Swal.fire('Error', 'No property selected for update.', 'error');
+      return;
     }
 
-    this.selectedProperty = null; // Close the modal
+    const propertyId = this.selectedProperty.id;
 
-    await Swal.fire({
-      title: 'Updated!',
-      text: 'Property updated successfully.',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1500,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+    // Create a FormData object for sending multipart data (including files)
+    const formData = new FormData();
+
+    // Append all property fields to formData
+    formData.append('title', this.selectedProperty.title);
+    formData.append('address', this.selectedProperty.address);
+    formData.append('city', this.selectedProperty.city);
+    formData.append('landArea', this.selectedProperty.landArea.toString());
+    formData.append('price', this.selectedProperty.price.toString());
+    formData.append('bedroom', this.selectedProperty.bedroom.toString());
+    formData.append('bathroom', this.selectedProperty.bathroom.toString());
+    formData.append('parking', this.selectedProperty.parking.toString());
+    formData.append('longDescreption', this.selectedProperty.longDescreption);
+    formData.append('shortDescreption', this.selectedProperty.shortDescreption);
+    formData.append('constructionArea', this.selectedProperty.constructionArea.toString());
+    formData.append('livingArea', this.selectedProperty.livingArea.toString());
+    formData.append('property_listing_id', this.selectedProperty.property_listing_id.toString());
+    formData.append('property_type_id', this.selectedProperty.property_type_id.toString());
+    formData.append('purchase_id', this.selectedProperty.purchase_id.toString()); // Assuming purchase_id is managed
+
+    // Append new images files
+    this.newImages.forEach(file => {
+      formData.append('images[]', file); // Use 'images[]' for multiple files
+    });
+
+    // Append amenities IDs
+    if (this.selectedProperty.amenities && this.selectedProperty.amenities.length > 0) {
+      this.selectedProperty.amenities.forEach(amenity => {
+        formData.append('amenities[]', amenity.id.toString()); // Use 'amenities[]' for multiple IDs
+      });
+    }
+
+    // Laravel expects _method: 'PUT' for PUT requests with FormData
+    formData.append('_method', 'PUT');
+
+    this.propertyService.updateProperty(propertyId, formData).subscribe({
+      next: () => {
+        this.selectedProperty = null; // Close the modal
+        Swal.fire({
+          title: 'Updated!',
+          text: 'Property updated successfully.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        });
+        this.getAllAgentProperties(); // Refresh the list
       },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
+      error: (err) => {
+        console.error('Error updating property:', err);
+        Swal.fire('Error', 'Failed to update property. ' + (err.error?.message || ''), 'error');
       }
     });
   }
@@ -444,46 +299,90 @@ export class MypropertiesAgentComponent {
   // Handle image selection for update form
   onImagesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && this.selectedProperty) {
-      this.selectedProperty.images = Array.from(input.files);
+    if (input.files) {
+      this.newImages = Array.from(input.files);
     }
   }
 
-  protected readonly Math = Math; // Allow Math object to be used in template
-  viewedProperty: (Property & { index?: number }) | null = null; // Property being viewed in modal
-
   // Open the view property modal
-  viewProperty(property: Property, index: number): void {
-    const globalIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-    this.viewedProperty = { ...property, index: globalIndex };
+  viewProperty(property: Property): void {
+    // Fetch detailed property information if needed, or use the existing object
+    this.propertyService.viewProperty(property.id).subscribe({
+      next: (data: Property) => {
+        this.viewedProperty = {
+          ...data,
+          location: `${data.address}, ${data.city}`,
+          status: this.listingTypeMap[data.property_listing_id],
+          image: data.images && data.images.length > 0 ? `http://127.0.0.1:8081/storage/${data.images[0].imageUrl}` : 'assets/placeholder.jpg',
+          propertyType: this.propertyTypeMap[data.property_type_id],
+          listingType: this.listingTypeMap[data.property_listing_id],
+          constructionSize: data.constructionArea,
+          landSize: data.landArea,
+          bedrooms: data.bedroom,
+          bathrooms: data.bathroom,
+          // Ensure amenities array is initialized for display
+          amenities: data.amenities || []
+        };
+        // Transform image paths for display in the view modal
+        if (this.viewedProperty && this.viewedProperty.images) { // <--- Added null check here
+          this.viewedProperty.images = this.viewedProperty.images.map(img => ({
+            ...img,
+            imageUrl: `http://127.0.0.1:8081/storage/${img.imageUrl}`
+          }));
+        }
+      },
+      error: (err) => {
+        console.error('Error viewing property:', err);
+        Swal.fire('Error', 'Failed to fetch property details.', 'error');
+      }
+    });
   }
 
   // Helper function to get display name for an amenity key
-  // Explicitly cast amenityKey to `string` within the switch statement
-  getAmenityDisplayName(amenityKey: keyof Amenities): string {
-    // Casting to `string` resolves the TS2322 error in switch cases.
-    // We know `keyof Amenities` will only yield string literals here.
-    switch (amenityKey as string) {
-      case 'garden': return 'Garden';
-      case 'securityCameras': return 'Security Cameras';
-      case 'laundry': return 'Laundry';
-      case 'internet': return 'Internet';
-      case 'pool': return 'Pool';
-      case 'videoSurveillance': return 'Video Surveillance';
-      case 'laundryRoom': return 'Laundry Room';
-      case 'jacuzzi': return 'Jacuzzi';
-      default:
-        // This default case should ideally not be reached because amenityKey is `keyof Amenities`
-        // which means it can only be one of the defined keys.
-        console.warn(`Unknown amenity key: ${amenityKey}`);
-        return amenityKey as string; // Ensure return type is string
+  getAmenityDisplayName(amenity: Amenity): string {
+    return amenity.name;
+  }
+
+  // Check if an amenity is selected in the update form
+  isAmenitySelected(amenity: Amenity): boolean {
+    if (!this.selectedProperty || !this.selectedProperty.amenities) {
+      return false;
+    }
+    return this.selectedProperty.amenities.some(a => a.id === amenity.id);
+  }
+
+  // Toggle amenity selection in the update form
+  toggleAmenity(amenity: Amenity, event: Event): void {
+    if (!this.selectedProperty) return;
+
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      // Add amenity if not already present
+      if (!this.selectedProperty.amenities.some(a => a.id === amenity.id)) {
+        this.selectedProperty.amenities.push(amenity);
+      }
+    } else {
+      // Remove amenity
+      this.selectedProperty.amenities = this.selectedProperty.amenities.filter(a => a.id !== amenity.id);
     }
   }
 
-  // Reset all filters and return to the first page
-  resetFilters(): void {
-    this.filteredTitle = '';
-    this.selectedAmenities = {}; // Clear all amenity selections
-    this.currentPage = 1; // Go back to the first page
+  // This is a placeholder for a hypothetical 'Add Property' form submission
+  // You would call this from your add property component/form
+  async addNewProperty(formData: FormData): Promise<void> {
+    this.propertyService.addProperty(formData).subscribe({
+      next: (response) => {
+        Swal.fire('Success', 'Property added successfully!', 'success');
+        this.getAllAgentProperties(); // Refresh the list
+        // Optionally close modal or clear form
+      },
+      error: (err) => {
+        console.error('Error adding property:', err);
+        Swal.fire('Error', 'Failed to add property. ' + (err.error?.message || ''), 'error');
+      }
+    });
   }
+
+  protected readonly Math = Math; // Allow Math object to be used in template
 }

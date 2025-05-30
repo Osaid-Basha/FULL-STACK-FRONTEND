@@ -49,9 +49,9 @@
           </td>
           <td class="text-end">
             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
-              <button class="action-buttons btn-view" (click)="viewProperty(property, i)">View Property</button>
-              <button class="action-buttons btn-update" (click)="openUpdateForm(property, i)">Update</button>
-              <button class="action-buttons btn-delete" (click)="deleteProperty(i)">Delete</button>
+              <button class="action-buttons btn-view" (click)="viewProperty(property)">View Property</button>
+              <button class="action-buttons btn-update" (click)="openUpdateForm(property)">Update</button>
+              <button class="action-buttons btn-delete" (click)="deleteProperty(property.id)">Delete</button>
             </div>
           </td>
         </tr>
@@ -105,17 +105,17 @@
 
       <div class="col-md-6 mb-3">
         <label class="form-label fw-bold">Property Type</label>
-        <select class="form-select" [(ngModel)]="selectedProperty.propertyType">
-          <option value="Apartment">Apartment</option>
-          <option value="House">House</option>
-          <option value="Office">Office</option>
+        <select class="form-select" [(ngModel)]="selectedProperty.property_type_id">
+          <option value="1">Apartment</option>
+          <option value="2">House</option>
+          <option value="3">Office</option>
         </select>
       </div>
       <div class="col-md-6 mb-3">
         <label class="form-label fw-bold">Listing Type</label>
-        <select class="form-select" [(ngModel)]="selectedProperty.listingType">
-          <option value="Rent">For Rent</option>
-          <option value="Sale">For Sale</option>
+        <select class="form-select" [(ngModel)]="selectedProperty.property_listing_id">
+          <option value="1">For Rent</option>
+          <option value="2">For Sale</option>
         </select>
       </div>
 
@@ -130,11 +130,11 @@
       </div>
       <div class="col-md-4 mb-3">
         <label class="form-label fw-bold">Bedrooms</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bedrooms" />
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bedroom" />
       </div>
       <div class="col-md-4 mb-3">
         <label class="form-label fw-bold">Bathrooms</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bathrooms" />
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bathroom" />
       </div>
 
       <div class="col-md-4 mb-3">
@@ -143,38 +143,45 @@
       </div>
       <div class="col-md-4 mb-3">
         <label class="form-label fw-bold">Construction Sqft</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.constructionSize" />
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.constructionArea" />
       </div>
       <div class="col-md-4 mb-3">
         <label class="form-label fw-bold">Land Sqft</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.landSize" />
+        <input class="form-control" type="number" [(ngModel)]="selectedProperty.landArea" />
       </div>
 
       <div class="col-md-12 mb-3">
         <label class="form-label fw-bold">Short Description</label>
-        <textarea class="form-control" rows="2" [(ngModel)]="selectedProperty.shortDescription"></textarea>
+        <textarea class="form-control" rows="2" [(ngModel)]="selectedProperty.shortDescreption"></textarea>
       </div>
       <div class="col-md-12 mb-3">
         <label class="form-label fw-bold">Long Description</label>
-        <textarea class="form-control" rows="3" [(ngModel)]="selectedProperty.longDescription"></textarea>
+        <textarea class="form-control" rows="3" [(ngModel)]="selectedProperty.longDescreption"></textarea>
       </div>
 
       <div class="col-md-12 mb-3">
         <label class="form-label fw-bold">Amenities</label>
         <div class="d-flex flex-wrap gap-3">
           <div *ngFor="let amenity of allAmenities">
-            <input type="checkbox" [(ngModel)]="selectedProperty.amenities[amenity]" [id]="'edit-amenity-' + amenity" />
-            <label [for]="'edit-amenity-' + amenity">{{ getAmenityDisplayName(amenity) }}</label>
+            <input type="checkbox"
+                   [checked]="isAmenitySelected(amenity)"
+                   (change)="toggleAmenity(amenity, $event)"
+                   [id]="'edit-amenity-' + amenity.id" />
+            <label [for]="'edit-amenity-' + amenity.id">{{ getAmenityDisplayName(amenity) }}</label>
           </div>
         </div>
       </div>
 
       <div class="col-md-12 mb-4">
         <label class="form-label fw-bold d-block">Images</label>
-
         <div class="input-group">
-
           <input type="file" id="imageUpload" class="form-control" multiple (change)="onImagesSelected($event)" />
+        </div>
+        <div class="mt-2" *ngIf="selectedProperty.images && selectedProperty.images.length > 0">
+          <p class="small text-muted mb-1">Current Images:</p>
+          <div class="d-flex flex-wrap gap-2">
+            <img *ngFor="let img of selectedProperty.images" [src]="img.imageUrl" class="rounded-3 shadow-sm" width="60" height="60" style="object-fit: cover;" alt="Property Image">
+          </div>
         </div>
       </div>
 
@@ -227,10 +234,10 @@
 
       <div class="mt-3">
         <h6 class="fw-bold mb-1">Short Description:</h6>
-        <p class="text-muted mb-2">{{ viewedProperty.shortDescription || 'N/A' }}</p>
+        <p class="text-muted mb-2">{{ viewedProperty.shortDescreption || 'N/A' }}</p>
 
         <h6 class="fw-bold mb-1">Long Description:</h6>
-        <p class="text-muted">{{ viewedProperty.longDescription || 'N/A' }}</p>
+        <p class="text-muted">{{ viewedProperty.longDescreption || 'N/A' }}</p>
       </div>
     </div>
   </div>

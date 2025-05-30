@@ -118,6 +118,8 @@ import { MatListModule } from '@angular/material/list';
 import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-properties.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './interceptors/auth.interceptor';
 
 
 
@@ -165,7 +167,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
       AgentDetailsComponent,
       AgentInformationComponent,
       AgentPropartyComponent,
-      AddPropertyComponent,
+
       LocationComponent,
       ContactComponent,
       ContactTypeComponent,
@@ -176,7 +178,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
 
       NavbarAgentComponent,
       DashboardAgentComponent,
-      MessageComponent,
+
       ProfailAgentComponent,
       AccountSettingsComponent,
 
@@ -208,7 +210,7 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
         NotificationBuyerComponent,
           MaseegeBuyerComponent,
           NotificationAdminComponent,
-
+    MessageComponent,
 
 
 
@@ -225,11 +227,13 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     MatChipsModule,
     MatIconModule
     ,
+    AddPropertyComponent,
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
@@ -259,7 +263,8 @@ MatListModule,
 
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
