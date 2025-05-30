@@ -9,7 +9,7 @@ import { NavbarComponent } from './auth/navbar/navbar.component';
 import { FooterComponent } from './auth/footer/footer.component';
 import { BuyerComponent } from './buyer/buyer.component';
 import { HomeComponent } from './buyer/home/home.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -119,145 +119,127 @@ import { HttpClientModule } from '@angular/common/http';
 import {NotificationAgentComponent} from './agentandsellers/notification-agent/notification-agent.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-properties.component';
+import { ReceivedComponent } from './agentandsellers/received/received.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
     NavbarComponent,
     FooterComponent,
     BuyerComponent,
     HomeComponent,
-
     HeroHeaderComponent,
-      CounterContentComponent,
-      TopRegionsComponent,
-      FeaturedPropertiesComponent,
-      NewsletterAndBlogComponent,
-      TestimonialComponent,
-      PropertiesComponent,
-      PropertyHeaderComponent,
-      PropertyListComponent,
-      PropertyGridComponent,
-      AuthComponent,
-      LoginComponent,
-      SignupComponent,
-      ForgotPasswordComponent,
-      TowFactorComponent,
-      PropertiesDetailsComponent,
-      PropertyGalleryComponent,
-      SidbarNavbarComponent,
 
-      RelatedPropertiesComponent,
-      PropertyHeaderDetailsComponent,
-      AboutUsComponent,
+        CounterContentComponent,
+    TopRegionsComponent,
+    FeaturedPropertiesComponent,
+    NewsletterAndBlogComponent,
+    TestimonialComponent,
+    PropertiesComponent,
+    PropertyHeaderComponent,
+    PropertyListComponent,
+    PropertyGridComponent,
+    AuthComponent,
+    LoginComponent,
+    SignupComponent,
+    ForgotPasswordComponent,
+    TowFactorComponent,
+    PropertiesDetailsComponent,
+    PropertyGalleryComponent,
+    SidbarNavbarComponent,
 
-      AboutHeaderComponent,
-      AboutCounterComponent,
-      AboutDescriptionComponent,
-      AboutVideoComponent,
-      AboutCustomersComponent,
-      AboutTeamComponent,
-      AgentComponent,
-      AgentListComponent,
-      AgentGridComponent,
-      AgentDetailsComponent,
-      AgentInformationComponent,
-      AgentPropartyComponent,
-      AddPropertyComponent,
-      LocationComponent,
-      ContactComponent,
-      ContactTypeComponent,
-      ContactDirectlyComponent,
-      Erorr404Component,
-      Erorr505Component,
-      AgentandsellersComponent,
+    RelatedPropertiesComponent,
+    PropertyHeaderDetailsComponent,
+    AboutUsComponent,
 
-      NavbarAgentComponent,
-      DashboardAgentComponent,
-      MessageComponent,
-      ProfailAgentComponent,
-      AccountSettingsComponent,
+    AboutHeaderComponent,
+    AboutCounterComponent,
+    AboutDescriptionComponent,
+    AboutVideoComponent,
+    AboutCustomersComponent,
+    AboutTeamComponent,
+    AgentComponent,
+    AgentListComponent,
+    AgentGridComponent,
+    AgentDetailsComponent,
+    AgentInformationComponent,
+    AgentPropartyComponent,
+    AddPropertyComponent,
+    LocationComponent,
+    ContactComponent,
+    ContactTypeComponent,
+    ContactDirectlyComponent,
+    Erorr404Component,
+    Erorr505Component,
+    AgentandsellersComponent,
 
-      ReviewsAgentComponent,
-      ChangepasswordAgentComponent,
-      AdminComponent,
-      NavbarAdminComponent,
-      SidbarAdminComponent,
-      DashboardAdminComponent,
-      UserRequestsAdminComponent,
-      RemoveAdminComponent,
+    NavbarAgentComponent,
+    DashboardAgentComponent,
+    MessageComponent,
+    ProfailAgentComponent,
+    AccountSettingsComponent,
 
-      FooterBuyerComponent,
-      NavbarBuyerComponent,
-      PropartiesInfoComponent,
-      ErorrComponent,
-      SettingsComponent,
+    ReviewsAgentComponent,
+    ChangepasswordAgentComponent,
+    AdminComponent,
+    NavbarAdminComponent,
+    SidbarAdminComponent,
+    DashboardAdminComponent,
+    UserRequestsAdminComponent,
+    RemoveAdminComponent,
 
-      ProfailBuyerComponent,
-        FavoriteComponent,
-        AccountAdminComponent,
-        ChangepasswordAdminComponent,
-        ProfailAdminComponent,
+    FooterBuyerComponent,
+    NavbarBuyerComponent,
+    PropartiesInfoComponent,
+    ErorrComponent,
+    SettingsComponent,
 
+    ProfailBuyerComponent,
+    FavoriteComponent,
+    AccountAdminComponent,
+    ChangepasswordAdminComponent,
+    ProfailAdminComponent,
 
-        ResetPasswordComponent,
-        NotificationAdminComponent,
-
-        NotificationBuyerComponent,
-          MaseegeBuyerComponent,
-          NotificationAdminComponent,
-
-
-
-
-ManageReviewsComponent,
-
-
-
-
-
-
-
+    ResetPasswordComponent,
+    NotificationAdminComponent,
+    NotificationBuyerComponent,
+    MaseegeBuyerComponent,
+    
+    ManageReviewsComponent,      
+    ReceivedComponent            
 
 
   ],
   imports: [
+     
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatChipsModule,
-    MatIconModule
-    ,
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatChipsModule,
-
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatChipsModule,
-
+    HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
 
-    BrowserModule,
-    MatCheckboxModule,
-    MatCheckboxModule,
-    MatCheckboxModule,
+    MatCardModule,
+    MatListModule,
+    NgApexchartsModule,
 
     NotificationAgentComponent,
+
     AllpropertiesComponent,
     BuyerPropertiesComponent,
 
-MatListModule,
-HttpClientModule,
+
+    MatListModule,
+    HttpClientModule,
+    ReactiveFormsModule
+
+
 
   ],
   providers: [
@@ -265,4 +247,4 @@ HttpClientModule,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

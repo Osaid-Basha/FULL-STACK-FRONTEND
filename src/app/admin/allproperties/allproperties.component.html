@@ -50,7 +50,6 @@
           <td class="text-end">
             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
               <button class="action-buttons btn-view" (click)="viewProperty(property, i)">View Property</button>
-              <button class="action-buttons btn-update" (click)="openUpdateForm(property, i)">Update</button>
               <button class="action-buttons btn-delete" (click)="deleteProperty(i)">Delete</button>
             </div>
           </td>
@@ -64,7 +63,7 @@
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 border-top gap-2">
       <div class="text-muted small text-center text-md-start">
-        Showing {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, filteredProperties.length) }} of {{ filteredProperties.length }}
+        Showing {{ (currentPage - 1) * itemsPerPage + 2 }}–{{ Math.min(currentPage * itemsPerPage, filteredProperties.length) }} of {{ filteredProperties.length }}
       </div>
       <nav>
         <ul class="pagination mb-0 justify-content-center">
@@ -84,107 +83,7 @@
   </div>
 </div>
 
-<div class="edit-modal animate__animated animate__fadeIn" *ngIf="selectedProperty">
-  <div class="edit-card container p-4 bg-white shadow rounded-4" style="max-width: 900px;">
-    <h5 class="mb-4">Edit Property</h5>
 
-    <div class="row">
-      <div class="col-md-12 mb-3">
-        <label class="form-label fw-bold">Listing Title</label>
-        <input class="form-control" [(ngModel)]="selectedProperty.title" />
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label class="form-label fw-bold">Address</label>
-        <input class="form-control" [(ngModel)]="selectedProperty.address" />
-      </div>
-      <div class="col-md-6 mb-3">
-        <label class="form-label fw-bold">City</label>
-        <input class="form-control" [(ngModel)]="selectedProperty.city" />
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label class="form-label fw-bold">Property Type</label>
-        <select class="form-select" [(ngModel)]="selectedProperty.propertyType">
-          <option value="Apartment">Apartment</option>
-          <option value="House">House</option>
-          <option value="Office">Office</option>
-        </select>
-      </div>
-      <div class="col-md-6 mb-3">
-        <label class="form-label fw-bold">Listing Type</label>
-        <select class="form-select" [(ngModel)]="selectedProperty.listingType">
-          <option value="Rent">For Rent</option>
-          <option value="Sale">For Sale</option>
-        </select>
-      </div>
-
-      <div class="col-md-12 mb-3">
-        <label class="form-label fw-bold">Listing Price</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.price" />
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Living Area</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.livingArea" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Bedrooms</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bedrooms" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Bathrooms</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.bathrooms" />
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Parking Lots</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.parking" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Construction Sqft</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.constructionSize" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label fw-bold">Land Sqft</label>
-        <input class="form-control" type="number" [(ngModel)]="selectedProperty.landSize" />
-      </div>
-
-      <div class="col-md-12 mb-3">
-        <label class="form-label fw-bold">Short Description</label>
-        <textarea class="form-control" rows="2" [(ngModel)]="selectedProperty.shortDescription"></textarea>
-      </div>
-      <div class="col-md-12 mb-3">
-        <label class="form-label fw-bold">Long Description</label>
-        <textarea class="form-control" rows="3" [(ngModel)]="selectedProperty.longDescription"></textarea>
-      </div>
-
-      <div class="col-md-12 mb-3">
-        <label class="form-label fw-bold">Amenities</label>
-        <div class="d-flex flex-wrap gap-3">
-          <div *ngFor="let amenity of allAmenities">
-            <input type="checkbox" [(ngModel)]="selectedProperty.amenities[amenity]" [id]="'edit-amenity-' + amenity" />
-            <label [for]="'edit-amenity-' + amenity">{{ getAmenityDisplayName(amenity) }}</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12 mb-4">
-        <label class="form-label fw-bold d-block">Images</label>
-
-        <div class="input-group">
-
-          <input type="file" id="imageUpload" class="form-control" multiple (change)="onImagesSelected($event)" />
-        </div>
-      </div>
-
-    </div>
-    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
-      <button class="btn btn-success" (click)="updateProperty()">Confirm Update</button>
-      <button class="btn btn-secondary" (click)="selectedProperty = null">Cancel</button>
-    </div>
-  </div>
-</div>
 <div
   class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center z-3 animate__animated animate__fadeIn"
   style="overflow-y: auto; backdrop-filter: blur(4px); padding: 3rem 1rem;"

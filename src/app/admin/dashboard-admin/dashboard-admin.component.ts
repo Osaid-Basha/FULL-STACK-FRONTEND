@@ -1,12 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import Swal from 'sweetalert2';
-import {
-  ApexNonAxisChartSeries,
-  ApexChart,
-  ApexPlotOptions,
-  ApexResponsive
-} from 'ng-apexcharts';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -14,38 +9,67 @@ import {
   templateUrl: './dashboard-admin.component.html',
   styleUrl: './dashboard-admin.component.css'
 })
-export class  DashboardAdminComponent implements AfterViewInit {
+export class DashboardAdminComponent implements AfterViewInit {
 
   stats = [
-    { label: 'Total Listings', value: 1230 },
-    { label: 'Website Visits', value: '8.2K' },
-    { label: 'Active Agents', value: 56 },
-    { label: 'Avg. Rating', value: '4.7/5' }
+    { label: 'Total User', value: 0 },
+    { label: 'Total Review', value: 0 },
+    { label: 'Total Agents', value: 0 },
+    { label: 'Avg. Rating', value: '0.0/5' }
   ];
 
-  requests = [
-    { email: 'ahmad@gmail.com', message: 'I want to visit the Nablus property.' },
-    { email: 'ahmad@gmail.com', message: 'I want to visit the Nablus property.' }
-  ];
-  pendingUsers = [
-    { name: 'Ahmad Salem', email: 'ahmad@gmail.com', type: 'Agent', date: 'Apr 1, 2025' },
-    { name: 'Rasha Ali', email: 'rasha@email.com', type: 'Seller', date: 'Mar 30, 2025' },
-    { name: 'Lina Hasan', email: 'lina@agentmail.com', type: 'Agent', date: 'Mar 20, 2025' },
-    { name: 'Mohamed M.', email: 'mohamed@yahoo.com', type: 'Seller', date: 'Mar 10, 2025' },
-    { name: 'Mahmoud A.', email: 'mahmoud@hotmail.com', type: 'Agent', date: 'Feb 25, 2025' },
-  ];
+  pendingUsers: any[] = [];
+  listings: any[] = [];
+totalProperties: number = 0;
+totalPropertiesGoalMessage: string = '';
+totalPropertiesProgress: number = 0;
 
-
-  listings = [
-    { title: 'Modern Villa', agent: 'Ayman', status: 'Active' },
-    { title: 'Luxury Apartment', agent: 'Sara', status: 'Pending' },
-    { title: 'Cozy Cottage', agent: 'Ali', status: 'Sold' },
-    { title: 'Beach House', agent: 'Maya', status: 'Active' },
-    { title: 'Mountain Cabin', agent: 'Omar', status: 'Pending' },
-  ];
+  constructor(private adminService: AdminService) {}
 
   ngAfterViewInit(): void {
-    // Line Chart
+    this.loadStatistics();
+    this.loadPendingUsers();
+
+
+    this.renderCharts();
+  }
+
+  loadStatistics(): void {
+  this.adminService.getStatistics().subscribe({
+    next: (res) => {
+      this.stats = [
+        { label: 'Total User', value: res.total_users },
+        { label: 'Total Review', value: res.total_reviews },
+        { label: 'Total Agents', value: res.total_agents },
+        { label: 'Avg. Rating', value: `${parseFloat(res.average_rating).toFixed(1)}/5` }
+      ];
+
+      this.totalProperties = res.total_properties;
+      const goal = 5000; 
+      const remaining = goal - this.totalProperties;
+
+    },
+    error: (err) => {
+      console.error('Error loading statistics:', err);
+    }
+  });
+}
+
+
+  loadPendingUsers(): void {
+    this.adminService.getPendingUsers().subscribe({
+      next: (res) => {
+        this.pendingUsers = res;
+      },
+      error: (err) => {
+        console.error('Error loading pending users:', err);
+      }
+    });
+  }
+
+
+
+  renderCharts(): void {
     new Chart('lineChart', {
       type: 'line',
       data: {
@@ -60,7 +84,6 @@ export class  DashboardAdminComponent implements AfterViewInit {
       }
     });
 
-    // Bar Chart
     new Chart('barChart', {
       type: 'bar',
       data: {
@@ -73,6 +96,7 @@ export class  DashboardAdminComponent implements AfterViewInit {
       }
     });
   }
+
   deleteListing(listing: any) {
     Swal.fire({
       title: `Are you sure?`,
@@ -108,7 +132,6 @@ export class  DashboardAdminComponent implements AfterViewInit {
     });
   }
 
-
   approveUser(user: any) {
     this.pendingUsers = this.pendingUsers.filter(u => u !== user);
     Swal.fire({
@@ -142,6 +165,4 @@ export class  DashboardAdminComponent implements AfterViewInit {
       }
     });
   }
-
-
 }
