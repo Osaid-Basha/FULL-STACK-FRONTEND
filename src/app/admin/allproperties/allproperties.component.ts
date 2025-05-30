@@ -43,15 +43,10 @@ interface Property {
 
 @Component({
   selector: 'app-allproperties',
-  standalone: true,
+  standalone: false,
   templateUrl: './allproperties.component.html',
   styleUrls: ['./allproperties.component.css'],
-  imports: [
-    FormsModule,
-    NgClass,
-    NgForOf,
-    NgIf
-  ]
+  
 })
 export class AllpropertiesComponent implements OnInit {
   properties: Property[] = [];

@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyBuyerService {
-  private api = environment.apiUrl;
+  private api = 'http://localhost:8000/api/buyer';
 
   constructor(private http: HttpClient) {}
 
-  // الهيدر مع التوكن (مهم جدًا)
-  private getHeaders() {
-    return new HttpHeaders({
-      Authorization: 'Bearer 1|Q05rTYV8r3ijwFmpLb05wV0kfeSlmHBSXlDstsCEfe56be0c'
-    });
+    token = localStorage.getItem('token');
+  private getHeaders(json = true): HttpHeaders {
+    const headersConfig: any = {
+      'Authorization': 'Bearer ' + this.token,
+      'Accept': 'application/json'
+    };
+    if (json) {
+      headersConfig['Content-Type'] = 'application/json';
+    }
+    return new HttpHeaders(headersConfig);
   }
 
   // 1. جلب جميع العقارات

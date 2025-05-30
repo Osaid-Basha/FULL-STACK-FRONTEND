@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AgentStatisticsService {
-  private baseUrl = 'http://localhost:8000/api/';
+  private baseUrl = 'http://localhost:8000/api/agent';
 
 
   constructor(private http: HttpClient) {}
@@ -21,7 +21,7 @@ export class AgentStatisticsService {
   }
 
   getStatistics(): Observable<any> {
-    return this.http.get(`${this.baseUrl}agent/statistics`, { headers: this.getAuthHeaders() });
+    return this.http.get(`${this.baseUrl}/property-stats`, { headers: this.getAuthHeaders() });
   }
 
 }

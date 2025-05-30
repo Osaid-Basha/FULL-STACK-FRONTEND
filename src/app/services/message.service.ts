@@ -30,19 +30,32 @@ export interface ChatContact extends User {
   providedIn: 'root'
 })
 export class MessageService {
-  private apiUrl = 'http://127.0.0.1:8081/api';
-  private fixedAuthToken = '4|nKkcXPEzM7sw179yD1wtyDpmsMkjK2vx85FnYI1qebb177af';
-  private currentUserId: number = 10;
+  private apiUrl = 'http://localhost:8000/api';
+  private fixedAuthToken = localStorage.getItem('token') || '';
+  private currentUserId: number = 0;
   private headers: HttpHeaders = new HttpHeaders();
 
   constructor(private http: HttpClient) {
     this.updateAuthHeaders();
+    this.loadCurrentUserId(); // تحميل id المستخدم الحالي
   }
 
   private updateAuthHeaders(): void {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.fixedAuthToken}`
+    });
+  }
+
+  private loadCurrentUserId(): void {
+    this.http.get<{ id: number }>(`${this.apiUrl}/user`, { headers: this.headers }).subscribe({
+      next: (res) => {
+        this.currentUserId = res.id;
+        console.log('Loaded user ID:', this.currentUserId);
+      },
+      error: (err) => {
+        console.error('Failed to load user ID:', err);
+      }
     });
   }
 
@@ -59,16 +72,15 @@ export class MessageService {
     if (searchTerm) {
       params = params.append('search', searchTerm);
     }
+
     return this.http.get<User[]>(`${this.apiUrl}/chat/list`, { params, headers: this.headers })
       .pipe(
-        map(users => users.map(user => {
-          return {
-            ...user,
-            name: user.name || user.first_name || 'Unknown User',
-            lastMessage: 'Tap to see chat',
-            time: ''
-          } as ChatContact;
-        })),
+        map(users => users.map(user => ({
+          ...user,
+          name: user.name || user.first_name || 'Unknown User',
+          lastMessage: 'Tap to see chat',
+          time: ''
+        } as ChatContact))),
         catchError(error => {
           console.error('Error fetching chat list:', error);
           throw error;

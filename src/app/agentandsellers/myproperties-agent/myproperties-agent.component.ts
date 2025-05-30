@@ -55,15 +55,10 @@ interface Property {
 
 @Component({
   selector: 'app-myproperties-agent',
-  standalone: true,
+  standalone: false,
   templateUrl: './myproperties-agent.component.html',
   styleUrls: ['./myproperties-agent.component.css'],
-  imports: [
-    FormsModule,
-    NgClass,
-    NgForOf,
-    NgIf
-  ]
+
 })
 export class MypropertiesAgentComponent implements OnInit {
   properties: Property[] = [];

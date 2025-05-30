@@ -20,14 +20,10 @@ interface Amenity {
 
 @Component({
   selector: 'app-add-property',
-  standalone: true,
+  standalone: false,
   templateUrl: './add-property.component.html',
   styleUrls: ['./add-property.component.css'],
-  imports: [
-    FormsModule,
-    NgForOf,
-    NgIf
-  ],
+
   animations: [
     trigger('fadeSlideUp', [
       transition(':enter', [

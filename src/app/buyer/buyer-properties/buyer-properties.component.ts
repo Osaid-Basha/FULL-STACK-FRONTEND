@@ -45,15 +45,10 @@ interface Property {
 
 @Component({
   selector: 'app-buyer-properties',
-  standalone: true,
+  standalone: false,
   templateUrl: './buyer-properties.component.html',
   styleUrls: ['./buyer-properties.component.css'],
-  imports: [
-    FormsModule,
-    NgClass,
-    NgForOf,
-    NgIf
-  ]
+
 })
 export class BuyerPropertiesComponent implements OnInit {
 

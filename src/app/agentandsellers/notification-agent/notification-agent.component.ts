@@ -4,8 +4,8 @@ import { NotificationService } from '../../services/notification-service.service
 
 @Component({
   selector: 'app-notification-agent',
-  standalone: true,
-  imports: [NgClass, NgForOf],
+  standalone: false,
+
   templateUrl: './notification-agent.component.html',
   styleUrls: ['./notification-agent.component.css']
 })
@@ -69,15 +69,7 @@ export class NotificationAgentComponent implements OnInit {
     });
   }
 
-  markAsRead(notificationId: number) {
-    this.notificationService.markAsRead(notificationId).subscribe({
-      next: () => {
-        const notif = this.notifications.find(n => n.id === notificationId);
-        if (notif) notif.isread = true;
-      },
-      error: err => console.error('Error marking as read:', err)
-    });
-  }
+
 
   removenotifaction(notification: any) {
     this.notificationService.deleteNotification(notification.id).subscribe({

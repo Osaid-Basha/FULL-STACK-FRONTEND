@@ -150,7 +150,7 @@ const routes: Routes = [
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
 
-      { path: 'properties-details/:id', component: PropertiesDetailsComponent },
+      { path: 'properties-details', component: PropertiesDetailsComponent },
 
 
       { path: 'notification-buyer', component: NotificationBuyerComponent },

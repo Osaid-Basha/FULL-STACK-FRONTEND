@@ -6,10 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PropertyService {
-  private apiUrl = 'http://127.0.0.1:8081/api/agent/properties';
+
+private apiUrl = 'http://localhost:8000/api/agent/properties';
 
 
-  private token = '6|GaW3FMEWCDCByfAMYuZwZuWtier0KWcgUoknydmya5982844';
+
+
+  private token = localStorage.getItem('token') || '';
+  // Ensure token is always a string
 
   constructor(private http: HttpClient) {}
 
