@@ -7,14 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./newsletter-and-blog.component.css']
 })
 export class NewsletterAndBlogComponent {
-  // بيانات العنوان العلوي
+
   newsletter = {
     subtitle: 'Our Latest Articles',
     title: 'Want to join us?',
     description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
   };
 
-  // المقالات الرئيسية
+
   articles = [
     {
       title: 'Eu Feugiat Pretium Nibh Ipsum Consequat Nisl Vel Pretium Lectus',
@@ -30,7 +30,7 @@ export class NewsletterAndBlogComponent {
     }
   ];
 
-  // قائمة المدونات المصغرة
+
   blogList = [
     {
       title: 'eu feugiat pretium nibh ipsum consequat nisl vel pretium lectus',
@@ -60,7 +60,7 @@ export class NewsletterAndBlogComponent {
 
   // -------------------------
   // فاليديشن Join Now
-  // -------------------------
+
   fullName: string = '';
   email: string = '';
 
@@ -70,7 +70,7 @@ export class NewsletterAndBlogComponent {
   nameTouched: boolean = false;
   emailTouched: boolean = false;
 
-  // تحقق من الاسم (حروف فقط أو حروف + مسافات)
+
   validateName() {
     if (this.fullName.trim() === '') {
       this.isValidName = true; // مسموح يظل فاضي

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component  , Input } from '@angular/core';
 
 @Component({
   selector: 'app-property-header-details',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './property-header-details.component.css'
 })
 export class PropertyHeaderDetailsComponent {
-
+@Input() property:any;
 }

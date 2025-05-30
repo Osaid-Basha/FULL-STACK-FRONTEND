@@ -9,14 +9,16 @@
             </a>
               <!-- /. End Back To Search -->
           </div>
-          <h4 class="border-start col-auto fs-18 fw-semibold mb-0 page-title text-capitalize">Entire villa hosted by Wayan</h4>
+          <h4 class="border-start col-auto fs-18 fw-semibold mb-0 page-title text-capitalize">
+            {{ property?.title || 'Property Title'}}</h4>
+
           <div class="border-start col-auto">
               <ol class="align-items-center breadcrumb fw-medium mb-0">
                   <li class="breadcrumb-item d-flex align-items-center">
                       <a href="#" class="text-decoration-none"> <i class="fa-solid fa-house-chimney-crack fs-18"></i> </a>
                   </li>
                   <li class="breadcrumb-item d-flex align-items-center"> <a href="#" class="text-decoration-none">Category</a> </li>
-                  <li class="breadcrumb-item d-flex align-items-center active" aria-current="page">Entire villa hosted by Alexander</li>
+                  <li class="breadcrumb-item d-flex align-items-center active" aria-current="page">{{ property?.title || 'Details' }}</li>
               </ol>
           </div>
       </div>

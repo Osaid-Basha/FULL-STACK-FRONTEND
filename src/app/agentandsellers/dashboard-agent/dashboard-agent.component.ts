@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import * as AOS from 'aos';
+import {AgentStatisticsService} from '../../services/agent-statistics.service';
 
 @Component({
   selector: 'app-dashboard-agent',
@@ -10,18 +11,38 @@ import * as AOS from 'aos';
 })
 export class DashboardAgentComponent implements OnInit {
 
-  // الفلتر الحالي للرسم البياني
+
   selectedPeriod = 'Weekly';
 
-  // بيانات الإحصائيات العلوية
+
   stats = [
     { label: 'All Properties', value: '1.7k+', icon: 'fa-solid fa-user' },
-    { label: 'Total Pending', value: '03', icon: 'fa-regular fa-bookmark' },
-    { label: 'Total Views', value: '4.8k', icon: 'fa-regular fa-eye' },
-    { label: 'Total Favourites', value: '07', icon: 'fa-regular fa-heart' }
+    { label: 'Sold Properties', value: '03', icon: 'fa-regular fa-bookmark' },
+    { label: 'Rented Properties', value: '4.8k', icon: 'fa-regular fa-eye' },
+    { label: 'Remaining Properties', value: '07', icon: 'fa-regular fa-heart' }
   ];
+  constructor(private statisticsService: AgentStatisticsService) {}
 
-  // بيانات الرسائل الجديدة
+  loadStatistics(): void {
+      this.statisticsService.getStatistics().subscribe({
+        next: (data) => {
+          console.log('Data from API:', data);
+          this.stats = [
+            { label: 'All Properties', value: data.totalCount.toLocaleString(), icon: 'fa-solid fa-user' },
+            { label: 'Sold Properties', value: data.soldCount.toLocaleString(), icon: 'fa-regular fa-bookmark' },
+            { label: 'Rented Properties', value: data.rentedCount.toLocaleString(), icon: 'fa-regular fa-eye' },
+            { label: 'Remaining Properties', value: data.availableCount.toLocaleString(), icon: 'fa-regular fa-heart' }
+          ];
+          AOS.init();
+        },
+        error: (error) => {
+          console.error('Failed to retrieve statistics:', error);
+        }
+      });
+  }
+
+
+
   messages = [
     {
       name: 'Jenny Rio.',
@@ -43,7 +64,6 @@ export class DashboardAgentComponent implements OnInit {
     }
   ];
 
-  // إعدادات الرسم البياني (Bar)
   barChartType: ChartType = 'bar';
 
   barChartData: ChartConfiguration<'bar'>['data'] = {
@@ -96,8 +116,9 @@ export class DashboardAgentComponent implements OnInit {
     }
   };
 
-  // تفعيل AOS عند تحميل الصفحة
+
   ngOnInit(): void {
+    this.loadStatistics();
     AOS.init({
       duration: 800,
       once: true

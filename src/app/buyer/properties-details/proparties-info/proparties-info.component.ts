@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-proparties-info',
@@ -7,19 +7,54 @@ import { Component } from '@angular/core';
   styleUrls: ['./proparties-info.component.css']
 })
 export class PropartiesInfoComponent {
-  // Basic Property Info
-  address = '1123 Fictional St, San Francisco, CA 94103';
-  host = 'Wayan';
-  bedrooms = 3;
-  bathrooms = 3;
-  area = 620;
-  yearBuilt = 2010;
-  price = 18000;
-  propertyType = 'Property for rent';
-  floorPlanImage = 'assets/img/png-img/floor-plans.png';
+  @Input() property: any;
 
+  get address() {
+    return this.property?.location || this.property?.address;
+  }
+
+  get host() {
+    return this.property?.title?.split('by')?.[1]?.trim();
+  }
+
+  get bedrooms() {
+    return this.property?.bedrooms ?? this.property?.beds;
+  }
+
+  get bathrooms() {
+    return this.property?.bathrooms ?? this.property?.baths;
+  }
+
+  get area() {
+    return this.property?.size;
+  }
+
+  get price() {
+    return this.property?.price;
+  }
+
+  get yearBuilt() {
+    return this.property?.yearBuilt;
+  }
+
+  get floorPlanImage() {
+    return this.property?.floorPlanImage || 'assets/img/png-img/floor-plans.png';
+  }
+
+  get propertyType() {
+    return this.property?.type;
+  }
+
+   get agent () {
+     return this.property?.agent || {
+       name: 'Alexander Kaminski',
+       title: 'Property Advisor',
+       image: 'assets/img/avatar/01.jpg',
+       link: 'agent-details.html'
+     };
+   }
   about: string[] = [
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.,It has survived not only five centuries, but also the leap into electronic typesetting."
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting."
   ];
 
   amenities = [
@@ -33,33 +68,10 @@ export class PropartiesInfoComponent {
     { icon: 'fa-solid fa-person-swimming', name: 'Shared Pool' },
     { icon: 'fa-solid fa-chair', name: 'Furnished' },
     { icon: 'fa-solid fa-square-parking', name: 'Covered Parking' },
-    { icon: 'fa-solid fa-utensils', name: 'Kitchen Appliances' },
+    { icon: 'fa-solid fa-utensils', name: 'Kitchen Appliances' }
   ];
 
-  agent = {
-    name: 'Alexander Kaminski',
-    title: 'Property Advisor',
-    image: 'assets/img/avatar/01.jpg',
-    link: 'agent-details.html'
-  };
-
-  form = {
-    phone: '',
-    email: '',
-    date: ''
-  };
-
-  scheduleTour() {
-    console.log('Scheduling tour with info:', this.form);
-  }
-
-  requestQuote() {
-    console.log('Requesting quote with info:', this.form);
-  }
-
-  // Feedback Logic
   showFeedbackForm = false;
-  hoverRating = 0;
 
   feedback = {
     rating: 0,
@@ -75,8 +87,8 @@ export class PropartiesInfoComponent {
       name: 'Naeem Khan',
       username: 'naeemkhan',
       image: 'assets/img/avatar/01.jpg',
-      title: '"magnis dis parturient montes"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
+      title: '"Great location"',
+      content: 'Amazing property and great service!',
       rating: 4.8
     },
     {
@@ -134,7 +146,6 @@ export class PropartiesInfoComponent {
     this.testimonials.push(newFeedback);
     this.showFeedbackForm = false;
 
-    // Reset fields
     this.feedback = {
       rating: 0,
       title: '',
@@ -144,4 +155,18 @@ export class PropartiesInfoComponent {
       image: 'assets/img/avatar/01.jpg'
     };
   }
+  form = {
+    phone: '',
+    date: '',
+    email: ''
+  };
+
+  scheduleTour() {
+    console.log('Schedule Tour Info:', this.form);
+  }
+
+  requestQuote() {
+    console.log('Request Quote Info:', this.form);
+  }
+
 }

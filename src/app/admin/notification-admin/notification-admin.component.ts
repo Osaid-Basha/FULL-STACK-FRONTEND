@@ -1,5 +1,6 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { NotificationService } from '../../services/notification-service.service';
 
 @Component({
   selector: 'app-notification-admin',
@@ -7,53 +8,93 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './notification-admin.component.html',
   styleUrls: ['./notification-admin.component.css']
 })
-export class NotificationAdminComponent {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  notifications = [
-    {
-      id:1,
-      type: 'info',
-      icon: 'bi-envelope-fill',
-      title: 'New Inquiry',
-      message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
-      time: 'Just now',
-      isread:false
-    },
-    {
-      id:2,
-      type: 'warning',
-      icon: 'bi-tag-fill',
-      title: 'Price Drop',
-      message: '“Luxury Villa” price dropped by 10%.',
-      time: '10 mins ago',
-      isread:false
-    },
-    {
-      id:3,
-      type: 'success',
-      icon: 'bi-calendar-check-fill',
-      title: 'Booking Confirmed',
-      message: 'Booking for Apartment #12B is confirmed by Nour Khaled.',
-      time: '1 hour ago',
-      isread:false
-    },
-    {
-      id:4,
-      type: 'danger',
-      icon: 'bi-x-octagon-fill',
-      title: 'Payment Failed',
-      message: 'Transaction for property #2013 failed. Please check payment gateway.',
-      time: '2 hours ago',
-      isread:false
-    }
-  ];
+
+
+export class NotificationAdminComponent implements OnInit {
+  notifications: any[] = [];
 
   selectedNotification: any = null;
 
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadNotifications();
+  }
+
+  loadNotifications() {
+    this.notificationService.getMyNotifications().subscribe({
+      next: (res) => {
+        this.notifications = res.notifications.map((n: any) => {
+          let icon = 'bi-bell-fill';
+          let title = 'Notification';
+
+          switch (n.type) {
+            case 'message':
+              icon = 'bi-envelope-fill';
+              title = 'New Message';
+              break;
+            case 'warning':
+              icon = 'bi-tag-fill';
+              title = 'Price Drop';
+              break;
+            case 'success':
+              icon = 'bi-calendar-check-fill';
+              title = 'Booking Confirmed';
+              break;
+            case 'danger':
+              icon = 'bi-x-octagon-fill';
+              title = 'Payment Failed';
+              break;
+            case 'reply_review':
+              icon = 'bi-reply-fill';
+              title = 'Review Replied';
+              break;
+          }
+
+          return {
+            id: n.id,
+            type: n.type,
+            icon,
+            title,
+            message: n.message_content,
+            time: this.formatDate(n.created_at),
+            isread: n.pivot?.is_read === 1
+          };
+        });
+      },
+      error: (err) => console.error('Error loading notifications', err)
+    });
+  }
+
+  markAsRead(notificationId: number) {
+    this.notificationService.markAsRead(notificationId).subscribe({
+      next: () => {
+        const notif = this.notifications.find(n => n.id === notificationId);
+        if (notif) notif.isread = true;
+      },
+      error: err => console.error('Error marking as read:', err)
+    });
+  }
+
+  removenotifaction(notification: any) {
+    this.notificationService.deleteNotification(notification.id).subscribe({
+      next: () => {
+        this.notifications = this.notifications.filter(n => n.id !== notification.id);
+      },
+      error: err => console.error('Error deleting notification:', err)
+    });
+  }
+
+  formatDate(date: string): string {
+    return new Date(date).toLocaleString();
+  }
+
   openModal(notification: any) {
     this.selectedNotification = notification;
-
     if (isPlatformBrowser(this.platformId)) {
       const modalElement = document.getElementById('notificationModal');
       if (modalElement) {

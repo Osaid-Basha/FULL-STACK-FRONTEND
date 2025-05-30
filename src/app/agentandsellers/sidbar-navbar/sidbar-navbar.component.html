@@ -5,12 +5,8 @@
   <!-- Menu Top -->
   <ul class="nav flex-column mb-4">
     <li class="nav-item">
-
-
       <a routerLink="/agent-dashboard/" class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-envelope me-2"></i> Dashboard
-
-
       </a>
     </li>
     <li class="nav-item">
@@ -48,6 +44,12 @@
       </a>
     </li>
     <li>
+      <a routerLink="/agent-dashboard/received" routerLinkActive="active-menu" (click)="toggleSidebar()"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-solid fa-inbox me-2"></i> My Received 
+      </a>
+    </li>
+    <li>
       <a routerLink="/agent-dashboard/addproperty" routerLinkActive="active-menu"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-solid fa-plus me-2"></i> Add New Property
@@ -61,11 +63,12 @@
     </li>
   </ul>
 
-  <!-- Logout -->
-  <a routerLink="/" class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3">
+  <!-- ✅ Logout Button -->
+  <a (click)="logout()" class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3" style="cursor: pointer;">
     <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
   </a>
 </div>
+
 <!-- ====== Toggle Button (Mobile only) ====== -->
 <div class="row">
   <button class="d-md-none bg-transparent border-0 text-black text-center m-2" (click)="toggleSidebar()" style="line-height: 1;">
@@ -73,7 +76,6 @@
     <small style="font-size: 12px;">Menu</small>
   </button>
 </div>
-
 
 <!-- ====== Sidebar for Small Screens ====== -->
 <div *ngIf="sidebarVisibleOnMobile"
@@ -85,8 +87,6 @@
     <i class="fa fa-xmark"></i> Close
   </button>
 
-  <!-- نفس القائمة تماماً مع (click)="toggleSidebar()" على كل عنصر -->
-
   <ul class="nav flex-column mb-4">
     <li class="nav-item">
       <a routerLink="/agent-dashboard/" (click)="toggleSidebar()"
@@ -95,8 +95,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a routerLink="/agent-dashboard/message" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/message" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-envelope me-2"></i> Message
       </a>
@@ -106,15 +105,13 @@
   <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Profile</div>
   <ul class="nav flex-column mb-4">
     <li>
-      <a routerLink="/agent-dashboard/profail-agent" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/profail-agent" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-user me-2"></i> Profile
       </a>
     </li>
     <li>
-      <a routerLink="/agent-dashboard/account-settings" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/account-settings" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-solid fa-gear me-2"></i> Account Settings
       </a>
@@ -124,22 +121,26 @@
   <div class="text-uppercase text-muted small fw-semibold mb-2 px-1">Listing</div>
   <ul class="nav flex-column mb-4">
     <li>
-      <a routerLink="/agent-dashboard/myproperties-agent" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/myproperties-agent" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-file-lines me-2"></i> My Properties
       </a>
     </li>
     <li>
-      <a routerLink="/agent-dashboard/addproperty" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/received" routerLinkActive="active-menu" (click)="toggleSidebar()"
+         class="nav-link link-item mb-2 d-flex align-items-center">
+        <i class="fa-regular fa-file-lines me-2"></i> My Received Properties
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/agent-dashboard/addproperty" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-solid fa-plus me-2"></i> Add New Property
       </a>
     </li>
     <li>
-      <a routerLink="/agent-dashboard/reviews-agent" routerLinkActive="active-menu"
-         (click)="toggleSidebar()"
+      <a routerLink="/agent-dashboard/reviews-agent" routerLinkActive="active-menu" (click)="toggleSidebar()"
          class="nav-link link-item mb-2 d-flex align-items-center">
         <i class="fa-regular fa-comment me-2"></i> Reviews
       </a>
@@ -147,8 +148,8 @@
 
   </ul>
 
-  <a routerLink="/" (click)="toggleSidebar()"
-     class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3">
+  <!-- ✅ Logout Button -->
+  <a (click)="logout(); toggleSidebar()" class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3" style="cursor: pointer;">
     <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
   </a>
 </div>

@@ -37,7 +37,7 @@ import { ManageReviewsComponent } from './admin/manage-reviews/manage-reviews.co
 import { AuthComponent } from './auth/auth.component';
 import { BuyerComponent } from './buyer/buyer.component';
 
-import { AuthGuard } from './auth/auth.guard';
+
 import { PropertiesDetailsComponent } from './buyer/properties-details/properties-details.component';
 
 import { ProfailBuyerComponent } from './buyer/profail-buyer/profail-buyer.component';
@@ -56,7 +56,7 @@ import { MaseegeBuyerComponent } from './buyer/maseege-buyer/maseege-buyer.compo
 import {BuyerPropertiesComponent} from './buyer/buyer-properties/buyer-properties.component';
 
 
-
+import { ReceivedComponent } from './agentandsellers/received/received.component';
 
 
 
@@ -91,7 +91,7 @@ const routes: Routes = [
   },{
     path: 'admin-dashboard',
     component: AdminComponent,
-    canActivate: [AuthGuard],
+
     children: [
       { path: '', component: DashboardAdminComponent },
 
@@ -111,10 +111,11 @@ const routes: Routes = [
   {
     path: 'agent-dashboard',
     component: AgentandsellersComponent,
-    canActivate: [AuthGuard],
+
     children: [
 
       { path: '', component: DashboardAgentComponent },
+
 
       { path: 'addproperty', component: AddPropertyComponent },
       { path: 'message', component: MessageComponent },
@@ -124,6 +125,7 @@ const routes: Routes = [
       { path:'reviews-agent', component: ReviewsAgentComponent },
       { path: 'profail-agent', component: ProfailAgentComponent },
       { path: 'notification-agent', component: NotificationAgentComponent },
+      {path: 'received', component: ReceivedComponent},
 
 
     ]
@@ -131,7 +133,7 @@ const routes: Routes = [
   {
     path: 'buyerHome',
     component: BuyerComponent,
-    canActivate: [AuthGuard],
+
     children: [
       { path: '', component: HomeComponent },
       { path: 'aboutus', component: AboutUsComponent },
@@ -143,11 +145,13 @@ const routes: Routes = [
       { path: 'agent-list', component: AgentListComponent },
       { path: 'agent-grid', component: AgentGridComponent },
       { path: 'agent-details', component: AgentDetailsComponent },
-      { path: 'properties-details', component: PropertiesDetailsComponent },
+      { path: 'properties-details', component: PropertiesDetailsComponent, },
       { path: 'profail-buyer', component: ProfailBuyerComponent },
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
-      { path: 'property-details/:id', component: PropertiesDetailsComponent },
+
+      { path: 'properties-details/:id', component: PropertiesDetailsComponent },
+
 
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
@@ -183,9 +187,13 @@ const routes: Routes = [
 
 ];
 const routerOptions: ExtraOptions = {
-  scrollPositionRestoration: 'enabled', 
-  anchorScrolling: 'enabled'
+  scrollPositionRestoration: 'enabled',
+
+  anchorScrolling: 'enabled',
+
+
 };
+
 @NgModule({
   imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]

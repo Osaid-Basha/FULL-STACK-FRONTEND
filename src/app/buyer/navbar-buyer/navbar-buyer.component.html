@@ -86,7 +86,7 @@
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a routerLink="/buyerHome" class="nav-link">Home</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/properties-grid">Properties</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/buyerproperties">My Properties</a></li>
+
           <li class="nav-item"><a class="nav-link" routerLink="/buyerHome/agent-grid">Agent Finder</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
@@ -127,6 +127,11 @@
             <ul class="dropdown-menu dropdown-menu-end mt-2 shadow-sm border-0">
               <li><a class="dropdown-item" routerLink="/buyerHome/maseege-buyer"><i class="fa-regular fa-envelope me-2"></i> Message</a></li>
               <li><a class="dropdown-item" routerLink="/buyerHome/profail-buyer"><i class="fa-solid fa-user me-2 text-primary"></i> Profile</a></li>
+              <li>
+                <a class="dropdown-item" routerLink="/buyerHome/buyerproperties">
+                  <i class="fa-solid fa-bag-shopping me-2 text-success"></i> Purchase
+                </a>
+              </li>
               <li><a class="dropdown-item" routerLink="/buyerHome/settings"><i class="fa-solid fa-gear me-2 text-secondary"></i> Settings</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="#" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
