@@ -1,82 +1,92 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { NgClass, NgForOf, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { isPlatformBrowser, NgClass, NgForOf } from '@angular/common';
+import { NotificationService } from '../../services/notification-service.service';
 
 @Component({
-  selector: 'app-notification-admin',
+  selector: 'app-notification-agent',
   standalone: true,
-  imports: [
-    NgClass,
-    NgForOf
-  ],
+  imports: [NgClass, NgForOf],
   templateUrl: './notification-agent.component.html',
   styleUrls: ['./notification-agent.component.css']
 })
-export class NotificationAgentComponent {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-  notifications = [
-    {
-      id:1,
-      type: 'info',
-      icon: 'bi-envelope-fill',
-      title: 'New Inquiry',
-      message: 'User ahmad@gmail.com sent a message about "Apartment #A12".',
-      time: 'Just now',
-      isread:false
-    },
-    {
-      id:2,
-      type: 'warning',
-      icon: 'bi-tag-fill',
-      title: 'Price Drop',
-      message: '“Luxury Villa” price dropped by 10%.',
-      time: '10 mins ago',
-      isread:false
-    },
-    {
-      id:3,
-      type: 'success',
-      icon: 'bi-calendar-check-fill',
-      title: 'Booking Confirmed',
-      message: 'Booking for Apartment #12B is confirmed by Nour Khaled.',
-      time: '1 hour ago',
-      isread:false
-    },
-    {
-      id:4,
-      type: 'danger',
-      icon: 'bi-x-octagon-fill',
-      title: 'Payment Failed',
-      message: 'Transaction for property #2013 failed. Please check payment gateway.',
-      time: '2 hours ago',
-      isread:false
-    }
-  ];
+export class NotificationAgentComponent implements OnInit {
+  notifications: any[] = [];
 
-  selectedNotification: any = null;
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private notificationService: NotificationService
+  ) {}
 
-  openModal(notification: any) {
-    this.selectedNotification = notification;
-
-    if (isPlatformBrowser(this.platformId)) {
-      const modalElement = document.getElementById('notificationModal');
-      if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    }
-  }
-  removenotifaction(review: any) {
-    this.notifications = this.notifications.filter(r => r !== review);
-  }
-  isRead: boolean = false;
-
-  markAsRead(reviewId: number) {
-    const review = this.notifications.find(n => n.id === reviewId);
-    if (review) {
-      review.isread = true;
-    }
+  ngOnInit(): void {
+    this.loadNotifications();
   }
 
+  loadNotifications() {
+    this.notificationService.getMyNotifications().subscribe({
+      next: (res) => {
+        // نربط الداتا مع الدزاين الحالي (type + icon + title)
+        this.notifications = res.notifications.map((n: any) => {
+          let icon = 'bi-bell-fill';
+          let title = 'Notification';
 
+          switch (n.type) {
+            case 'message':
+              icon = 'bi-envelope-fill';
+              title = 'New Message';
+              break;
+            case 'warning':
+              icon = 'bi-tag-fill';
+              title = 'Warning';
+              break;
+            case 'success':
+              icon = 'bi-calendar-check-fill';
+              title = 'Success';
+              break;
+            case 'danger':
+              icon = 'bi-x-octagon-fill';
+              title = 'Error';
+              break;
+            case 'reply_review':
+              icon = 'bi-reply-fill';
+              title = 'Review Replied';
+              break;
+          }
 
+          return {
+            id: n.id,
+            type: n.type,
+            icon: icon,
+            title: title,
+            message: n.message_content,
+            time: this.formatDate(n.created_at),
+            isread: n.pivot?.is_read === 1
+          };
+        });
+      },
+      error: (err) => console.error('Error loading notifications', err)
+    });
+  }
+
+  markAsRead(notificationId: number) {
+    this.notificationService.markAsRead(notificationId).subscribe({
+      next: () => {
+        const notif = this.notifications.find(n => n.id === notificationId);
+        if (notif) notif.isread = true;
+      },
+      error: err => console.error('Error marking as read:', err)
+    });
+  }
+
+  removenotifaction(notification: any) {
+    this.notificationService.deleteNotification(notification.id).subscribe({
+      next: () => {
+        this.notifications = this.notifications.filter(n => n.id !== notification.id);
+      },
+      error: err => console.error('Error deleting notification:', err)
+    });
+  }
+
+  formatDate(date: string): string {
+    return new Date(date).toLocaleString();
+  }
 }

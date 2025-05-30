@@ -131,7 +131,8 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     BuyerComponent,
     HomeComponent,
     HeroHeaderComponent,
-    CounterContentComponent,
+
+        CounterContentComponent,
     TopRegionsComponent,
     FeaturedPropertiesComponent,
     NewsletterAndBlogComponent,
@@ -205,7 +206,10 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     NotificationAdminComponent,
     NotificationBuyerComponent,
     MaseegeBuyerComponent,
-    ReceivedComponent,
+    
+    ManageReviewsComponent,      
+    ReceivedComponent            
+
 
   ],
   imports: [
@@ -220,17 +224,21 @@ import { ReceivedComponent } from './agentandsellers/received/received.component
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+
     MatCardModule,
     MatListModule,
     NgApexchartsModule,
+
     NotificationAgentComponent,
 
     AllpropertiesComponent,
     BuyerPropertiesComponent,
 
+
     MatListModule,
     HttpClientModule,
     ReactiveFormsModule
+
 
 
   ],

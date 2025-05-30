@@ -1,55 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ManagereviewService } from '../../services/managereview.service';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
-
+import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-reviews-agent',
   templateUrl: './reviews-agent.component.html',
-  styleUrl: './reviews-agent.component.css',
-
-
+  styleUrls: ['./reviews-agent.component.css'],
   standalone: false
 })
-export class ReviewsAgentComponent {
+export class ReviewsAgentComponent implements OnInit {
   searchreviewagent: string = '';
-
-  reviews = [
-    {
-      id:1,
-      name: 'Zubayer Al Hasan',
-      date: '17 Aug, 23',
-      rating: 4.7,
-      comment: 'Lorem ipsum dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
-      image: 'assets/img/profile3.png',
-      images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
+  reviews: any[] = [];
+  currentPage = 1;
+  cardsPerPage = 2;
+  Massagenew: string = '';
+ bootstrap: any;
 
 
-    },
-    {
-      id:2,
-      name: 'Rashed Kabir',
-      date: '13 Jun,2000',
-      rating: 4.9,
-      comment: ' my house dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
-      image: 'assets/img/profile2.png',
-      images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
 
+selectedReviewId: number | null = null;
 
-    },
-    {
-      id:3,
-      name: 'Menna kharma',
-      date: '13 Jun, 23',
-      rating: 4.9,
-      comment: ' my house dolor sit amet consectetur. Pellentesque sed nulla facilisi diam posuere aliquam suscipit quam.',
-      image: 'assets/img/profile2.png',
-      images: ['assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png', 'assets/img/regions/house.png'],
+  constructor(private managereviewService: ManagereviewService) {}
 
-
-    }
-  ];
+  ngOnInit() {
+  AOS.init();
+  this.loadReviews();
+  // Assign Bootstrap from global window object if loaded via CDN
+  this.bootstrap = (window as any).bootstrap;
+}
+  loadReviews() {
+    this.managereviewService.getAgentReviews().subscribe(
+      (res) => {
+        if (res?.reviews) {
+          this.reviews = res.reviews.map((review: any) => ({
+            id: review.id,
+            name: `${review.user.first_name} ${review.user.last_name}`,
+            date: new Date(review.created_at).toLocaleDateString(),
+            rating: review.rating,
+            comment: review.content,
+            image: 'assets/img/profile2.png', // تقدر تربطه بديناميك لو عندك صورة في البيانات
+            images: ['assets/img/regions/house.png', 'assets/img/regions/house.png'] // أو ممكن تربطها بالـ buying_request.property لو حبيت
+          }));
+        }
+      },
+      (err) => {
+        console.error('Error loading reviews', err);
+      }
+    );
+  }
 
   get filteredReviews() {
     return this.reviews.filter(review =>
@@ -59,43 +59,60 @@ export class ReviewsAgentComponent {
     );
   }
 
-
-  currentPage = 1;
-  cardsPerPage = 2;
   paginateReviews(data: any[]) {
     const startIndex = (this.currentPage - 1) * this.cardsPerPage;
-    const endIndex = startIndex + this.cardsPerPage;
-    return data.slice(startIndex, endIndex);
+    return data.slice(startIndex, startIndex + this.cardsPerPage);
   }
 
   changePage(page: number) {
     this.currentPage = page;
   }
-  cards = [
-    { id: 1, content: 'Card 1 Content', isVisible: true },
-    { id: 2, content: 'Card 2 Content', isVisible: true },
-    { id: 3, content: 'Card 3 Content', isVisible: true }
-  ];
 
-
-Massagenew:String='';
-  bootstrap: any;
   Sendmassage() {
+  if (!this.selectedReviewId || !this.Massagenew.trim()) return;
 
-    console.log('Message to send:', this.Massagenew);
-    const modal = document.getElementById('exampleModal');
-    if (modal) {
-      const modalInstance = this.bootstrap.Modal.getInstance(modal);
-      modalInstance?.hide();
+  const payload = {
+    review_id: this.selectedReviewId,
+    message_content: this.Massagenew.trim()
+  };
+
+  this.managereviewService.sendReply(payload).subscribe({
+    next: res => {
+      // 1. رسالة نجاح جميلة
+      Swal.fire({
+        icon: 'success',
+        title: 'Replay Sent!',
+        text: 'Your reply has been successfully submitted.',
+        confirmButtonColor: '#3085d6'
+      });
+
+      // 2. تنظيف الحقول
+      this.Massagenew = '';
+      this.selectedReviewId = null;
+
+      // 3. إعادة تحميل الريفيوز
+      this.loadReviews();
+
+      // 4. إغلاق المودال
+      const modal = document.getElementById('exampleModal');
+      if (modal) {
+        const modalInstance = this.bootstrap.Modal.getInstance(modal);
+        modalInstance?.hide();
+      }
+    },
+    error: err => {
+      console.error('Error sending reply:', err);
+
+      // رسالة خطأ حلوة
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong while sending the reply!',
+        confirmButtonColor: '#d33'
+      });
     }
-  }
-  ngOnInit(){
-    AOS.init();}
-
-
-
+  });
 }
 
 
-
-
+}
