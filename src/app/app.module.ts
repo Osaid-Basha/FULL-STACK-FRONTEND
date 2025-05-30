@@ -112,6 +112,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { MatListModule } from '@angular/material/list';
 
+import { HttpClientModule } from '@angular/common/http';
 
 
 // Ensure the file exists at the correct path or update the path accordingly
@@ -260,6 +261,7 @@ import {AuthInterceptor} from './interceptors/auth.interceptor';
     BuyerPropertiesComponent,
 
 MatListModule,
+HttpClientModule
 
   ],
   providers: [

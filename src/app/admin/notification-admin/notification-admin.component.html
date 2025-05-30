@@ -1,56 +1,29 @@
-<div class="container-fluid py-4 animate-in">
+<div class="container py-4 animate-in">
   <h2 class="fw-bold text-dark mb-4">
-    <i class="bi bi-bell-fill text-primary me-2"></i>Notifications
+    <i class="bi bi-bell-fill text-primary me-2"></i> Notifications
   </h2>
 
-  <div *ngFor="let n of notifications"
-       class="card border-0 shadow-sm rounded-4 p-3 mb-3 d-flex flex-row justify-content-between align-items-start notification-card"
-       [ngClass]="{ 'bg-light': n.type === 'info', 'bg-white': n.type !== 'info' }">
-
-    <div class="d-flex">
-      <i class="bi {{ n.icon }} text-{{ n.type }} fs-4 me-3 mt-1"></i>
-      <div>
-        <h6 class="fw-bold mb-1">{{ n.title }}</h6>
-        <p class="mb-1 small text-muted">{{ n.message }}</p>
-        <span class="text-muted small">{{ n.time }}</span>
-      </div>
-    </div>
-
-    <div class="d-flex gap-2">
-      <button class="btn btn-sm btn-outline-primary" (click)="openModal(n)" title="Read">
-        <i class="bi bi-check2-circle"></i> Read
-      </button>
-      <button class="btn btn-sm btn-outline-danger" title="Delete">
-        <i class="bi bi-x-lg"></i> Delete
-      </button>
-    </div>
-  </div>
-
-  <!-- Elegant Modal -->
-<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4 shadow" [ngClass]="'border-start border-5 border-' + selectedNotification?.type">
-
-      <div class="modal-header bg-white border-bottom-0 pb-0">
-        <div class="d-flex align-items-center">
-          <i class="bi {{ selectedNotification?.icon }} fs-1 me-3 text-{{ selectedNotification?.type }}"></i>
-          <h5 class="modal-title fw-bold" id="notificationModalLabel">
-            {{ selectedNotification?.title }}
-          </h5>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body pt-0">
-        <p class="text-muted mb-3">{{ selectedNotification?.message }}</p>
-        <div class="text-end small text-secondary">
-          <i class="bi bi-clock me-1"></i>{{ selectedNotification?.time }}
+  <div *ngFor="let n of notifications" class="col-12">
+    <div class="card border-0 shadow-sm rounded-4 p-3 mb-3 d-flex flex-column align-items-start notification-card"
+         [ngClass]="{ 'bg-light': n.type === 'info', 'bg-white': n.type !== 'info' }">
+      <div class="d-flex">
+        <i class="bi {{ n.icon }} text-{{ n.type }} fs-4 me-3 mt-1"></i>
+        <div>
+          <h6 class="fw-bold mb-1">{{ n.title }}</h6>
+          <p class="mb-1 small text-muted">{{ n.message }}</p>
+          <span class="text-muted small">{{ n.time }}</span>
         </div>
       </div>
 
-      <div class="modal-footer bg-light border-top-0 rounded-bottom-4">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Mark as Read</button>
+      <div class="d-flex flex-row gap-2 justify-content-end" style="float: right;margin-left: auto">
+        <button class="btn btn-primary " (click)="markAsRead(n.id)" [disabled]="n.isread">
+          <i class="bi bi-check"></i> Read
+        </button>
+
+        <button class="btn btn-outline-danger" (click)="removenotifaction(n)" title="Delete">
+          <i class="bi bi-x-lg"></i> Delete
+        </button>
+
       </div>
     </div>
   </div>
