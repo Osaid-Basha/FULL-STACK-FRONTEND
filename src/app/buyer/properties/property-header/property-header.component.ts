@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 
 @Component({
   selector: 'app-property-header',
@@ -10,18 +10,21 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class PropertyHeaderComponent implements OnInit {
-
+@Output() filterChange : EventEmitter<any> = new EventEmitter();
   backgroundImage: string = '';
 
   // الموقع
-  location: string = '';
+  location: string = '';  //DONE
   isLocationValid: boolean = true;
   locationTouched: boolean = false;
 
+  type: string = ''  //DONE
   // السعر
-  price: string = '';
+  min_price: string = '';
+  max_price: string = '';
   isValidPrice: boolean = true;
-  priceType: string = ''; // Rent / Sale
+ listingTypeId: string = ''; // Rent / Sale
+  keyword: string = '';
 
   ngOnInit(): void {
     const imagePath = 'assets/img/properties/01.jpg';
@@ -41,12 +44,25 @@ export class PropertyHeaderComponent implements OnInit {
 
   // تحقق من السعر: يسمح فقط بالأرقام أو يكون فارغ
   validatePrice() {
-    if (this.price.trim() === '') {
-      this.isValidPrice = true; // فارغ مسموح
-      return;
+    const pattern = /^[0-9]+$/;
+
+        const minValid = this.min_price.trim() === '' || pattern.test(this.min_price.trim());
+      const maxValid =this.max_price.trim() === '' || pattern.test(this.max_price.trim());
+      this.isValidPrice = minValid && maxValid;
     }
 
-    const pattern = /^[0-9]+$/;
-    this.isValidPrice = pattern.test(this.price.trim());
+  applyFilter() {
+    this.validateLocation();
+    this.validatePrice();
+     if (this.isLocationValid && this.isValidPrice) {
+       this.filterChange.emit({
+         location: this.location,
+         min_price: this.min_price,
+         max_price: this.max_price,
+         listing_type_id: this.listingTypeId,
+         keyword: this.keyword,
+         type: this.type
+       });
+     }
   }
 }

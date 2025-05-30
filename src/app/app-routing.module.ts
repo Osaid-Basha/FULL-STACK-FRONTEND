@@ -147,7 +147,7 @@ const routes: Routes = [
       { path: 'profail-buyer', component: ProfailBuyerComponent },
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
-      { path: 'property-details/:id', component: PropertiesDetailsComponent },
+      { path: 'properties-details/:id', component: PropertiesDetailsComponent },
 
       { path: 'notification-buyer', component: NotificationBuyerComponent },
 
@@ -183,7 +183,7 @@ const routes: Routes = [
 
 ];
 const routerOptions: ExtraOptions = {
-  scrollPositionRestoration: 'enabled', 
+  scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled'
 };
 @NgModule({
