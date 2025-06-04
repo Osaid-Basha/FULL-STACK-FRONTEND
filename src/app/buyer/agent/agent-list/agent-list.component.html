@@ -44,8 +44,11 @@
               <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="input-group shadow-sm rounded">
-                <input type="text" class="form-control border-0" placeholder="Search agents by name..." aria-label="Search agents">
-                <button class="btn btn-primary px-4" type="button">
+                <input type="text"  [(ngModel)]="searchTerm" (keyup)="searchAgents()"
+                       class="form-control border-0" placeholder="Search agents by name..." aria-label="Search agents"
+                 />
+
+                  <button class="btn btn-primary px-4" type="button" (click)="searchAgents()">
                   <i class="fa fa-search fs-5"></i>
                 </button>
                 </div>
@@ -62,615 +65,85 @@
             </a>
           </div>
 
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
+        <!-- No matching data -->
+        <div *ngIf="noAgentMatches" class="text-center text-danger fw-semibold my-5 fs-5">
+          No matching agents found.
+        </div>
 
-                          <img src=" assets/img/avatar/01.jpg" alt="" class="h-100 w-100 object-fit-cover">
+        <!-- Cards -->
+        <div *ngFor="let agent of agents" class="card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
+          <a
+            [routerLink]="['/buyerHome/agent-details', agent.id]"
+            [state]="{data:agent}"
+             class="card-link stretched-link "></a>
 
-                      </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-
-                                  <h6 class="fs-23 mb-0">Alexander Kaminski <i class="fas fa-medal text-primary"></i></h6>
-
-
-                                  <div class="text-primary fw-semibold">Property Consultant</div>
-
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-
-                              </div>
-
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-
-                          </div>
-                      </div>
-                  </div>
+          <div class="card-body p-0">
+            <div class="g-0 row">
+              <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
+                <img [src]="agent.image" alt="" class="h-100 w-100 object-fit-cover" />
               </div>
-          </div>
-
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-
-                          <img src=" assets/img/avatar/02.jpg" alt="" class="h-100 w-100 object-fit-cover">
-
-                      </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-
-                                  <h6 class="fs-23 mb-0">Edwin Martins <i class="fas fa-medal text-primary"></i></h6>
-
-                                  <div class="text-primary fw-semibold">Property Advisor</div>
-
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-
-                              </div>
-
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-
-                          </div>
-                      </div>
+              <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4">
+                <div class="d-flex flex-column h-100">
+                  <div class="mb-3">
+                    <h6 class="fs-23 mb-0">{{ agent.name }} <i class="fas fa-medal text-primary"></i></h6>
+                    <div class="text-primary fw-semibold">{{ agent.title }}</div>
+                    <div class="mt-3">Professional agent with years of experience in real estate.</div>
                   </div>
-              </div>
-          </div>
-
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-
-                          <img src=" assets/img/avatar/03.jpg" alt="" class="h-100 w-100 object-fit-cover">
-
+                  <div class="border-top mt-auto pt-3">
+                    <div class="row gy-2 gx-4">
+                      <div class="col-auto" *ngIf="agent.forRent">
+                        <div class="d-flex align-items-center text-dark">
+                          <i class="fa-solid fa-chart-line fs-18 me-2"></i>
+                          <span class="fs-16 fw-medium">For Rent: {{ agent.forRent }}</span>
+                        </div>
                       </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-                                  <!-- Start Agent Name -->
-                                  <h6 class="fs-23 mb-0">Wade Warren <i class="fas fa-medal text-primary"></i></h6>
-                                  >
-                                  <div class="text-primary fw-semibold">Property Manager</div>
-
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-                                  <!-- /.End Agent About -->
-                              </div>
-
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
+                      <div class="col-auto" *ngIf="agent.forSell">
+                        <div class="d-flex align-items-center text-dark">
+                          <i class="fa-solid fa-dollar-sign fs-18 me-2"></i>
+                          <span class="fs-16 fw-medium">For Sell: {{ agent.forSell }}</span>
+                        </div>
                       </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-                              <!-- Start Agent Counter  -->
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-
-                          </div>
+                      <div class="col-auto" *ngIf="agent.commercial">
+                        <div class="d-flex align-items-center text-dark">
+                          <i class="fa-solid fa-building fs-18 me-2"></i>
+                          <span class="fs-16 fw-medium">Commercial: {{ agent.commercial }}</span>
+                        </div>
                       </div>
+                    </div>
                   </div>
+                </div>
               </div>
-          </div>
-          <!-- /. Start Agent Card -->
-          <!-- Start Agent Card -->
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-                          <!-- Start Agent Avatar Image -->
-                          <img src=" assets/img/avatar/04.jpg" alt="" class="h-100 w-100 object-fit-cover">
-                          <!-- /.End Agent Avatar Image -->
+              <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 align-self-center">
+                <div class="row justify-content-center g-3">
+                  <div class="col col-xl-12">
+                    <div class="border gap-3 hstack justify-content-center p-2 rounded-3">
+                      <div class="text-center">
+                        <div class="fw-semibold text-dark fs-23">{{ agent.forRent }}</div>
+                        <div class="fs-14">For Rent</div>
                       </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-                                  <!-- Start Agent Name -->
-                                  <h6 class="fs-23 mb-0">John Carter <i class="fas fa-medal text-primary"></i></h6>
-
-                                  <div class="text-primary fw-semibold">Property Consultan</div>
-
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-                                  <!-- /.End Agent About -->
-                              </div>
-                              <!-- Start Agent Information -->
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- /. End Agent Information -->
-                          </div>
+                      <span class="vr"></span>
+                      <div class="text-center">
+                        <div class="fw-semibold text-dark fs-23">{{ agent.forSell }}</div>
+                        <div class="fs-14">For Sell</div>
                       </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-                              <!-- Start Agent Counter  -->
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-                              <!-- /.End button -->
-                          </div>
+                      <span class="vr"></span>
+                      <div class="text-center">
+                        <div class="fw-semibold text-dark fs-23">{{ agent.commercial }}</div>
+                        <div class="fs-14">Commercial</div>
                       </div>
+                    </div>
                   </div>
-              </div>
-          </div>
-
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up">
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-                          <!-- Start Agent Avatar Image -->
-                          <img src=" assets/img/avatar/05.jpg" alt="" class="h-100 w-100 object-fit-cover">
-                          <!-- /.End Agent Avatar Image -->
-                      </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-                                  <!-- Start Agent Name -->
-                                  <h6 class="fs-23 mb-0">Sophie Moore <i class="fas fa-medal text-primary"></i></h6>
-
-                                  <div class="text-primary fw-semibold">Property Consultan</div>
-
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-                                  <!-- /.End Agent About -->
-                              </div>
-                              <!-- Start Agent Information -->
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- /. End Agent Information -->
-                          </div>
-                      </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-                              <!-- Start Agent Counter  -->
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- /. End Agent Counter  -->
-                              <!-- Start button -->
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-                              <!-- /.End button -->
-                          </div>
-                      </div>
+                  <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center">
+                    <button class="btn btn-outline-default btn-sm"><i class="fa fa-phone me-1"></i>Call</button>
+                    <button class="btn btn-outline-default btn-sm"><i class="fa fa-user-tie me-1"></i>Email</button>
+                    <button class="btn btn-outline-default btn-sm"><i class="fa fa-phone me-1"></i>WhatsApp</button>
                   </div>
+                </div>
               </div>
+            </div>
           </div>
-          <!-- /. Start Agent Card -->
-          <!-- Start Agent Card -->
-          <div class=" card mb-4 overflow-hidden bg-grey border-0 shadow" data-aos="fade-up" >
-              <a routerLink="/buyerHome/agent-details" class="card-link"></a>
-              <div class="card-body p-0">
-                  <div class="g-0 row">
-                      <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-                          <!-- Start Agent Avatar Image -->
-                          <img src=" assets/img/avatar/06.jpg" alt="" class="h-100 w-100 object-fit-cover">
-                          <!-- /.End Agent Avatar Image -->
-                      </div>
-                      <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
-                          <div class="d-flex flex-column h-100">
-                              <div class="mb-3">
-                                  <!-- Start Agent Name -->
-                                  <h6 class="fs-23 mb-0">Naeem Khan <i class="fas fa-medal text-primary"></i></h6>
-                                  <!-- /.End Agent Name -->
-                                  <!-- Start Designation -->
-                                  <div class="text-primary fw-semibold">Property Consultan</div>
-                                  <!-- /.End Designation -->
-                                  <!-- Start Agent About -->
-                                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-                                  <!-- /.End Agent About -->
-                              </div>
-                              <!-- Start Agent Information -->
-                              <div class="border-top mt-auto pt-3">
-                                  <div class="row gy-2 gx-4">
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-line fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : 7</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-fan fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : 2019</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-chart-area fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : Brazi</div>
-                                          </div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <div class="d-flex align-items-center text-dark">
-                                              <div class="flex-shrink-0">
-                                                  <i class="fa-solid fa-language fs-18"></i>
-                                              </div>
-                                              <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : English, Brazil</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- /. End Agent Information -->
-                          </div>
-                      </div>
-                      <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
-                          <div class="row align-items-center justify-content-center g-3">
-                              <!-- Start Agent Counter  -->
-                              <div class="col col-xl-12">
-                                  <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">193</div>
-                                          <div class="fs-14">For Rent</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">633</div>
-                                          <div class="fs-14">For Sell</div>
-                                      </div>
-                                      <span class="vr"></span>
-                                      <div class="text-center">
-                                          <div class="fw-semibold text-dark fs-23">10</div>
-                                          <div class="fs-14">Commercial</div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- /. End Agent Counter  -->
-                              <!-- Start button -->
-                              <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>Call
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
-                                  </button>
-                                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                                      <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
-                                  </button>
-                              </div>
-                              <!-- /.End button -->
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- /. Start Agent Card -->
+        </div>
+        <!-- /Cards -->
       </div>
   </div>
-  <!-- /. End Agent Content -->
 </div>
-<!-- /. End Main Content -->

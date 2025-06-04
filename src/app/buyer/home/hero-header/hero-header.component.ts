@@ -15,12 +15,13 @@ export class HeroHeaderComponent implements OnInit {
 
   min_price: string = '';
   max_price: string = '';
-  keyword : string = '';
+  keyword: string = '';
   isValidPrice: boolean = true;
   listing_Type_id: string = ''; // Rent / Sale
   type: string = ''; // Property type (numeric as string)
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
     const imagePath = 'assets/img/properties/01.jpg';
@@ -41,20 +42,25 @@ export class HeroHeaderComponent implements OnInit {
     const pattern = /^[0-9]+$/;
 
     const minValid = this.min_price.trim() === '' || pattern.test(this.min_price.trim());
-    const maxValid =this.max_price.trim() === '' || pattern.test(this.max_price.trim());
+    const maxValid = this.max_price.trim() === '' || pattern.test(this.max_price.trim());
     this.isValidPrice = minValid && maxValid;
   }
 
   goToSearchResults() {
-    const queryParams: any = {};
+    this.validateLocation();
+    this.validatePrice();
 
-    if (this.location) queryParams.location = this.location;
-    if (this.min_price) queryParams.min_price = this.min_price;
-    if (this.max_price) queryParams.max_price = this.max_price;
-    if (this.listing_Type_id) queryParams.listing_type_id = this.listing_Type_id;
-    if (this.type) queryParams.type = this.type;
-    if (this.keyword) queryParams.keyword = this.keyword;
+    if (this.isLocationValid && this.isValidPrice) {
+      const queryParams: any = {
+        location: this.location || '',
+        min_price: this.min_price || '',
+        max_price: this.max_price || '',
+        listing_type_id: this.listing_Type_id || '',
+        type: this.type || '',
+        keyword: this.keyword || ''
+      };
 
-    this.router.navigate(['/buyerHome/properties-grid'], { queryParams });
+      this.router.navigate(['/buyerHome/properties-grid'], {queryParams});
+    }
   }
 }

@@ -144,13 +144,14 @@ const routes: Routes = [
       { path: 'location', component: LocationComponent },
       { path: 'agent-list', component: AgentListComponent },
       { path: 'agent-grid', component: AgentGridComponent },
-      { path: 'agent-details', component: AgentDetailsComponent },
-      { path: 'properties-details', component: PropertiesDetailsComponent, },
+      { path: 'agent-details/:id', component: AgentDetailsComponent },
+
+      { path: 'properties-details/:id', component: PropertiesDetailsComponent },
+
       { path: 'profail-buyer', component: ProfailBuyerComponent },
       { path:'settings', component: SettingsComponent },
       { path: 'favorite', component: FavoriteComponent },
 
-      { path: 'properties-details', component: PropertiesDetailsComponent },
 
 
       { path: 'notification-buyer', component: NotificationBuyerComponent },

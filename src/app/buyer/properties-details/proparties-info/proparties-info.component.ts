@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,OnChanges , SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-proparties-info',
@@ -9,32 +9,37 @@ import { Component, Input } from '@angular/core';
 export class PropartiesInfoComponent {
   @Input() property: any;
 
+  ngOnChanges(changes: SimpleChanges) {//
+    console.log('Resived proparties info component:', this.property);
+  }
+//
   get address() {
-    return this.property?.location || this.property?.address;
+    return `${this.property?.address || ''}, ${this.property?.city || ''}`;
   }
 
-  get host() {
-    return this.property?.title?.split('by')?.[1]?.trim();
+  get host() { //1
+    const splitTitle = this.property?.title?.split('by');
+    return splitTitle?.length > 1 ? splitTitle[1]?.trim() : 'Unkown Host';
   }
 
-  get bedrooms() {
+  get bedrooms() {    //1
     return this.property?.bedrooms ?? this.property?.beds;
   }
 
-  get bathrooms() {
+  get bathrooms() {   //1
     return this.property?.bathrooms ?? this.property?.baths;
   }
 
-  get area() {
-    return this.property?.size;
+  get area() {  //0
+    return this.property?.landArea ?? this.property?.size;
   }
 
-  get price() {
+  get price() { //0
     return this.property?.price;
   }
 
   get yearBuilt() {
-    return this.property?.yearBuilt;
+    return this.property?.yearBuilt || this.property?.constructionArea;
   }
 
   get floorPlanImage() {

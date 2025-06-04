@@ -1,26 +1,17 @@
-import { Component,OnInit,Input,OnChanges, SimpleChanges } from '@angular/core';
-import {PropertyBuyerService} from '../../../services/property-buyer.service';
-import  {ActivatedRoute} from '@angular/router';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { PropertyBuyerService } from '../../../services/property-buyer.service';
+import{ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-property-grid',
-  standalone: false,
   templateUrl: './property-grid.component.html',
-  styleUrls: ['./property-grid.component.css']
+  styleUrls: ['./property-grid.component.css'],
+  standalone: false
 })
-export class PropertyGridComponent implements OnInit , OnChanges {
-  @Input ()filters:any;
+export class PropertyGridComponent implements OnInit, OnChanges {
+  @Input() filters: any = {};
   properties: any[] = [];
-
-  // filters = {
-  //   location: '',
-  //   type: '',
-  //   min_price: '',
-  //   max_price: '',
-  //   listing_type_id: '',
-  //   keyword: ''
-  // };
-
 
   dummyProperties = [
     {
@@ -39,7 +30,7 @@ export class PropertyGridComponent implements OnInit , OnChanges {
       isFavorited: false,
       animateHeart: false,
       description: 'Modern apartment with beach view.',
-      type :5
+      type: 5
     },
     {
       id: 2,
@@ -49,26 +40,26 @@ export class PropertyGridComponent implements OnInit , OnChanges {
       tagTextColor: 'text-white',
       price: '$100,000',
       period: '/night',
-      title: ' Villa Belle Mare, Mauritius',
-      address: '100 seuol street Gardens, Iron, I04',
+      title: 'Villa Belle Mare, Mauritius',
+      address: '100 Seoul Street Gardens, Iron, I04',
       beds: 5,
       baths: 3,
       size: '7x10 m²',
       isFavorited: false,
       animateHeart: false,
       description: 'Beautiful property near the sea.',
-      type:4
+      type: 4
     },
     {
       id: 3,
       image: 'assets/img/properties/03.jpg',
-      tag: 'For rent',
+      tag: 'For Rent',
       tagColor: 'white',
       tagTextColor: 'text-primary',
       price: '$15,000',
       period: '/night',
-      title: ' Townhouse Balian Beach, Indonesia',
-      address: '20 school street, street 22',
+      title: 'Townhouse Balian Beach, Indonesia',
+      address: '20 School Street, Street 22',
       beds: 4,
       baths: 2,
       size: '6x7 m²',
@@ -85,15 +76,15 @@ export class PropertyGridComponent implements OnInit , OnChanges {
       tagTextColor: 'text-white',
       price: '$35,000',
       period: '/night',
-      title: ' Apartment Balian Beach, Indonesia',
-      address: '14 najah Gardens, IG4',
+      title: 'Apartment Balian Beach, Indonesia',
+      address: '14 Najah Gardens, IG4',
       beds: 2,
       baths: 1,
       size: '3x6 m²',
       isFavorited: false,
       animateHeart: false,
       description: 'Close to schools and shops.',
-      type:"2"
+      type: 2
     },
     {
       id: 5,
@@ -103,11 +94,11 @@ export class PropertyGridComponent implements OnInit , OnChanges {
       tagTextColor: 'text-white',
       price: '$150,000',
       period: '/night',
-      title: ' Villa Balian Beach, Indonesia',
-      address: '101 kingdom garden, 17 street',
+      title: 'Villa Balian Beach, Indonesia',
+      address: '101 Kingdom Garden, 17 Street',
       beds: 6,
       baths: 3,
-      size: '8x10m²',
+      size: '8x10 m²',
       isFavorited: false,
       animateHeart: false,
       description: 'Perfect for small families.',
@@ -115,62 +106,116 @@ export class PropertyGridComponent implements OnInit , OnChanges {
     }
   ];
 
-
-  constructor(private propertyService: PropertyBuyerService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.filters = params;
-      this.onFiltersChanged(this.filters);
-    });
+  constructor(private propertyService: PropertyBuyerService,
+              private route: ActivatedRoute,
+              private router: Router,
+  ) {
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filters'] && this.filters) {
-      this.onFiltersChanged(this.filters);
+
+  ngOnInit(): void {
+    const fromHome = history.state?.filters;
+    const cachedProps = JSON.parse(localStorage.getItem('lastGridProperties') || 'null');
+
+    if (cachedProps) {
+      this.properties = cachedProps;
+      this.route.queryParams.subscribe((params) => {
+        const hasParams = Object.keys(params).length > 0;
+        if (hasParams) {
+          this.filters = params;
+          this.applyFilters(this.filters);
+        } else if (fromHome) {
+          this.filters = fromHome;
+          this.applyFilters(this.filters);
+        }
+      });
+    } else {
+      this.loadInitialProperties(fromHome);
     }
   }
 
-  onFiltersChanged(filters: any) {
-    this.propertyService.searchProperties(filters).subscribe(
-      (data: any) => {
-        this.properties = data.length ? data : this.filterDummyData(filters);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filters'] && this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  loadInitialProperties(fromHome?: any): void {
+    this.propertyService.getAllProperties().subscribe(
+      (res: any) => {
+        const isValid = res?.length && res.some((p: any) => p.title && p.image);
+        this.properties = isValid ? res : this.dummyProperties;
+        localStorage.setItem('lastGridProperties', JSON.stringify(this.properties));
+
+        if (fromHome) {
+          this.filters = fromHome;
+          this.applyFilters(this.filters);
+        }
       },
-      error => {
-        console.error('Error getting properties.', error);
-        this.properties = this.filterDummyData(filters);
+      _ => {
+        this.properties = this.dummyProperties;
+        localStorage.setItem('lastGridProperties', JSON.stringify(this.properties));
+        if (fromHome) {
+          this.filters = fromHome;
+          this.applyFilters(this.filters);
+        }
       }
     );
   }
-  filterDummyData(filters: any): any[] {
-    console.log('Filters received:', filters); // فقط للتجريب
 
-    return this.dummyProperties.filter(p => {
-      const address = p.address?.toLowerCase() || '';
-      const title = p.title?.toLowerCase() || '';
-      const description = p.description?.toLowerCase() || '';
-      const tag = p.tag?.toLowerCase() || '';
-      const price = parseInt(p.price.replace(/[^0-9]/g, '')) || 0;
-      const locationMatch = !filters.location ||
-        address.includes(filters.location.toLowerCase()) ||
-        title.includes(filters.location.toLowerCase()) ||
-        description.includes(filters.location.toLowerCase());
-      const keywordMatch = !filters.keyword || title.includes(filters.keyword.toLowerCase()) || description.includes(filters.keyword.toLowerCase());
-      const typeMatch = !filters.type || p.type?.toString().toLowerCase()===filters.type.toLowerCase();
-      const listingMatch = !filters.listing_type_id || tag.toLowerCase().includes(filters.listing_type_id.toLowerCase());
-
-      const minMatch = !filters.min_price || price >= parseInt(filters.min_price);
-      const maxMatch = !filters.max_price || price <= parseInt(filters.max_price);
-
-      return locationMatch && keywordMatch && typeMatch && listingMatch && minMatch && maxMatch;
-    });
+  onFiltersChanged(filters: any): void {
+    this.filters = filters;
+    this.applyFilters(this.filters);
   }
-  toggleFavorite(property: any): void {
-    property.isFavorited = !property.isFavorited;
-    property.animateHeart = true;
 
-    // Reset heart animation after 400ms
-    setTimeout(() => {
-      property.animateHeart = false;
-    }, 400);
+  applyFilters(filters: any): void {
+    const all = JSON.parse(localStorage.getItem('lastGridProperties') || '[]');
+
+// console.log('filters',this.filters);
+
+    const result = all.filter((property: any) => {
+
+      const locationMatch =
+        !this.filters.location ||
+        property.address?.toLowerCase().includes(this.filters.location.toLowerCase()) ||
+        property.title?.toLowerCase().includes(this.filters.location.toLowerCase());
+
+      const typeMatch =
+        !this.filters.type || property.type === +this.filters.type;
+
+      const listingMatch =
+        !this.filters.listing_type_id ||
+        (this.filters.listing_type_id === 'rent' && property.tag === 'For Rent') ||
+        (this.filters.listing_type_id === 'sale' && property.tag === 'For Sale');
+
+      const minPriceMatch =
+        !this.filters.min_price || this.extractPrice(property.price) >= +this.filters.min_price;
+
+      const maxPriceMatch =
+        !this.filters.max_price || this.extractPrice(property.price) <= +this.filters.max_price;
+
+      const keywordMatch =
+        !this.filters.keyword ||
+        property.title?.toLowerCase().includes(this.filters.keyword.toLowerCase()) ||
+        property.description?.toLowerCase().includes(this.filters.keyword.toLowerCase()) ||
+        property.address?.toLowerCase().includes(this.filters.keyword.toLowerCase());
+
+      return locationMatch && typeMatch && listingMatch && minPriceMatch && maxPriceMatch && keywordMatch;
+
+
+    });
+
+    this.properties = result;
+  }
+
+  extractPrice(priceStr: string): number {
+    const num = priceStr.replace(/[^\d]/g, '');
+    return +num;
+  }
+
+
+  goToDetails(property: any): void {
+    this.router.navigate(['properties-details', property.id],{
+      state: {data: property}
+    });
   }
 }
