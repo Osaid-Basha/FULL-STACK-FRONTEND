@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PropertyBuyerService } from '../../../services/property-buyer.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-property-list',
@@ -8,85 +9,39 @@ import { PropertyBuyerService } from '../../../services/property-buyer.service';
   standalone: false
 })
 export class PropertyListComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() filters: any = {};
   properties: any[] = [];
 
-  dummyProperties = [
-    {
-      id: 1,
-      title: 'Villa Entire villa hosted by Wayan',
-      price: '$17966',
-      period: 'month',
-      image: 'assets/img/properties/01.jpg',
-      tag: 'For Sale',
-      location: 'San Francisco',
-      description: 'Spacious villa with sea view.',
-      bedrooms: 5,
-      bathrooms: 3,
-      size: '720 sqft',
-      type: 4,
-      isFavorited: false
-    },
-    {
-      id: 2,
-      title: 'Penthouse Tampaksiring, Indonesia',
-      price: '$19953',
-      period: 'month',
-      image: 'assets/img/properties/02.jpg',
-      tag: 'For Sale',
-      location: 'San Francisco',
-      description: 'Luxurious penthouse in the heart of the city.',
-      bedrooms: 2,
-      bathrooms: 2,
-      size: '600 sqft',
-      type: 7,
-      isFavorited: false
-    },
-    {
-      id: 3,
-      title: 'Duplex Pantai Nyanyi, Indonesia',
-      price: '$19953',
-      period: 'month',
-      image: 'assets/img/properties/03.jpg',
-      tag: 'For Sale',
-      location: 'San Francisco',
-      description: 'Elegant duplex near the beach.',
-      bedrooms: 4,
-      bathrooms: 3,
-      size: '620 sqft',
-      type: 6,
-      isFavorited: false
-    },
-    {
-      id: 4,
-      title: 'Houses Pantai Nyanyi, Palestine',
-      price: '$10000',
-      period: 'month',
-      image: 'assets/img/properties/03.jpg',
-      tag: 'For rent',
-      location: 'Nablus',
-      description: 'Family house with modern design.',
-      bedrooms: 3,
-      bathrooms: 2,
-      size: '620 sqft',
-      type: 3,
-      isFavorited: false
-    }
-  ];
+  constructor(
+    private propertyService: PropertyBuyerService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  constructor(private propertyService: PropertyBuyerService) {}
 
-  ngOnInit() {
-    const savedFilters = history.state?.filters || JSON.parse(localStorage.getItem('lastListFilters') || 'null');
-    const savedProps = JSON.parse(localStorage.getItem('lastListProperties') || 'null');
+// Add this method to handle favorite toggling
+toggleFavorite(event: Event, property: any): void {
+  event.stopPropagation();
+  property.isFavorited = !property.isFavorited;
+}
+  ngOnInit(): void {
+    const fromHome = history.state?.filters;
+    const cachedProps = JSON.parse(localStorage.getItem('lastGridProperties') || 'null');
 
-    if (savedProps) {
-      this.properties = savedProps;
-    } else if (savedFilters) {
-      this.filters = savedFilters;
-      this.applyFilters(this.filters);
+    if (cachedProps) {
+      this.properties = cachedProps;
+      this.route.queryParams.subscribe((params) => {
+        const hasParams = Object.keys(params).length > 0;
+        if (hasParams) {
+          this.filters = params;
+          this.applyFilters(this.filters);
+        } else if (fromHome) {
+          this.filters = fromHome;
+          this.applyFilters(this.filters);
+        }
+      });
     } else {
-      this.loadInitialProperties();
+      this.loadInitialProperties(fromHome);
     }
   }
 
@@ -96,64 +51,100 @@ export class PropertyListComponent implements OnInit, OnChanges {
     }
   }
 
-  loadInitialProperties() {
-    this.propertyService.getAllProperties().subscribe(
-      (data: any) => {
-        const isValid = data?.length && data.some((p: any) => p.title && p.image && p.price);
-        this.properties = isValid ? data : this.dummyProperties;
-        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
-      },
-      error => {
-        this.properties = this.dummyProperties;
-        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
-      }
-    );
-  }
+  loadInitialProperties(fromHome?: any): void {
+  this.propertyService.getAllProperties().subscribe(
+    (res: any) => {
+     const data = res;
 
-  applyFilters(filters: any) {
+      const transformed = data.map((p: any) => ({
+        id: p.id,
+        title: p.title,
+        price: p.price,
+        image: p.images?.[0]?.imageUrl
+          ? `http://localhost:8000/storage/${p.images[0].imageUrl}`
+          : 'assets/img/default-property.jpg',
+        tag: p.listing_type?.name?.toLowerCase() === 'rent' ? 'For Rent' : 'For Sale',
+        tagColor: p.listing_type?.name?.toLowerCase() === 'rent' ? 'white' : 'primary',
+        tagTextColor: p.listing_type?.name?.toLowerCase() === 'rent' ? 'text-dark' : 'text-white',
+        address: p.address || p.city || 'No address',
+        beds: p.bedroom,
+        baths: p.bathroom,
+        size: `${p.livingArea} m²`,
+        description: p.shortDescreption || 'No description available',
+        type: p.property_type?.id || 0,
+        propertyTypeName: p.property_type?.type || '',
+        isFavorited: false // ✅ spelling was wrong in your code (was: isFavorited)
+      }));
+
+      this.properties = transformed;
+      localStorage.setItem('lastGridProperties', JSON.stringify(this.properties));
+
+      if (fromHome) {
+        this.filters = fromHome;
+        this.applyFilters(this.filters);
+      }
+    },
+    error => {
+      console.error('Error loading properties:', error);
+      this.properties = [];
+      localStorage.setItem('lastGridProperties', JSON.stringify(this.properties));
+      if (fromHome) {
+        this.filters = fromHome;
+        this.applyFilters(this.filters);
+      }
+    }
+  );
+}
+
+
+  onFiltersChanged(filters: any): void {
     this.filters = filters;
-    localStorage.setItem('lastListFilters', JSON.stringify(filters));
-    this.propertyService.searchProperties(filters).subscribe(
-      (data: any) => {
-        const isValid = data?.length && data.some((p: any) => p.title && p.image && p.price);
-        this.properties = isValid ? data : this.filterDummyData(filters);
-        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
-      },
-      error => {
-        this.properties = this.filterDummyData(filters);
-        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
-      }
-    );
+    this.applyFilters(this.filters);
   }
 
-  filterDummyData(filters: any): any[] {
-    return this.dummyProperties.filter(p => {
-      const location = p.location?.toLowerCase() || '';
-      const title = p.title?.toLowerCase() || '';
-      const description = p.description?.toLowerCase() || '';
-      const tag = p.tag?.toLowerCase() || '';
-      const price = parseInt(p.price.replace(/[^0-9]/g, '')) || 0;
+  applyFilters(filters: any): void {
+    const all = JSON.parse(localStorage.getItem('lastGridProperties') || '[]');
 
-      const locationMatch = !filters.location ||
-        location.includes(filters.location.toLowerCase()) ||
-        title.includes(filters.location.toLowerCase()) ||
-        description.includes(filters.location.toLowerCase());
+    const result = all.filter((property: any) => {
+      const locationMatch =
+        !filters.location ||
+        property.address?.toLowerCase().includes(filters.location.toLowerCase()) ||
+        property.title?.toLowerCase().includes(filters.location.toLowerCase());
 
-      const keywordMatch = !filters.keyword ||
-        title.includes(filters.keyword.toLowerCase()) ||
-        description.includes(filters.keyword.toLowerCase());
+      const typeMatch =
+        !filters.type || property.type === +filters.type;
 
-      const typeMatch = !filters.type || p.type?.toString().toLowerCase() === filters.type.toLowerCase();
-      const listingMatch = !filters.listing_type_id || tag.includes(filters.listing_type_id.toLowerCase());
-      const minMatch = !filters.min_price || price >= parseInt(filters.min_price);
-      const maxMatch = !filters.max_price || price <= parseInt(filters.max_price);
+      const listingMatch =
+        !filters.listing_type_id ||
+        (filters.listing_type_id === 'rent' && property.tag === 'For Rent') ||
+        (filters.listing_type_id === 'sale' && property.tag === 'For Sale');
 
-      return locationMatch && keywordMatch && typeMatch && listingMatch && minMatch && maxMatch;
+      const minPriceMatch =
+        !filters.min_price || this.extractPrice(property.price) >= +filters.min_price;
+
+      const maxPriceMatch =
+        !filters.max_price || this.extractPrice(property.price) <= +filters.max_price;
+
+      const keywordMatch =
+        !filters.keyword ||
+        property.title?.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+        property.description?.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+        property.address?.toLowerCase().includes(filters.keyword.toLowerCase());
+
+      return locationMatch && typeMatch && listingMatch && minPriceMatch && maxPriceMatch && keywordMatch;
     });
+
+    this.properties = result;
   }
 
-  toggleFavorite(event: MouseEvent, property: any): void {
-    event.stopPropagation();
-    property.isFavorited = !property.isFavorited;
+  extractPrice(priceStr: string): number {
+    const num = priceStr.replace(/[^\d]/g, '');
+    return +num;
+  }
+
+  goToDetails(property: any): void {
+    this.router.navigate(['properties-details', property.id], {
+      state: { data: property }
+    });
   }
 }

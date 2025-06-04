@@ -20,67 +20,68 @@ export class TowFactorComponent implements OnInit {
   }
 
   verifyCode(): void {
-    const fullCode = this.code.join('');
-    const userId = localStorage.getItem('userIdFor2FA');
+  const fullCode = this.code.join('');
+  const userId = localStorage.getItem('userIdFor2FA');
 
-    if (fullCode.length !== 4 || !userId) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Incomplete',
-        text: 'Please enter all 4 digits of the code.'
-      });
-      return;
-    }
-
-    const data = {
-      user_id: +userId,
-      code: fullCode
-    };
-
-    this.authService.verify2FA(data).subscribe({
-      next: (res) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-        localStorage.removeItem('userIdFor2FA');
-        localStorage.removeItem('emailFor2FA');
-        localStorage.removeItem('roleFor2FA');
-
-        Swal.fire({
-          icon: 'success',
-          title: '2FA Verified',
-          text: 'You have logged in successfully!'
-        }).then(() => {
-          const role = res.user?.role?.type?.toLowerCase();
-          console.log('✅ Role from response:', role);
-
-          switch (role) {
-            case 'admin':
-              console.log('➡️ Navigating to /admin-dashboard');
-              this.router.navigate(['/admin-dashboard']);
-              break;
-            case 'agent':
-              console.log('➡️ Navigating to /agent-dashboard');
-              this.router.navigate(['/agent-dashboard']);
-              break;
-            case 'buyer':
-              console.log('➡️ Navigating to /buyerHome');
-              this.router.navigate(['/buyerHome']);
-              break;
-            default:
-              console.warn('❌ Unknown role:', role);
-              this.router.navigate(['/']);
-          }
-        });
-      },
-      error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Verification Failed',
-          text: err.error?.message || 'Invalid or expired code.'
-        });
-      }
+  if (fullCode.length !== 4 || !userId) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Incomplete',
+      text: 'Please enter all 4 digits of the code.'
     });
+    return;
   }
+
+
+ const rememberMe = localStorage.getItem('rememberMe') === 'true';
+const data = {
+  user_id: +userId,
+  code: fullCode,
+  remember_me: rememberMe
+};
+
+
+
+
+  this.authService.verify2FA(data).subscribe({
+    next: (res) => {
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      localStorage.removeItem('userIdFor2FA');
+      localStorage.removeItem('emailFor2FA');
+      localStorage.removeItem('roleFor2FA');
+
+      // ✅ لو rememberMe مفعّل وبيّن trusted_token من السيرفر
+      if (rememberMe && res.trusted_token) {
+  localStorage.setItem('trusted_token', res.trusted_token);
+  localStorage.removeItem('rememberMe');
+}
+
+
+      Swal.fire({
+        icon: 'success',
+        title: '2FA Verified',
+        text: 'You have logged in successfully!'
+      }).then(() => {
+        const role = res.user?.role?.type?.toLowerCase();
+        switch (role) {
+          case 'admin': this.router.navigate(['/admin-dashboard']); break;
+          case 'agent': this.router.navigate(['/agent-dashboard']); break;
+          case 'buyer': this.router.navigate(['/buyerHome']); break;
+          default: this.router.navigate(['/']);
+        }
+      });
+    },
+    error: (err) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Verification Failed',
+        text: err.error?.message || 'Invalid or expired code.'
+      });
+    }
+  });
+}
+
 
   resendCode(): void {
     const userId = localStorage.getItem('userIdFor2FA');

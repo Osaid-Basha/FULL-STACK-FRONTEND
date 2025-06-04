@@ -26,11 +26,11 @@ export class PropertiesDetailsComponent implements OnInit {
 
       this.propertyService.getPropertyDetails(this.propertyId).subscribe({
         next: (data: any) => {
-          // ✅ نتأكد من صحة البيانات اللي رجعت من الباك
+
           if (data && Object.keys(data).length > 0) {
             this.property = data;
           } else {
-            // ❌ داتا ناقصة → نرجع لـ state
+
             const stateData = history.state?.data;
             if (stateData) {
               this.property = stateData;
@@ -40,7 +40,7 @@ export class PropertiesDetailsComponent implements OnInit {
           }
         },
         error: () => {
-          // ❌ فشل الاتصال → نرجع لـ state
+
           const stateData = history.state?.data;
           if (stateData) {
             this.property = stateData;

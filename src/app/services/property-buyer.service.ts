@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PropertyBuyerService {
-  private api = 'http://localhost:8000/api/buyer';
+  private api = 'http://127.0.0.1:8000/api/buyer';
 
   constructor(private http: HttpClient) {}
 
@@ -27,14 +27,14 @@ export class PropertyBuyerService {
     return new HttpHeaders(headersConfig);
   }
 
-  // 1. جلب جميع العقارات
+
   getAllProperties() {
     return this.http.get(`${this.api}/properties`, {
     headers: this.getHeaders()
   });
 }
 
-// 2. البحث عن العقارات باستخدام فلتر
+
 searchProperties(filters: any) {
   let params = new HttpParams();
 
@@ -51,7 +51,7 @@ searchProperties(filters: any) {
   });
 }
 
-// 3. عرض تفاصيل عقار
+
 getPropertyDetails(id: number) {
   return this.http.get(`${this.api}/properties-details/${id}`, {
     headers: this.getHeaders()

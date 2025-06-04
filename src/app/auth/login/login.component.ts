@@ -27,54 +27,76 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(event?: Event): void {
-    event?.preventDefault();
+  event?.preventDefault();
 
-    if (!this.userType || !this.email || !this.password) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Missing Fields',
-        text: 'Please fill in all fields and select user type.'
-      });
-      return;
+  if (!this.userType || !this.email || !this.password) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Missing Fields',
+      text: 'Please fill in all fields and select user type.'
+    });
+    return;
+  }
+
+  const loginData = {
+    email: this.email,
+    password: this.password,
+    role: this.userType,
+    remember_me: this.rememberMe // ✅ إضافة remember_me
+  };
+
+  this.authService.login(loginData).subscribe({
+   next: (res) => {
+  if (res.token) {
+    // ✅ تسجيل الدخول بدون 2FA
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('user', JSON.stringify(res.user));
+
+    // ✅ خزّن trusted_token إن وُجد
+    if (res.trusted_token) {
+      localStorage.setItem('trusted_token', res.trusted_token);
     }
 
-    const loginData = {
-      email: this.email,
-      password: this.password,
-      role: this.userType
-    };
-
-    this.authService.login(loginData).subscribe({
-      next: (res) => {
-        // ✅ دائماً نطلب التحقق الثنائي
-        if (res.user_id) {
-          localStorage.setItem('userIdFor2FA', res.user_id.toString());
-          localStorage.setItem('emailFor2FA', this.email);
-          localStorage.setItem('roleFor2FA', this.userType);
-
-          Swal.fire({
-            icon: 'info',
-            title: '2FA Required',
-            text: 'A verification code has been sent to your email.'
-          });
-
-          this.router.navigate(['/twofactor']);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Unexpected Response',
-            text: 'Could not proceed. Please try again.'
-          });
-        }
-      },
-      error: (err) => {
-        console.error('Login error:', err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Login Failed',
-          text: err.error?.message || 'Login failed. Please try again.'
-        });
-      }
+    Swal.fire({
+      icon: 'success',
+      title: 'Welcome',
+      text: 'Logged in successfully!'
     });
-  }
+
+    const role = res.user?.role?.type?.toLowerCase();
+    switch (role) {
+      case 'admin': this.router.navigate(['/admin-dashboard']); break;
+      case 'agent': this.router.navigate(['/agent-dashboard']); break;
+      case 'buyer': this.router.navigate(['/buyerHome']); break;
+      default: this.router.navigate(['/']);
+    }
+
+      } else if (res.user_id) {
+  localStorage.setItem('userIdFor2FA', res.user_id.toString());
+  localStorage.setItem('emailFor2FA', this.email);
+  localStorage.setItem('roleFor2FA', this.userType);
+
+  // ✅ خزّن rememberMe مؤقتًا عشان نستخدمه بعد التحقق
+  localStorage.setItem('rememberMe', this.rememberMe.toString());
+
+  Swal.fire({
+    icon: 'info',
+    title: '2FA Required',
+    text: 'A verification code has been sent to your email.'
+  });
+
+  this.router.navigate(['/twofactor']);
+}
+
+    },
+    error: (err) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: err.error?.message || 'Login failed. Please try again.'
+      });
+    }
+  });
+}
+
 }

@@ -15,14 +15,25 @@ export class AuthService {
   }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, data);
-  }
+  const trustedToken = localStorage.getItem('trusted_token') || '';
+
+  const headers = new HttpHeaders({
+    'X-Trusted-Device': trustedToken
+  });
+
+  return this.http.post(`${this.apiUrl}/login`, data, { headers });
+}
+
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {}, {
-      headers: this.getAuthHeaders()
-    });
-  }
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+
+  return this.http.post(`${this.apiUrl}/logout`, {}, {
+    headers: this.getAuthHeaders()
+  });
+}
+
 
 
   sendResetLink(email: string): Observable<any> {
