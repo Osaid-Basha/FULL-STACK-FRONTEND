@@ -7,10 +7,10 @@ import { Component , Input} from '@angular/core';
   styleUrl: './property-gallery.component.css'
 })
 export class PropertyGalleryComponent {
-  @Input() proprety: any;
+  @Input() property: any;
 
   get galleryImages(): string[] {
-    return this.proprety?.galleryImages || [
+    return this.property?.galleryImages || [
       'assets/img/property-details/01.jpg',
       'assets/img/property-details/02.jpg',
       'assets/img/property-details/03.jpg'
@@ -19,7 +19,7 @@ export class PropertyGalleryComponent {
 
   get videoUrl(): string {
 
-    return this.proprety?.VideoUrl || ''
+    return this.property?.VideoUrl || ''
     'http://www.youtube.com/watch?v=0O2aH4XLbto';
 
   }

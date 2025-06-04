@@ -10,12 +10,17 @@ export class PropertyBuyerService {
 
   constructor(private http: HttpClient) {}
 
-    token = localStorage.getItem('token');
   private getHeaders(json = true): HttpHeaders {
+
     const headersConfig: any = {
-      'Authorization': 'Bearer ' + this.token,
       'Accept': 'application/json'
     };
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        headersConfig['Authorization'] = 'Bearer ' + token;
+      }
+    }
     if (json) {
       headersConfig['Content-Type'] = 'application/json';
     }
@@ -48,7 +53,7 @@ searchProperties(filters: any) {
 
 // 3. عرض تفاصيل عقار
 getPropertyDetails(id: number) {
-  return this.http.get(`${this.api}/properties/${id}`, {
+  return this.http.get(`${this.api}/properties-details/${id}`, {
     headers: this.getHeaders()
   });
 }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit , Input } from '@angular/core';
 import * as AOS from 'aos';
 
 @Component({
@@ -8,19 +8,7 @@ import * as AOS from 'aos';
   styleUrls: ['./agent-information.component.css']
 })
 export class AgentInformationComponent implements AfterViewInit {
-  agent = {
-    name: 'Alexander Kaminski',
-    designation: 'Property Consultant',
-    about: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation',
-    activeListings: 7,
-    experienceSince: 2019,
-    areas: 'Brazil',
-    language: 'English, Brazil',
-    forRent: 193,
-    forSell: 633,
-    commercial: 10,
-    image: 'assets/img/avatar/01.jpg',
-  };
+  @Input() agent : any;
 
   showFeedbackForm = false;
   hoverRating = 0;

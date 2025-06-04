@@ -74,19 +74,20 @@ export class PropertyListComponent implements OnInit, OnChanges {
     }
   ];
 
-
   constructor(private propertyService: PropertyBuyerService) {}
 
   ngOnInit() {
-    this.propertyService.getAllProperties().subscribe(
-      (data: any) => {
-        this.properties = data.length ? data : this.dummyProperties;
-      },
-      error => {
-        this.properties = this.dummyProperties;
-        console.error('Error getting properties.', error);
-      }
-    );
+    const savedFilters = history.state?.filters || JSON.parse(localStorage.getItem('lastListFilters') || 'null');
+    const savedProps = JSON.parse(localStorage.getItem('lastListProperties') || 'null');
+
+    if (savedProps) {
+      this.properties = savedProps;
+    } else if (savedFilters) {
+      this.filters = savedFilters;
+      this.applyFilters(this.filters);
+    } else {
+      this.loadInitialProperties();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -95,20 +96,32 @@ export class PropertyListComponent implements OnInit, OnChanges {
     }
   }
 
-  // 🟢 هذه الدالة تستقبل الفلتر من الهيدر
-  onFiltersChanged(filters: any) {
-    this.filters = filters;
-    this.applyFilters(filters);
+  loadInitialProperties() {
+    this.propertyService.getAllProperties().subscribe(
+      (data: any) => {
+        const isValid = data?.length && data.some((p: any) => p.title && p.image && p.price);
+        this.properties = isValid ? data : this.dummyProperties;
+        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
+      },
+      error => {
+        this.properties = this.dummyProperties;
+        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
+      }
+    );
   }
 
-  // 🟢 فلترة الداتا
   applyFilters(filters: any) {
+    this.filters = filters;
+    localStorage.setItem('lastListFilters', JSON.stringify(filters));
     this.propertyService.searchProperties(filters).subscribe(
       (data: any) => {
-        this.properties = data.length ? data : this.filterDummyData(filters);
+        const isValid = data?.length && data.some((p: any) => p.title && p.image && p.price);
+        this.properties = isValid ? data : this.filterDummyData(filters);
+        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
       },
       error => {
         this.properties = this.filterDummyData(filters);
+        localStorage.setItem('lastListProperties', JSON.stringify(this.properties));
       }
     );
   }
@@ -126,19 +139,18 @@ export class PropertyListComponent implements OnInit, OnChanges {
         title.includes(filters.location.toLowerCase()) ||
         description.includes(filters.location.toLowerCase());
 
-      const keywordMatch = !filters.keyword || title.includes(filters.keyword.toLowerCase()) || description.includes(filters.keyword.toLowerCase());
+      const keywordMatch = !filters.keyword ||
+        title.includes(filters.keyword.toLowerCase()) ||
+        description.includes(filters.keyword.toLowerCase());
 
       const typeMatch = !filters.type || p.type?.toString().toLowerCase() === filters.type.toLowerCase();
-
       const listingMatch = !filters.listing_type_id || tag.includes(filters.listing_type_id.toLowerCase());
-
       const minMatch = !filters.min_price || price >= parseInt(filters.min_price);
       const maxMatch = !filters.max_price || price <= parseInt(filters.max_price);
 
       return locationMatch && keywordMatch && typeMatch && listingMatch && minMatch && maxMatch;
     });
   }
-
 
   toggleFavorite(event: MouseEvent, property: any): void {
     event.stopPropagation();

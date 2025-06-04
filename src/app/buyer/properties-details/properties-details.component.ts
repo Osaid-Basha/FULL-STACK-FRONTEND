@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyBuyerService } from '../../services/property-buyer.service';
 
 @Component({
@@ -9,31 +9,49 @@ import { PropertyBuyerService } from '../../services/property-buyer.service';
   standalone: false
 })
 export class PropertiesDetailsComponent implements OnInit {
-  propertyId!: number;
   property: any;
+  propertyId!: number;
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyBuyerService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private propertyService: PropertyBuyerService
+  ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
+
     if (idParam) {
       this.propertyId = +idParam;
 
-      // أولاً نحاول جلب البيانات من الـ API
       this.propertyService.getPropertyDetails(this.propertyId).subscribe({
-        next: (data) => {
-          this.property = data; // ✅ تم جلب البيانات الحقيقية
+        next: (data: any) => {
+          // ✅ نتأكد من صحة البيانات اللي رجعت من الباك
+          if (data && Object.keys(data).length > 0) {
+            this.property = data;
+          } else {
+            // ❌ داتا ناقصة → نرجع لـ state
+            const stateData = history.state?.data;
+            if (stateData) {
+              this.property = stateData;
+            } else {
+              this.router.navigate(['/buyerHome/properties']);
+            }
+          }
         },
         error: () => {
-          // ❌ إذا فشل جلب البيانات من API، نأخذ البيانات من state إذا كانت موجودة
+          // ❌ فشل الاتصال → نرجع لـ state
           const stateData = history.state?.data;
           if (stateData) {
-            this.property = stateData; // ✅ بيانات وهمية مرسلة من الكارد
+            this.property = stateData;
           } else {
-            this.property = null; // ❌ لا توجد بيانات نهائياً
+            this.router.navigate(['/buyerHome/properties']);
           }
         }
       });
+
+    } else {
+      this.router.navigate(['/buyerHome/properties']);
     }
   }
 }

@@ -1,5 +1,6 @@
 
-import { Component, OnInit,EventEmitter,Output } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output,Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-property-header',
@@ -10,6 +11,7 @@ import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 
 
 export class PropertyHeaderComponent implements OnInit {
+  @Input() filters: any = {};
 @Output() filterChange : EventEmitter<any> = new EventEmitter();
   backgroundImage: string = '';
 

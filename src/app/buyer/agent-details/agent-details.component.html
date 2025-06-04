@@ -1,2 +1,23 @@
-<app-agent-information ></app-agent-information>
-<app-agent-proparty></app-agent-proparty>
+<!-- Agent Details Page -->
+
+<div class="container py-5">
+
+  <!-- تحقق من وجود بيانات الوكيل -->
+  <ng-container *ngIf="agent; else noData">
+
+    <!-- قسم معلومات الوكيل -->
+    <app-agent-information [agent]="agent"></app-agent-information>
+
+    <!-- قسم العقارات التابعة للوكيل -->
+<!--    <app-agent-property [agent]="agent"></app-agent-property>-->
+
+  </ng-container>
+
+  <!-- في حال لم يتم العثور على بيانات -->
+  <ng-template #noData>
+    <div class="text-center text-danger mt-5">
+      <h4>No agent data found.</h4>
+    </div>
+  </ng-template>
+
+</div>
