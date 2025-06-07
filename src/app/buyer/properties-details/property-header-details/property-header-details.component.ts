@@ -1,11 +1,21 @@
-import { Component  , Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-property-header-details',
   standalone: false,
+  selector: 'app-property-header-details',
   templateUrl: './property-header-details.component.html',
-  styleUrl: './property-header-details.component.css'
+  styleUrls: ['./property-header-details.component.css']
 })
-export class PropertyHeaderDetailsComponent {
-@Input() property:any;
+export class PropertyHeaderDetailsComponent implements OnChanges {
+  @Input() property: any;
+
+  title = 'Property Title';
+  category = 'Category';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['property'] && this.property) {
+      this.title = this.property.title || 'Property Title';
+      this.category = this.property.property_type?.type || 'Category';
+    }
+  }
 }

@@ -1,26 +1,32 @@
-import { Component , Input} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-property-gallery',
   standalone: false,
+  selector: 'app-property-gallery',
   templateUrl: './property-gallery.component.html',
-  styleUrl: './property-gallery.component.css'
+  styleUrls: ['./property-gallery.component.css']
 })
-export class PropertyGalleryComponent {
+export class PropertyGalleryComponent implements OnChanges {
   @Input() property: any;
 
-  get galleryImages(): string[] {
-    return this.property?.galleryImages || [
-      'assets/img/property-details/01.jpg',
-      'assets/img/property-details/02.jpg',
-      'assets/img/property-details/03.jpg'
-    ];
+  galleryImages: string[] = [];
+  videoUrl: string | null = null;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['property'] && this.property) {
+      this.prepareGallery();
+    }
   }
 
-  get videoUrl(): string {
+  prepareGallery(): void {
+    const images = this.property?.images ?? [];
 
-    return this.property?.VideoUrl || ''
-    'http://www.youtube.com/watch?v=0O2aH4XLbto';
+    this.galleryImages = images.map((img: any) =>
+      img.imageUrl
+        ? `http://localhost:8000/storage/${img.imageUrl}`
+        : 'assets/img/no-image.jpg'
+    );
 
+    this.videoUrl = this.property?.videoUrl || null;
   }
 }

@@ -57,6 +57,7 @@ import {BuyerPropertiesComponent} from './buyer/buyer-properties/buyer-propertie
 
 
 import { ReceivedComponent } from './agentandsellers/received/received.component';
+import { AcceptedOffersComponent } from './agentandsellers/accepted-offers/accepted-offers.component';
 
 
 
@@ -126,6 +127,7 @@ const routes: Routes = [
       { path: 'profail-agent', component: ProfailAgentComponent },
       { path: 'notification-agent', component: NotificationAgentComponent },
       {path: 'received', component: ReceivedComponent},
+      {path:'accepted',component:AcceptedOffersComponent},
 
 
     ]

@@ -122,6 +122,8 @@ import { BuyerPropertiesComponent } from './buyer/buyer-properties/buyer-propert
 
 import { ReceivedComponent } from './agentandsellers/received/received.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AcceptedOffersComponent } from './agentandsellers/accepted-offers/accepted-offers.component';
+
 
 
 
@@ -207,6 +209,8 @@ ManageReviewsComponent,
     MaseegeBuyerComponent,
      NotificationAgentComponent,
     BuyerPropertiesComponent,
+    AcceptedOffersComponent,
+
   ],
   imports: [
 

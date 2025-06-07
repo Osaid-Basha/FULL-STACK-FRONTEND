@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-properties',
-  standalone: false,
   templateUrl: './properties.component.html',
-  styleUrl: './properties.component.css'
+  styleUrls: ['./properties.component.css'],
+  standalone:false,
 })
 export class PropertiesComponent {
   currentFilters: any = {};
 
-  onFiltersChanged(event: any) {
-    this.currentFilters = event;
+  onFiltersChanged(filters: any) {
+    this.currentFilters = filters;
   }
 }

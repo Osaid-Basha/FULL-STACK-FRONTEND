@@ -33,10 +33,9 @@ export class PropertyHeaderComponent implements OnInit {
     this.backgroundImage = `url('${imagePath}')`;
   }
 
-  // تحقق من الموقع: يسمح بحروف أو أرقام مع حروف، يمنع الفارغات فقط أو أرقام فقط أو رموز
   validateLocation() {
     if (this.location.trim() === '') {
-      this.isLocationValid = true; // فارغ مسموح
+      this.isLocationValid = true;
       return;
     }
 
@@ -44,8 +43,7 @@ export class PropertyHeaderComponent implements OnInit {
     this.isLocationValid = pattern.test(this.location.trim());
   }
 
-  // تحقق من السعر: يسمح فقط بالأرقام أو يكون فارغ
-  validatePrice() {
+   validatePrice() {
     const pattern = /^[0-9]+$/;
 
         const minValid = this.min_price.trim() === '' || pattern.test(this.min_price.trim());
@@ -57,14 +55,16 @@ export class PropertyHeaderComponent implements OnInit {
     this.validateLocation();
     this.validatePrice();
      if (this.isLocationValid && this.isValidPrice) {
-       this.filterChange.emit({
-         location: this.location,
-         min_price: this.min_price,
-         max_price: this.max_price,
-         listing_type_id: this.listingTypeId,
-         keyword: this.keyword,
-         type: this.type
-       });
+      this.filterChange.emit({
+  location: this.location,
+  min_price: this.min_price,
+  max_price: this.max_price,
+  listing_type_id: this.listingTypeId,
+  keyword: this.keyword,
+  type: this.type
+});
+
+
      }
   }
 }

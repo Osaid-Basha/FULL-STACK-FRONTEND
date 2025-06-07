@@ -24,8 +24,12 @@ export class FavoriteComponent implements OnInit{
   constructor(private favoriteService: FavoriteService) {}
   ngOnInit(): void {
     this.loadFavorites();
-    
+
   }
+  onImageError(event: Event) {
+  (event.target as HTMLImageElement).src = 'assets/img/properties/01.jpg';
+}
+
 
   loadFavorites(): void {
     this.favoriteService.getFavorites().subscribe({

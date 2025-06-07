@@ -45,11 +45,12 @@
 
             <!-- Image -->
             <div class="property-img card-image-hover overflow-hidden position-relative" style="height: 180px;">
-              <img
-                [src]="item.property.images[0]?.imageUrl || 'assets/img/properties/01.jpg'"
-                alt="property image"
-                class="img-fluid w-100 h-100 object-fit-cover"
-              />
+             <img
+  [src]="item.property.images[0]?.imageUrl ? 'http://127.0.0.1:8000/storage/' + item.property.images[0].imageUrl : 'assets/img/properties/01.jpg'"
+  alt="property image"
+  class="img-fluid w-100 h-100 object-fit-cover"
+/>
+
               <div
                 class="card-property-badge d-inline-block end-1 fs-12 fw-semibold position-absolute property-tags px-2 py-1 rounded-3 top-1"
                 [ngClass]="{

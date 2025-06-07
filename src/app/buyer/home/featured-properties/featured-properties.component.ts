@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PropertyBuyerService } from '../../../services/property-buyer.service';
 
 @Component({
   selector: 'app-featured-properties',
@@ -6,47 +7,41 @@ import { Component } from '@angular/core';
   templateUrl: './featured-properties.component.html',
   styleUrl: './featured-properties.component.css'
 })
-export class FeaturedPropertiesComponent {
-  featuredProperties = [
-    {
-      title: 'Entire villa hosted by Wayan',
-      location: '1123 Fictional St, San Francisco, CA 94103',
-      description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation',
-      tag: 'For Sale',
-      tagColor: 'bg-primary text-white',
-      image: 'assets/img/properties/01.jpg',
-      bedrooms: 3,
-      bathrooms: 3,
-      area: '620 sqft',
-      price: '$17,966',
-      per: 'month'
-    },
-    {
-      title: 'Tampaksiring, Indonesia',
-      location: '1123 Fictional St, San Francisco, CA 94103',
-      description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation',
-      tag: 'For Rent',
-      tagColor: 'bg-white text-dark',
-      image: 'assets/img/properties/02.jpg',
-      bedrooms: 3,
-      bathrooms: 3,
-      area: '620 sqft',
-      price: '$17,966',
-      per: 'month'
-    },
-    {
-      title: 'Belle Mare, Mauritius',
-      location: '1123 Fictional St, San Francisco, CA 94103',
-      description: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation',
-      tag: 'For Sale',
-      tagColor: 'bg-primary text-white',
-      image: 'assets/img/properties/03.jpg',
-      bedrooms: 3,
-      bathrooms: 3,
-      area: '620 sqft',
-      price: '$17,966',
-      per: 'month'
-    },
-    
-  ];
+export class FeaturedPropertiesComponent implements OnInit {
+  featuredProperties: any[] = [];
+
+  constructor(private propertyService: PropertyBuyerService) {}
+
+  ngOnInit(): void {
+    this.loadFeaturedProperties();
+  }
+
+  loadFeaturedProperties(): void {
+    this.propertyService.getAllProperties().subscribe({
+      next: (res: any) => {
+        const data = Array.isArray(res) ? res : res.data || [];
+
+        // خذ أول 3 عقارات فقط
+        this.featuredProperties = data.slice(0, 3).map((p: any) => ({
+          id: p.id,
+          title: p.title,
+          location: `${p.address}, ${p.city}`,
+          description: p.shortDescreption || 'No description available',
+          tag: p.listing_type?.name?.toLowerCase() === 'rent' ? 'For Rent' : 'For Sale',
+          tagColor: p.listing_type?.name?.toLowerCase() === 'rent' ? 'bg-white text-dark' : 'bg-primary text-white',
+          image: p.images?.[0]?.imageUrl
+            ? `http://127.0.0.1:8000/storage/${p.images[0].imageUrl}`
+            : 'assets/img/default-property.jpg',
+          bedrooms: p.bedroom || 0,
+          bathrooms: p.bathroom || 0,
+          area: `${p.livingArea} m²`,
+          price: `$${p.price}`,
+          per: 'month'
+        }));
+      },
+      error: (err) => {
+        console.error('❌ Failed to load featured properties:', err);
+      }
+    });
+  }
 }

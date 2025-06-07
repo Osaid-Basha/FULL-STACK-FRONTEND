@@ -1,49 +1,54 @@
 <!-- Start Masonry -->
-<div class="container" data-aos="fade-up">
+<div class="container" data-aos="fade-up" *ngIf="galleryImages.length > 0">
   <div class="position-relative">
-    <!-- Start Header Masonry -->
-    <div class="header-masonry position-relative" data-aos="fade-up">
-      <div id="gallery-1" class="header-masonry-grid zoom-gallery">
-        <!-- العمود الأول -->
-        <div class="column-start" *ngIf="galleryImages[0]" data-aos="zoom-in">
-          <a [href]="galleryImages[0]" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 h-100 w-100 d-block">
-            <img [src]="galleryImages[0]" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
-          </a>
-        </div>
 
-        
-        <div class="column-start-end">
+    <!-- Header Gallery Grid -->
+    <div id="gallery-1" class="row g-2">
+
+      <!-- الصورة الرئيسية -->
+      <div class="col-md-6">
+        <a [href]="galleryImages[0]" class="d-block overflow-hidden rounded-4 h-100 position-relative">
+          <img [src]="galleryImages[0]" alt="Main Image"
+               class="img-fluid w-100 h-100 object-fit-cover rounded-4" loading="lazy">
+        </a>
+      </div>
+
+      <!-- باقي الصور -->
+      <div class="col-md-6">
+        <div class="row g-2">
           <ng-container *ngFor="let image of galleryImages.slice(1); let i = index">
-            <a [href]="image" class="grid-images-item-wrap overflow-hidden position-relative rounded-4 w-100 box-ratio-2-3 d-block"
-               data-aos="fade-up" [attr.data-aos-delay]="i * 100">
-              <img [src]="image" alt="" class="bottom-0 h-100 object-fit-cover position-absolute start-0 top-0 w-100">
-            </a>
+            <div class="col-6">
+              <a [href]="image" class="d-block overflow-hidden rounded-4 position-relative"
+                 [attr.data-aos]="'fade-up'" [attr.data-aos-delay]="i * 100">
+                <img [src]="image" alt="Gallery Image"
+                     class="img-fluid w-100 h-100 object-fit-cover rounded-4" loading="lazy">
+              </a>
+            </div>
           </ng-container>
         </div>
       </div>
     </div>
-    <!-- /. End Header Masonry -->
 
     <!-- أزرار المشاركة -->
-    <div class="header-share align-items-center bg-dark d-flex gap-2 flex-wrap g-3 header-btn-group p-3 p-lg-4 mt-3 mt-md-0" data-aos="fade-up" data-aos-delay="400">
+    <div class="d-flex flex-wrap gap-2 bg-dark p-3 rounded-3 mt-4" data-aos="fade-up" data-aos-delay="400">
       <button type="button" class="btn btn-sm btn-primary">
         <i class="fa-solid fa-share-nodes me-2"></i>Share
       </button>
-      <a href="#gallery-1" class="btn btn-sm btn-primary btn-gallery">
+
+      <a href="#gallery-1" class="btn btn-sm btn-primary">
         <i class="fa-solid fa-image me-2"></i>Browse Gallery
       </a>
 
-      <!-- زر الفيديو -->
-      <div class="product-video-btn">
-        <a class="popup-youtube d-flex align-items-center justify-content-center" [href]="videoUrl">
+      <div class="product-video-btn" *ngIf="videoUrl">
+        <a [href]="videoUrl" target="_blank" class="d-flex align-items-center justify-content-center">
           <div class="btn-video bg-primary text-white d-flex align-items-center justify-content-center rounded-pill me-2">
             <i class="fa-solid fa-video"></i>
           </div>
           <span class="text-white fw-medium">Watch video</span>
         </a>
       </div>
-      <!-- /.End of product video button -->
     </div>
+
   </div>
 </div>
-<!-- /. End Masonry -->
+<!-- End Masonry -->

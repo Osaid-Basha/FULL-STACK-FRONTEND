@@ -45,16 +45,18 @@ searchProperties(filters: any) {
   if (filters.listing_type_id) params = params.set('listing_type_id', filters.listing_type_id);
   if (filters.keyword) params = params.set('keyword', filters.keyword);
 
-  return this.http.get(`${this.api}/properties/search`,{
+  return this.http.get(`${this.api}/properties/search`, {
     params,
     headers: this.getHeaders()
   });
 }
 
 
+
 getPropertyDetails(id: number) {
-  return this.http.get(`${this.api}/properties-details/${id}`, {
+  return this.http.get(`${this.api}/properties/${id}`, {
     headers: this.getHeaders()
   });
 }
+
 }

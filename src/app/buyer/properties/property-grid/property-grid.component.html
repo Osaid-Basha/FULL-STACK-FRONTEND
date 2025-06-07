@@ -1,5 +1,9 @@
 <app-property-header (filterChange)="onFiltersChanged($event)"></app-property-header>
 
+
+
+
+
 <div class="container">
   <!-- Toolbox -->
   <div class="d-flex flex-wrap align-items-center mb-4 gap-2">
@@ -99,6 +103,15 @@
               <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
                 <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
               </button>
+
+  <button class="btn btn-light btn-sm fav-btn"
+        (click)="toggleFavorite($event, property)">
+  <i class="fa-heart fs-5"
+     [ngClass]="property.isFavorited ? 'fa-solid' : 'fa-regular'"
+     [style.color]="property.isFavorited ? 'red' : '#888'">
+  </i>
+</button>
+
             </div>
           </div>
         </div>

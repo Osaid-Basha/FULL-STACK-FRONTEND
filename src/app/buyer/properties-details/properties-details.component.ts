@@ -9,8 +9,9 @@ import { PropertyBuyerService } from '../../services/property-buyer.service';
   standalone: false
 })
 export class PropertiesDetailsComponent implements OnInit {
-  property: any;
+  property: any = null;
   propertyId!: number;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,35 +22,38 @@ export class PropertiesDetailsComponent implements OnInit {
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
 
-    if (idParam) {
-      this.propertyId = +idParam;
+    if (!idParam) {
+      this.router.navigate(['/buyerHome/properties']);
+      return;
+    }
 
-      this.propertyService.getPropertyDetails(this.propertyId).subscribe({
-        next: (data: any) => {
+    this.propertyId = +idParam;
 
-          if (data && Object.keys(data).length > 0) {
-            this.property = data;
-          } else {
+    this.propertyService.getPropertyDetails(this.propertyId).subscribe({
+      next: (data: any) => {
+        this.isLoading = false;
 
-            const stateData = history.state?.data;
-            if (stateData) {
-              this.property = stateData;
-            } else {
-              this.router.navigate(['/buyerHome/properties']);
-            }
-          }
-        },
-        error: () => {
+        if (data && Object.keys(data).length > 0) {
+          this.property = data;
+          if (this.property?.user?.profile?.imag_path) {
+  this.property.user.profile.imag_path = `http://localhost:8000/${this.property.user.profile.imag_path}`;
+}
 
-          const stateData = history.state?.data;
-          if (stateData) {
-            this.property = stateData;
-          } else {
-            this.router.navigate(['/buyerHome/properties']);
-          }
+        } else {
+          this.tryFallbackOrRedirect();
         }
-      });
+      },
+      error: () => {
+        this.isLoading = false;
+        this.tryFallbackOrRedirect();
+      }
+    });
+  }
 
+  tryFallbackOrRedirect() {
+    const stateData = history.state?.data;
+    if (stateData) {
+      this.property = stateData;
     } else {
       this.router.navigate(['/buyerHome/properties']);
     }

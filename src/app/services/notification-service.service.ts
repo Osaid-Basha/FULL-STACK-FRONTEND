@@ -7,31 +7,33 @@ import { Observable } from 'rxjs';
 })
 export class NotificationService {
   private baseUrl = 'http://localhost:8000/api';
-  private token = 'Bearer 3|6zJFqLHiKMcJaS7XysS9iLaxWgahU8GoNzheHfHcbcca9211';
 
   constructor(private http: HttpClient) {}
 
+   private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    console.log(' Token:', token);
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json'
+    });
+  }
+
   getMyNotifications(): Observable<any> {
     return this.http.get(`${this.baseUrl}/notifications`, {
-      headers: new HttpHeaders({
-        Authorization: this.token
-      })
+      headers: this.getAuthHeaders()
     });
   }
 
   markAsRead(notificationId: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/notifications/${notificationId}/read`, {}, {
-      headers: new HttpHeaders({
-        Authorization: this.token
-      })
+      headers: this.getAuthHeaders()
     });
   }
 
   deleteNotification(notificationId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/notifications/${notificationId}`, {
-      headers: new HttpHeaders({
-        Authorization: this.token
-      })
+      headers: this.getAuthHeaders()
     });
   }
 }
