@@ -6,34 +6,33 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class PurchaseService {
-  private baseUrl = 'http://localhost:8000/api/';
+  private baseUrl = 'http://127.0.0.1:8000/api/';
 
 
 
   constructor(private http: HttpClient) {}
 
-    token = localStorage.getItem('token');
-  private getHeaders(json = true): HttpHeaders {
-    const headersConfig: any = {
-      'Authorization': 'Bearer ' + this.token,
-      'Accept': 'application/json'
-    };
-    if (json) {
-      headersConfig['Content-Type'] = 'application/json';
-    }
-    return new HttpHeaders(headersConfig);
+
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    });
   }
 
 
+
   getAllPurchases(): Observable<any> {
-    return this.http.get(`${this.baseUrl}purchases`, {
+    return this.http.get(`${this.baseUrl}buyer/purchases`, {
       headers: this.getHeaders()
     });
   }
 
 
   searchPurchases(keyword: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}purchases/${keyword}`, {
+    return this.http.get(`${this.baseUrl}buyer/purchases/${keyword}`, {
       headers: this.getHeaders()
     });
   }
