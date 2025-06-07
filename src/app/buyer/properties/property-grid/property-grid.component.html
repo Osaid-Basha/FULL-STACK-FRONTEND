@@ -24,7 +24,7 @@
   </div>
 
   <!-- Cards -->
-  <div *ngFor="let property of properties; let i = index"
+  <div *ngFor="let property of paginatedProperties; let i = index"
        class="card mb-4 overflow-hidden bg-grey border-0 shadow rounded-3"
        data-aos="fade-up"
        [attr.data-aos-delay]="i * 100"
@@ -116,7 +116,26 @@
           </div>
         </div>
 
+
       </div>
     </div>
   </div>
+  <!-- Pagination -->
+<nav *ngIf="totalPages > 1" class="mt-4 d-flex justify-content-center">
+  <ul class="pagination pagination-sm">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="goToPreviousPage()">«</a>
+    </li>
+
+    <li class="page-item"
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="i + 1 === currentPage">
+      <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="goToNextPage()">»</a>
+    </li>
+  </ul>
+</nav>
 </div>

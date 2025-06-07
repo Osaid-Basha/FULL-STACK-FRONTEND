@@ -31,6 +31,12 @@
           <i class="bi bi-currency-dollar text-success me-1"></i>
           <strong>Offer:</strong> {{ req.proposed_price }} USD
         </p>
+        <!-- Property Title -->
+<p class="mb-2 text-muted small">
+  <i class="bi bi-house-door-fill text-secondary me-1"></i>
+  <strong>Property:</strong> {{ req.property?.title || 'Unknown Property' }}
+</p>
+
 
      <!-- Buttons Row (Styled Nicely) -->
 <div class="d-flex justify-content-between mt-4 gap-3 flex-wrap">
@@ -57,6 +63,13 @@
       <span class="fw-semibold">Cancel</span>
     </button>
   </div>
+  <div class="flex-grow-1">
+  <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-success rounded-pill shadow-sm py-2"
+          (click)="confirmPurchase(req)">
+    <i class="bi bi-check-lg"></i>
+    <span class="fw-semibold">Confirm</span>
+  </button>
+</div>
 </div>
 
 

@@ -34,6 +34,43 @@ export class AcceptedOffersComponent implements OnInit {
     }
     this.currentPage = 0;
   }
+confirmPurchase(req: any) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You are about to confirm this purchase. This action is final.',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Confirm it!',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#28a745',
+    cancelButtonColor: '#6c757d',
+  }).then(result => {
+    if (result.isConfirmed) {
+      this.receivedAgentService.confirm(req.id).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Confirmed!',
+            text: 'The purchase has been successfully confirmed.',
+            timer: 2000,
+            showConfirmButton: false,
+            toast: true,
+            position: 'bottom-end'
+          });
+          this.acceptedRequests = this.acceptedRequests.filter(r => r.id !== req.id);
+          this.updatePagination();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed!',
+            text: 'Something went wrong. Please try again later.'
+          });
+        }
+      });
+    }
+  });
+}
 
   rejectRequest(req: any) {
     this.receivedAgentService.reject(req.id).subscribe(() => {

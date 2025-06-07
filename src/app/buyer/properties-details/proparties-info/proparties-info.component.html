@@ -99,35 +99,55 @@
   </div>
 </div>
 
-<!-- Reviews -->
+<!-- Reviews with Replies -->
 <div class="mb-4" data-aos="fade-up">
   <h4 class="fw-semibold mb-4 text-capitalize">Reviews & <span class="text-primary">Ratings</span></h4>
   <div class="row">
-    <div class="col-sm-6 col-lg-4 mb-4" *ngFor="let t of testimonials; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i * 100" data-aos-duration="600">
+    <div
+      class="col-sm-6 col-lg-4 mb-4"
+      *ngFor="let t of testimonials; let i = index"
+      data-aos="fade-up"
+      [attr.data-aos-delay]="i * 100"
+      data-aos-duration="600"
+    >
       <div class="card rounded-4 shadow border-0 h-100">
         <div class="card-body p-4 d-flex flex-column justify-content-between">
+          <!-- تقييم ونجوم -->
           <div>
             <div class="d-flex flex-wrap text-warning gap-1 mb-2 fs-12">
               <ng-container *ngFor="let star of [1,2,3,4,5]">
-                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star" [ngClass]="{ 'text-muted': star > t.rating }"></i>
               </ng-container>
               <span class="text-dark">({{ t.rating }}/5)</span>
             </div>
-            <h5>{{ t.title }}</h5>
-            <p>{{ t.content }}</p>
+            <h5 class="mb-1">{{ t.title }}</h5>
+            <p class="mb-2">{{ t.content }}</p>
           </div>
-          <div class="d-flex align-items-center mt-4">
-            <img [src]="t.image" class="rounded-circle me-3" width="60" height="60" />
+
+          <!-- بيانات المراجع -->
+          <div class="d-flex align-items-center mt-3">
+            <img [src]="t.image" class="rounded-circle me-3" width="50" height="50" />
             <div>
               <h6 class="mb-0">{{ t.name }}</h6>
               <small class="text-primary">{{ t.username }}</small>
             </div>
           </div>
+
+          <!-- عرض الردود -->
+          <div class="mt-3 pt-3 border-top" *ngIf="t.replies && t.replies.length > 0">
+            <h6 class="mb-2 text-muted">Replies:</h6>
+            <div *ngFor="let reply of t.replies" class="bg-light rounded p-2 mb-2">
+              <p class="mb-1">{{ reply.message_content }}</p>
+              <small class="text-muted">By: {{ reply.user_name || 'Agent' }}</small>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 </div>
 

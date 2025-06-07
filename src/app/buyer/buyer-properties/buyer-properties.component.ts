@@ -25,7 +25,7 @@ interface Property {
   price: number;
   date: string;
   views: number;
-  status: 'Bought' | 'Rented' | 'Currently Rented';
+  status: 'Bought' | 'Rented' | 'Currently Rented' | 'Pending Offer';
   image: string;
   address: string;
   city: string;
@@ -42,20 +42,16 @@ interface Property {
   amenities: Amenities;
   images: string[];
   endDate?: string;
+  buying_id: number;
+
 }
 
 @Component({
   selector: 'app-buyer-properties',
   templateUrl: './buyer-properties.component.html',
   styleUrls: ['./buyer-properties.component.css'],
-  standalone: true,
-  imports: [
-    NgIf,
-    NgForOf,
-    NgClass,
-    RouterLink,
-    FormsModule
-  ],
+  standalone: false,
+
 
 })
 export class BuyerPropertiesComponent implements OnInit {
@@ -91,22 +87,163 @@ export class BuyerPropertiesComponent implements OnInit {
     this.loadBuyerProperties();
   }
 
-  loadBuyerProperties(): void {
-    this.purchaseService.getAllPurchases().subscribe({
-      next: (response) => {
-        console.log('✅ API response:', response);
-        // تأكد إن البيانات موجودة في response.purchases أو حسب هيكلية API
-        this.allBuyerProperties = Array.isArray(response) ? response : response.purchases || [];
-      },
-      error: (err) => {
-        console.error('❌ Failed to fetch purchases:', err);
-      }
-    });
-  }
+loadBuyerProperties(): void {
+  this.purchaseService.getMyNegotiations().subscribe({
+    next: (response) => {
+      console.log('✅ API response:', response);
 
-  get currentProperties(): Property[] {
-    return this.allBuyerProperties.filter(p => p.status === 'Currently Rented');
-  }
+      const offers = response.my_sent_offers || [];
+
+     this.allBuyerProperties = offers.map((offer: any) => {
+  const property = offer.property || {};
+  const offerStatus = offer.status;
+
+  let mappedStatus: Property['status'] = 'Pending Offer';
+  if (offerStatus === 'accepted') mappedStatus = 'Currently Rented';
+  else if (offerStatus === 'rejected') mappedStatus = 'Rented';
+
+  return {
+    id: property.id,
+    buying_id: offer.id,  // ⭐ أضف هذا السطر
+    title: property.title || 'Untitled Property',
+    address: property.address || '',
+    city: property.city || '',
+    location: `${property.address || ''}, ${property.city || ''}`,
+    price: parseFloat(offer.proposed_price) || parseFloat(property.price) || 0,
+    date: offer.created_at || '',
+    status: mappedStatus,
+    views: 0,
+    image: 'assets/placeholder.jpg',
+    propertyType: property.property_type_id || 'N/A',
+    listingType: property.listing_type || 'For Sale',
+    livingArea: property.livingArea || 0,
+    bedrooms: property.bedroom || 0,
+    bathrooms: property.bathroom || 0,
+    parking: property.parking || 0,
+    constructionSize: property.constructionArea || 0,
+    landSize: property.landArea || 0,
+    shortDescription: property.shortDescreption || '',
+    longDescription: property.longDescreption || '',
+    amenities: {
+      garden: false,
+      securityCameras: false,
+      laundry: false,
+      internet: false,
+      pool: false,
+      videoSurveillance: false,
+      laundryRoom: false,
+      jacuzzi: false
+    },
+    images: [],
+  };
+});
+    },
+
+    error: (err) => {
+      console.error('❌ Failed to fetch offers:', err);
+    }
+  });
+}
+
+
+
+openReviewForm(property: Property): void {
+  Swal.fire({
+    title: '<div style="display:flex;align-items:center;gap:8px;"><i class="bi bi-stars" style="color:#f59e0b;font-size:1.5rem;"></i> <span style="font-size:1.4rem;font-weight:600;color:#333;">Leave Your Review</span></div>',
+    html: `
+      <style>
+        .star-rating i {
+          font-size: 2rem;
+          color: #ccc;
+          transition: color 0.3s ease;
+          cursor: pointer;
+        }
+        .star-rating i.active {
+          color: #facc15;
+        }
+        .swal2-input, .swal2-textarea {
+          border-radius: 12px;
+          padding: 10px;
+          font-family: 'Segoe UI';
+        }
+      </style>
+
+      <input id="swal-title" class="swal2-input" placeholder="e.g. Amazing experience!">
+      <textarea id="swal-content" class="swal2-textarea" placeholder="Write your feedback..." rows="4"></textarea>
+
+      <label style="display:block;font-weight:600;margin:10px 0 6px;">Your Rating:</label>
+      <div id="swal-stars" class="star-rating">
+        ${[1,2,3,4,5].map(i => `<i class="bi bi-star-fill" data-value="${i}"></i>`).join('')}
+      </div>
+      <input type="hidden" id="swal-rating" value="0">
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Submit',
+    cancelButtonText: 'Cancel',
+    customClass: {
+      popup: 'rounded-5 shadow-lg border-0',
+      confirmButton: 'btn btn-warning px-5 rounded-pill fw-bold',
+      cancelButton: 'btn btn-secondary px-4 rounded-pill'
+    },
+    didOpen: () => {
+      const stars = document.querySelectorAll('#swal-stars i');
+      stars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+          const val = parseInt(star.getAttribute('data-value')!);
+          stars.forEach((s, i) => {
+            s.classList.toggle('active', i < val);
+          });
+        });
+
+        star.addEventListener('click', () => {
+          const val = parseInt(star.getAttribute('data-value')!);
+          (document.getElementById('swal-rating') as HTMLInputElement).value = val.toString();
+          stars.forEach((s, i) => {
+            s.classList.toggle('active', i < val);
+          });
+        });
+      });
+    },
+    preConfirm: () => {
+      const title = (document.getElementById('swal-title') as HTMLInputElement).value.trim();
+      const content = (document.getElementById('swal-content') as HTMLTextAreaElement).value.trim();
+      const rating = parseInt((document.getElementById('swal-rating') as HTMLInputElement).value, 10);
+
+      if (!title || !content || rating < 1 || rating > 5) {
+        Swal.showValidationMessage('Please enter a title, comment, and select a rating.');
+        return;
+      }
+
+      return { title, content, rating };
+    }
+  }).then((result) => {
+    if (result.isConfirmed && result.value) {
+      const reviewData = {
+        title: result.value.title,
+        content: result.value.content,
+        rating: result.value.rating,
+        buying_id: property.buying_id
+
+      };
+
+      this.purchaseService.submitReview(reviewData).subscribe({
+        next: () => Swal.fire('✅ Done!', 'Thanks for your review.', 'success'),
+        error: () => Swal.fire('❌ Failed', 'Something went wrong.', 'error')
+      });
+    }
+  });
+}
+
+
+
+
+
+
+
+ get currentProperties(): Property[] {
+  return this.allBuyerProperties.filter(p => p.status === 'Currently Rented');
+}
+
 
   get filteredCurrentProperties(): Property[] {
     return this.currentProperties.filter(property => {
@@ -128,8 +265,10 @@ export class BuyerPropertiesComponent implements OnInit {
   }
 
   get previousProperties(): Property[] {
-    return this.allBuyerProperties.filter(p => p.status === 'Bought' || p.status === 'Rented');
-  }
+  return this.allBuyerProperties.filter(p => p.status === 'Pending Offer');
+}
+
+
 
   get filteredPreviousProperties(): Property[] {
     return this.previousProperties.filter(property => {

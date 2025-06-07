@@ -17,25 +17,58 @@ export class PropertyGridComponent implements OnInit {
   private favoriteService: FavoriteService
 ) {}
 
+currentPage: number = 1;
+itemsPerPage: number = 6; // عدد البطاقات في كل صفحة
+
+get totalPages(): number {
+  return Math.ceil(this.properties.length / this.itemsPerPage);
+}
+
+get paginatedProperties() {
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  const end = start + this.itemsPerPage;
+  return this.properties.slice(start, end);
+}
+
+
+
+  goToPreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
 
   ngOnInit(): void {
     this.loadAllProperties();
   }
 
   onFiltersChanged(filters: any): void {
-    this.filters = filters;
+  this.filters = filters;
+  this.currentPage = 1;
 
-    const hasFilters = Object.keys(this.filters || {}).length > 0;
+  const hasFilters = Object.keys(this.filters || {}).length > 0;
 
-    const request = hasFilters
-      ? this.propertyService.searchProperties(this.filters)
-      : this.propertyService.getAllProperties();
+  const request = hasFilters
+    ? this.propertyService.searchProperties(this.filters)
+    : this.propertyService.getAllProperties();
 
-    request.subscribe(
-      res => this.handleResponse(res),
-      err => console.error('Error loading properties:', err)
-    );
-  }
+  request.subscribe(
+    res => this.handleResponse(res),
+    err => console.error('Error loading properties:', err)
+  );
+}
+
 
   loadAllProperties(): void {
     this.propertyService.getAllProperties().subscribe(
@@ -74,15 +107,23 @@ export class PropertyGridComponent implements OnInit {
       next: () => {
         property.isFavorited = true;
         console.log('Favorite added:', property);
-
       },
       error: (err) => {
         console.error(' Error adding favorite:', err);
       }
     });
   } else {
-    console.log('removeFavorite)');
+    this.favoriteService.deleteFavorite(property.id).subscribe({
+      next: () => {
+        property.isFavorited = false;
+        console.log('Favorite removed:', property);
+      },
+      error: (err) => {
+        console.error('Error removing favorite:', err);
+      }
+    });
   }
 }
+
 
 }

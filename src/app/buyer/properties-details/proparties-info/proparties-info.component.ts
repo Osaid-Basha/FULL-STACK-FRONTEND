@@ -43,7 +43,7 @@ export class PropartiesInfoComponent implements OnChanges {
     email: '',
     message: ''
   };
-
+reviews: any[] = [];
   constructor(private agentService: AgentService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,7 +68,17 @@ export class PropartiesInfoComponent implements OnChanges {
       email: this.property?.user?.email
     };
 
-    this.testimonials = this.property?.testimonials || [];
+   this.testimonials = (this.property?.reviews || []).map((review: any) => ({
+  title: review.title,
+  content: review.content,
+  rating: review.rating,
+  image: review?.user?.profile?.imag_path
+    ? `http://localhost:8000/${review.user.profile.imag_path}`
+    : 'assets/img/default-user.png',
+  name: `${review.user?.first_name || ''} ${review.user?.last_name || ''}`,
+  username: review.user?.email || 'N/A'
+}));
+
 
     const iconMap: { [key: string]: string } = {
       'Swimming Pool': 'fa-solid fa-person-swimming',

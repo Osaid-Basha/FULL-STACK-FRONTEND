@@ -31,6 +31,11 @@ h2{
   width: 100%;
   max-width: 1000px;
 }
+/* reviews-agent.component.css */
+button.btn.btn-sm {
+  min-width: 36px;
+  padding: 4px 10px;
+}
 
 
 @media (max-width: 768px) {

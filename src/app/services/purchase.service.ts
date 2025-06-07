@@ -24,12 +24,23 @@ export class PurchaseService {
 
 
 
-  getAllPurchases(): Observable<any> {
-    return this.http.get(`${this.baseUrl}buyer/purchases`, {
+
+  getMyNegotiations(): Observable<any> {
+    return this.http.get(`${this.baseUrl}buyer/negotiations/purchases`, {
       headers: this.getHeaders()
     });
   }
 
+submitReview(data: {
+  title: string;
+  content: string;
+  rating: number;
+  buying_id: number;
+}): Observable<any> {
+  return this.http.post(`${this.baseUrl}buyer/reviews`, data, {
+    headers: this.getHeaders()
+  });
+}
 
   searchPurchases(keyword: string): Observable<any> {
     return this.http.get(`${this.baseUrl}buyer/purchases/${keyword}`, {
