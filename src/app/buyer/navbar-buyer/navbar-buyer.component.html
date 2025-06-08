@@ -121,8 +121,9 @@
           <div class="dropdown">
             <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="assets/371225.jpg" alt="Profile" class="rounded-circle me-2 border" width="36" height="36" style="object-fit: cover;">
-              <span class="fw-semibold text-dark d-none d-sm-inline-block">Osaid</span>
+              <img [src]="userProfile?.image || defaultImage" alt="Profile"
+                   class="rounded-circle me-2 border" width="36" height="36" style="object-fit: cover;">
+              <span class="fw-semibold text-dark d-none d-sm-inline-block">{{ userProfile?.name || 'User' }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2 shadow-sm border-0">
               <li><a class="dropdown-item" routerLink="/buyerHome/maseege-buyer"><i class="fa-regular fa-envelope me-2"></i> Message</a></li>

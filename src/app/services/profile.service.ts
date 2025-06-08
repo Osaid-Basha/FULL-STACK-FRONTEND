@@ -13,10 +13,14 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-    token = localStorage.getItem('token');
+  private getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   private getHeaders(json = true): HttpHeaders {
+    const token = this.getToken();
     const headersConfig: any = {
-      'Authorization': 'Bearer ' + this.token,
+      'Authorization': `Bearer ${token}`,
       'Accept': 'application/json'
     };
     if (json) {
@@ -25,23 +29,21 @@ export class ProfileService {
     return new HttpHeaders(headersConfig);
   }
 
-
   getProfile(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${this.baseUrl}/profile`, { headers });
   }
-
 
   updateProfile(data: any): Observable<any> {
     const headers = this.getHeaders(true);
     return this.http.post(`${this.baseUrl}/profile/update`, data, { headers });
   }
 
-
   removeProfilePicture(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete(`${this.baseUrl}/profile/remove-picture`, { headers });
   }
+
   updateProfilePicture(data: FormData): Observable<any> {
     const headers = this.getHeaders(false);
     return this.http.post(`${this.baseUrl}/profile/update-picture`, data, { headers });

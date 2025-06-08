@@ -1,7 +1,9 @@
 
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
+import Swal from 'sweetalert2';
 
 interface User {
   first_name?: string;
@@ -46,10 +48,24 @@ export class ProfailBuyerComponent implements OnInit {
   profileData!: ProfileData;
   profileImage: string | null = null;
   selectedImage: File | null = null;
-
-  constructor(private profileService: ProfileService) {}
+  profileForm!: FormGroup;
+  constructor(private profileService: ProfileService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      first_name: [''],
+      last_name: [''],
+      email: ['', [Validators.email]],
+      phone: [''],
+
+      location: [''],
+      current_position: [''],
+      facebook_url: [''],
+      twitter_url: [''],
+      linkedin_url: [''],
+      instagram_url: [''],
+    });
+
     this.loadProfile();
   }
 
@@ -58,6 +74,22 @@ export class ProfailBuyerComponent implements OnInit {
       next: (data) => {
         this.profileData = data;
         this.profileImage = data.imag_url;
+
+        const user = data.user;
+        const profile = data.profile;
+
+        this.profileForm.patchValue({
+          first_name: user.first_name || '',
+          last_name: user.last_name || '',
+          email: user.email || '',
+          phone: profile.phone || '',
+          location: profile.location || '',
+          current_position: profile.current_position || '',
+          facebook_url: profile.facebook_url || '',
+          twitter_url: profile.twitter_url || '',
+          linkedin_url: profile.linkedin_url || '',
+          instagram_url: profile.instagram_url || '',
+        });
       },
       error: (err) => {
         console.error('Failed to load data:', err);
@@ -95,7 +127,7 @@ export class ProfailBuyerComponent implements OnInit {
       formData.append('image', file);
 
       this.profileService.updateProfilePicture(formData).subscribe({
-        next: (res) => {
+        next: () => {
           this.loadProfile();
         },
         error: (err) => {
@@ -112,7 +144,7 @@ export class ProfailBuyerComponent implements OnInit {
     formData.append('image', this.selectedImage);
 
     this.profileService.updateProfilePicture(formData).subscribe({
-      next: (res) => {
+      next: () => {
         this.loadProfile();
         this.selectedImage = null;
       },
@@ -125,5 +157,29 @@ export class ProfailBuyerComponent implements OnInit {
 
   triggerImageInput(): void {
     this.imageInputRef.nativeElement.click();
+  }
+  saveChanges(): void {
+    if (this.profileForm.valid) {
+      const payload = this.profileForm.value;
+
+      this.profileService.updateProfile(payload).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Profile Updated',
+            text: 'Your profile has been updated successfully!',
+          });
+          this.loadProfile();
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'There was a problem updating your profile.',
+          });
+          console.error('Failed to update profile:', err);
+        }
+      });
+    }
   }
 }

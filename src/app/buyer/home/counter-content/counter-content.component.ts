@@ -2,75 +2,78 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  ViewChildren,
   QueryList,
-  ViewChildren
+  OnInit
 } from '@angular/core';
+import {BuyerStatisticsService} from '../../../services/buyer-statistics.service';
 
 @Component({
-  standalone:false,
   selector: 'app-counter-content',
   templateUrl: './counter-content.component.html',
-  styleUrls: ['./counter-content.component.css']
+  styleUrls: ['./counter-content.component.css'],
+  standalone: false
 })
-export class CounterContentComponent implements AfterViewInit {
+export class CounterContentComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('counter') counters!: QueryList<ElementRef>;
 
-
-  @Input() propertiesListed: number = 3000;
-  @Input() satisfiedClients: number = 2500;
-  @Input() totalSales: number = 6.8;
-  @Input() totalAgents: number = 593;
+  propertiesListed: number = 0;
+  totalAgents: number = 0;
+  totalCities: number = 0;
 
 
-  values: (number | string)[] = [];
+  private values: number[] = [];
 
-  ngAfterViewInit(): void {
+  constructor(private statsService: BuyerStatisticsService) {}
+
+  ngOnInit(): void {
+    this.statsService.getGeneralStats().subscribe({
+      next: (data) => {
+        this.propertiesListed = Number(data.total_properties);
+        this.totalAgents = Number(data.total_agents);
+        this.totalCities = Number(data.total_cities);
+
+
+
+        this.values = [
+          this.propertiesListed,
+          this.totalAgents,
+          this.totalCities,
+        ];
+        console.log('General Stats:', data);
+
+
+        setTimeout(() => this.animateCounters(), 0);
+      },
+      error: (err) => {
+        console.error('Failed to fetch stats:', err);
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {}
+
+  animateCounters(): void {
     const duration = 2000;
     const steps = 60;
     const stepTime = duration / steps;
 
-   
-    this.values = [
-      this.propertiesListed,
-      this.satisfiedClients,
-      `$ ${this.totalSales}B`,
-      this.totalAgents
-    ];
-
     this.counters.forEach((counterRef: ElementRef, index: number) => {
       const el = counterRef.nativeElement as HTMLElement;
-      const value = this.values[index];
-
-      let target: number;
-      let isCurrency = false;
-      let isBillion = false;
-
-      if (typeof value === 'string') {
-        const clean = value.replace(/[^\d.]/g, '');
-        target = parseFloat(clean);
-        isCurrency = value.includes('$');
-        isBillion = value.includes('B');
-      } else {
-        target = value;
-      }
+      const target = this.values[index];
 
       let start = 0;
-      const stepValue = target / steps;
+      const step = target / steps;
 
       const interval = setInterval(() => {
-        start += stepValue;
+        start += step;
 
         if (start >= target) {
-          el.innerText = isCurrency
-            ? `$ ${target}${isBillion ? 'B' : ''}`
-            : `${target}`;
+          el.innerText = Math.floor(target).toLocaleString();
           clearInterval(interval);
         } else {
-          el.innerText = isCurrency
-            ? `$ ${Math.floor(start)}${isBillion ? 'B' : ''}`
-            : `${Math.floor(start)}`;
+          el.innerText = Math.floor(start).toLocaleString();
         }
       }, stepTime);
     });

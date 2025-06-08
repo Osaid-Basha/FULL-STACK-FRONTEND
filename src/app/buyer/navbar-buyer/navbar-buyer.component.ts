@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import {ProfileService} from '../../services/profile.service';
 
 @Component({
   selector: 'app-navbar-buyer',
@@ -13,10 +14,13 @@ import Swal from 'sweetalert2';
 export class NavbarBuyerComponent implements OnInit {
   isScrolled = false;
   showLogo = false;
+  userProfile: any = null;
+  defaultImage: string = 'assets/default-avatar.jpg';
 
   constructor(
     private router: Router,
     private authService: AuthService,
+    private profileService: ProfileService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -26,6 +30,17 @@ export class NavbarBuyerComponent implements OnInit {
       this.isScrolled = scrollY > 0;
       this.showLogo = scrollY >= 81;
     }
+    this.profileService.getProfile().subscribe({
+      next: (data) => {
+        this.userProfile = {
+          name: `${data.user.first_name} ${data.user.last_name}`,
+          image: data.imag_url
+        };
+      },
+      error: (err) => {
+        console.error('Failed to load profile:', err);
+      }
+    });
   }
 
   logout(): void {

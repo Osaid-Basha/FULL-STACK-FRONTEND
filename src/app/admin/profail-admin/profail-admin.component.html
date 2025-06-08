@@ -10,87 +10,124 @@
     <div class="col-12 col-md-8">
       <div class="card p-4">
         <h4>Contact Information</h4>
-        <form>
+        <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
           <!-- First Name and Last Name -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label for="firstName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> First Name</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="firstName" [value]="user.first_name" readonly>
+              <label for="firstName" class="form-label">
+                <i class="bi bi-person-fill fw-bold"></i> First Name
+              </label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="firstName" formControlName="first_name">
             </div>
             <div class="col">
-              <label for="lastName" class="form-label"><i class="bi bi-person-fill fw-bold"></i> Last Name</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="lastName" [value]="user.last_name" readonly>
+              <label for="lastName" class="form-label">
+                <i class="bi bi-person-fill fw-bold"></i> Last Name
+              </label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="lastName" formControlName="last_name">
             </div>
           </div>
 
           <!-- Email and Phone -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label for="email" class="form-label"><i class="bi bi-envelope fw-bold"></i> Email</label>
-              <input type="email" class="form-control bg-secondary-subtle fw-bold" id="email" [value]="user.email" readonly>
+              <label for="email" class="form-label">
+                <i class="bi bi-envelope fw-bold"></i> Email
+              </label>
+              <input type="email" class="form-control bg-secondary-subtle fw-bold" id="email" formControlName="email">
             </div>
             <div class="col">
-              <label for="phone" class="form-label"><i class="bi bi-telephone-inbound fw-bold"></i> Phone</label>
-              <input type="tel" class="form-control bg-secondary-subtle fw-bold" id="phone" [value]="profile.phone" readonly>
+              <label for="phone" class="form-label">
+                <i class="bi bi-telephone-inbound fw-bold"></i> Phone
+              </label>
+              <input type="tel" class="form-control bg-secondary-subtle fw-bold" id="phone" formControlName="phone">
             </div>
           </div>
 
           <!-- Location and Position -->
           <div class="row gy-3 mb-3">
             <div class="col">
-              <label for="location" class="form-label"><i class="bi bi-geo-alt fw-bold"></i> Location</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="location" [value]="profile.location" readonly>
+              <label for="location" class="form-label">
+                <i class="bi bi-geo-alt fw-bold"></i> Location
+              </label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="location" formControlName="location">
             </div>
             <div class="col">
-              <label for="position" class="form-label"><i class="bi bi-person-vcard fw-bold"></i> Current Position</label>
-              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="position" [value]="profile.current_position" readonly>
+              <label for="position" class="form-label">
+                <i class="bi bi-person-vcard fw-bold"></i> Current Position
+              </label>
+              <input type="text" class="form-control bg-secondary-subtle fw-bold" id="position" formControlName="current_position">
             </div>
           </div>
 
-          <!-- Social Media Section -->
           <h4>Social Media</h4>
           <div class="row gy-3 mb-3">
             <div class="col">
               <label for="facebookUrl" class="form-label">Facebook Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="facebookUrl" [value]="profile.facebook_url" readonly>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="facebookUrl" formControlName="facebook_url">
             </div>
             <div class="col">
               <label for="twitterUrl" class="form-label">X - Twitter Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="twitterUrl" [value]="profile.twitter_url" readonly>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="twitterUrl" formControlName="twitter_url">
             </div>
           </div>
           <div class="row gy-3 mb-3">
             <div class="col">
               <label for="linkedinUrl" class="form-label">LinkedIn Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="linkedinUrl" [value]="profile.linkedin_url" readonly>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="linkedinUrl" formControlName="linkedin_url">
             </div>
             <div class="col">
               <label for="instagramUrl" class="form-label">Instagram Url</label>
-              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="instagramUrl" [value]="profile.instagram_url" readonly>
+              <input type="url" class="form-control bg-secondary-subtle fw-bold" id="instagramUrl" formControlName="instagram_url">
             </div>
           </div>
+
+
+
+          <!-- Save button -->
+          <button type="submit" class="btn btn-success mt-3">Save Changes</button>
         </form>
       </div>
     </div>
+
+
 
     <!-- Right Column: Profile Photo -->
     <div class="col-12 col-md-4">
       <div class="card p-4">
         <div class="photo_animation" [@fadeIn]>
-          <img *ngIf="profileImage" [src]="profileImage" alt="Profile Image" class="profile-image img-fluid mb-3 rounded">
-          <p *ngIf="!profileImage" class="text-center text-muted">No image available</p>
+          <img *ngIf="profileImage; else noImage" [src]="profileImage" alt="Profile Image"
+               class="profile-image img-fluid mb-3 rounded">
+          <ng-template #noImage>
+            <p class="text-center text-muted">No image available</p>
+          </ng-template>
         </div>
+
+        <!-- Hidden file input -->
+        <input type="file" #imageInput hidden (change)="onImageSelected($event)">
+
         <div class="d-flex justify-content-between mt-3">
-          <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;">
+          <button type="button" class="btn btn-outline-primary mb-2" style="width: 45%;" (click)="triggerImageInput()">
             <i class="bi bi-image"></i> Change
           </button>
           <button type="button" class="btn btn-outline-danger mb-2" style="width: 45%;" (click)="removeImage()">
             <i class="bi bi-trash3"></i> Remove
           </button>
         </div>
+
+
+        <div *ngIf="selectedImage" class="d-grid mt-2">
+          <button class="btn btn-success" (click)="updateImage()">
+            <i class="bi bi-upload"></i> Update
+          </button>
+        </div>
+
         <div class="text-center">
-          <h5 class="fw-bold mt-3 mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
-          <p class="text-muted mb-1">{{ profile.current_position }}</p>
+          <h5 class="fw-bold mt-3 mb-1">
+            {{ profileForm.get('first_name')?.value }} {{ profileForm.get('last_name')?.value }}
+          </h5>
+          <p class="text-muted mb-1">
+            {{ profileForm.get('current_position')?.value }}
+          </p>
           <small class="text-primary">This is your profile overview</small>
         </div>
       </div>
