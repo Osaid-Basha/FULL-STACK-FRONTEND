@@ -114,7 +114,7 @@ export class MypropertiesAgentComponent implements OnInit {
           views: Math.floor(Math.random() * 1000), // Placeholder: Use actual views from backend if available
           status: this.listingTypeMap[prop.property_listing_id],
           // Ensure image path is correct, assuming 'property_images' is the folder name in public storage
-          image: prop.images && prop.images.length > 0 ? `http://127.0.0.1:8081/storage/${prop.images[0].imageUrl}` : 'assets/placeholder.jpg', // Use first image or a local default
+          image: prop.images && prop.images.length > 0 ? `http://127.0.0.1:8000/storage/${prop.images[0].imageUrl}` : 'assets/placeholder.jpg', // Use first image or a local default
           propertyType: this.propertyTypeMap[prop.property_type_id],
           listingType: this.listingTypeMap[prop.property_listing_id],
           constructionSize: prop.constructionArea,
@@ -215,7 +215,7 @@ export class MypropertiesAgentComponent implements OnInit {
     if (this.selectedProperty && this.selectedProperty.images) { // <--- Added null check here
       this.selectedProperty.images = this.selectedProperty.images.map(img => ({
         ...img,
-        imageUrl: `http://127.0.0.1:8081/storage/${img.imageUrl}`
+        imageUrl: `http://127.0.0.1:8000/storage/${img.imageUrl}`
       }));
     }
     // Reset newImages array
@@ -308,7 +308,7 @@ export class MypropertiesAgentComponent implements OnInit {
           ...data,
           location: `${data.address}, ${data.city}`,
           status: this.listingTypeMap[data.property_listing_id],
-          image: data.images && data.images.length > 0 ? `http://127.0.0.1:8081/storage/${data.images[0].imageUrl}` : 'assets/placeholder.jpg',
+          image: data.images && data.images.length > 0 ? `http://127.0.0.1:8000/storage/${data.images[0].imageUrl}` : 'assets/placeholder.jpg',
           propertyType: this.propertyTypeMap[data.property_type_id],
           listingType: this.listingTypeMap[data.property_listing_id],
           constructionSize: data.constructionArea,
@@ -322,7 +322,7 @@ export class MypropertiesAgentComponent implements OnInit {
         if (this.viewedProperty && this.viewedProperty.images) { // <--- Added null check here
           this.viewedProperty.images = this.viewedProperty.images.map(img => ({
             ...img,
-            imageUrl: `http://127.0.0.1:8081/storage/${img.imageUrl}`
+            imageUrl: `http://127.0.0.1:8000/storage/${img.imageUrl}`
           }));
         }
       },
