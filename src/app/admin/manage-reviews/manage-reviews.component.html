@@ -1,52 +1,51 @@
-<h2 data-aos="fade-right">Manage reviews & Rating</h2>
-<div class="row g-4 mb-4" data-aos="fade-up">
-  <div class="col-md-6 col-lg-3" *ngFor="let stat of stats; let i = index" data-aos="zoom-in">
-    <div class="card shadow-sm text-center p-3 rounded-4 border-3" [ngStyle]="{'background-color': cardColors[i], 'border-color': cardBorder[i]}">
-      <i class="bi bi-bar-chart-fill display-6 text-primary mb-2"></i>
-      <h6 class="text-bold mb-1">{{ stat.label }}</h6>
-      <h4 class="fw-bold text-dark">{{ stat.value }}</h4>
-    </div>
+<h2 class="mb-4 text-center fw-bold text-primary" data-aos="fade-right">
+  Manage Reviews & Ratings
+</h2>
+
+
+<div class="col-md-6">
+  <div class="input-group">
+    <span class="input-group-text bg-white border-end-0">
+      <i class="bi bi-search text-muted"></i>
+    </span>
+    <input type="text" [(ngModel)]="search" (input)="filterReviews()" class="form-control border-start-0" placeholder="Search by name, email, date or comment" />
   </div>
 </div>
 
-<br>
-
-<div class="row align-items-center mb-2" >
-
-  <div class="col-md-6">
-    <input type="text" [(ngModel)]="search" (input)="filterReviews()" class="form-control" placeholder="Search by name, email, or date or comment" />
-  </div>
-</div>
 <br>
 
 <div class="container4">
   <div class="row g-4">
     <div class="col-md-6 col-lg-4" *ngFor="let review of paginateReviews(); let i = index">
-      <div class="card shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between">
-        <div class="d-flex flex-wrap align-items-start p-3 pb-0">
-          <img [src]="'assets/img/profile3.png'" class="rounded-circle border me-3" width="48" height="48" alt="Userphoto" />
-          <div class="card-body p-0">
-            <b>{{ review.user.first_name }} {{ review.user.last_name }}</b>
-            <a href="#" class="text-muted d-block mb-1" style="font-size: 12px;">{{ review.user.email }}</a>
+     <div class="card shadow-sm rounded-4 h-100 p-3 d-flex flex-column justify-content-between transition" style="transition: 0.3s; border: 1px solid #eee;">
 
-            <!-- Rating Stars -->
-            <div class="rating mb-2">
-              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                <i class="bi" [ngClass]="star <= review.rating ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
-              </ng-container>
-            </div>
+  <div class="d-flex align-items-start mb-3">
+    <img [src]="'assets/img/profile3.png'" class="rounded-circle border me-3" width="50" height="50" alt="User photo" />
+    <div>
+      <h6 class="mb-0">{{ review.user.first_name }} {{ review.user.last_name }}</h6>
+      <small class="text-muted">{{ review.user.email }}</small>
+    </div>
+  </div>
 
-            <p class="text-end text-muted" style="font-size: 10px;">{{ review.created_at | date:'mediumDate' }}</p>
-            <div style="font-weight: 600">{{ review.title }}</div>
-            <div style="font-size: 14px;">{{ review.content }}</div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center px-3 pb-3 mt-2">
-          <button class="btn btn-outline-danger" (click)="deletecardreview(review)" style="margin-left: auto">
-            <i class="bi bi-trash-fill me-1"></i> Delete
-          </button>
-        </div>
-      </div>
+  <div class="mb-2">
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+      <i class="bi" [ngClass]="star <= review.rating ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+    </ng-container>
+  </div>
+
+  <div class="mb-2">
+    <div class="fw-semibold">{{ review.title }}</div>
+    <div class="text-muted small">{{ review.content }}</div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+    <small class="text-muted">{{ review.created_at | date:'mediumDate' }}</small>
+    <button class="btn btn-sm btn-outline-danger" (click)="deletecardreview(review)">
+      <i class="bi bi-trash-fill me-1"></i> Delete
+    </button>
+  </div>
+</div>
+
     </div>
   </div>
 </div>
@@ -58,7 +57,12 @@
     <li class="page-item"><button class="page-link" (click)="changePage(1)">1</button></li>
     <li class="page-item"><button class="page-link" (click)="changePage(2)">2</button></li>
     <li class="page-item"><button class="page-link" (click)="changePage(3)">3</button></li>
-    <li class="page-item"><button class="page-link" (click)="changePage(4)">Next</button></li>
+   <li class="page-item">
+  <button class="page-link" (click)="changePage(4)">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+</li>
+
   </ul>
 </nav>
 

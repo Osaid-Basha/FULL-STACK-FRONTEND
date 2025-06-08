@@ -17,7 +17,35 @@ export class TowFactorComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('emailFor2FA') || '';
+    setTimeout(() => {
+  const inputs = document.querySelectorAll('input[name^="digit"]');
+  inputs.forEach((input: any, index: number) => {
+    input.addEventListener('paste', (event: ClipboardEvent) => {
+      const pastedText = event.clipboardData?.getData('text') || '';
+      if (pastedText.length === 4) {
+        this.code = pastedText.split('');
+        setTimeout(() => (inputs[3] as HTMLInputElement).focus(), 50);
+      }
+      event.preventDefault();
+    });
+  });
+}, 100);
+
   }
+autoFocusNext(event: any, index: number): void {
+  const input = event.target as HTMLInputElement;
+
+
+  if (input.value && input.nextElementSibling) {
+    (input.nextElementSibling as HTMLInputElement).focus();
+  }
+
+ 
+  if (!input.value && event.inputType === 'deleteContentBackward' && input.previousElementSibling) {
+    (input.previousElementSibling as HTMLInputElement).focus();
+  }
+}
+
 
   verifyCode(): void {
   const fullCode = this.code.join('');

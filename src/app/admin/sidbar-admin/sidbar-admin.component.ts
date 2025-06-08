@@ -13,6 +13,11 @@ export class SidbarAdminComponent {
   isListingOpen = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+isSidebarVisible = false;
+
+toggleSidebar() {
+  this.isSidebarVisible = !this.isSidebarVisible;
+}
 
   logout(): void {
     const token = localStorage.getItem('token');

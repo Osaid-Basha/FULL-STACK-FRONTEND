@@ -1,9 +1,9 @@
 <div class="container-fluid py-4 animate-in">
   <!-- Page Header -->
-  <h2 class="fw-bold text-dark mb-5">📊 Admin Dashboard</h2>
+  <h2 class="fw-bold text-dark mb-4 text-center text-md-start">📊 Admin Dashboard</h2>
 
-  <!-- Stats Cards -->
-  <div class="row row-cols-2 row-cols-md-4 g-4 mb-5">
+  <!-- ✅ Stats Cards -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mb-5">
     <div class="col" *ngFor="let stat of stats">
       <div class="card border-0 shadow-sm text-center p-4 rounded-4 bg-light h-100">
         <i class="bi bi-bar-chart-fill display-5 text-primary mb-3"></i>
@@ -12,27 +12,25 @@
       </div>
     </div>
   </div>
-  <div class="card text-white border-0 p-4 mb-4" style="background-color: #fd5f00;">
-    <div class="d-flex justify-content-between align-items-center">
-      <div>
-        <h4 class="fw-bold">Total Properties</h4>
 
-      </div>
-     <h1 class="fw-bold">{{ totalProperties }}</h1>
+  <!-- ✅ Total Properties Card -->
+  <div class="card text-white border-0 p-4 mb-4" style="background-color: #fd5f00;">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <h4 class="fw-bold mb-2 mb-md-0">Total Properties</h4>
+      <h1 class="fw-bold">{{ totalProperties }}</h1>
     </div>
-    <div class="progress mt-2" style="height: 6px;">
+    <div class="progress mt-3" style="height: 6px;">
       <div class="progress-bar bg-light" style="width: 85%"></div>
     </div>
   </div>
 
-
-  <!-- Charts Section -->
+  <!-- ✅ Charts Section -->
   <div class="row g-4 mb-5">
     <!-- Chart: Listings Over Time -->
-    <div class="col-lg-6">
+    <div class="col-12 col-lg-6">
       <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-        <div class="p-4 bg-light d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center gap-2">
+        <div class="p-4 bg-light d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
             <div class="bg-primary text-white rounded-circle p-2">
               <i class="bi bi-graph-up-arrow fs-5"></i>
             </div>
@@ -47,10 +45,10 @@
     </div>
 
     <!-- Chart: Top Rated Agents -->
-    <div class="col-lg-6">
+    <div class="col-12 col-lg-6">
       <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-        <div class="p-4 bg-light d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center gap-2">
+        <div class="p-4 bg-light d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
             <div class="bg-warning text-white rounded-circle p-2">
               <i class="bi bi-star-fill fs-5"></i>
             </div>
@@ -65,10 +63,10 @@
     </div>
   </div>
 
-
-  <div class="row mb-5">
-    <!-- Listings Overview Table -->
-    <div class="col-lg-7">
+  <!-- ✅ Listings Overview + Pending Users -->
+  <div class="row g-4 mb-5">
+    <!-- Listings Table -->
+    <div class="col-12 col-lg-7">
       <div class="card shadow-sm border-0 rounded-4 p-4 bg-white">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h5 class="fw-bold text-dark mb-0">
@@ -106,8 +104,8 @@
       </div>
     </div>
 
-    <!-- Pending Users Approval -->
-    <div class="col-lg-5">
+    <!-- Pending User Approvals -->
+    <div class="col-12 col-lg-5">
       <div class="card shadow-sm border-0 rounded-4 p-4 bg-white h-100">
         <h5 class="fw-bold text-dark mb-4">
           <i class="bi bi-person-check-fill text-primary me-2"></i> Pending User Approvals
@@ -124,7 +122,6 @@
             <button class="btn btn-sm btn-outline-success" (click)="approveUser(user)">
               <i class="bi bi-check-circle-fill"></i> Approve
             </button>
-
             <button class="btn btn-sm btn-outline-danger" (click)="rejectUser(user)">
               <i class="bi bi-x-circle-fill"></i> Reject
             </button>

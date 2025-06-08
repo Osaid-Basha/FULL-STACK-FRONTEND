@@ -30,7 +30,7 @@ export class ManageReviewsComponent implements OnInit {
     this.reviewService.getAllReviews().subscribe((res: any) => {
       this.reviews = res.reviews ?? [];
       this.filtered = [...this.reviews];
-      this.renderChart();
+      
     });
   }
 
@@ -119,14 +119,8 @@ export class ManageReviewsComponent implements OnInit {
     });
   }
 
-  cardColors = ['rgba(255, 159, 64,0.10)', 'rgba(75, 192, 192, 0.10)', 'rgba(255, 205, 86, 0.10)', 'rgba(255, 99, 132,0.10)'];
-  cardBorder = ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'];
 
-  stats = [
-    { label: 'Total Listings', value: 1230 },
-    { label: 'Website Visits', value: '8.2K' },
-    { label: 'Active Agents', value: 56 },
-    { label: 'Avg. Rating', value: '4.7/5' }
-  ];
+
+
 
 }

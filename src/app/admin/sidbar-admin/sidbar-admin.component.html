@@ -1,17 +1,24 @@
-<div class="d-flex flex-column vh-100 border-end bg-white overflow-auto"
-     style="width: 230px; font-family: 'Segoe UI', sans-serif;">
+<!-- زر إظهار القائمة (يظهر فقط على الشاشات الصغيرة) -->
+<button class="btn btn-outline-dark d-md-none m-2" (click)="toggleSidebar()">
+  <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- ✅ السايدبار -->
+<div class="sidebar d-flex flex-column border-end bg-white overflow-auto"
+     [ngClass]="{ 'show-sidebar': isSidebarVisible }"
+     style="font-family: 'Segoe UI', sans-serif;">
 
   <!-- ========= Menu Top ========= -->
   <ul class="nav flex-column mb-4 px-3 pt-4">
     <li class="nav-item">
       <a routerLink="/admin-dashboard/" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-solid fa-border-all me-2"></i> Dashboard
       </a>
     </li>
     <li class="nav-item">
       <a routerLink="/admin-dashboard/user-requests-admin" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-regular fa-envelope me-2"></i> User Requests
       </a>
     </li>
@@ -22,13 +29,13 @@
   <ul class="nav flex-column mb-4 px-3">
     <li>
       <a routerLink="/admin-dashboard/profail-admin" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-regular fa-user me-2"></i> Profile
       </a>
     </li>
     <li>
       <a routerLink="/admin-dashboard/account-admin" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-solid fa-gear me-2"></i> Account Settings
       </a>
     </li>
@@ -39,19 +46,19 @@
   <ul class="nav flex-column mb-4 px-3">
     <li>
       <a routerLink="/admin-dashboard/allproperties" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-regular fa-file-lines me-2"></i> ALL Properties
       </a>
     </li>
     <li>
       <a routerLink="/admin-dashboard/remove-admin" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-solid fa-trash me-2"></i> All Users
       </a>
     </li>
     <li>
       <a routerLink="/admin-dashboard/manage-reviews" routerLinkActive="active-menu"
-         class="nav-link link-item mb-2 d-flex align-items-center">
+         class="nav-link link-item mb-2 d-flex align-items-center"(click)="toggleSidebar()">
         <i class="fa-solid fa-star me-2"></i> Manage Reviews
       </a>
     </li>
@@ -61,7 +68,7 @@
   <div class="px-3">
     <a (click)="logout()"
        class="nav-link link-item mb-2 d-flex align-items-center text-dark mt-3"
-       style="cursor: pointer;">
+       style="cursor: pointer;"(click)="toggleSidebar()">
       <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
     </a>
   </div>
