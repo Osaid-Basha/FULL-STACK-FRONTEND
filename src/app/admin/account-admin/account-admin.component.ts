@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProfileService} from '../../services/profile.service';
+import Swal from 'sweetalert2';
 
 
 
@@ -61,8 +62,20 @@ export class AccountAdminComponent implements OnInit{
       };
 
       this.profileService.updateProfile(payload).subscribe({
-        next: () => alert('Profile updated successfully.'),
-        error: () => alert('Failed to update profile.')
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Profile Updated',
+            text: 'Your profile has been updated successfully.',
+          });
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'Something went wrong while updating your profile.',
+          });
+        }
       });
     }
   }
@@ -70,5 +83,4 @@ export class AccountAdminComponent implements OnInit{
   onCancel(): void {
     this.loadProfile();
   }
-
 }
