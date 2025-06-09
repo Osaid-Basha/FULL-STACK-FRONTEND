@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as AOS from 'aos';
 import { AgentService } from '../../../services/agent-buyer.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-agent-grid',
@@ -14,9 +15,14 @@ export class AgentGridComponent implements OnInit {
   searchTerm: string = '';
   noAgentMatches: boolean = false;
 
-  constructor(private agentService: AgentService) {}
+  constructor(
+    private agentService: AgentService,
+    private route: ActivatedRoute
+  ) {}
 
-  dummyAgents = [/* نفس الموجود */];
+  dummyAgents = [
+    // ممكن تضيف بيانات وهمية هنا للعرض عند فشل الاستدعاء
+  ];
 
   ngOnInit(): void {
     AOS.init({ duration: 800, once: false });
@@ -27,7 +33,6 @@ export class AgentGridComponent implements OnInit {
     this.agentService.getAllAgents().subscribe({
       next: (res: any[]) => {
         if (Array.isArray(res) && res.length > 0) {
-          // تعديل وتحضير بيانات العرض
           this.allAgents = res.map(agent => ({
             id: agent.id,
             name: `${agent.first_name} ${agent.last_name}`,
@@ -49,7 +54,7 @@ export class AgentGridComponent implements OnInit {
         this.agents = [...this.allAgents];
       },
       error: () => {
-        console.warn('❌ API خطأ، عرض dummy.');
+        console.warn('❌ فشل في جلب البيانات من API، عرض dummy.');
         this.allAgents = this.dummyAgents;
         this.agents = [...this.allAgents];
       }

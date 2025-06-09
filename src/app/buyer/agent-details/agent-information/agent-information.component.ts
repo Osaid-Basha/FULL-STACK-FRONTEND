@@ -1,4 +1,4 @@
-import { Component, AfterViewInit , Input } from '@angular/core';
+import { Component, AfterViewInit, Input, OnInit } from '@angular/core';
 import * as AOS from 'aos';
 
 @Component({
@@ -7,8 +7,8 @@ import * as AOS from 'aos';
   templateUrl: './agent-information.component.html',
   styleUrls: ['./agent-information.component.css']
 })
-export class AgentInformationComponent implements AfterViewInit {
-  @Input() agent : any;
+export class AgentInformationComponent implements OnInit, AfterViewInit {
+  @Input() agent: any;
 
   showFeedbackForm = false;
   hoverRating = 0;
@@ -22,56 +22,50 @@ export class AgentInformationComponent implements AfterViewInit {
     image: 'assets/img/avatar/01.jpg'
   };
 
-  testimonials = [
-    {
-      name: 'Naeem Khan',
-      username: 'naeemkhan',
-      image: 'assets/img/avatar/01.jpg',
-      title: '"magnis dis parturient montes"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
-    },
-    {
-      name: 'Asif Ikbal',
-      username: 'asifikbal',
-      image: 'assets/img/avatar/02.jpg',
-      title: '"aliquam ultrices sagittis orci a"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
-    },
-    {
-      name: 'Tuhin Sorker',
-      username: 'tuhinsorker',
-      image: 'assets/img/avatar/03.jpg',
-      title: '"sagittis id consectetur purus ut"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
-    },
-    {
-      name: 'Mubin Bhai',
-      username: 'mubinbhai',
-      image: 'assets/img/avatar/04.jpg',
-      title: '"dictumst vestibulum rhoncus est"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
-    },
-    {
-      name: 'Mehedi Hasan',
-      username: 'mirandaholmes',
-      image: 'assets/img/avatar/05.jpg',
-      title: '"ultrices mi tempus imperdiet nulla"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
-    },
-    {
-      name: 'Miranda Holmes',
-      username: 'mirandaholmes',
-      image: 'assets/img/avatar/06.jpg',
-      title: '"risus ultricies tristique nulla aliquet"',
-      content: 'Lorem ipsum dolor amet consectetur cillum adipiscing elit sed do eiusmod.',
-      rating: 4.8
+  testimonials: any[] = [];
+
+  ngOnInit(): void {
+    if (this.agent?.reviews?.length) {
+      this.testimonials = this.agent.reviews.map((review: any) => ({
+        name: review.user?.first_name + ' ' + review.user?.last_name || 'Anonymous',
+        username: review.user?.email?.split('@')[0] || 'user',
+        image: 'assets/img/avatar/01.jpg',
+        title: review.title,
+        content: review.content,
+        rating: review.rating
+      }));
     }
-  ];
+  }
+
+  get fullName(): string {
+    return `${this.agent?.first_name ?? ''} ${this.agent?.last_name ?? ''}`.trim();
+  }
+
+  get imagePath(): string {
+    return this.agent?.profile?.imag_path
+      ? `http://localhost:8000/storage/${this.agent.profile.imag_path}`
+      : 'assets/img/avatar/01.jpg';
+  }
+
+  get phone(): string {
+    return this.agent?.profile?.phone ?? 'N/A';
+  }
+
+  get location(): string {
+    return this.agent?.profile?.location ?? 'N/A';
+  }
+
+  get forRent(): number {
+    return this.agent?.property?.filter((p: any) => p.property_listing_id === 1).length || 0;
+  }
+
+  get forSell(): number {
+    return this.agent?.property?.filter((p: any) => p.property_listing_id === 2).length || 0;
+  }
+
+  get commercial(): number {
+    return this.agent?.property?.filter((p: any) => p.property_type_id === 3).length || 0;
+  }
 
   addFeedback() {
     const newFeedback = {
@@ -86,7 +80,6 @@ export class AgentInformationComponent implements AfterViewInit {
     this.testimonials.push(newFeedback);
     this.showFeedbackForm = false;
 
-    // Reset النموذج
     this.feedback = {
       rating: 0,
       title: '',
@@ -98,9 +91,6 @@ export class AgentInformationComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    AOS.init({
-      duration: 800,
-      once: false
-    });
+    AOS.init({ duration: 800, once: false });
   }
 }

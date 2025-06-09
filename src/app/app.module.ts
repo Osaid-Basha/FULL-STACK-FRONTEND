@@ -210,6 +210,7 @@ ManageReviewsComponent,
      NotificationAgentComponent,
     BuyerPropertiesComponent,
     AcceptedOffersComponent,
+AgentPropartyComponent
 
   ],
   imports: [

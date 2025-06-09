@@ -6,7 +6,7 @@ import { AgentService } from '../../services/agent-buyer.service';
   selector: 'app-agent-details',
   templateUrl: './agent-details.component.html',
   styleUrls: ['./agent-details.component.css'],
-  standalone:false
+  standalone: false
 })
 export class AgentDetailsComponent implements OnInit {
   agent: any = null;
@@ -25,11 +25,11 @@ export class AgentDetailsComponent implements OnInit {
   getAgentData(): void {
     this.agentService.getAgentById(this.id).subscribe({
       next: (res: any) => {
-        this.agent = res;
+        this.agent = res.agent ?? res; // دعم للهيكل المتداخل والسطحي
       },
       error: () => {
-        // console.warn(' فشل API، عرض من state');
-        this.agent = history.state.data;
+        console.warn('❌ فشل في جلب بيانات الوكيل من API');
+        this.agent = history.state.data ?? null;
       }
     });
   }

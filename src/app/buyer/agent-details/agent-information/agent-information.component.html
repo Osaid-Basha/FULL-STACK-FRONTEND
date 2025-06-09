@@ -1,259 +1,101 @@
 <div class="main-content">
   <div class="border-bottom py-3">
-      <div class="container">
-          <!-- Start Back To Search -->
-          <a href="agent-list.html" class="align-items-center d-flex fw-medium text-primary"><i class="fa-solid fa-chevron-left me-1"></i>Back To Agents</a>
-          <!-- /. End Back To Search -->
-      </div>
+    <div class="container">
+      <a routerLink="/agents" class="align-items-center d-flex fw-medium text-primary">
+        <i class="fa-solid fa-chevron-left me-1"></i>Back To Agents
+      </a>
+    </div>
   </div>
 
-
-  <!-- Start Agent Content 111111111 -->
   <div class="py-5">
     <div class="container py-4">
-      <!-- Start Agent Card -->
-      <div class=" card overflow-hidden bg-grey border-0 shadow mb-5" data-aos="zoom-in">
-        <a href="agent-details.html" class="card-link"></a>
+      <div class="card overflow-hidden bg-grey border-0 shadow mb-5" data-aos="zoom-in">
         <div class="card-body p-0">
           <div class="g-0 row">
             <div class="bg-white col-lg-5 col-md-6 col-xl-3 position-relative">
-              <!-- Start Agent Avatar Image -->
-              <img [src] ="agent.image || 'assets/img/avatar/01.jpg' " alt="" class="h-100 w-100 object-fit-cover">
-              <!-- /.End Agent Avatar Image -->
+              <img [src]="imagePath" alt="" class="h-100 w-100 object-fit-cover" />
             </div>
             <div class="bg-white col-lg-7 col-md-6 col-xl-6 p-3 p-lg-4 p-md-3 p-sm-4">
               <div class="d-flex flex-column h-100">
                 <div class="mb-3">
-                  <!-- Start Agent Name -->
-                  <h6 class="fs-23 mb-0"> {{agent.name}}<i class="fas fa-medal text-primary"></i></h6>
-                  <!-- /.End Agent Name -->
-                  <!-- Start Designation -->
-                  <div class="text-primary fw-semibold">{{agent.title}}</div>
-                  <!-- /.End Designation -->
-                  <!-- Start Agent About -->
-                  <div class="mt-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation </div>
-                  <!-- /.End Agent About -->
+                  <h6 class="fs-23 mb-0"> {{ fullName }}<i class="fas fa-medal text-primary"></i></h6>
+                  <div class="text-primary fw-semibold">Real Estate Agent</div>
+                  <div class="mt-3">
+                    {{ agent?.profile?.bio || 'Experienced agent in the real estate market. Ready to help you find your dream property.' }}
+                  </div>
                 </div>
-                <!-- Start Agent Information -->
                 <div class="border-top mt-auto pt-3">
                   <div class="row gy-2 gx-4">
                     <div class="col-auto">
                       <div class="d-flex align-items-center text-dark">
-                        <div class="flex-shrink-0">
-                          <i class="fa-solid fa-chart-line fs-18"></i>
-                        </div>
-                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Active Listings : {{agent.activeListings}}</div>
+                        <i class="fa-solid fa-phone fs-18"></i>
+                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Phone: {{ phone }}</div>
                       </div>
                     </div>
                     <div class="col-auto">
                       <div class="d-flex align-items-center text-dark">
-                        <div class="flex-shrink-0">
-                          <i class="fa-solid fa-fan fs-18"></i>
-                        </div>
-                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Experience Since : {{agent.experienceSince}}</div>
+                        <i class="fa-solid fa-map-marker-alt fs-18"></i>
+                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Location: {{ location }}</div>
                       </div>
                     </div>
                     <div class="col-auto">
                       <div class="d-flex align-items-center text-dark">
-                        <div class="flex-shrink-0">
-                          <i class="fa-solid fa-chart-area fs-18"></i>
-                        </div>
-                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Areas : {{agent.area}}</div>
+                        <i class="fa-solid fa-house fs-18"></i>
+                        <div class="flex-grow-1 fs-16 fw-medium ms-3">forRent: {{ forRent }}</div>
                       </div>
                     </div>
                     <div class="col-auto">
                       <div class="d-flex align-items-center text-dark">
-                        <div class="flex-shrink-0">
-                          <i class="fa-solid fa-language fs-18"></i>
-                        </div>
-                        <div class="flex-grow-1 fs-16 fw-medium ms-3">Language : {{agent.language}}</div>
+                        <i class="fa-solid fa-building fs-18"></i>
+                        <div class="flex-grow-1 fs-16 fw-medium ms-3">forSell: {{ forSell }}</div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="d-flex align-items-center text-dark">
+                        <i class="fa-solid fa-warehouse fs-18"></i>
+                        <div class="flex-grow-1 fs-16 fw-medium ms-3">commercial: {{ commercial }}</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- /. End Agent Information -->
               </div>
             </div>
             <div class="col-lg-12 col-md-12 col-xl-3 p-3 p-lg-4 p-md-3 p-sm-4 align-self-center">
               <div class="row align-items-center justify-content-center g-3">
-                <!-- Start Agent Counter  -->
                 <div class="col col-xl-12">
                   <div class="border gap-3 gap-xl-2 gap-xxl-3 hstack justify-content-center p-2 rounded-3">
                     <div class="text-center">
-                      <div class="fw-semibold text-dark fs-23">{{agent.forRent}}</div>
+                      <div class="fw-semibold text-dark fs-23">{{ forRent }}</div>
                       <div class="fs-14">forRent</div>
                     </div>
                     <span class="vr"></span>
                     <div class="text-center">
-                      <div class="fw-semibold text-dark fs-23">{{agent.forSell}}</div>
+                      <div class="fw-semibold text-dark fs-23">{{ forSell }}</div>
                       <div class="fs-14">forSell</div>
                     </div>
                     <span class="vr"></span>
                     <div class="text-center">
-                      <div class="fw-semibold text-dark fs-23">{{agent.commercial}}</div>
+                      <div class="fw-semibold text-dark fs-23">{{ commercial }}</div>
                       <div class="fs-14">commercial</div>
                     </div>
                   </div>
                 </div>
-                <!-- /. End Agent Counter  -->
-                <!-- Start button -->
                 <div class="col-auto col-xl-12 d-flex flex-wrap gap-2 justify-content-center position-relative z-1">
-                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
+                  <button type="button" class="btn btn-outline-default btn-sm fw-medium shadow-sm">
                     <i class="fa fa-phone fs-14 me-1"></i>Call
                   </button>
-                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                    <i class="fa fa-user-tie fs-14 fs-e me-1"></i>Email
+                  <button type="button" class="btn btn-outline-default btn-sm fw-medium shadow-sm">
+                    <i class="fa fa-envelope fs-14 me-1"></i>Email
                   </button>
-                  <button type="button" class="border-0 btn btn-outline-default btn-sm fw-medium shadow-sm">
-                    <i class="fa fa-phone fs-14 me-1"></i>WhatsApp
+                  <button type="button" class="btn btn-outline-default btn-sm fw-medium shadow-sm">
+                    <i class="fa fa-whatsapp fs-14 me-1"></i>WhatsApp
                   </button>
                 </div>
-                <!-- /.End button -->
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- /.End Agent Card -->
-    </div>
-    <!-- /.End Agent Content -->
-  </div>
-</div>
-
-
-
-
-<!-- Start reviews and reat Section -->
-<div class="py-5 border-top position-relative">
-  <div class="container py-4 position-relative">
-    <div class="row">
-      <div class="col-md-10 offset-md-1 background-image" data-image-src="assets/img/world-map.png">
-        <div class="section-header text-center mb-5">
-          <div class="bg-soft-primary d-inline-block fw-medium mb-3 rounded-pill section-header__subtitle text-capitalize text-primary">Testimonial</div>
-          <h2 class="h1 fw-semibold mb-3 section-header__title text-capitalize">
-            See what our <span class="underline position-relative text-primary">clients</span> say about us
-          </h2>
-          <div class="sub-title fs-16">
-            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-            <br class="d-none d-lg-block" />
-            default model text, and a search for 'lorem ipsum' will uncover many.
-          </div>
-          <div class="align-items-center d-flex flex-wrap fs-18 gap-1 justify-content-center mt-3 text-warning">
-            <i class="fa-solid fa-circle"></i>
-            <i class="fa-solid fa-circle"></i>
-            <i class="fa-solid fa-circle"></i>
-            <i class="fa-solid fa-circle"></i>
-            <i class="fa-solid fa-circle"></i>
-            <i class="fa-solid fa-circle-half-stroke"></i>
-            <span class="text-dark">(4.8/5)</span>
-          </div>
-          <h6 class="text-center mb-0 mt-2 fs-17">Overall Customer Ratings</h6>
         </div>
       </div>
     </div>
   </div>
-
-        <!-- Testimonial Cards -->
-        <div class="row">
-          <div class="col-sm-6 col-lg-4 mb-4"
-               *ngFor="let t of testimonials; let i = index"
-               data-aos="fade-up" [attr.data-aos-delay]="i * 100"
-               data-aos-duration="600">
-            <div class="border-0 card rounded-4 shadow h-100">
-              <div class="card-body p-4 d-flex flex-column justify-content-between">
-                <div>
-                  <div class="d-flex flex-wrap fs-12 gap-1 text-warning mb-2">
-                    <ng-container *ngFor="let star of [1,2,3,4,5]">
-                      <i class="fa-solid fa-circle"></i>
-                    </ng-container>
-                    <i class="fa-solid fa-circle-half-stroke"></i>
-                    <span class="fw-medium text-dark">({{ t.rating }}/5)</span>
-                  </div>
-                  <h5 class="fs-18">{{ t.title }}</h5>
-                  <p>{{ t.content }}</p>
-                </div>
-                <div class="d-flex align-items-center mt-4">
-                  <div class="flex-shrink-0">
-                    <img [src]="t.image" alt="" class="rounded-circle" height="60" width="60" />
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1 fw-semibold">{{ t.name }}</h6>
-                    <div class="fs-15 text-primary">{{ t.username }}</div>
-                  </div>
-                  <i class="fa-brands fa-twitter fs-4 text-info ms-auto"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Feedback Button -->
-        <div class="text-center mt-4">
-          <button class="btn btn-outline-primary btn-sm" (click)="showFeedbackForm = !showFeedbackForm">
-            Add Your Feedback
-          </button>
-        </div>
-
-    <!-- Feedback Card -->
-    <div class="row mt-4" *ngIf="showFeedbackForm">
-      <div class="col-lg-6">
-        <div class="card border-0 rounded-4 shadow p-4">
-          <!-- Rating Circles -->
-          <div class="mb-3 d-flex align-items-center gap-1 fs-5 text-warning">
-            <ng-container *ngFor="let star of [1,2,3,4,5]">
-              <i class="fa-solid fa-circle"
-                 [ngClass]="feedback.rating >= star ? '' : 'text-muted'"
-                 (click)="feedback.rating = star"
-                 (mouseenter)="hoverRating = star"
-                 (mouseleave)="hoverRating = 0"
-                 [style.color]="hoverRating >= star ? '#ffc107' : ''"
-                 style="cursor: pointer; transition: color 0.3s;"></i>
-            </ng-container>
-            <span class="ms-2 fw-medium text-dark">({{ feedback.rating }}/5)</span>
-          </div>
-
-          <!-- Title -->
-          <input type="text" [(ngModel)]="feedback.title" placeholder="Review Title"
-                 class="form-control border-0 fw-semibold fs-5 mb-3 shadow-none" />
-
-          <!-- Comment -->
-          <textarea [(ngModel)]="feedback.comment"
-                    placeholder="Let us hear your thoughts..."
-                    rows="4"
-                    class="form-control mb-3 shadow-sm"
-                    style="border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;"></textarea>
-
-          <!-- User Info -->
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-              <img [src]="feedback.image" class="rounded-circle me-3" height="60" width="60" />
-              <div>
-                <input type="text" [(ngModel)]="feedback.name"
-                       placeholder="Your Name"
-                       class="form-control border-0 p-0 fw-semibold fs-15 mb-1 shadow-none" />
-                <input type="text" [(ngModel)]="feedback.username"
-                       placeholder="@yourhandle"
-                       class="form-control border-0 p-0 text-primary fs-14 shadow-none" />
-              </div>
-            </div>
-            <i class="fa-brands fa-twitter fs-3 text-info" style="opacity: 0.7;"></i>
-          </div>
-          <!-- Add Button -->
-          <div class="text-end mt-3">
-            <button class="btn btn-sm btn-primary px-4" (click)="addFeedback()">Add</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Side Note -->
-      <div class="col-lg-6 d-flex align-items-center justify-content-start text-start">
-        <div data-aos="fade-down" data-aos-duration="1000">
-          <h3 class="fw-bold">Please rate us</h3>
-          <p class="fs-5 text-muted">
-            We are happy with your feedback and we will study it carefully.
-          </p>
-        </div>
-      </div>
-    </div>
 </div>
-

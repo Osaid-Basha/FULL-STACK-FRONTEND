@@ -1,44 +1,33 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-agent-proparty',
-  standalone: false,
+  selector: 'app-agent-property',
   templateUrl: './agent-proparty.component.html',
-  styleUrl: './agent-proparty.component.css'
+  styleUrls: ['./agent-proparty.component.css'],
+  standalone: false
 })
 export class AgentPropartyComponent implements OnInit {
   @Input() agent: any;
   agentProperties: any[] = [];
 
-  dummyProperties = [
-    {
-      id: 1,
-      title: 'Luxury Villa',
-      price: '$100,000',
-      image: 'assets/img/properties/01.jpg',
-      agentId: 7
-    },
-    {
-      id: 2,
-      title: 'Studio Apartment',
-      price: '$40,000',
-      image: 'assets/img/properties/02.jpg',
-      agentId: 3
-    },
-    {
-      id: 3,
-      title: 'Modern Office',
-      price: '$150,000',
-      image: 'assets/img/properties/03.jpg',
-      agentId: 7
-    }
-  ];
-
   ngOnInit(): void {
-    if (this.agent) {
-      this.agentProperties = this.dummyProperties.filter(
-        (prop) => prop.agentId === this.agent.id
-      );
-    }
+  if (this.agent?.property?.length) {
+    this.agentProperties = this.agent.property.map((prop: any, index: number) => ({
+  ...prop,
+  image: prop.images?.length > 0
+    ? `http://localhost:8000/storage/${prop.images[0].imageUrl}` // 🟢 تعديل هنا
+    : 'assets/img/property/default.jpg',
+  beds: prop.bedroom || 0,
+  baths: prop.bathroom || 0,
+  size: prop.livingArea ? `${prop.livingArea} m²` : 'N/A',
+  description: prop.shortDescreption || 'No description available',
+  tag: prop.property_type?.type || 'Featured',
+  period: prop.listing_type?.name || 'Month',
+  aosDelay: index * 100
+}));
+
   }
+}
+
+
 }
