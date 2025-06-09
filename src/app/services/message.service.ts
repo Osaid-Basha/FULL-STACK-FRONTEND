@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
@@ -30,7 +31,8 @@ export interface ChatContact extends User {
   providedIn: 'root'
 })
 export class MessageService {
-  private apiUrl = 'http://localhost:8000/api';
+    private apiUrl = environment.apiBaseUrl ;
+
   private fixedAuthToken = localStorage.getItem('token') || '';
   private currentUserId: number = 0;
   private headers: HttpHeaders = new HttpHeaders();

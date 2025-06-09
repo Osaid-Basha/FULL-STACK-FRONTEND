@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuyerStatisticsService {
-  private baseUrl = 'http://127.0.0.1:8000/api/';
+    private baseUrl = environment.apiBaseUrl ;
+
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +21,7 @@ export class BuyerStatisticsService {
   }
 
   getGeneralStats(): Observable<any> {
-    return this.http.get(`${this.baseUrl}general/stats`, {
+    return this.http.get(`${this.baseUrl}/general/stats`, {
       headers: this.getAuthHeaders()
     });
   }
