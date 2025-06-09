@@ -34,37 +34,36 @@ export class AdminService {
 
 
 
-  // ✅ Approve user
+
   approveUser(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/approve/${id}`, {}, { headers: this.getAuthHeaders() });
   }
 
-  // ❌ Reject user
+
   rejectUser(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/reject/${id}`, {}, { headers: this.getAuthHeaders() });
   }
 
-  // 🔍 Search users
+
   searchUsers(keyword: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/search/${keyword}`, { headers: this.getAuthHeaders() });
   }
 
-  // ➕ Add new user
+
   addUser(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}`, userData, { headers: this.getAuthHeaders() });
   }
 
-  // 🗑️ Delete user
+
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
-  // 🏠 Get all properties
+
   getAllProperties(): Observable<any> {
     return this.http.get(`${this.apiUrl}/properties`, { headers: this.getAuthHeaders() });
   }
 
-  // 🔍 Search properties
   searchProperties(keyword: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/properties/search/${keyword}`, { headers: this.getAuthHeaders() });
   }
@@ -72,7 +71,7 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}/properties/${id}`, { headers: this.getAuthHeaders() });
 
   }
-  // 🗑️ Delete property
+
   deleteProperty(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/properties/${id}`, { headers: this.getAuthHeaders() });
   }
