@@ -68,7 +68,14 @@
 
         <!-- Profile Dropdown -->
         <li class="nav-item dropdown">
-          <img src="assets/371225.jpg" alt="User" class="rounded-circle dropdown-toggle" style="height: 40px; width: 40px; object-fit: cover; border: 2px solid #fff; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+          <img
+            [src]="profileImage || 'assets/default-avatar.jpg'"
+            alt="User"
+            class="rounded-circle dropdown-toggle"
+            style="height: 40px; width: 40px; object-fit: cover; border: 2px solid #fff; cursor: pointer;"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          />
           <ul class="dropdown-menu dropdown-menu-end shadow rounded-4 mt-2 p-2" style="min-width: 200px;">
             <li><a class="dropdown-item d-flex align-items-center gap-2" routerLink="/profail-agent"><i class="fa-regular fa-user"></i> Profile</a></li>
             <li><a class="dropdown-item d-flex align-items-center gap-2" routerLink="/account-settings"><i class="fa-solid fa-gear"></i> Account Settings</a></li>
