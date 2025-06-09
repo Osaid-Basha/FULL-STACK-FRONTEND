@@ -62,11 +62,19 @@ reviews: any[] = [];
     this.price = this.property?.price ?? 0;
     this.about = this.property?.longDescreption ? [this.property.longDescreption] : [];
 
-    this.agent = {
-      ...this.property?.user?.profile,
-      fullName: `${this.property?.user?.first_name} ${this.property?.user?.last_name}`,
-      email: this.property?.user?.email
-    };
+
+   this.agent = {
+  fullName: `${this.property?.user?.first_name || ''} ${this.property?.user?.last_name || ''}`,
+  email: this.property?.user?.email || '',
+  phone: this.property?.user?.profile?.phone || '',
+  current_position: this.property?.user?.profile?.current_position || '',
+ imag_path: this.property?.user?.profile?.imag_path
+  ? `http://localhost:8000/storage/${this.property.user.profile.imag_path}`
+  : 'assets/img/default-user.png',
+
+};
+
+
 
    this.testimonials = (this.property?.reviews || []).map((review: any) => ({
   title: review.title,

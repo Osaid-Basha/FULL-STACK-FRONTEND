@@ -35,9 +35,7 @@ export class PropertiesDetailsComponent implements OnInit {
 
         if (data && Object.keys(data).length > 0) {
           this.property = data;
-          if (this.property?.user?.profile?.imag_path) {
-  this.property.user.profile.imag_path = `http://localhost:8000/${this.property.user.profile.imag_path}`;
-}
+         
 
         } else {
           this.tryFallbackOrRedirect();

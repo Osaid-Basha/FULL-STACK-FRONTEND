@@ -34,7 +34,7 @@ export class AgentListComponent implements OnInit {
             image: agent.profile?.imag_path
               ? `http://localhost:8000/storage/${agent.profile.imag_path}`
               : 'assets/img/avatar/01.jpg',
-            forRent: 193,       // عدل لاحقًا حسب داتا العقارات
+            forRent: 193,
             forSell: 633,
             commercial: 10
           }));
