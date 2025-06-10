@@ -253,8 +253,6 @@ export class MypropertiesAgentComponent implements OnInit {
     // Create a FormData object for sending multipart data (including files)
     const formData = new FormData();
 
-    // Append all property fields to formData, مع التأكد من وجود القيم
-    // استخدام ?? 0 للأرقام و || '' للنصوص لتجنب undefined
     formData.append('title', this.selectedProperty.title || '');
     formData.append('address', this.selectedProperty.address || '');
     formData.append('city', this.selectedProperty.city || '');
@@ -271,19 +269,18 @@ export class MypropertiesAgentComponent implements OnInit {
     // تأكد من أن property_listing_id و property_type_id و purchase_id و user_id موجودين
     formData.append('property_listing_id', (this.selectedProperty.property_listing_id ?? 1).toString());
     formData.append('property_type_id', (this.selectedProperty.property_type_id ?? 1).toString());
-    formData.append('purchase_id', (this.selectedProperty.purchase_id ?? 0).toString());
+
     formData.append('user_id', (this.selectedProperty.user_id ?? 0).toString());
 
 
-    // ✅ المنطق هنا صحيح: إذا تم رفع صور جديدة، نرسلها.
-    // ✅ إذا لم يتم رفع صور جديدة، نرسل المسارات النسبية للصور الموجودة (بعد إزالة الـ base URL)
+
     if (this.newImages.length > 0) {
       this.newImages.forEach(file => {
         formData.append('images[]', file);
       });
     } else if (this.selectedProperty.images && this.selectedProperty.images.length > 0) {
       this.selectedProperty.images.forEach(img => {
-        // ✅ إزالة الـ base URL قبل الإرسال إلى Laravel
+
         let relativePath = img.imageUrl;
         if (relativePath.startsWith(this.IMAGE_BASE_URL)) {
           relativePath = relativePath.substring(this.IMAGE_BASE_URL.length);
@@ -291,8 +288,8 @@ export class MypropertiesAgentComponent implements OnInit {
         formData.append('images[]', relativePath);
       });
     } else if (this.selectedProperty.images && this.selectedProperty.images.length === 0) {
-      // إذا لم يكن هناك صور جديدة والمصفوفة فارغة، هذا يعني أن المستخدم حذف كل الصور
-      formData.append('images[]', ''); // إرسال فارغ ليقوم Laravel بحذف الكل
+
+      formData.append('images[]', '');
     }
 
 
