@@ -266,7 +266,7 @@ export class MypropertiesAgentComponent implements OnInit {
     formData.append('constructionArea', (this.selectedProperty.constructionArea ?? 0).toString());
     formData.append('livingArea', (this.selectedProperty.livingArea ?? 0).toString());
 
-    // تأكد من أن property_listing_id و property_type_id و purchase_id و user_id موجودين
+   
     formData.append('property_listing_id', (this.selectedProperty.property_listing_id ?? 1).toString());
     formData.append('property_type_id', (this.selectedProperty.property_type_id ?? 1).toString());
 

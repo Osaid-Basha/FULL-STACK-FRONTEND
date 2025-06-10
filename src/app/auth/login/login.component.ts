@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       icon: 'warning',
       title: 'Missing Fields',
-     
+
     });
     return;
   }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     email: this.email,
     password: this.password,
 
-    remember_me: this.rememberMe // ✅ إضافة remember_me
+    remember_me: this.rememberMe
   };
 
   this.authService.login(loginData).subscribe({
