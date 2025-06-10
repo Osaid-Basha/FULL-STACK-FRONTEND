@@ -29,10 +29,21 @@ totalPropertiesProgress: number = 0;
   ngAfterViewInit(): void {
     this.loadStatistics();
     this.loadPendingUsers();
+  this.loadListings(); 
 
 
     this.renderCharts();
   }
+loadListings(): void {
+  this.adminService.getAllProperties().subscribe({
+    next: (res) => {
+      this.listings = res;
+    },
+    error: (err) => {
+      console.error('Error loading listings:', err);
+    }
+  });
+}
 
   loadStatistics(): void {
   this.adminService.getStatistics().subscribe({
@@ -45,7 +56,7 @@ totalPropertiesProgress: number = 0;
       ];
 
       this.totalProperties = res.total_properties;
-      const goal = 5000; 
+      const goal = 5000;
       const remaining = goal - this.totalProperties;
 
     },

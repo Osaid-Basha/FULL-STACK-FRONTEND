@@ -249,7 +249,7 @@ export class MypropertiesAgentComponent implements OnInit {
     formData.append('livingArea', this.selectedProperty.livingArea.toString());
     formData.append('property_listing_id', this.selectedProperty.property_listing_id.toString());
     formData.append('property_type_id', this.selectedProperty.property_type_id.toString());
-    formData.append('purchase_id', this.selectedProperty.purchase_id.toString()); // Assuming purchase_id is managed
+   
 
     // Append new images files
     this.newImages.forEach(file => {

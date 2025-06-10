@@ -46,7 +46,7 @@ interface Property {
   standalone: false,
   templateUrl: './allproperties.component.html',
   styleUrls: ['./allproperties.component.css'],
-  
+
 })
 export class AllpropertiesComponent implements OnInit {
   properties: Property[] = [];
