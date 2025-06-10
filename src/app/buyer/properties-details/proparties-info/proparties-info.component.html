@@ -2,10 +2,8 @@
   <div class="container py-4">
     <div class="row g-4">
 
-      <!-- Start Main Content (Left Side) -->
       <div class="col-lg-8 content pe-xxl-5">
 
-        <!-- Location + Title -->
         <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <div class="fs-16 mb-1">
             <i class="fa-solid fa-location-dot me-1"></i>{{ address }}
@@ -25,223 +23,193 @@
           </div>
         </div>
 
-        <!-- About -->
         <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <h4 class="fw-semibold mb-4 text-capitalize">About the <span class="text-primary">property</span></h4>
           <p *ngIf="property?.description">{{ property.description }}</p>
           <p *ngFor="let paragraph of about">{{ paragraph }}</p>
         </div>
 
-        <!-- Amenities -->
         <div class="mb-5 border-bottom pb-5" data-aos="fade-up" data-aos-delay="100">
           <h4 class="fw-semibold mb-4 text-capitalize">Amenities <span class="text-primary">available</span></h4>
           <div class="row g-4">
-  <div class="col-auto col-lg-4" *ngFor="let amenity of amenities" data-aos="fade-up" data-aos-delay="200">
-    <div class="d-flex align-items-center text-dark mb-2">
-      <i class="{{ amenity.icon }} fs-18 me-2"></i>
-      <span class="fs-16 fw-medium">{{ amenity.name }}</span>
-    </div>
-  </div>
-</div>
+            <div class="col-auto col-lg-4" *ngFor="let amenity of amenities" data-aos="fade-up" data-aos-delay="200">
+              <div class="d-flex align-items-center text-dark mb-2">
+                <i class="{{ amenity.icon }} fs-18 me-2"></i>
+                <span class="fs-16 fw-medium">{{ amenity.name }}</span>
+              </div>
+            </div>
+          </div>
 
         </div>
 
-        <!-- Floor Plan -->
         <div class="mb-5 border-bottom pb-5" data-aos="fade-up">
           <h4 class="fw-semibold mb-4 text-capitalize">Floor <span class="text-primary">Plans</span></h4>
           <img [src]="floorPlanImage" class="img-fluid" alt="Floor Plan" />
         </div>
 
-         <div class="mb-4" data-aos="fade-up" *ngIf="agent">
-  <!-- Start Title -->
-  <h4 class="fw-semibold mb-4 text-capitalize">
-    Reach the <span class="underline position-relative text-primary">agent</span>
-  </h4>
-  <!-- End Title -->
-
-  <!-- Start Agent Card -->
-  <div class="agent-card d-flex align-items-center">
-    <div class="flex-shrink-0">
-      <div
-  class="rounded-circle border border-primary position-relative overflow-hidden"
-  style="width: 140px; height: 140px;"
->
-  <img
-    [src]="agent.imag_path"
-    alt="Agent"
-    style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
-  />
-  <div
-    class="avatar-badge bg-primary d-flex justify-content-center align-items-center rounded-circle text-white position-absolute"
-    style="width: 30px; height: 30px; bottom: 0; right: 0;"
-  >
-    <i class="fas fa-medal"></i>
-  </div>
-</div>
+        <div class="mb-4" data-aos="fade-up" *ngIf="agent">
+          <h4 class="fw-semibold mb-4 text-capitalize">
+            Reach the <span class="underline position-relative text-primary">agent</span>
+          </h4>
+          <div class="agent-card d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <div
+                class="rounded-circle border border-primary position-relative overflow-hidden"
+                style="width: 140px; height: 140px;"
+              >
+                <img
+                  [src]="agent.imag_path"
+                  alt="Agent"
+                  style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+                />
+                <div
+                  class="avatar-badge bg-primary d-flex justify-content-center align-items-center rounded-circle text-white position-absolute"
+                  style="width: 30px; height: 30px; bottom: 0; right: 0;"
+                >
+                  <i class="fas fa-medal"></i>
+                </div>
+              </div>
 
 
 
-    </div>
+            </div>
 
-    <div class="flex-grow-1 ms-3">
-      <h5 class="mb-1">
-        <a href="#">{{ agent.fullName }}</a>
-      </h5>
-      <div>{{ agent.current_position }}</div>
+            <div class="flex-grow-1 ms-3">
+              <h5 class="mb-1">
+                <a href="#">{{ agent.fullName }}</a>
+              </h5>
+              <div>{{ agent.current_position }}</div>
 
-      <div class="row g-2 mt-3">
-        <div class="col-auto">
-          <!-- زر Ask Question (نفس الشكل) -->
-          <a [href]="'tel:' + agent.phone" class="btn btn-outline-primary btn-sm fw-semibold">
-            Ask Question <i class="fa-regular fa-circle-question ms-1"></i>
-          </a>
+              <div class="row g-2 mt-3">
+                <div class="col-auto">
+                  <button type="button" class="btn btn-outline-primary btn-sm fw-semibold" (click)="contactAgent()">
+                    Contact Agent <i class="fa-regular fa-address-book ms-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-auto">
 
-          <a [href]="'mailto:' + agent.email" class="btn btn-outline-primary btn-sm fw-semibold">
-            Contact Agent <i class="fa-regular fa-address-book ms-1"></i>
-          </a>
+        <div class="mb-4" data-aos="fade-up">
+          <h4 class="fw-semibold mb-4 text-capitalize">Reviews & <span class="text-primary">Ratings</span></h4>
+          <div class="row">
+            <div
+              class="col-sm-6 col-lg-4 mb-4"
+              *ngFor="let t of testimonials; let i = index"
+              data-aos="fade-up"
+              [attr.data-aos-delay]="i * 100"
+              data-aos-duration="600"
+            >
+              <div class="card rounded-4 shadow border-0 h-100">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                  <div>
+                    <div class="d-flex flex-wrap text-warning gap-1 mb-2 fs-12">
+                      <ng-container *ngFor="let star of [1,2,3,4,5]">
+                        <i class="fa-solid fa-star" [ngClass]="{ 'text-muted': star > t.rating }"></i>
+                      </ng-container>
+                      <span class="text-dark">({{ t.rating }}/5)</span>
+                    </div>
+                    <h5 class="mb-1">{{ t.title }}</h5>
+                    <p class="mb-2">{{ t.content }}</p>
+                  </div>
+
+                  <div class="d-flex align-items-center mt-3">
+                    <img [src]="t.image" class="rounded-circle me-3" width="50" height="50" />
+                    <div>
+                      <h6 class="mb-0">{{ t.name }}</h6>
+                      <small class="text-primary">{{ t.username }}</small>
+                    </div>
+                  </div>
+
+                  <div class="mt-3 pt-3 border-top" *ngIf="t.replies && t.replies.length > 0">
+                    <h6 class="mb-2 text-muted">Replies:</h6>
+                    <div *ngFor="let reply of t.replies" class="bg-light rounded p-2 mb-2">
+                      <p class="mb-1">{{ reply.message_content }}</p>
+                      <small class="text-muted">By: {{ reply.user_name || 'Agent' }}</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-lg-4 sidebar">
+        <div class="appointment-form p-3 p-lg-4 p-xl-5 rounded-4 shadow" style="position: sticky; top: 100px; z-index: 10;">
+          <div>{{ propertyType }}</div>
+          <h2 class="fw-bold">${{ price }} USD</h2>
+
+          <ul class="nav nav-tabs mb-5" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-three" data-bs-toggle="tab"
+                      data-bs-target="#tab-three-pane" type="button" role="tab"
+                      aria-controls="tab-three-pane" aria-selected="true">
+                Negotiate Price
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab-three-pane" role="tabpanel">
+              <form (submit)="proposeNegotiation()" #negotiationFormRef="ngForm">
+                <div class="row g-4">
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon position-relative">
+                      <label class="required fw-semibold text-dark">Proposed Price (USD)</label>
+                      <input type="number" class="form-control" placeholder="Enter your proposed price"
+                             [(ngModel)]="negotiationForm.price" name="negotiationPrice" required />
+                      <i class="fa-solid fa-dollar-sign form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon position-relative">
+                      <label class="required fw-semibold text-dark">Phone Number</label>
+                      <input type="tel" class="form-control" placeholder="Phone Number"
+                             [(ngModel)]="negotiationForm.phone" name="negotiationPhone" required />
+                      <i class="fa-solid fa-mobile-screen-button form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon position-relative">
+                      <label class="required fw-semibold text-dark">Email</label>
+                      <input type="email" class="form-control" placeholder="Enter your email"
+                             [(ngModel)]="negotiationForm.email" name="negotiationEmail" required />
+                      <i class="fa-solid fa-envelope form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <div class="form-group has-icon position-relative">
+                      <label class="required fw-semibold text-dark" for="negotiationMessage">Message</label>
+                      <textarea
+                        id="negotiationMessage"
+                        class="form-control"
+                        placeholder="Enter your message"
+                        [(ngModel)]="negotiationForm.message"
+                        name="negotiationMessage"
+                        required
+                        rows="4"
+                      ></textarea>
+
+                      <i class="fa-solid fa-comment-dots form-icon fs-16 position-absolute top-0 mt-3 end-0 me-3"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <button class="btn btn-warning btn-lg w-100" type="submit">Submit Negotiation</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Reviews with Replies -->
-<div class="mb-4" data-aos="fade-up">
-  <h4 class="fw-semibold mb-4 text-capitalize">Reviews & <span class="text-primary">Ratings</span></h4>
-  <div class="row">
-    <div
-      class="col-sm-6 col-lg-4 mb-4"
-      *ngFor="let t of testimonials; let i = index"
-      data-aos="fade-up"
-      [attr.data-aos-delay]="i * 100"
-      data-aos-duration="600"
-    >
-      <div class="card rounded-4 shadow border-0 h-100">
-        <div class="card-body p-4 d-flex flex-column justify-content-between">
-          <!-- تقييم ونجوم -->
-          <div>
-            <div class="d-flex flex-wrap text-warning gap-1 mb-2 fs-12">
-              <ng-container *ngFor="let star of [1,2,3,4,5]">
-                <i class="fa-solid fa-star" [ngClass]="{ 'text-muted': star > t.rating }"></i>
-              </ng-container>
-              <span class="text-dark">({{ t.rating }}/5)</span>
-            </div>
-            <h5 class="mb-1">{{ t.title }}</h5>
-            <p class="mb-2">{{ t.content }}</p>
-          </div>
-
-          <!-- بيانات المراجع -->
-          <div class="d-flex align-items-center mt-3">
-            <img [src]="t.image" class="rounded-circle me-3" width="50" height="50" />
-            <div>
-              <h6 class="mb-0">{{ t.name }}</h6>
-              <small class="text-primary">{{ t.username }}</small>
-            </div>
-          </div>
-
-          <!-- عرض الردود -->
-          <div class="mt-3 pt-3 border-top" *ngIf="t.replies && t.replies.length > 0">
-            <h6 class="mb-2 text-muted">Replies:</h6>
-            <div *ngFor="let reply of t.replies" class="bg-light rounded p-2 mb-2">
-              <p class="mb-1">{{ reply.message_content }}</p>
-              <small class="text-muted">By: {{ reply.user_name || 'Agent' }}</small>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-
-<!-- Sidebar (Right Side) -->
-<div class="col-lg-4 sidebar">
-  <div class="appointment-form p-3 p-lg-4 p-xl-5 rounded-4 shadow" style="position: sticky; top: 100px; z-index: 10;">
-    <div>{{ propertyType }}</div>
-    <h2 class="fw-bold">${{ price }} USD</h2>
-
-    <ul class="nav nav-tabs mb-5" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="tab-three" data-bs-toggle="tab"
-                data-bs-target="#tab-three-pane" type="button" role="tab"
-                aria-controls="tab-three-pane" aria-selected="true">
-          Negotiate Price
-        </button>
-      </li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane fade show active" id="tab-three-pane" role="tabpanel">
-        <form (submit)="proposeNegotiation()" #negotiationFormRef="ngForm">
-          <div class="row g-4">
-            <!-- Proposed Price -->
-            <div class="col-sm-12">
-              <div class="form-group has-icon position-relative">
-                <label class="required fw-semibold text-dark">Proposed Price (USD)</label>
-                <input type="number" class="form-control" placeholder="Enter your proposed price"
-                       [(ngModel)]="negotiationForm.price" name="negotiationPrice" required />
-                <i class="fa-solid fa-dollar-sign form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
-              </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="col-sm-12">
-              <div class="form-group has-icon position-relative">
-                <label class="required fw-semibold text-dark">Phone Number</label>
-                <input type="tel" class="form-control" placeholder="Phone Number"
-                       [(ngModel)]="negotiationForm.phone" name="negotiationPhone" required />
-                <i class="fa-solid fa-mobile-screen-button form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
-              </div>
-            </div>
-
-            <!-- Email -->
-            <div class="col-sm-12">
-              <div class="form-group has-icon position-relative">
-                <label class="required fw-semibold text-dark">Email</label>
-                <input type="email" class="form-control" placeholder="Enter your email"
-                       [(ngModel)]="negotiationForm.email" name="negotiationEmail" required />
-                <i class="fa-solid fa-envelope form-icon fs-16 position-absolute top-50 translate-middle-y end-0 me-3"></i>
-              </div>
-            </div>
-
-           <!-- Message -->
-<div class="col-sm-12">
-  <div class="form-group has-icon position-relative">
-    <label class="required fw-semibold text-dark" for="negotiationMessage">Message</label>
-    <textarea
-      id="negotiationMessage"
-      class="form-control"
-      placeholder="Enter your message"
-      [(ngModel)]="negotiationForm.message"
-      name="negotiationMessage"
-      required
-      rows="4"
-    ></textarea>
-
-    <i class="fa-solid fa-comment-dots form-icon fs-16 position-absolute top-0 mt-3 end-0 me-3"></i>
-  </div>
-</div>
-
-            <!-- Submit Button -->
-            <div class="col-sm-12">
-              <button class="btn btn-warning btn-lg w-100" type="submit">Submit Negotiation</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-</div>
-</div>
-</div>
-

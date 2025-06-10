@@ -13,7 +13,7 @@ interface Amenity {
 // Define the PropertyImage interface for image objects
 interface PropertyImage {
   id?: number;
-  imageUrl: string;
+  imageUrl: string; // This will store the relative path from the backend
   property_id?: number;
 }
 
@@ -36,7 +36,7 @@ interface Property {
   property_type_id: number;     // Changed to ID
   purchase_id: number;          // Added purchase_id as per backend
   user_id: number; // Add user_id
-  images: PropertyImage[]; // Array of image objects
+  images: PropertyImage[]; // Array of image objects (will contain relative paths from backend)
   amenities: Amenity[]; // Array of amenity objects
 
   // Properties used for display in the table, derived from backend data
@@ -44,7 +44,7 @@ interface Property {
   date?: string;     // Placeholder for date
   views?: number;    // Placeholder for views
   status?: string;   // Derived from property_listing_id
-  image?: string; // The "main" image for display
+  image?: string; // The "main" image for display (will be full URL) - Renamed from displayImage to match your HTML
   propertyType?: string; // Derived from property_type_id
   listingType?: string; // Derived from property_listing_id
   constructionSize?: number; // Renamed for display consistency
@@ -58,7 +58,7 @@ interface Property {
   standalone: false,
   templateUrl: './myproperties-agent.component.html',
   styleUrls: ['./myproperties-agent.component.css'],
-
+  // imports: [FormsModule, NgClass, NgForOf, NgIf] // Uncomment if this is a standalone component
 })
 export class MypropertiesAgentComponent implements OnInit {
   properties: Property[] = [];
@@ -91,15 +91,33 @@ export class MypropertiesAgentComponent implements OnInit {
   selectedAmenityIds: number[] = []; // Store selected amenity IDs
 
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 4;
   selectedProperty: Property | null = null;
   viewedProperty: Property | null = null;
   newImages: File[] = []; // For new images to be uploaded on update
+
+  // Base URL for property images - Use this consistently
+  private readonly IMAGE_BASE_URL = 'http://127.0.0.1:8000/storage/';
 
   constructor(private propertyService: PropertyService) {}
 
   ngOnInit(): void {
     this.getAllAgentProperties();
+  }
+
+  /**
+   * Constructs a full URL for an image based on its path from the backend.
+   * It handles cases where the backend might send a full URL or a relative path.
+   * @param imagePathFromBackend The image path received from the backend (e.g., 'property_images/my_image.jpg' OR 'http://localhost:8000/storage/property_images/my_image.jpg').
+   * @returns The full URL for the image.
+   */
+  getFullImageUrl(imagePathFromBackend: string): string {
+    // If the path from backend already starts with http/https, it's a full URL. Use it directly.
+    if (imagePathFromBackend.startsWith('http://') || imagePathFromBackend.startsWith('https://')) {
+      return imagePathFromBackend;
+    }
+    // Otherwise, it's a relative path. Prepend the base URL.
+    return `${this.IMAGE_BASE_URL}${imagePathFromBackend}`;
   }
 
   // Method to fetch all properties
@@ -113,8 +131,8 @@ export class MypropertiesAgentComponent implements OnInit {
           date: new Date().toLocaleDateString(), // Placeholder: Use actual date from backend if available
           views: Math.floor(Math.random() * 1000), // Placeholder: Use actual views from backend if available
           status: this.listingTypeMap[prop.property_listing_id],
-          // Ensure image path is correct, assuming 'property_images' is the folder name in public storage
-          image: prop.images && prop.images.length > 0 ? `http://127.0.0.1:8000/storage/${prop.images[0].imageUrl}` : 'assets/placeholder.jpg', // Use first image or a local default
+          // ✅ استخدم getFullImageUrl هنا لضمان رابط صحيح
+          image: prop.images && prop.images.length > 0 ? this.getFullImageUrl(prop.images[0].imageUrl) : 'assets/placeholder.jpg',
           propertyType: this.propertyTypeMap[prop.property_type_id],
           listingType: this.listingTypeMap[prop.property_listing_id],
           constructionSize: prop.constructionArea,
@@ -211,11 +229,12 @@ export class MypropertiesAgentComponent implements OnInit {
   openUpdateForm(property: Property): void {
     // Deep copy the property to avoid modifying original data before saving
     this.selectedProperty = JSON.parse(JSON.stringify(property));
-    // Transform image paths for display in the update form
-    if (this.selectedProperty && this.selectedProperty.images) { // <--- Added null check here
+
+    // ✅ استخدم getFullImageUrl هنا لضمان رابط صحيح لعرض الصور الحالية في النموذج
+    if (this.selectedProperty && this.selectedProperty.images) {
       this.selectedProperty.images = this.selectedProperty.images.map(img => ({
         ...img,
-        imageUrl: `http://127.0.0.1:8000/storage/${img.imageUrl}`
+        imageUrl: this.getFullImageUrl(img.imageUrl)
       }));
     }
     // Reset newImages array
@@ -234,37 +253,67 @@ export class MypropertiesAgentComponent implements OnInit {
     // Create a FormData object for sending multipart data (including files)
     const formData = new FormData();
 
-    // Append all property fields to formData
-    formData.append('title', this.selectedProperty.title);
-    formData.append('address', this.selectedProperty.address);
-    formData.append('city', this.selectedProperty.city);
-    formData.append('landArea', this.selectedProperty.landArea.toString());
-    formData.append('price', this.selectedProperty.price.toString());
-    formData.append('bedroom', this.selectedProperty.bedroom.toString());
-    formData.append('bathroom', this.selectedProperty.bathroom.toString());
-    formData.append('parking', this.selectedProperty.parking.toString());
-    formData.append('longDescreption', this.selectedProperty.longDescreption);
-    formData.append('shortDescreption', this.selectedProperty.shortDescreption);
-    formData.append('constructionArea', this.selectedProperty.constructionArea.toString());
-    formData.append('livingArea', this.selectedProperty.livingArea.toString());
-    formData.append('property_listing_id', this.selectedProperty.property_listing_id.toString());
-    formData.append('property_type_id', this.selectedProperty.property_type_id.toString());
-   
+    // Append all property fields to formData, مع التأكد من وجود القيم
+    // استخدام ?? 0 للأرقام و || '' للنصوص لتجنب undefined
+    formData.append('title', this.selectedProperty.title || '');
+    formData.append('address', this.selectedProperty.address || '');
+    formData.append('city', this.selectedProperty.city || '');
+    formData.append('landArea', (this.selectedProperty.landArea ?? 0).toString());
+    formData.append('price', (this.selectedProperty.price ?? 0).toString());
+    formData.append('bedroom', (this.selectedProperty.bedroom ?? 0).toString());
+    formData.append('bathroom', (this.selectedProperty.bathroom ?? 0).toString());
+    formData.append('parking', (this.selectedProperty.parking ?? 0).toString());
+    formData.append('longDescreption', this.selectedProperty.longDescreption || '');
+    formData.append('shortDescreption', this.selectedProperty.shortDescreption || '');
+    formData.append('constructionArea', (this.selectedProperty.constructionArea ?? 0).toString());
+    formData.append('livingArea', (this.selectedProperty.livingArea ?? 0).toString());
 
-    // Append new images files
-    this.newImages.forEach(file => {
-      formData.append('images[]', file); // Use 'images[]' for multiple files
-    });
+    // تأكد من أن property_listing_id و property_type_id و purchase_id و user_id موجودين
+    formData.append('property_listing_id', (this.selectedProperty.property_listing_id ?? 1).toString());
+    formData.append('property_type_id', (this.selectedProperty.property_type_id ?? 1).toString());
+    formData.append('purchase_id', (this.selectedProperty.purchase_id ?? 0).toString());
+    formData.append('user_id', (this.selectedProperty.user_id ?? 0).toString());
+
+
+    // ✅ المنطق هنا صحيح: إذا تم رفع صور جديدة، نرسلها.
+    // ✅ إذا لم يتم رفع صور جديدة، نرسل المسارات النسبية للصور الموجودة (بعد إزالة الـ base URL)
+    if (this.newImages.length > 0) {
+      this.newImages.forEach(file => {
+        formData.append('images[]', file);
+      });
+    } else if (this.selectedProperty.images && this.selectedProperty.images.length > 0) {
+      this.selectedProperty.images.forEach(img => {
+        // ✅ إزالة الـ base URL قبل الإرسال إلى Laravel
+        let relativePath = img.imageUrl;
+        if (relativePath.startsWith(this.IMAGE_BASE_URL)) {
+          relativePath = relativePath.substring(this.IMAGE_BASE_URL.length);
+        }
+        formData.append('images[]', relativePath);
+      });
+    } else if (this.selectedProperty.images && this.selectedProperty.images.length === 0) {
+      // إذا لم يكن هناك صور جديدة والمصفوفة فارغة، هذا يعني أن المستخدم حذف كل الصور
+      formData.append('images[]', ''); // إرسال فارغ ليقوم Laravel بحذف الكل
+    }
+
+
 
     // Append amenities IDs
     if (this.selectedProperty.amenities && this.selectedProperty.amenities.length > 0) {
       this.selectedProperty.amenities.forEach(amenity => {
-        formData.append('amenities[]', amenity.id.toString()); // Use 'amenities[]' for multiple IDs
+        formData.append('amenities[]', amenity.id.toString());
       });
     }
 
     // Laravel expects _method: 'PUT' for PUT requests with FormData
     formData.append('_method', 'PUT');
+
+    // Debugging logs - يمكنك إزالتها بعد حل المشكلة
+    console.log("Selected Property for Update:", this.selectedProperty);
+    console.log("FormData entries before sending:");
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
 
     this.propertyService.updateProperty(propertyId, formData).subscribe({
       next: () => {
@@ -286,7 +335,8 @@ export class MypropertiesAgentComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error updating property:', err);
-        Swal.fire('Error', 'Failed to update property. ' + (err.error?.message || ''), 'error');
+        console.error('Full error object:', err); // لعرض تفاصيل الخطأ كاملة
+        Swal.fire('Error', 'Failed to update property. ' + (err.error?.message || 'Please check console for more details.'), 'error');
       }
     });
   }
@@ -308,7 +358,8 @@ export class MypropertiesAgentComponent implements OnInit {
           ...data,
           location: `${data.address}, ${data.city}`,
           status: this.listingTypeMap[data.property_listing_id],
-          image: data.images && data.images.length > 0 ? `http://127.0.0.1:8000/storage/${data.images[0].imageUrl}` : 'assets/placeholder.jpg',
+          // ✅ استخدم getFullImageUrl هنا لضمان رابط صحيح
+          image: data.images && data.images.length > 0 ? this.getFullImageUrl(data.images[0].imageUrl) : 'assets/placeholder.jpg',
           propertyType: this.propertyTypeMap[data.property_type_id],
           listingType: this.listingTypeMap[data.property_listing_id],
           constructionSize: data.constructionArea,
@@ -319,10 +370,11 @@ export class MypropertiesAgentComponent implements OnInit {
           amenities: data.amenities || []
         };
         // Transform image paths for display in the view modal
-        if (this.viewedProperty && this.viewedProperty.images) { // <--- Added null check here
+        // ✅ استخدم getFullImageUrl هنا لضمان رابط صحيح
+        if (this.viewedProperty && this.viewedProperty.images) {
           this.viewedProperty.images = this.viewedProperty.images.map(img => ({
             ...img,
-            imageUrl: `http://127.0.0.1:8000/storage/${img.imageUrl}`
+            imageUrl: this.getFullImageUrl(img.imageUrl)
           }));
         }
       },
