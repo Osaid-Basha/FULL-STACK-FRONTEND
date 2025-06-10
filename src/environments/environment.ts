@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: '"https://laravel-api-production-26be.up.railway.app/api"'
+  apiBaseUrl: 'http://127.0.0.1:8000/api'
 };

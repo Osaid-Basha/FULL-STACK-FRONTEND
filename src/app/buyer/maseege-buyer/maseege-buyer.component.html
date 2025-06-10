@@ -34,7 +34,7 @@
           data-aos="fade-up"
           [attr.data-aos-delay]="i * 100"
         >
-          <img [src]="chat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+          <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="Chat Avatar">
           <div class="flex-grow-1">
             <div class="fw-bold">{{ chat.name }}</div>
             <small class="text-muted" *ngIf="chat.lastMessage">{{ chat.lastMessage | slice:0:25 }}{{ chat.lastMessage.length > 25 ? '...' : '' }}</small>
@@ -76,11 +76,12 @@
             data-aos="fade-up"
             [attr.data-aos-delay]="i * 100"
           >
-            <img [src]="chat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+            <img [src]="chat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="Chat Avatar">
             <div class="flex-grow-1">
               <div class="fw-bold">{{ chat.name }}</div>
               <small class="text-muted" *ngIf="chat.lastMessage">{{ chat.lastMessage | slice:0:25 }}{{ chat.lastMessage.length > 25 ? '...' : '' }}</small>
-              <small class="text-muted" *ngIf="!chat.lastMessage">No messages yet.</small> </div>
+              <small class="text-muted" *ngIf="!chat.lastMessage">No messages yet.</small>
+            </div>
             <div class="text-end small text-muted">{{ chat.time }}</div>
           </div>
         </div>
@@ -93,7 +94,7 @@
           <i class="bi bi-list fs-4"></i>
         </button>
 
-        <img [src]="selectedChat.avatar || 'assets/default-avatar.png'" class="rounded-circle object-fit-cover" width="45" height="45" alt="">
+        <img [src]="selectedChat.avatar" class="rounded-circle object-fit-cover" width="45" height="45" alt="Selected Chat Avatar">
         <div class="flex-grow-1">
           <h6 class="mb-0 fw-bold">{{ selectedChat.name }}</h6>
           <small class="text-muted">Last seen 2 hours ago</small>
