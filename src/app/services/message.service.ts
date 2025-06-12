@@ -8,10 +8,10 @@ import { environment } from '../../environments/environment';
 export interface User {
   id: number;
   name: string;
-  avatar?: string; // المسار الكامل للصورة المستخدم للعرض
+  avatar?: string;
   first_name?: string;
   last_name?: string;
-  profile_image_path?: string; // المسار الخام للصورة من الباك إند
+  profile_image_path?: string;
 }
 
 export interface Message {
@@ -22,8 +22,8 @@ export interface Message {
   created_at: string;
   me?: boolean;
   displayTime?: string;
-  sender_info?: User; // معلومات المُرسل كاملة
-  receiver_info?: User; // معلومات المُستقبل كاملة
+  sender_info?: User;
+  receiver_info?: User;
 }
 
 export interface ChatContact extends User {
@@ -56,24 +56,26 @@ export class MessageService {
   private updateAuthHeaders(): void {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.fixedAuthToken}`
+      'Authorization': 'Bearer ' + this.fixedAuthToken
     });
   }
 
   private loadCurrentUserId(): void {
     this.userSubscription?.unsubscribe();
-    this.userSubscription = this.http.get<{ id: number; first_name: string; last_name: string; profile_image_path?: string }>(`${this.apiUrl}/user`, { headers: this.headers }).subscribe({
+    this.userSubscription = this.http.get<{ id: number; first_name: string; last_name: string; profile_image_path?: string }>(
+      this.apiUrl + '/user', { headers: this.headers }
+    ).subscribe({
       next: (res) => {
         this.currentUserId = res.id;
         console.log('Loaded user ID:', this.currentUserId);
         const currentUserInfo: User = {
           id: res.id,
-          name: `${res.first_name || ''} ${res.last_name || ''}`.trim(),
+          name: ((res.first_name || '') + ' ' + (res.last_name || '')).trim(),
           first_name: res.first_name,
           last_name: res.last_name,
           profile_image_path: res.profile_image_path,
           // لا توجد صورة افتراضية هنا
-          avatar: res.profile_image_path ? `http://localhost:8000/storage/${res.profile_image_path}` : undefined // أو ''
+          avatar: res.profile_image_path ? 'http://localhost:8000/storage/' + res.profile_image_path : undefined // أو ''
         };
         this.usersMap.set(res.id, currentUserInfo);
       },
@@ -110,21 +112,20 @@ export class MessageService {
       params = params.append('search', searchTerm);
     }
 
-    return this.http.get<User[]>(`${this.apiUrl}/chat/list`, { params, headers: this.headers })
+    return this.http.get<User[]>(this.apiUrl + '/chat/list', { params, headers: this.headers })
       .pipe(
         map(users => users.map(user => {
-          const userName = user.name || (user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : 'Unknown User');
-          // لا توجد صورة افتراضية هنا
-          const userAvatarPath = user.profile_image_path ? `http://localhost:8000/storage/${user.profile_image_path}` : undefined; // أو ''
+          const userName = user.name || (user.first_name && user.last_name ? user.first_name + ' ' + user.last_name : 'Unknown User');
+          const userAvatarPath = user.profile_image_path ? 'http://localhost:8000/storage/' + user.profile_image_path : undefined; // أو ''
 
           const processedUser: ChatContact = {
             ...user,
             name: userName,
-            avatar: userAvatarPath, // تعبئة الـavatar بالمسار الكامل
+            avatar: userAvatarPath,
             lastMessage: 'Tap to see chat',
             time: ''
           };
-          this.usersMap.set(user.id, processedUser); // تخزين المستخدم في الخريطة
+          this.usersMap.set(user.id, processedUser);
           return processedUser;
         })),
         catchError(error => {
@@ -135,27 +136,27 @@ export class MessageService {
   }
 
   getConversationMessages(userId: number): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.apiUrl}/messages/${userId}`, { headers: this.headers })
+    return this.http.get<Message[]>(this.apiUrl + '/messages/' + userId, { headers: this.headers })
       .pipe(
         map(messages => messages.map(msg => {
-          // جلب معلومات المُرسل والمُستقبل من الخريطة
+
           const senderInfo = this.getUserInfo(msg.user_sender_id) || {
             id: msg.user_sender_id,
             name: 'Unknown User',
-            avatar: undefined // لا توجد صورة افتراضية هنا
+            avatar: undefined
           };
           const receiverInfo = this.getUserInfo(msg.user_receiver_id) || {
             id: msg.user_receiver_id,
             name: 'Unknown User',
-            avatar: undefined // لا توجد صورة افتراضية هنا
+            avatar: undefined
           };
 
           return {
             ...msg,
             me: msg.user_sender_id === this.currentUserId,
             displayTime: formatDate(msg.created_at, 'shortTime', 'en-US'),
-            sender_info: senderInfo, // إضافة معلومات المُرسل لكائن الرسالة
-            receiver_info: receiverInfo // إضافة معلومات المُستقبل لكائن الرسالة
+            sender_info: senderInfo,
+            receiver_info: receiverInfo
           };
         })),
         catchError(error => {
@@ -166,7 +167,7 @@ export class MessageService {
   }
 
   sendMessage(receiverId: number, textContent: string): Observable<Message> {
-    return this.http.post<Message>(`${this.apiUrl}/messages/send`, {
+    return this.http.post<Message>(this.apiUrl + '/messages/send', {
       receiver_id: receiverId,
       textContent: textContent
     }, { headers: this.headers })
@@ -201,6 +202,6 @@ export class MessageService {
 
   startChat(receiverId: number): Observable<any> {
     const payload = { receiver_id: receiverId };
-    return this.http.post<any>(`${this.apiUrl}/messages/start-chat`, payload, { headers: this.headers });
+    return this.http.post<any>(this.apiUrl + '/messages/start-chat', payload, { headers: this.headers });
   }
 }

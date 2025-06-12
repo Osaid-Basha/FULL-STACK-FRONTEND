@@ -25,6 +25,7 @@ export class PropartiesInfoComponent implements OnInit, OnChanges {
   floorPlanImage = 'assets/img/png-img/floor-plans.png';
   amenities: any[] = [];
   testimonials: any[] = [];
+  public agentId: number | string | undefined;
 
   // Forms
   scheduleForm = {
@@ -88,15 +89,18 @@ export class PropartiesInfoComponent implements OnInit, OnChanges {
     };
 
     this.testimonials = (this.property?.reviews || []).map((review: any) => ({
-      title: review.title,
-      content: review.content,
-      rating: review.rating,
-      image: review?.user?.profile?.imag_path
-        ? `http://localhost:8000/${review.user.profile.imag_path}`
-        : 'assets/img/default-user.png',
-      name: `${review.user?.first_name || ''} ${review.user?.last_name || ''}`,
-      username: review.user?.email || 'N/A'
-    }));
+  title: review.title,
+  content: review.content,
+  rating: review.rating,
+  image: review?.user?.profile?.imag_path
+    ? `http://localhost:8000/storage/${review.user.profile.imag_path}` 
+    : 'assets/img/default-user.png',
+  name: `${review.user?.first_name || ''} ${review.user?.last_name || ''}`,
+  username: review.user?.email || 'N/A',
+  replies: review.replies || []
+}));
+
+
 
     const iconMap: { [key: string]: string } = {
       'Swimming Pool': 'fa-solid fa-person-swimming',

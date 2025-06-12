@@ -40,10 +40,17 @@
 
             <!-- Start Input -->
             <div class="d-flex justify-content-between gap-1 gap-sm-3 mb-2">
-             <input type="text" maxlength="1" class="form-control text-center"
-       *ngFor="let digit of code; let i = index"
-       [(ngModel)]="code[i]" name="digit{{i+1}}"
-       (input)="autoFocusNext($event, i)">
+           <input
+  type="text"
+  maxlength="1"
+  autocomplete="off"
+  class="form-control text-center"
+  *ngFor="let digit of code; let i = index"
+  [(ngModel)]="code[i]"
+  name="digit{{i}}"
+  (input)="autoFocusNext($event, i)"
+>
+
             </div>
             <!-- /.End Input -->
 

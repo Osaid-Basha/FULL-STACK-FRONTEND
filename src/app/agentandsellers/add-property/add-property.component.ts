@@ -82,16 +82,69 @@ export class AddPropertyComponent implements OnInit {
     }
   }
 
-  onImageSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      this.selectedImages = [];
-      Array.from(input.files).forEach(file => {
-        const previewUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
-        this.selectedImages.push({ file, previewUrl });
-      });
+  async onImageSelected(event: Event): Promise<void> {
+  const input = event.target as HTMLInputElement;
+  if (input.files) {
+    this.selectedImages = [];
+    const files = Array.from(input.files);
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      let resizedFile: File;
+
+      try {
+        if (i === 0) {
+
+          resizedFile = await this.resizeImage(file, 1707, 1138);
+        } else {
+
+          resizedFile = await this.resizeImage(file, 853, 586);
+        }
+
+        const previewUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(resizedFile));
+        this.selectedImages.push({ file: resizedFile, previewUrl });
+      } catch (error) {
+        console.error('Image resize failed:', error);
+      }
     }
   }
+}
+
+resizeImage(file: File, width: number, height: number): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      img.src = reader.result as string;
+    };
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject('Canvas context not found');
+        return;
+      }
+
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const resizedFile = new File([blob], file.name, { type: file.type });
+          resolve(resizedFile);
+        } else {
+          reject('Failed to convert image to blob');
+        }
+      }, file.type);
+    };
+
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
   async submitProperty(): Promise<void> {
     if (!this.newProperty.title || !this.newProperty.address || !this.newProperty.city || !this.selectedImages.length) {

@@ -1,87 +1,106 @@
-<div class="container-fluid py-4 animate-in">
-  <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-    <h2 class="fw-bold text-success">
-      <i class="bi bi-check-circle-fill me-2"></i> Accepted Offers
-    </h2>
-  </div>
+  <div class="container-fluid py-4 animate-in">
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+      <h2 class="fw-bold text-success">
+        <i class="bi bi-check-circle-fill me-2"></i> Accepted Offers
+      </h2>
+    </div>
 
-  <div class="row g-4">
-    <div class="col-lg-6" *ngFor="let req of acceptedRequests">
-      <div class="card shadow border-0 rounded-4 p-4 animate-in">
+    <div class="row g-4">
+      <div class="col-lg-6" *ngFor="let req of paginatedRequests[currentPage]">
+        <div class="card shadow border-0 rounded-4 p-4 animate-in">
 
-        <!-- Header: User Info -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div class="d-flex align-items-center gap-3">
-            <img src="assets/371225.jpg" class="rounded-circle border shadow-sm" width="60" height="60" alt="User">
-            <div>
-              <h5 class="mb-0 fw-semibold">{{ req.user?.first_name }} {{ req.user?.last_name }}</h5>
-              <small class="text-muted">{{ req.user?.email }}</small>
+          <!-- Header: User Info -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/371225.jpg" class="rounded-circle border shadow-sm" width="60" height="60" alt="User">
+              <div>
+                <h5 class="mb-0 fw-semibold">{{ req.user?.first_name }} {{ req.user?.last_name }}</h5>
+                <small class="text-muted">{{ req.user?.email }}</small>
+              </div>
             </div>
           </div>
+
+          <!-- Location -->
+          <p class="text-muted small mb-2">
+            <i class="bi bi-geo-alt-fill me-1 text-primary"></i>
+            {{ req.user?.profile?.location || 'Unknown' }}
+          </p>
+
+          <!-- Offer -->
+          <p class="mb-2 text-muted small">
+            <i class="bi bi-currency-dollar text-success me-1"></i>
+            <strong>Offer:</strong> {{ req.proposed_price }} USD
+          </p>
+          <!-- Property Title -->
+          <p class="mb-2 text-muted small">
+            <i class="bi bi-house-door-fill text-secondary me-1"></i>
+            <strong>Property:</strong> {{ req.property?.title || 'Unknown Property' }}
+          </p>
+
+
+          <!-- Buttons Row (Styled Nicely) -->
+          <div class="d-flex justify-content-between mt-4 gap-3 flex-wrap">
+            <!-- Phone Button -->
+            <div class="flex-grow-1">
+              <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2">
+                <i class="bi bi-telephone-fill text-success"></i>
+                <span class="fw-semibold">{{ req.phone || 'No phone' }}</span>
+              </button>
+            </div>
+            <div class="flex-grow-1">
+              <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2"
+                      (click)="startChatWithBuyer(req.user.id, req.user.first_name)"> <i class="bi bi-chat-dots-fill text-primary"></i>
+                <span class="fw-semibold">Message</span>
+              </button>
+            </div>
+
+            <!-- Cancel Button -->
+            <div class="flex-grow-1">
+              <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2" (click)="rejectRequest(req)">
+                <i class="bi bi-x-circle-fill text-danger"></i>
+                <span class="fw-semibold">Cancel</span>
+              </button>
+            </div>
+            <div class="flex-grow-1">
+              <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-success rounded-pill shadow-sm py-2"
+                      (click)="confirmPurchase(req)">
+                <i class="bi bi-check-lg"></i>
+                <span class="fw-semibold">Confirm</span>
+              </button>
+            </div>
+          </div>
+
+
+
+          <!-- Status -->
+          <div class="d-flex justify-content-end mt-3">
+            <span class="badge bg-success px-3 py-2 rounded-pill">
+              <i class="bi bi-check2-circle me-1"></i> Accepted
+            </span>
+          </div>
+
         </div>
-
-        <!-- Location -->
-        <p class="text-muted small mb-2">
-          <i class="bi bi-geo-alt-fill me-1 text-primary"></i>
-          {{ req.user?.profile?.location || 'Unknown' }}
-        </p>
-
-        <!-- Offer -->
-        <p class="mb-2 text-muted small">
-          <i class="bi bi-currency-dollar text-success me-1"></i>
-          <strong>Offer:</strong> {{ req.proposed_price }} USD
-        </p>
-        <!-- Property Title -->
-<p class="mb-2 text-muted small">
-  <i class="bi bi-house-door-fill text-secondary me-1"></i>
-  <strong>Property:</strong> {{ req.property?.title || 'Unknown Property' }}
-</p>
-
-
-     <!-- Buttons Row (Styled Nicely) -->
-<div class="d-flex justify-content-between mt-4 gap-3 flex-wrap">
-  <!-- Phone Button -->
-  <div class="flex-grow-1">
-    <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2">
-      <i class="bi bi-telephone-fill text-success"></i>
-      <span class="fw-semibold">{{ req.phone || 'No phone' }}</span>
-    </button>
-  </div>
-
-  <!-- Message Button -->
-  <div class="flex-grow-1">
-    <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2">
-      <i class="bi bi-chat-dots-fill text-primary"></i>
-      <span class="fw-semibold">Message</span>
-    </button>
-  </div>
-
-  <!-- Cancel Button -->
-  <div class="flex-grow-1">
-    <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-dark rounded-pill shadow-sm py-2" (click)="rejectRequest(req)">
-      <i class="bi bi-x-circle-fill text-danger"></i>
-      <span class="fw-semibold">Cancel</span>
-    </button>
-  </div>
-  <div class="flex-grow-1">
-  <button class="btn w-100 d-flex align-items-center justify-content-center gap-2 btn-outline-success rounded-pill shadow-sm py-2"
-          (click)="confirmPurchase(req)">
-    <i class="bi bi-check-lg"></i>
-    <span class="fw-semibold">Confirm</span>
-  </button>
-</div>
-</div>
-
-
-
-        <!-- Status -->
-        <div class="d-flex justify-content-end mt-3">
-          <span class="badge bg-success px-3 py-2 rounded-pill">
-            <i class="bi bi-check2-circle me-1"></i> Accepted
-          </span>
-        </div>
-
       </div>
     </div>
+    <div class="d-flex justify-content-center mt-4">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <a class="page-link" (click)="currentPage = currentPage - 1; updatePagination()">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of paginatedRequests; let i = index" [class.active]="currentPage === i">
+            <a class="page-link" (click)="currentPage = i">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === paginatedRequests.length - 1">
+            <a class="page-link" (click)="currentPage = currentPage + 1; updatePagination()">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div *ngIf="paginatedRequests[currentPage]?.length === 0 && acceptedRequests.length > 0" class="text-center text-muted py-4">
+      No more accepted requests on this page.
+    </div>
+    <div *ngIf="acceptedRequests.length === 0" class="text-center text-muted py-4">
+      No accepted requests to display at the moment.
+    </div>
   </div>
-</div>

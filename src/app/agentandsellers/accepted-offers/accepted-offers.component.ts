@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReceivedAgentService } from '../../services/received-agent.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   standalone:false,
@@ -14,7 +16,11 @@ export class AcceptedOffersComponent implements OnInit {
   currentPage = 0;
   itemsPerPage = 4;
 
-  constructor(private receivedAgentService: ReceivedAgentService) {}
+  constructor(
+    private receivedAgentService: ReceivedAgentService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadAcceptedRequests();
@@ -34,43 +40,44 @@ export class AcceptedOffersComponent implements OnInit {
     }
     this.currentPage = 0;
   }
-confirmPurchase(req: any) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You are about to confirm this purchase. This action is final.',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, Confirm it!',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: '#28a745',
-    cancelButtonColor: '#6c757d',
-  }).then(result => {
-    if (result.isConfirmed) {
-      this.receivedAgentService.confirm(req.id).subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Confirmed!',
-            text: 'The purchase has been successfully confirmed.',
-            timer: 2000,
-            showConfirmButton: false,
-            toast: true,
-            position: 'bottom-end'
-          });
-          this.acceptedRequests = this.acceptedRequests.filter(r => r.id !== req.id);
-          this.updatePagination();
-        },
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'Something went wrong. Please try again later.'
-          });
-        }
-      });
-    }
-  });
-}
+
+  confirmPurchase(req: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to confirm this purchase. This action is final.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Confirm it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#6c757d',
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.receivedAgentService.confirm(req.id).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Confirmed!',
+              text: 'The purchase has been successfully confirmed.',
+              timer: 2000,
+              showConfirmButton: false,
+              toast: true,
+              position: 'bottom-end'
+            });
+            this.acceptedRequests = this.acceptedRequests.filter(r => r.id !== req.id);
+            this.updatePagination();
+          },
+          error: () => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed!',
+              text: 'Something went wrong. Please try again later.'
+            });
+          }
+        });
+      }
+    });
+  }
 
   rejectRequest(req: any) {
     this.receivedAgentService.reject(req.id).subscribe(() => {
@@ -83,8 +90,20 @@ confirmPurchase(req: any) {
         icon: 'error',
         title: `${req.user.first_name} rejected`,
         showConfirmButton: false,
-        timer: 2000
+        timer: 2000,
       });
     });
   }
+
+  startChatWithBuyer(buyerId: number, buyerFirstName: string): void {
+    if (!buyerId) {
+      console.warn('Buyer ID is missing. Cannot start chat.');
+      Swal.fire('Error', 'Could not start chat. Buyer information missing.', 'error');
+      return;
+    }
+    this.messageService.setTempReceiverId(buyerId);
+    console.log(`Attempting to open chat with buyer: ${buyerFirstName} (ID: ${buyerId})`);
+    this.router.navigate(['/agent-dashboard/message']);
+  }
+
 }
